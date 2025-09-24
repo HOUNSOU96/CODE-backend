@@ -5,6 +5,7 @@ sqlalchemy
 pydantic==2.11.9
 python-multipart
 passlib
+psycopg2-binary==2.9.9
 python-dotenv
 jose
 annotated-types==0.7.0
@@ -18,3 +19,4 @@ starlette==0.48.0
 typing-inspection==0.4.1
 typing-extensions==4.15.0
 tzlocal==5.3.1
+pymysql
