@@ -5,6 +5,7 @@ sqlalchemy
 pydantic==2.11.9
 python-multipart
 passlib
+python-dotenv
 jose
 annotated-types==0.7.0
 anyio==4.11.0
