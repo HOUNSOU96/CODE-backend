@@ -1,0 +1,86 @@
+[
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 1,
+    "mention": "Insuffisant",
+    "nbQuestions": 15,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Cube(6e)",
+      "Pavé-droit(6e)",
+      "Cône de révolution(6e)",
+      "Repérage(6e)",
+      "Cercles(6e)",
+      "Triangles(6e)",
+      "Parallélogrammes(6e)",
+      "Nombres décimaux arithmétiques(6e)",
+      "Figures symétriques par rapport à une droite(6e)",
+      "Glissement(6e)",
+      "Proportionnalité(6e)"
+    ],
+    "date": "2025-09-18T16:47:05.446342"
+  },
+  {
+    "user_id": 1,
+    "niveau": "tle",
+    "serie": "a1",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Statistique(3e)"
+    ],
+    "date": "2025-09-23T12:20:38.020127"
+  },
+  {
+    "user_id": 1,
+    "niveau": "tle",
+    "serie": "a1",
+    "note": 20,
+    "mention": "Excellente",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [],
+    "date": "2025-09-23T12:28:57.869880"
+  },
+  {
+    "user_id": 1,
+    "niveau": "tle",
+    "serie": "a1",
+    "note": 20,
+    "mention": "Excellente",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [],
+    "date": "2025-09-23T13:11:48.736259"
+  },
+  {
+    "user_id": 1,
+    "niveau": "3e",
+    "serie": null,
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Triangles(6e)"
+    ],
+    "date": "2025-09-23T13:24:21.295586"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Cône de révolution(6e)"
+    ],
+    "date": "2025-09-23T13:25:11.039448"
+  }
+]
