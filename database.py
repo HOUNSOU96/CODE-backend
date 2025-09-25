@@ -18,7 +18,7 @@ DB_NAME = os.getenv("DB_DATABASE")
 DB_PASSWORD = urllib.parse.quote_plus(DB_PASSWORD)
 
 # Construire l’URL de connexion PostgreSQL
-DATABASE_URL = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DATABASE_URL = f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 # Debug
 print("🔗 DATABASE_URL =", DATABASE_URL)
