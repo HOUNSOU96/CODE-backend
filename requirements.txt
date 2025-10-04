@@ -3,3 +3,4 @@ uvicorn[standard]
 apscheduler
 SQLAlchemy
 python-dotenv
+pymysql
