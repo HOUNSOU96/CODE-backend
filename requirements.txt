@@ -4,3 +4,4 @@ apscheduler
 SQLAlchemy
 python-dotenv
 pymysql
+python-jose
