@@ -1,10 +1,17 @@
-import mysql from 'mysql2/promise';
+// 📁 database.ts
+import mysql from "mysql2/promise";
+import dotenv from "dotenv";
 
-export const db = await mysql.createConnection({
-  host: 'localhost',
-  user: 'code_user',
-  password: 'holy96H@',
-  database: 'code_db'
-});
+dotenv.config();
 
-console.log('Connecté à MySQL avec succès !');
+export async function connectDB() {
+  const db = await mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+  });
+
+  console.log("✅ Connecté à MySQL avec succès !");
+  return db;
+}
