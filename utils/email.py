@@ -1,27 +1,16 @@
-# backend/utils/email.py
 import os
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 import asyncio
-from dotenv import load_dotenv
 
-load_dotenv()
+MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+MAIL_FROM = os.environ.get("MAIL_FROM")
+MAIL_FROM_NAME = os.environ.get("MAIL_FROM_NAME")
+MAIL_SERVER = os.environ.get("MAIL_SERVER")
+MAIL_PORT = int(os.environ.get("MAIL_PORT", 465))
+MAIL_STARTTLS = os.environ.get("MAIL_STARTTLS") == "True"
+MAIL_SSL = os.environ.get("MAIL_SSL") == "True"
 
-# Sécurisation des variables
-MAIL_USERNAME = os.getenv("MAIL_USERNAME", "")
-MAIL_PASSWORD = os.getenv("MAIL_PASSWORD", "")
-MAIL_FROM = os.getenv("MAIL_FROM", MAIL_USERNAME)
-MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "CODE")
-MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp.example.com")
-MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
-MAIL_STARTTLS = os.getenv("MAIL_STARTTLS", "True") == "True"
-MAIL_SSL_TLS = os.getenv("MAIL_SSL", "False") == "True"
-
-# Vérification rapide
-for var, value in [("MAIL_USERNAME", MAIL_USERNAME), ("MAIL_PASSWORD", MAIL_PASSWORD), ("MAIL_FROM", MAIL_FROM), ("MAIL_SERVER", MAIL_SERVER)]:
-    if not value:
-        print(f"⚠️  Variable {var} non définie")
-
-# Configuration FastMail
 conf = ConnectionConfig(
     MAIL_USERNAME=MAIL_USERNAME,
     MAIL_PASSWORD=MAIL_PASSWORD,
@@ -30,7 +19,7 @@ conf = ConnectionConfig(
     MAIL_SERVER=MAIL_SERVER,
     MAIL_PORT=MAIL_PORT,
     MAIL_STARTTLS=MAIL_STARTTLS,
-    MAIL_SSL_TLS=MAIL_SSL_TLS,
+    MAIL_SSL_TLS=MAIL_SSL,
     USE_CREDENTIALS=True,
     VALIDATE_CERTS=True,
 )
