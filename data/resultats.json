@@ -1,0 +1,185 @@
+[
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 7,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Repérage(6e)",
+      "Droites du plan(6e)"
+    ],
+    "date": "2025-10-01T16:21:03.461112"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 1,
+    "mention": "Insuffisant",
+    "nbQuestions": 30,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Cube(6e)",
+      "Pavé-droit(6e)",
+      "Cône de révolution(6e)",
+      "Sphère(6e)",
+      "Repérage(6e)",
+      "Droites du plan(6e)",
+      "Segments de droites(6e)",
+      "Angles(6e)",
+      "Triangles(6e)",
+      "Nombres décimaux arithmétiques(6e)",
+      "Fractions(6e)",
+      "Figures symétriques par rapport à une droite(6e)",
+      "Figures symétriques par rapport à un point(6e)",
+      "Glissement(6e)",
+      "Proportionnalité(6e)",
+      "Statistique(6e)"
+    ],
+    "date": "2025-10-04T13:20:37.962148"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 1,
+    "mention": "Insuffisant",
+    "nbQuestions": 30,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Cube(6e)",
+      "Cône de révolution(6e)",
+      "Sphère(6e)",
+      "Repérage(6e)",
+      "Droites du plan(6e)",
+      "Segments de droites(6e)",
+      "Cercles(6e)",
+      "Triangles(6e)",
+      "Parallélogrammes(6e)",
+      "Nombres décimaux arithmétiques(6e)",
+      "Fractions(6e)",
+      "Calcul littéral(6e)",
+      "Figures symétriques par rapport à une droite(6e)",
+      "Figures symétriques par rapport à un point(6e)",
+      "Glissement(6e)"
+    ],
+    "date": "2025-10-04T13:58:20.908554"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 7,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Angles(6e)",
+      "Figures symétriques par rapport à une droite(6e)"
+    ],
+    "date": "2025-10-04T14:04:19.405013"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 7,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Droites du plan(6e)",
+      "Triangles(6e)"
+    ],
+    "date": "2025-10-04T14:18:35.356747"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 7,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Sphère(6e)",
+      "Figures symétriques par rapport à une droite(6e)"
+    ],
+    "date": "2025-10-04T14:27:46.136968"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 7,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Sphère(6e)",
+      "Segments de droites(6e)"
+    ],
+    "date": "2025-10-04T15:07:57.400830"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 7,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Cône de révolution(6e)",
+      "Droites du plan(6e)"
+    ],
+    "date": "2025-10-04T15:22:41.687081"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 7,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Nombres décimaux arithmétiques(6e)",
+      "Glissement(6e)"
+    ],
+    "date": "2025-10-04T15:30:45.120319"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Cube(6e)",
+      "Pavé-droit(6e)",
+      "Nombres décimaux arithmétiques(6e)"
+    ],
+    "date": "2025-10-04T15:33:35.725818"
+  },
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Segments de droites(6e)",
+      "Angles(6e)",
+      "Triangles(6e)"
+    ],
+    "date": "2025-10-04T15:49:57.526574"
+  }
+]

@@ -1,0 +1,823 @@
+[
+  {
+    "date": "2025-07-14T20:18:47.329805",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Géométrie"
+    ]
+  },
+  {
+    "date": "2025-07-14T21:27:56.258350",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Géométrie"
+    ]
+  },
+  {
+    "date": "2025-07-14T21:44:30.421226",
+    "note": 10,
+    "mention": "Passable",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 1,
+    "notionsNonAcquises": [
+      "Arithmétique"
+    ]
+  },
+  {
+    "date": "2025-07-14T22:29:56.151537",
+    "note": 4,
+    "mention": "Insuffisant",
+    "nbQuestions": 5,
+    "nbBonnesReponses": 1,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Divisibilité",
+      "Proportionnalité"
+    ]
+  },
+  {
+    "niveau": "3e",
+    "date": "2025-07-16T08:11:14.130768",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 0,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": []
+  },
+  {
+    "niveau": "3e",
+    "date": "2025-07-16T09:01:51.984836",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 0,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": []
+  },
+  {
+    "niveau": "3e",
+    "serie": null,
+    "date": "2025-07-17T23:18:21.198085",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 5,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Fonctions",
+      "Statistiques",
+      "Théorèmes",
+      "Volumes",
+      "Équations"
+    ]
+  },
+  {
+    "niveau": "3e",
+    "serie": null,
+    "date": "2025-07-18T13:37:26.504269",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 5,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Fonctions",
+      "Statistiques",
+      "Théorèmes",
+      "Volumes",
+      "Équations"
+    ]
+  },
+  {
+    "niveau": "3e",
+    "serie": null,
+    "date": "2025-07-18T14:00:27.833432",
+    "note": 12,
+    "mention": "Assez Bien",
+    "nbQuestions": 5,
+    "nbBonnesReponses": 3,
+    "notionsNonAcquises": [
+      "Fonctions",
+      "Statistiques"
+    ]
+  },
+  {
+    "niveau": "5e",
+    "serie": null,
+    "date": "2025-07-18T14:02:22.309212",
+    "note": 4,
+    "mention": "Insuffisant",
+    "nbQuestions": 5,
+    "nbBonnesReponses": 1,
+    "notionsNonAcquises": [
+      "Angles",
+      "Arithmétique",
+      "Fractions",
+      "Proportionnalité"
+    ]
+  },
+  {
+    "niveau": "3e",
+    "serie": null,
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Équations"
+    ],
+    "date": "2025-07-18T22:31:05.000279"
+  },
+  {
+    "niveau": "3e",
+    "serie": null,
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Équations"
+    ],
+    "date": "2025-07-19T08:51:46.209826"
+  },
+  {
+    "niveau": "3e",
+    "serie": null,
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Équations"
+    ],
+    "date": "2025-07-19T08:54:15.906033"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "A1",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Fonctions",
+      "Volumes"
+    ],
+    "date": "2025-07-19T09:35:30.955889"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "A1",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Fonctions",
+      "Volumes"
+    ],
+    "date": "2025-07-19T09:43:59.999864"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "A2",
+    "note": 20,
+    "mention": "Très Bien",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 2,
+    "notionsNonAcquises": [],
+    "date": "2025-07-19T11:29:23.363497"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G2",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Intégration",
+      "Produit scalaire"
+    ],
+    "date": "2025-07-19T11:47:39.679409"
+  },
+  {
+    "niveau": "2nde",
+    "serie": "G2",
+    "note": 20,
+    "mention": "Très Bien",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 1,
+    "notionsNonAcquises": [],
+    "date": "2025-07-19T13:22:34.042816"
+  },
+  {
+    "niveau": "1ere",
+    "serie": "F3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Volumes"
+    ],
+    "date": "2025-07-19T13:27:12.157904"
+  },
+  {
+    "niveau": "2nde",
+    "serie": "G2",
+    "note": 20,
+    "mention": "Très Bien",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 1,
+    "notionsNonAcquises": [],
+    "date": "2025-07-19T13:54:38.785189"
+  },
+  {
+    "niveau": "5e",
+    "serie": null,
+    "note": 4,
+    "mention": "Insuffisant",
+    "nbQuestions": 5,
+    "nbBonnesReponses": 1,
+    "notionsNonAcquises": [
+      "Angles",
+      "Arithmétique",
+      "Fractions",
+      "Proportionnalité"
+    ],
+    "date": "2025-07-19T19:33:43.126365"
+  },
+  {
+    "niveau": "5e",
+    "serie": null,
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 5,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Angles",
+      "Arithmétique",
+      "Fractions",
+      "Proportionnalité",
+      "Volumes"
+    ],
+    "date": "2025-07-20T01:44:52.788737"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 10,
+    "mention": "Passable",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 1,
+    "notionsNonAcquises": [
+      "Fonctions"
+    ],
+    "date": "2025-07-20T17:16:55.303600"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-20T17:17:31.911370"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-20T17:35:07.110189"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-20T17:49:01.457918"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-20T18:08:54.626253"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-20T18:40:29.374173"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-20T19:32:56.364947"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-20T23:06:14.419017"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-21T22:44:26.916335"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-22T11:56:56.573728"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-22T13:24:58.413455"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-22T14:00:52.644845"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-22T14:13:46.440574"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-22T14:22:18.699378"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-22T15:14:17.402029"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-22T16:28:19.555314"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "G3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-22T17:29:06.663205"
+  },
+  {
+    "niveau": "terminale",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 0,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [],
+    "date": "2025-07-22T19:49:06.241399"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique"
+    ],
+    "date": "2025-07-23T00:13:32.210301"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 1,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique"
+    ],
+    "date": "2025-07-23T00:33:53.772560"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T00:47:27.385756"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T02:19:46.836770"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 10,
+    "mention": "Passable",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 1,
+    "notionsNonAcquises": [
+      "Arithmétique"
+    ],
+    "date": "2025-07-23T02:37:23.276649"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T14:57:17.875696"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T15:00:35.256343"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T15:49:53.361783"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T16:29:19.047696"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T16:36:38.040133"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T16:44:55.804094"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T17:30:37.289158"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T19:23:15.081074"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T19:48:03.659918"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T21:53:35.383686"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-23T22:31:11.813259"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-24T14:56:52.708145"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-24T15:59:42.161335"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-24T16:11:20.147085"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 10,
+    "mention": "Passable",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 1,
+    "notionsNonAcquises": [
+      "Fonctions"
+    ],
+    "date": "2025-07-24T16:23:03.271011"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-24T16:24:01.302165"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-24T17:26:01.912499"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-24T17:38:02.666182"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-24T17:54:40.002511"
+  },
+  {
+    "niveau": "tle",
+    "serie": "g3",
+    "note": 0,
+    "mention": "Insuffisant",
+    "nbQuestions": 2,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Arithmétique",
+      "Fonctions"
+    ],
+    "date": "2025-07-25T00:57:10.602038"
+  }
+]

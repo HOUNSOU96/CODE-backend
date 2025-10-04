@@ -1,0 +1,30 @@
+# Node
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+
+# Env
+.env
+
+# Système
+.DS_Store
+Thumbs.db
+
+# Fichiers lourds détectés automatiquement
+RemediationVideos/6e/2_0_pavedroit.mp4
+RemediationVideos/6e/3_volume_pavedroit.mp4
+node_modules/typescript/lib/_tsc.js
+node_modules/typescript/lib/typescript.js
+pdfs/BENOIT_MITCHOAGAN_6E.pdf
+pdfs/BENOIT_MITCHOAGUAN_3E.pdf
+pdfs/BENOIT_MITCHOAGUAN_6E.pdf
+pdfs/Déo-Gratias Sèmako_HOUNSOU_3E.pdf
+pdfs/Déo-Gratias Sèmako_HOUNSOU_3ENONE.pdf
+pdfs/Déo-Gratias Sèmako_HOUNSOU_4ENONE.pdf
+pdfs/Déo-Gratias Sèmako_HOUNSOU_6E.pdf
+pdfs/Déo-Gratias Sèmako_HOUNSOU_TLE A1.pdf
+pdfs/Déo-Gratias Sèmako_HOUNSOU_TLEG2.pdf
+pdfs/Déo-Gratias Sèmako_HOUNSOU_TLEG3.pdf
