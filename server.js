@@ -12,20 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectDB = connectDB;
-// 📁 database.ts
-const promise_1 = __importDefault(require("mysql2/promise"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-function connectDB() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const db = yield promise_1.default.createConnection({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_DATABASE,
-        });
-        console.log("✅ Connecté à MySQL avec succès !");
-        return db;
-    });
-}
+// 📁 server.ts
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const database_1 = require("./database");
+const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
+app.get("/", (req, res) => {
+    res.send("🚀 Backend CODE fonctionne !");
+});
+// Exemple de route qui teste MySQL
+app.get("/api/test-db", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const db = yield (0, database_1.connectDB)();
+        const [rows] = yield db.query("SELECT NOW() AS date");
+        res.json(rows);
+    }
+    catch (err) {
+        res.status(500).json({ error: "Erreur de connexion MySQL" });
+    }
+}));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`🚀 Serveur lancé sur http://localhost:${PORT}`);
+});
