@@ -10,8 +10,8 @@ from .user import User
 from .pending_user import PendingUser
 from .question import Question
 from .remediation_progress import RemediationProgress
-from .remediation_video import RemediationVideo
-from .video_question import VideoQuestion
+from .remediation_videos import RemediationVideo
+from .video_questions import VideoQuestion
 
 # ----------------- INITIALISATION -----------------
 def init_models():
