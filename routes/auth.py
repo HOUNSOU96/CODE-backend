@@ -86,6 +86,10 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
     if not user.is_validated:
         raise HTTPException(status_code=403, detail="USER_NOT_VALIDATED")
 
+    # 🔹 Mettre à jour last_seen
+    user.last_seen = datetime.utcnow()
+    db.commit()
+
     # Création du token JWT
     token = create_access_token(user.id)
 
@@ -102,6 +106,12 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
     }
 
 
+@router.post("/ping")
+def ping(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    current_user.last_seen = datetime.utcnow()
+    db.commit()
+    return {"message": "Ping enregistré", "last_seen": current_user.last_seen.isoformat()}
+
 
 
 
@@ -117,6 +127,7 @@ class RegisterRequest(BaseModel):
     telephone: str
     email: EmailStr
     password: str
+    parrain_email: EmailStr
 
 # ------------------- Fonction d'envoi aux admins -------------------
 def send_admin_validation_emails(new_user: User, background_tasks: BackgroundTasks, db: Session):
@@ -151,6 +162,7 @@ def register_user(data: RegisterRequest, background_tasks: BackgroundTasks, db: 
         nom=data.nom,
         prenom=data.prenom,
         email=data.email,
+        parrain_email=data.parrain_email, 
         hashed_password=hashed_password,
         is_validated=False,
         is_admin=False,
@@ -193,11 +205,13 @@ def liste_inscrits(
             "nom": u.nom,
             "prenom": u.prenom,
             "email": u.email,
+            "parrain_email": u.parrain_email, 
             "telephone": getattr(u, "telephone", ""),  # si champ optionnel
             "date_inscription": u.date_inscription.isoformat(),
             "plain_password": getattr(u, "plain_password", None),
             "is_validated": u.is_validated,
             "is_blocked": getattr(u, "is_blocked", False),
+            "is_online": u.last_seen and (datetime.utcnow() - u.last_seen).total_seconds() < 60,
             "last_warning": getattr(u, "last_warning", None),
         })
 

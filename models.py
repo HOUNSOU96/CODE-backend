@@ -21,6 +21,7 @@ class User(Base):
     nom = Column(String, nullable=False)
     prenom = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False, index=True)
+    parrain_email = Column(String, unique=True, nullable=False, index=True)
     telephone = Column(String, unique=True, nullable=True)
     date_naissance = Column(Date, nullable=True)
     hashed_password = Column(String, nullable=False)

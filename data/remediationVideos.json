@@ -4,7 +4,7 @@
   "titre": "Définition d'un Cube et d'un Pavé droit(6e)",
   "niveau": "6e",
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
-  "videoUrl": "http://localhost:8000/RemediationVideos/6e/1_definition_pavedroit_cube.mp4",
+  "videoUrl": "https://www.youtube.com/watch?v=IYVJvXx39nk",
   "notions": ["Cube et Pavé-droit(6e)"],
   "prerequis": [],
   "questions": [
@@ -6726,44 +6726,2362 @@
 
 
 
+  
   {
-    "id": "video981",
-    "titre": "Nombres réels(3e)",
-    "niveau":"3e",
-    "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
-    "videoUrl": "http://localhost:8000/RemediationVideos/3e/Nombresreels(3e).mp4",
-    "notions": ["Nombres réels(3e)"],
-    "prerequis": [   
-      "Entiers naturels(6e)",
-      "Division dans IN(5e)",
-      "Arithmétiques: PPCM-PGCD(4e)",
-      "Nombres décimaux arithmétiques(6e)",
-      "Nombres décimaux relatifs(5e)",
-      "Nombres décimaux(4e)",
-      "Fractions(6e)",
-      "Fractions(5e)",
-      "Fractions(4e)",
-      "Nombres rationnels(4e)",
-      "Calcul littéral(6e)",
-      "Calculs sur les expressions algébriques(4e)"
-    ],
-    "questions": [
-      {
-        "id": "mlkreal1",
-        "question": "Qu'est-ce qu'un nombre réel ?",
-        "choix": [
-          "Un nombre qui peut être représenté sur une droite numérique",
-          "Un nombre qui ne peut être que positif",
-          "Un nombre qui ne peut être que entier",
-          "Un nombre qui ne peut être que fractionnaire"
-        ],
-        "bonne_reponse": "Un nombre qui peut être représenté sur une droite numérique",
-        "niveau": "3e",
-        "notion": "Nombres réels(3e)",
-        "duration": 20
-      }
-    ]
-  },
+  "id": "video981",
+  "titre": "Définition de la racine carrée d'un nombre positif (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=8vB2JUGuUDM",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [ "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)" ],
+  "questions": [
+    {
+      "id": "real1",
+      "question": "Qu'est-ce qu'une racine carrée ?",
+      "choix": [
+        
+        "Un nombre plus grand que 1",
+        "Un nombre négatif seulement",
+        "Un nombre fractionnaire uniquement",
+        "Un nombre dont le carré est le nombre donné"
+      ],
+      "bonne_reponse": "Un nombre dont le carré est le nombre donné",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "real2",
+      "question": "Quelle est la racine carrée de 16 ?",
+      "choix": [
+        "4",
+        "-4",
+        "8",
+        "16"
+      ],
+      "bonne_reponse": "4",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "real3",
+      "question": "Pourquoi la racine carrée choisie est-elle positive ?",
+      "choix": [
+        "Parce qu'elle doit être supérieure à zéro",
+        "Parce qu'elle est toujours plus grande que le nombre d'origine",
+        "Parce qu'elle doit être un entier",
+        "Parce qu'elle peut être négative ou positive"
+      ],
+      "bonne_reponse": "Parce qu'elle doit être supérieure à zéro",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "real4",
+      "question": "La racine carrée de -36 a-t-elle un sens ?",
+      "choix": [
+        
+        "Oui, c'est -6",
+        "Oui, c'est 6",
+        "Non, car on ne définit la racine carrée que pour les nombres positifs",
+        "Oui, c'est 0"
+      ],
+      "bonne_reponse": "Non, car on ne définit la racine carrée que pour les nombres positifs",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "real5",
+      "question": "Si on cherche la racine carrée de 36, quelles sont les deux possibilités ?",
+      "choix": [
+        
+        "6 seulement",
+        "6 et -6",
+        "-6 seulement",
+        "36 et -36"
+      ],
+      "bonne_reponse": "6 et -6",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "real6",
+      "question": "Quelle est la racine carrée approximative de 10 ?",
+      "choix": [
+        
+        "Exactement 3",
+        "Entre 3,1 et 3,2",
+        "Entre 3,2 et 3,3",
+        "Exactement 10"
+      ],
+      "bonne_reponse": "Entre 3,1 et 3,2",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "real7",
+      "question": "La racine carrée de 80 est approximativement :",
+      "choix": [
+        
+        "8",
+        "9",
+        "10",
+        "81"
+      ],
+      "bonne_reponse": "9",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "real8",
+      "question": "Pourquoi a-t-on inventé la notation √ pour la racine carrée ?",
+      "choix": [
+        "Parce que certains nombres n'ont pas de racine carrée exacte en entier ou fraction",
+        "Pour rendre les calculs plus simples",
+        "Pour les nombres négatifs uniquement",
+        "Pour identifier les carrés parfaits"
+      ],
+      "bonne_reponse": "Parce que certains nombres n'ont pas de racine carrée exacte en entier ou fraction",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "real9",
+      "question": "Si un nombre positif a est tel que √a = b, quelle est la relation entre a et b ?",
+      "choix": [
+        
+        "b = a²",
+        "b² = a",
+        "b² = -a",
+        "b = -a²"
+      ],
+      "bonne_reponse": "b² = a",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "real10",
+      "question": "Si x² = 50, quelle est la racine carrée de 50 ?",
+      "choix": [
+        
+        "7 exactement",
+        "50",
+        "Un nombre négatif seulement",
+        "Un nombre positif compris entre 7 et 8"
+      ],
+      "bonne_reponse": "Un nombre positif compris entre 7 et 8",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    }
+  ]
+},
+  
+  {
+  "id": "video982",
+  "titre": "Classification des nombres et ensembles numériques (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=8vB2JUGuUDM",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [ "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)" ],
+  "questions": [
+    {
+      "id": "num1",
+      "question": "Quels nombres composent l'ensemble des nombres naturels (ℕ) ?",
+      "choix": [
+        
+        "Tous les entiers relatifs",
+        "Tous les décimaux",
+        "Tous les nombres rationnels",
+        "0 et tous les entiers positifs"
+      ],
+      "bonne_reponse": "0 et tous les entiers positifs",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "num2",
+      "question": "L'ensemble des entiers (ℤ) comprend :",
+      "choix": [
+        
+        "Seulement les nombres négatifs",
+        "Tous les nombres naturels et leurs opposés",
+        "Seulement les nombres positifs",
+        "Tous les nombres décimaux"
+      ],
+      "bonne_reponse": "Tous les nombres naturels et leurs opposés",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "num3",
+      "question": "Qu'est-ce qu'un nombre décimal (𝔻) ?",
+      "choix": [
+        
+        "Un nombre négatif uniquement",
+        "Un nombre pouvant s'écrire avec un nombre fini de chiffres après la virgule",
+        "Un nombre rationnel non fractionnaire",
+        "Un nombre irrationnel"
+      ],
+      "bonne_reponse": "Un nombre pouvant s'écrire avec un nombre fini de chiffres après la virgule",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "num4",
+      "question": "Qu'est-ce qu'un nombre rationnel (ℚ) ?",
+      "choix": [
+        
+        "Un nombre dont le carré est un entier",
+        "Un nombre irrationnel",
+        "Un nombre pouvant s'écrire comme fraction de deux entiers",
+        "Un nombre réel uniquement"
+      ],
+      "bonne_reponse": "Un nombre pouvant s'écrire comme fraction de deux entiers",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "num5",
+      "question": "Tous les nombres rationnels sont-ils des nombres décimaux ?",
+      "choix": [
+        "Non, certains ont des décimales infinies répétitives",
+        "Oui, toujours",
+        "Non, ce sont tous des entiers",
+        "Oui, sauf les nombres négatifs"
+      ],
+      "bonne_reponse": "Non, certains ont des décimales infinies répétitives",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "num6",
+      "question": "Quels nombres composent l'ensemble des nombres réels (ℝ) ?",
+      "choix": [
+        "Tous les rationnels et les irrationnels",
+        "Seulement les entiers",
+        "Seulement les nombres naturels",
+        "Seulement les décimaux"
+      ],
+      "bonne_reponse": "Tous les rationnels et les irrationnels",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "num7",
+      "question": "Le nombre √2 appartient à quel ensemble ?",
+      "choix": [
+        
+        "ℕ",
+        "ℤ",
+        "ℝ mais pas ℚ",
+        "ℚ"
+      ],
+      "bonne_reponse": "ℝ mais pas ℚ",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "num8",
+      "question": "Comment distingue-t-on un élément appartenant à un ensemble d'un ensemble inclus dans un autre ?",
+      "choix": [
+        
+        "Avec ⊆ pour l'élément et ∈ pour l'ensemble",
+        "Avec + pour l'élément et × pour l'ensemble",
+        "Avec = pour l'élément et ≠ pour l'ensemble",
+        "Avec ∈ pour l'élément et ⊆ pour l'inclusion d'ensemble"
+      ],
+      "bonne_reponse": "Avec ∈ pour l'élément et ⊆ pour l'inclusion d'ensemble",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "num9",
+      "question": "Pour trouver la \"nature\" d'un nombre, que doit-on faire ?",
+      "choix": [
+        
+        "Toujours le transformer en entier",
+        "Le comparer à un autre nombre",
+        "Le simplifier pour identifier le plus petit ensemble auquel il appartient",
+        "Le convertir en fraction"
+      ],
+      "bonne_reponse": "Le simplifier pour identifier le plus petit ensemble auquel il appartient",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "num10",
+      "question": "Le nombre 1/3 est-il un nombre décimal ?",
+      "choix": [
+        
+        "Oui, car c'est une fraction",
+        "Non, il est rationnel mais sa décimale est infinie et répétitive",
+        "Oui, car il est compris entre 0 et 1",
+        "Non, car il est irrationnel"
+      ],
+      "bonne_reponse": "Non, il est rationnel mais sa décimale est infinie et répétitive",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    }
+  ]
+},
+
+{
+  "id": "video983",
+  "titre": "Construction de segments de longueur irrationnelle (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=8vB2JUGuUDM",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [ "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)" ],
+  "questions": [
+    {
+      "id": "irr1",
+      "question": "Quelle méthode est utilisée pour construire un segment de longueur √20 cm ?",
+      "choix": [
+        "Décomposer 20 en somme de carrés parfaits et appliquer le théorème de Pythagore",
+        "Dessiner directement 20 cm",
+        "Multiplier deux nombres entiers au hasard",
+        "Utiliser uniquement la règle"
+      ],
+      "bonne_reponse": "Décomposer 20 en somme de carrés parfaits et appliquer le théorème de Pythagore",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "irr2",
+      "question": "Quels côtés du triangle rectangle permettent de représenter √20 cm comme hypoténuse ?",
+      "choix": [
+        
+        "5 cm et 1 cm",
+        "4 cm et 2 cm",
+        "3 cm et 3 cm",
+        "10 cm et 10 cm"
+      ],
+      "bonne_reponse": "4 cm et 2 cm",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "irr3",
+      "question": "Comment transformer une différence de carrés en somme pour appliquer Pythagore ?",
+      "choix": [
+        
+        "Soustraire le plus petit carré du plus grand",
+        "Multiplier les deux côtés par 2",
+        "Ajouter le même carré aux deux côtés de l'équation",
+        "Diviser les deux côtés par 2"
+      ],
+      "bonne_reponse": "Ajouter le même carré aux deux côtés de l'équation",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "irr4",
+      "question": "Quelle est la longueur d’un côté du triangle utilisé pour construire √21 cm ?",
+      "choix": [
+        
+        "3 cm",
+        "4 cm",
+        "5 cm",
+        "2 cm"
+      ],
+      "bonne_reponse": "2 cm",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "irr5",
+      "question": "Quel outil est utilisé pour placer précisément un point lors de la construction de √21 cm ?",
+      "choix": [
+        
+        "La règle",
+        "Le compas",
+        "Le rapporteur",
+        "Le crayon seulement"
+      ],
+      "bonne_reponse": "Le compas",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "irr6",
+      "question": "Pourquoi décomposer un nombre en carrés parfaits facilite-t-il la construction ?",
+      "choix": [
+        
+        "Parce qu’on peut éviter d’utiliser le compas",
+        "Parce qu’on dessine plus rapidement",
+        "Parce que cela donne un segment entier",
+        "Parce qu’on obtient directement les côtés du triangle rectangle"
+      ],
+      "bonne_reponse": "Parce qu’on obtient directement les côtés du triangle rectangle",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "irr7",
+      "question": "Quel est le rôle de l’hypoténuse dans la construction des segments irrationnels ?",
+      "choix": [
+        "Elle correspond au segment de longueur irrationnelle recherché",
+        "Elle est toujours égale à 1",
+        "Elle n’est pas utilisée",
+        "Elle est plus courte que les côtés"
+      ],
+      "bonne_reponse": "Elle correspond au segment de longueur irrationnelle recherché",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "irr8",
+      "question": "Pour √21 cm, quel est la longueur de l’autre côté du triangle rectangle après transformation ?",
+      "choix": [
+        
+        "5 cm",
+        "2 cm",
+        "√21 cm",
+        "21 cm"
+      ],
+      "bonne_reponse": "√21 cm",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "irr9",
+      "question": "Pourquoi la construction géométrique est-elle utile pour visualiser les nombres irrationnels ?",
+      "choix": [
+        
+        "Parce qu’elle simplifie les calculs",
+        "Parce qu’elle donne un nombre entier",
+        "Parce qu’elle remplace le théorème de Pythagore",
+        "Parce qu’elle transforme un nombre abstrait en objet concret"
+      ],
+      "bonne_reponse": "Parce qu’elle transforme un nombre abstrait en objet concret",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "irr10",
+      "question": "Quelle propriété mathématique est essentielle pour toutes ces constructions ?",
+      "choix": [
+        
+        "La distributivité",
+        "La commutativité",
+        "Le théorème de Pythagore",
+        "Le calcul fractionnaire"
+      ],
+      "bonne_reponse": "Le théorème de Pythagore",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    }
+  ]
+},
+
+{
+  "id": "video985",
+  "titre": "Construction de l'escargot de Pythagore avec triangles rectangles (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=uf7biPytTL4",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
+    "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", 
+    "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", 
+    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"
+  ],
+  "questions": [
+    {
+      "id": "tri1",
+      "question": "Quel outil est utilisé pour garantir les angles droits dans la construction des triangles rectangles de l’escargot ?",
+      "choix": [ "Le compas", "La calculatrice","L’équerre", "Le rapporteur"],
+      "bonne_reponse": "L’équerre",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "tri2",
+      "question": "Quelle est la longueur des côtés formant l’angle droit du premier triangle rectangle ?",
+      "choix": ["1", "2", "√2", "√3"],
+      "bonne_reponse": "1",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "tri3",
+      "question": "Quel outil est utilisé pour tracer les côtés formant l’angle droit des triangles rectangles ?",
+      "choix": [ "Le compas","La règle", "L’équerre seule", "Le rapporteur"],
+      "bonne_reponse": "La règle",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "tri4",
+      "question": "À quoi sert la combinaison règle + équerre dans la construction de l’escargot ?",
+      "choix": [
+        
+        "Mesurer des angles uniquement",
+        "Tracer des cercles",
+        "Tracer les côtés formant l’angle droit et assurer les angles droits",
+        "Multiplier les segments"
+      ],
+      "bonne_reponse": "Tracer les côtés formant l’angle droit et assurer les angles droits",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "tri5",
+      "question": "Que représente la spirale formée par les triangles rectangles successifs ?",
+      "choix": [
+        
+        "Une suite arithmétique",
+        "Une suite géométrique",
+        "Un cercle",
+        "Une représentation géométrique des racines carrées"
+      ],
+      "bonne_reponse": "Une représentation géométrique des racines carrées",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "tri6",
+      "question": "Si les côtés formant l’angle droit du premier triangle ont une longueur de 1, quelle est la longueur de l’hypoténuse du deuxième triangle ?",
+      "choix": [ "√3","√2", "2", "1"],
+      "bonne_reponse": "√2",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "tri7",
+      "question": "Pourquoi les triangles rectangles sont-ils utilisés pour construire l’escargot ?",
+      "choix": [
+        
+        "Pour mesurer des angles obtus",
+        "Pour calculer des périmètres",
+        "Pour tracer des cercles",
+        "Pour visualiser la progression des racines carrées"
+      ],
+      "bonne_reponse": "Pour visualiser la progression des racines carrées",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "tri8",
+      "question": "Comment détermine-t-on l’emplacement du prochain triangle rectangle dans la spirale ?",
+      "choix": [
+        
+        "En traçant au hasard",
+        "En utilisant l’hypoténuse du triangle précédent et en tournant à angle droit",
+        "En doublant la longueur précédente",
+        "En utilisant seulement la règle"
+      ],
+      "bonne_reponse": "En utilisant l’hypoténuse du triangle précédent et en tournant à angle droit",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "tri9",
+      "question": "Que se passe-t-il si les angles droits ne sont pas exacts lors de la construction des triangles rectangles ?",
+      "choix": [
+        "La spirale se déforme et les triangles ne s’alignent pas correctement",
+        "Rien, elle reste correcte",
+        "Les segments deviennent égaux",
+        "Les racines carrées changent"
+      ],
+      "bonne_reponse": "La spirale se déforme et les triangles ne s’alignent pas correctement",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "tri10",
+      "question": "Quelle est la logique pour déterminer la taille du triangle rectangle suivant dans la spirale ?",
+      "choix": [
+        "Chaque nouveau triangle a pour hypoténuse la racine carrée de la somme des carrés des côtés formant l’angle droit précédents",
+        "Chaque triangle est identique au premier",
+        "Chaque triangle double le précédent",
+        "Chaque triangle est arbitraire"
+      ],
+      "bonne_reponse": "Chaque nouveau triangle a pour hypoténuse la racine carrée de la somme des carrés des côtés formant l’angle droit précédents",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    }
+  ]
+},
+
+{
+  "id": "video984",
+  "titre": "Construction de l'escargot de Pythagore (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=-zZm_qk-Efw",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [ 
+    "Entiers naturels(6e)", 
+    "Division dans IN(5e)", 
+    "Arithmétiques: PPCM-PGCD(4e)", 
+    "Nombres décimaux arithmétiques(6e)", 
+    "Nombres décimaux relatifs(5e)", 
+    "Nombres décimaux(4e)", 
+    "Fractions(6e)", 
+    "Fractions(5e)", 
+    "Fractions(4e)", 
+    "Nombres rationnels(4e)", 
+    "Calcul littéral(6e)", 
+    "Calculs sur les expressions algébriques(4e)" 
+  ],
+  "questions": [
+    {
+      "id": "esc1",
+      "question": "Qu’est-ce que l’escargot de Pythagore ?",
+      "choix": [
+       
+        "Une spirale construite avec des carrés concentriques",
+        "Une figure aléatoire de triangles",
+        "Une spirale construite avec des cercles",
+         "Une spirale construite avec des triangles rectangles successifs"
+      ],
+      "bonne_reponse": "Une spirale construite avec des triangles rectangles successifs",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "esc2",
+      "question": "Quelle est la longueur de l’hypoténuse du premier triangle de l’escargot ?",
+      "choix": [
+        "1",
+        "√2",
+        "2",
+        "√3"
+      ],
+      "bonne_reponse": "√2",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "esc3",
+      "question": "Quel côté du triangle est toujours constant dans la construction ?",
+      "choix": [
+        "Le côté le plus court",
+        "L’hypoténuse",
+        "Le côté le plus long",
+        "Aucun côté"
+      ],
+      "bonne_reponse": "Le côté le plus court",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "esc4",
+      "question": "Comment calcule-t-on l’hypoténuse du n-ième triangle ?",
+      "choix": [
+        
+        "On ajoute 1 à l’hypoténuse précédente",
+        "On multiplie par 2",
+        "On soustrait 1",
+        "On applique le théorème de Pythagore aux deux côtés"
+      ],
+      "bonne_reponse": "On applique le théorème de Pythagore aux deux côtés",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "esc5",
+      "question": "Pourquoi l’escargot de Pythagore est-il utile en mathématiques ?",
+      "choix": [
+        
+        "Pour mesurer des angles",
+        "Pour construire des cercles",
+        "Pour visualiser les racines carrées des entiers",
+        "Pour calculer des fractions"
+      ],
+      "bonne_reponse": "Pour visualiser les racines carrées des entiers",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "esc6",
+      "question": "Quelle sera l’hypoténuse du 5e triangle ?",
+      "choix": [
+        "√5",
+        "√6",
+        "√7",
+        "√8"
+      ],
+      "bonne_reponse": "√6",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "esc7",
+      "question": "Comment placer précisément un point pour le sommet du triangle ?",
+      "choix": [
+        
+        "Avec la règle seulement",
+        "Avec un compas",
+        "Avec un rapporteur",
+        "Avec un crayon uniquement"
+      ],
+      "bonne_reponse": "Avec un compas",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "esc8",
+      "question": "Quel est le lien entre l’escargot de Pythagore et les racines carrées des nombres entiers ?",
+      "choix": [
+        
+        "Chaque côté correspond à un entier",
+        "Chaque hypotenuse correspond à la racine carrée d’un entier",
+        "C’est une approximation de π",
+        "Il n’y a aucun lien"
+      ],
+      "bonne_reponse": "Chaque hypotenuse correspond à la racine carrée d’un entier",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "esc9",
+      "question": "Si l’on trace l’hypoténuse du 10e triangle, quelle sera sa longueur ?",
+      "choix": [
+        "√10",
+        "√12",
+        "√11",
+        "√13"
+      ],
+      "bonne_reponse": "√11",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "esc10",
+      "question": "Quel type de figure géométrique est à la base de l’escargot de Pythagore ?",
+      "choix": [
+        
+        "Cercles",
+        "Carrés",
+        "Triangles rectangles",
+        "Polygones réguliers"
+      ],
+      "bonne_reponse": "Triangles rectangles",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    }
+  ]
+},
+{
+  "id": "video986_autonome",
+  "titre": "Développement étape par étape (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=z3RzvSo6m_g",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
+    "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", 
+    "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", 
+    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"
+  ],
+  "questions": [
+    {
+      "id": "dev1",
+      "question": "Quel est le résultat de (x+2)(x+3) après avoir multiplié chaque terme ?",
+      "choix": [
+        
+        "x² + 5x + 6",
+        "x² + 6x + 5",
+        "x² + 3x + 2x + 6",
+        "x² + 2x + 3"
+      ],
+      "bonne_reponse": "x² + 3x + 2x + 6",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 40
+    },
+    {
+      "id": "dev2",
+      "question": "Quel est le développement final de (x+2)(x+3) après regroupement des termes similaires ?",
+      "choix": [
+        "x² + 5x + 6",
+        "x² + 6x + 5",
+        "x² + 3x + 2",
+        "x² + 4x + 5"
+      ],
+      "bonne_reponse": "x² + 5x + 6",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "dev3",
+      "question": "Après avoir développé (x+1)(x+4), quel est le résultat avant regroupement des termes similaires ?",
+      "choix": [
+        
+        "x² + 5x + 4",
+        "x² + 4x + x + 4",
+        "x² + 6x + 5",
+        "x² + x + 4"
+      ],
+      "bonne_reponse": "x² + 4x + x + 4",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 40
+    },
+    {
+      "id": "dev4",
+      "question": "Quel est le développement final de (x+1)(x+4) après regroupement des termes similaires ?",
+      "choix": [
+        
+        "x² + 4x + 5",
+        "x² + 6x + 5",
+        "x² + 5x + 4",
+        "x² + 5x + 5"
+      ],
+      "bonne_reponse": "x² + 5x + 4",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "dev5",
+      "question": "Pour le produit (x+3)(x+2), quel est le terme constant du développement final ?",
+      "choix": [
+        "6",
+        "5",
+        "4",
+        "3"
+      ],
+      "bonne_reponse": "6",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "dev6",
+      "question": "Dans le développement de (x+2)(x+5), quelle est la somme des coefficients de x ?",
+      "choix": [
+        "7",
+        "5",
+        "2",
+        "10"
+      ],
+      "bonne_reponse": "7",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "dev7",
+      "question": "Quel est le développement de (x+4)(x+1) ?",
+      "choix": [
+        
+        "x² + 5x + 4",
+        "x² + 4x + 5",
+        "x² + x + 4",
+        "x² + 4x + 4"
+      ],
+      "bonne_reponse": "x² + 5x + 4",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "dev8",
+      "question": "Quel est le terme avec x² dans le développement de (x+3)(x+5) ?",
+      "choix": [
+        
+        "3x²",
+        "x²",
+        "5x²",
+        "8x²"
+      ],
+      "bonne_reponse": "x²",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "dev9",
+      "question": "Quel est le terme constant dans le développement de (x+3)(x+5) ?",
+      "choix": [
+        "15",
+        "8",
+        "5",
+        "3"
+      ],
+      "bonne_reponse": "15",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 20
+    },
+    {
+      "id": "dev10",
+      "question": "Dans le développement de (x+3)(x+1), quel est le coefficient de x après regroupement ?",
+      "choix": [
+        
+        "15",
+        "5",
+        "3",
+        "8"
+      ],
+      "bonne_reponse": "3",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 25
+    },
+    {
+      "id": "dev11",
+      "question": "Développe et simplifie : 3√2(√7 − √2)",
+      "choix": [
+        "3√14 − 6",
+        "3√14 − 3√2",
+        "3√14 + 6",
+        "6√2 − 3√14"
+      ],
+      "bonne_reponse": "3√14 − 6",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "dev12",
+      "question": "Développe et simplifie : (√7 + √2)²",
+      "choix": [
+        "7 + 2√14 + 2",
+        "9 + 2√14",
+        "7 + 2√7 + 2",
+        "9 + 4√7"
+      ],
+      "bonne_reponse": "9 + 2√14",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "dev13",
+      "question": "Développe et simplifie : (2 + 7√2)(3 − 2√2)",
+      "choix": [
+        "6 − 4√2 + 21√2 − 28",
+        "6 + 10√2 − 28",
+        "34 + 10√2",
+        "6 + 14√2 − 4√2 − 28"
+      ],
+      "bonne_reponse": "6 − 4√2 + 21√2 − 28",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "dev14",
+      "question": "Développe et simplifie : (1 − √2)(1 + √2)",
+      "choix": [
+        "1 + 2√2 − 2",
+        "1 − 2",
+        "−1",
+        "1 − (√2)²"
+      ],
+      "bonne_reponse": "−1",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    }
+  
+  ]
+},
+{
+  "id": "video987_factorisation",
+  "titre": "Factorisation avec identités remarquables (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=12eL9LBY02U",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
+    "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", 
+    "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", 
+    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"
+  ],
+  "questions": [
+    {
+      "id": "fact1",
+      "question": "Quel est le facteur commun de x² + 5x ?",
+      "choix": [
+        "x",
+        "5",
+        "x+5",
+        "1"
+      ],
+      "bonne_reponse": "x",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "fact2",
+      "question": "Comment factorise-t-on x² - 9 ?",
+      "choix": [
+        "(x-3)(x+3)",
+        "(x-9)(x+9)",
+        "(x-2)(x+2)",
+        "(x-1)(x+1)"
+      ],
+      "bonne_reponse": "(x-3)(x+3)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "fact3",
+      "question": "Factoriser 4x² - 25.",
+      "choix": [
+        "(2x-5)(2x+5)",
+        "(4x-5)(4x+5)",
+        "(2x-25)(2x+25)",
+        "(x-5)(4x+5)"
+      ],
+      "bonne_reponse": "(2x-5)(2x+5)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "fact4",
+      "question": "Quelle identité remarquable correspond à a² + 2ab + b² ?",
+      "choix": [
+        
+        "(a-b)²",
+        "a²-b²",
+        "(a+b)²",
+        "(a+b)(a-b)"
+      ],
+      "bonne_reponse": "(a+b)²",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 30
+    },
+    {
+      "id": "fact5",
+      "question": "Factoriser x² + 6x + 9.",
+      "choix": [
+        
+        "(x+9)(x+1)",
+        "(x+2)(x+3)",
+        "(x+3)(x+3)",
+        "(x+6)(x+3)"
+      ],
+      "bonne_reponse": "(x+3)(x+3)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "fact6",
+      "question": "Factoriser 9x² - 24x + 16.",
+      "choix": [
+        "(3x-4)(3x-4)",
+        "(9x-4)(x-4)",
+        "(3x-2)(3x-8)",
+        "(9x-16)(x+1)"
+      ],
+      "bonne_reponse": "(3x-4)(3x-4)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "fact7",
+      "question": "Quel est le facteur commun de 6x²y + 9xy² ?",
+      "choix": [
+        "3xy",
+        "6xy",
+        "x+y",
+        "3x+9y"
+      ],
+      "bonne_reponse": "3xy",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "fact8",
+      "question": "Factoriser 16x² - 1.",
+      "choix": [
+        "(4x-1)(4x+1)",
+        "(16x-1)(x+1)",
+        "(2x-1)(8x+1)",
+        "(4x-2)(4x+1)"
+      ],
+      "bonne_reponse": "(4x-1)(4x+1)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "fact9",
+      "question": "Factoriser x² - 10x + 25.",
+      "choix": [
+        "(x-5)(x-5)",
+        "(x-25)(x+1)",
+        "(x-10)(x+5)",
+        "(x-2)(x-12)"
+      ],
+      "bonne_reponse": "(x-5)(x-5)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "fact10",
+      "question": "Factoriser 25x² - 30x + 9.",
+      "choix": [
+        
+        "(25x-3)(x-3)",
+        "(5x-3)(5x-3)",
+        "(5x-9)(5x+1)",
+        "(5x-1)(5x-9)"
+      ],
+      "bonne_reponse": "(5x-3)(5x-3)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+     {
+      "id": "fact11",
+      "question": "Factorise : A = 7 − x²",
+      "choix": [
+        
+        "(7 − x)(7 + x)",
+        "(x − 7)(x + 7)",
+        "(x − √7)(x + √7)",
+        "(√7 − x)(√7 + x)"
+      ],
+      "bonne_reponse": "(√7 − x)(√7 + x)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "fact12",
+      "question": "Factorise : B = x² − 25",
+      "choix": [
+        
+        "(x − √25)(x + √25)",
+        "(x − 25)(x + 25)",
+        "(x − 5)(x + 5)",
+        "(x − 10)(x + 10)"
+      ],
+      "bonne_reponse": "(x − 5)(x + 5)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    },
+    {
+      "id": "fact13",
+      "question": "Factorise : C = 4x² − 4x√5 + 5",
+      "choix": [
+        "(2x − √5)(2x − √5)",
+        "(x − √5)(x − √5)",
+        "(2x + √5)²",
+        "(x − 2√5)²"
+      ],
+      "bonne_reponse": "(2x − √5)(2x − √5)",
+      "niveau": "3e",
+      "notion": "Nombres réels(3e)",
+      "duration": 60
+    }
+  ]
+},
+{
+  "id": "video_racines_operations",
+  "titre": "Développement et opérations avec des racines carrées (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=iwtVOiSJ2Hs",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [
+     "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
+    "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", 
+    "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", 
+    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"
+  ],
+  "questions": [
+    {
+      "id": "rac1",
+      "question": "Calcule : √3 + √3",
+      "choix": ["2√3", "√6", "3√2", "√9"],
+      "bonne_reponse": "2√3",
+      "duration": 60
+    },
+    {
+      "id": "rac2",
+      "question": "Calcule : 5√2 − 2√2",
+      "choix": ["3√2", "√3", "7√2", "√2"],
+      "bonne_reponse": "3√2",
+      "duration": 60
+    },
+    {
+      "id": "rac3",
+      "question": "Simplifie : √50 + √8",
+      "choix": ["9√2", "7√2", "8√2", "6√2"],
+      "bonne_reponse": "9√2",
+      "duration": 60
+    },
+    {
+      "id": "rac4",
+      "question": "Simplifie : √18 − √8",
+      "choix": ["√10", "√2", "√26", "√6"],
+      "bonne_reponse": "√2",
+      "duration": 60
+    },
+    {
+      "id": "rac5",
+      "question": "Développe : (√3 + 2)²",
+      "choix": ["7 + 4√3", "4 + 3√2", "4√3 + 9", "3 + 4√2"],
+      "bonne_reponse": "7 + 4√3",
+      "duration": 60
+    },
+    {
+      "id": "rac6",
+      "question": "Développe : (2√5 − √2)(2√5 + √2)",
+      "choix": ["20 − 2", "10√3", "18", "4√10"],
+      "bonne_reponse": "20 − 2",
+      "duration": 60
+    },
+    {
+      "id": "rac7",
+      "question": "Développe et simplifie : √2(√8 + √2)",
+      "choix": ["2 + 2√2", "4 + 2√2", "2√2 + 2", "2 + √8"],
+      "bonne_reponse": "2 + 2√2",
+      "duration": 60
+    },
+    {
+      "id": "rac8",
+      "question": "Calcule : (3√2 + √2)",
+      "choix": ["4√2", "√6", "3√4", "2√3"],
+      "bonne_reponse": "4√2",
+      "duration": 60
+    },
+    {
+      "id": "rac9",
+      "question": "Développe : (1 − √3)(1 + √3)",
+      "choix": ["1 − 3", "1 + 3", "2√3", "1 − √9"],
+      "bonne_reponse": "1 − 3",
+      "duration": 60
+    },
+    {
+      "id": "rac10",
+      "question": "Simplifie l’expression : √72 − √18 + √8",
+      "choix": ["4√2", "5√2", "6√2", "3√2"],
+      "bonne_reponse": "5√2",
+      "duration": 60
+    },
+    {
+  "id": "video_puissances_complements",
+  "titre": "Compléments sur les puissances et racines carrées (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=iwtVOiSJ2Hs",
+  "notions": ["Nombres réels (3e)"],
+  "prerequis": [
+    "Entiers naturels (6e)",
+    "Puissances d’un nombre (5e)",
+    "Arithmétique : PPCM - PGCD (4e)",
+    "Nombres décimaux relatifs (5e)",
+    "Fractions (4e)",
+    "Nombres rationnels (4e)",
+    "Calcul littéral (6e)",
+    "Calculs sur les expressions algébriques (4e)"
+  ],
+  "questions": [
+    {
+      "id": "pc1",
+      "question": "Complète : 12⁵ = 12 × 12 × … × 12 × 12. Que représente ce calcul ?",
+      "choix": [
+        "Une addition répétée de 12",
+        "Une puissance négative",
+        "Le produit de 5 facteurs égaux à 12",
+        "Une racine cinquième"
+      ],
+      "bonne_reponse": "Le produit de 5 facteurs égaux à 12",
+      "duration": 60
+    },
+    {
+      "id": "pc2",
+      "question": "Complète : (√3)⁷ = …",
+      "choix": [
+        "√3 × √3 × √3 × √3 × √3 × √3 × √3",
+        "7√3",
+        "√21",
+        "3⁷"
+      ],
+      "bonne_reponse": "√3 × √3 × √3 × √3 × √3 × √3 × √3",
+      "duration": 60
+    },
+    {
+      "id": "pc3",
+      "question": "Calcule : (−√5)⁵ = …",
+      "choix": [
+        "−(√5)⁵",
+        "(√5)⁵",
+        "−5⁵",
+        "−√25"
+      ],
+      "bonne_reponse": "−(√5)⁵",
+      "duration": 60
+    },
+    {
+      "id": "pc4",
+      "question": "Quelle est la valeur de 5⁰ ?",
+      "choix": [
+        "1",
+        "5",
+        "0",
+        "Indéfinie"
+      ],
+      "bonne_reponse": "1",
+      "duration": 60
+    },
+    {
+      "id": "pc5",
+      "question": "Complète : 5ⁿ × 5ᵐ = …",
+      "choix": [
+        "5ⁿ⁺ᵐ",
+        "(5 + n + m)",
+        "25ⁿ⁺ᵐ",
+        "5ⁿ⁻ᵐ"
+      ],
+      "bonne_reponse": "5ⁿ⁺ᵐ",
+      "duration": 60
+    },
+    {
+      "id": "pc6",
+      "question": "Complète : (5ⁿ)ᵐ = …",
+      "choix": [
+        "5ⁿᵐ",
+        "5ⁿ⁺ᵐ",
+        "5ⁿ⁻ᵐ",
+        "nᵐ"
+      ],
+      "bonne_reponse": "5ⁿᵐ",
+      "duration": 60
+    },
+    {
+      "id": "pc7",
+      "question": "Complète : 5ⁿ × 6ⁿ = …",
+      "choix": [
+        "(5 × 6)ⁿ",
+        "(5 + 6)ⁿ",
+        "5ⁿ⁺⁶ⁿ",
+        "(5ⁿ + 6ⁿ)"
+      ],
+      "bonne_reponse": "(5 × 6)ⁿ",
+      "duration": 60
+    },
+    {
+      "id": "pc8",
+      "question": "Simplifie : √a × √b = …",
+      "choix": [
+        "√(a × b)",
+        "√a + √b",
+        "a × b",
+        "√a × b"
+      ],
+      "bonne_reponse": "√(a × b)",
+      "duration": 60
+    },
+    {
+      "id": "pc9",
+      "question": "Simplifie : √a / √b = …",
+      "choix": [
+        "√(a / b)",
+        "a / √b",
+        "√a × √b",
+        "√(a × b)"
+      ],
+      "bonne_reponse": "√(a / b)",
+      "duration": 60
+    },
+    {
+      "id": "pc10",
+      "question": "Compare : √25 + √144 et √(25 + 144)",
+      "choix": [
+        "√25 + √144 ≠ √(25 + 144)",
+        "√25 + √144 = √(25 + 144)",
+        "√25 + √144 < √(25 + 144)",
+        "Aucune relation possible"
+      ],
+      "bonne_reponse": "√25 + √144 ≠ √(25 + 144)",
+      "duration": 60
+    },
+    {
+      "id": "pc11",
+      "question": "Complète : √a + √b … √(a + b)",
+      "choix": [
+        "≠",
+        "=",
+        "<",
+        ">"
+      ],
+      "bonne_reponse": "≠",
+      "duration": 60
+    }
+  ]
+}
+]
+},
+{
+  "id": "video_puissances_racines",
+  "titre": "Puissances et racines carrées (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=8Z2akwbuzas",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [
+     "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
+    "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", 
+    "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", 
+    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"
+  ],
+  "questions": [
+    {
+      "id": "pui1",
+      "question": "Calcule : (√3)²",
+      "choix": ["3", "√9", "√6", "9"],
+      "bonne_reponse": "3",
+      "duration": 60
+    },
+    {
+      "id": "pui2",
+      "question": "Simplifie : (√5)⁴",
+      "choix": ["25", "5√5", "10", "√25"],
+      "bonne_reponse": "25",
+      "duration": 60
+    },
+    {
+      "id": "pui3",
+      "question": "Calcule : √(2⁶)",
+      "choix": ["8", "12", "16", "4"],
+      "bonne_reponse": "8",
+      "duration": 60
+    },
+    {
+      "id": "pui4",
+      "question": "Simplifie : (√7)³",
+      "choix": ["7√7", "√49", "14√7", "21"],
+      "bonne_reponse": "7√7",
+      "duration": 60
+    },
+    {
+      "id": "pui5",
+      "question": "Simplifie : (√2 × √3)²",
+      "choix": ["6", "√36", "√6", "9"],
+      "bonne_reponse": "6",
+      "duration": 60
+    },
+    {
+      "id": "pui6",
+      "question": "Simplifie : √(a²b²) avec a et b des nombres réels positifs",
+      "choix": ["ab", "a²b²", "a + b", "a² + b²"],
+      "bonne_reponse": "ab",
+      "duration": 60
+    },
+    {
+      "id": "pui7",
+      "question": "Détermine : (2√3)²",
+      "choix": ["12", "4√3", "6", "9"],
+      "bonne_reponse": "12",
+      "duration": 60
+    },
+    {
+      "id": "pui8",
+      "question": "Calcule : (√8)²",
+      "choix": ["8", "4√2", "2√8", "6"],
+      "bonne_reponse": "8",
+      "duration": 60
+    },
+    {
+      "id": "pui9",
+      "question": "Simplifie : √(9 × 16)",
+      "choix": ["12", "√25", "15", "24"],
+      "bonne_reponse": "12",
+      "duration": 60
+    },
+    {
+      "id": "pui10",
+      "question": "Détermine : (√10)⁶",
+      "choix": ["10³", "√1000", "100", "1000"],
+      "bonne_reponse": "1000",
+      "duration": 60
+    },
+     {
+      "id": "rp1",
+      "question": "Calcule : √(5²) pour 5 > 0",
+      "choix": [
+        "5²",
+        "5",
+        "√5",
+        "10"
+      ],
+      "bonne_reponse": "5",
+      "duration": 60
+    },
+    {
+      "id": "rp2",
+      "question": "Calcule : √(5³) pour 5 > 0",
+      "choix": [
+        "5²√5",
+        "5³",
+        "5√5",
+        "√125"
+      ],
+      "bonne_reponse": "5√5",
+      "duration": 60
+    },
+    {
+      "id": "rp3",
+      "question": "Simplifie : √(a × b) pour a, b > 0",
+      "choix": [
+        "√a × √b",
+        "a + b",
+        "a × b",
+        "√a + √b"
+      ],
+      "bonne_reponse": "√a × √b",
+      "duration": 60
+    },
+    {
+      "id": "rp4",
+      "question": "Simplifie : √(a / b) pour a, b > 0",
+      "choix": [
+        "√a / √b",
+        "√(a × b)",
+        "a / √b",
+        "√a + √b"
+      ],
+      "bonne_reponse": "√a / √b",
+      "duration": 60
+    },
+    {
+      "id": "rp5",
+      "question": "Soit 5 > 0 et n un entier relatif. Que vaut √(5ⁿ) ?",
+      "choix": [
+        "5ⁿ",
+        "5√n",
+        "√5ⁿ",
+        "n"
+      ],
+      "bonne_reponse": "5ⁿ",
+      "duration": 60
+    },
+    {
+      "id": "rp6",
+      "question": "Pour 5 > 0 et n un entier relatif, que vaut √(5ⁿ) × 5 ?",
+      "choix": [
+        "5ⁿ √5",
+        "5ⁿ⁺¹",
+        "√(5ⁿ⁺¹)",
+        "5ⁿ"
+      ],
+      "bonne_reponse": "5ⁿ √5",
+      "duration": 60
+    },
+    {
+      "id": "rp7",
+      "question": "Vrai ou faux : √(5²) = 5 si 5 > 0",
+      "choix": [
+        "Vrai",
+        "Faux"
+      ],
+      "bonne_reponse": "Vrai",
+      "duration": 60
+    },
+    {
+      "id": "rp8",
+      "question": "Vrai ou faux : √(5³) = 5³ si 5 > 0",
+      "choix": [
+        "Vrai",
+        "Faux"
+      ],
+      "bonne_reponse": "Faux",
+      "duration": 60
+    }
+  ]
+},
+{
+  "id": "video_expressions_conjuguees",
+  "titre": "Expressions conjuguées et rationalisation (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=6NPSpZq6vnc",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)",
+    "Division dans IN(5e)",
+    "Arithmétiques: PPCM-PGCD(4e)",
+    "Nombres décimaux arithmétiques(6e)",
+    "Nombres décimaux relatifs(5e)",
+    "Nombres décimaux(4e)",
+    "Fractions(6e)",
+    "Fractions(5e)",
+    "Fractions(4e)",
+    "Nombres rationnels(4e)",
+    "Calcul littéral(6e)",
+    "Calculs sur les expressions algébriques(4e)"
+  ],
+  "questions": [
+    {
+      "id": "ec1",
+      "question": "Rationalise : 5/√7",
+      "choix": ["5/7", "√7/5", "5√7/7", "7/5√7"],
+      "bonne_reponse": "5√7/7",
+      "duration": 120
+    },
+    {
+      "id": "ec2",
+      "question": "Rationalise : 1/√5",
+      "choix": ["√5/5", "1/5", "5/√5", "√5"],
+      "bonne_reponse": "√5/5",
+      "duration": 120
+    },
+    {
+      "id": "ec3",
+      "question": "Rationalise : 4/3√7",
+      "choix": ["√7/12", "4√7/21", "12/√7", "4/21"],
+      "bonne_reponse": "4√7/21",
+      "duration": 120
+    },
+    {
+      "id": "ec4",
+      "question": "Rationalise : 3/2√5",
+      "choix": ["3√5/10", "2√5/3", "3/10", "√5/3"],
+      "bonne_reponse": "3√5/10",
+      "duration": 120
+    },
+    {
+      "id": "ec5",
+      "question": "Rationalise : (3√2)/(2√5)",
+      "choix": ["√10/6", "3/√10", "3√10/10", "3√10/5"],
+      "bonne_reponse": "3√10/10",
+      "duration": 120
+    },
+    {
+      "id": "ec6",
+      "question": "Factorise : 3² − 75",
+      "choix": ["3² − 25 × 3", "3(3 − 5)(3 + 5)", "3(3 − 25)(3 + 25)", "9 − 75"],
+      "bonne_reponse": "3(3 − 5)(3 + 5)",
+      "duration": 120
+    },
+    {
+      "id": "ec7",
+      "question": "Factorise : x² − 2",
+      "choix": ["(x − 2)(x + 2)", "x² − √2", "(x − √2)(x + √2)", "x(x − 2)"],
+      "bonne_reponse": "(x − √2)(x + √2)",
+      "duration": 120
+    },
+    {
+      "id": "ec8",
+      "question": "Factorise : 8 + 4√2 + 4",
+      "choix": ["(2√2 + 5)²", "4 + 4√2 + 8", "2(4 + √2)", "2√2(2 + √2)"],
+      "bonne_reponse": "(2√2 + 5)²",
+      "duration": 120
+    },
+    {
+      "id": "ec9",
+      "question": "Exprime A = √25 × √36 plus simplement",
+      "choix": ["√61", "61", "30", "√900"],
+      "bonne_reponse": "30",
+      "duration": 120
+    },
+    {
+      "id": "ec10",
+      "question": "Exprime B = √144 × √225 plus simplement",
+      "choix": ["180", "√36000", "√369", "369"],
+      "bonne_reponse": "180",
+      "duration": 120
+    },
+    {
+      "id": "ec11",
+      "question": "Exprime C = √50 × √2 plus simplement",
+      "choix": ["10", "√100", "50√2", "√52"],
+      "bonne_reponse": "10",
+      "duration": 120
+    },
+    {
+      "id": "ec12",
+      "question": "Exprime D = √3 × √5 plus simplement",
+      "choix": ["√35", "√15", "8", "√8"],
+      "bonne_reponse": "√15",
+      "duration": 120
+    },
+    {
+      "id": "ec13",
+      "question": "Vrai ou faux : a − b et a + b sont des expressions conjuguées",
+      "choix": ["Faux", "Vrai"],
+      "bonne_reponse": "Vrai",
+      "duration": 120
+    },
+    {
+      "id": "ec14",
+      "question": "Le produit de deux expressions conjuguées est toujours :",
+      "choix": ["un nombre négatif", "un nombre rationnel", "un nombre irrationnel", "toujours nul"],
+      "bonne_reponse": "un nombre rationnel",
+      "duration": 120
+    },
+    {
+      "id": "ec15",
+      "question": "Rationalise : 2/(3 + √5)",
+      "choix": ["2(3 − √5)/4", "2(3 − √5)/4", "2(3 − √5)/4", "2(3 − √5)/4"],
+      "bonne_reponse": "2(3 − √5)/4",
+      "duration": 120
+    },
+    {
+      "id": "ec16",
+      "question": "Rationalise : 1/(4 − √2)",
+      "choix": ["1/(4 + √2)", "(4 + √2)/14", "√2/(4 − √2)", "(4 − √2)/14"],
+      "bonne_reponse": "(4 + √2)/14",
+      "duration": 120
+    },
+    {
+      "id": "ec17",
+      "question": "Rationalise : (√3 + 2)/(√3 − 2)",
+      "choix": ["(√3 − 2)(√3 − 2)/1", "(√3 + 2)(√3 + 2)/(-1)", "(√3 + 2)(√3 + 2)/1", "(√3 + 2)/1"],
+      "bonne_reponse": "(√3 + 2)(√3 + 2)/(-1)",
+      "duration": 120
+    },
+    {
+      "id": "ec18",
+      "question": "Simplifie : (√2 + √5)(√2 − √5)",
+      "choix": ["√10", "7", "−3", "√7"],
+      "bonne_reponse": "−3",
+      "duration": 120
+    },
+    {
+      "id": "ec19",
+      "question": "Simplifie : (√3 + √7)(√3 − √7)",
+      "choix": ["√21", "10", "−4", "√10"],
+      "bonne_reponse": "−4",
+      "duration": 120
+    },
+    {
+      "id": "ec20",
+      "question": "Vrai ou faux : Pour éliminer un radical au dénominateur, on multiplie par l’expression conjuguée",
+      "choix": ["Faux", "Vrai"],
+      "bonne_reponse": "Vrai",
+      "duration": 120
+    }
+  ]
+},
+{
+  "id": "video_comparaison_reels",
+  "titre": "Comparaison de deux nombres réels (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=g7Sqp4B6Q6E",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)",
+    "Division dans IN(5e)",
+    "Arithmétiques: PPCM-PGCD(4e)",
+    "Nombres décimaux arithmétiques(6e)",
+    "Nombres décimaux relatifs(5e)",
+    "Nombres décimaux(4e)",
+    "Fractions(6e)",
+    "Fractions(5e)",
+    "Fractions(4e)",
+    "Nombres rationnels(4e)",
+    "Calcul littéral(6e)",
+    "Calculs sur les expressions algébriques(4e)"
+  ],
+  "questions": [
+    {
+      "id": "cr1",
+      "question": "Soit a = -3 et b = -2. Quel est le plus grand ?",
+      "choix": ["a", "b"],
+      "bonne_reponse": "b",
+      "duration": 120
+    },
+    {
+      "id": "cr2",
+      "question": "Si a² ≤ b² et a > 0, b > 0, que peut-on dire de a et b ?",
+      "choix": ["a ≥ b", "a ≤ b", "a = b", "rien"], 
+      "bonne_reponse": "a ≤ b",
+      "duration": 120
+    },
+    {
+      "id": "cr3",
+      "question": "Si a² ≤ b² et a < 0, b < 0, alors a est :",
+      "choix": ["plus petit que b", "égal à b", "plus grand que b", "impossible à déterminer"], 
+      "bonne_reponse": "plus grand que b",
+      "duration": 120
+    },
+    {
+      "id": "cr4",
+      "question": "Deux nombres réels positifs sont rangés :",
+      "choix": ["dans le même ordre que leurs carrés", "dans l'ordre inverse de leurs carrés", "au hasard", "toujours égaux"], 
+      "bonne_reponse": "dans le même ordre que leurs carrés",
+      "duration": 120
+    },
+    {
+      "id": "cr5",
+      "question": "Deux nombres réels négatifs sont rangés :",
+      "choix": ["dans l'ordre inverse de leurs carrés", "dans le même ordre que leurs carrés", "toujours égaux", "au hasard"], 
+      "bonne_reponse": "dans l'ordre inverse de leurs carrés",
+      "duration": 120
+    },
+    {
+      "id": "cr6",
+      "question": "Soit a et b de même signe et différents de zéro. L'ordre de leurs inverses est :",
+      "choix": ["contraire à l'ordre de a et b", "identique à l'ordre de a et b", "toujours égal", "aucun ordre"], 
+      "bonne_reponse": "contraire à l'ordre de a et b",
+      "duration": 120
+    },
+    {
+      "id": "cr7",
+      "question": "Compare les nombres : √50 et 7",
+      "choix": ["√50 < 7", "√50 = 7", "√50 > 7", "impossible"], 
+      "bonne_reponse": "√50 > 7",
+      "duration": 120
+    },
+    {
+      "id": "cr8",
+      "question": "Compare les nombres : -3√5 et -2√7",
+      "choix": ["-3√5 > -2√7", "-3√5 < -2√7", "égaux", "aucune idée"], 
+      "bonne_reponse": "-3√5 > -2√7",
+      "duration": 120
+    },
+    {
+      "id": "cr9",
+      "question": "Si a ≤ b et c > 0, alors :",
+      "choix": ["a × c ≤ b × c", "a × c ≥ b × c", "a × c = b × c", "impossible"], 
+      "bonne_reponse": "a × c ≤ b × c",
+      "duration": 120
+    },
+    {
+      "id": "cr10",
+      "question": "Si a ≤ b et c < 0, alors :",
+      "choix": ["a × c ≥ b × c", "a × c ≤ b × c", "a × c = b × c", "aucune règle"], 
+      "bonne_reponse": "a × c ≥ b × c",
+      "duration": 120
+    },
+    {
+      "id": "cr11",
+      "question": "Compare w = 2√3 et x = 5√2",
+      "choix": ["w < x", "w > x", "w = x", "impossible"], 
+      "bonne_reponse": "w < x",
+      "duration": 120
+    },
+    {
+      "id": "cr12",
+      "question": "Compare y = -√18 et z = -√20",
+      "choix": ["y > z", "y < z", "y = z", "aucune idée"], 
+      "bonne_reponse": "y > z",
+      "duration": 120
+    },
+    {
+      "id": "cr13",
+      "question": "Etudie le signe : 1 − 2√2",
+      "choix": ["négatif", "positif", "nul", "impossible"], 
+      "bonne_reponse": "négatif",
+      "duration": 120
+    },
+    {
+      "id": "cr14",
+      "question": "Compare a = √50 et b = 7. Quelle affirmation est vraie ?",
+      "choix": ["a > b", "a < b", "a = b", "aucune"], 
+      "bonne_reponse": "a > b",
+      "duration": 120
+    },
+    {
+      "id": "cr15",
+      "question": "Si a² = 9 et a < 0, alors a =",
+      "choix": ["-3", "3", "0", "impossible"], 
+      "bonne_reponse": "-3",
+      "duration": 120
+    },
+    {
+      "id": "cr16",
+      "question": "Si a² ≤ b² et a > 0, b > 0, alors a − b :",
+      "choix": ["≤ 0", "≥ 0", "= 0", "impossible"], 
+      "bonne_reponse": "≤ 0",
+      "duration": 120
+    },
+    {
+      "id": "cr17",
+      "question": "Si a² ≤ b² et a < 0, b < 0, alors a − b :",
+      "choix": ["≥ 0", "≤ 0", "= 0", "impossible"], 
+      "bonne_reponse": "≥ 0",
+      "duration": 120
+    },
+    {
+      "id": "cr18",
+      "question": "Vrai ou faux : Si a ≤ b et c > 0, alors a × c ≤ b × c",
+      "choix": ["Vrai", "Faux"], 
+      "bonne_reponse": "Vrai",
+      "duration": 120
+    },
+    {
+      "id": "cr19",
+      "question": "Vrai ou faux : Deux nombres réels de même signe et différents de zéro sont rangés dans l'ordre contraire de celui de leurs inverses",
+      "choix": ["Vrai", "Faux"], 
+      "bonne_reponse": "Vrai",
+      "duration": 120
+    },
+    {
+      "id": "cr20",
+      "question": "Vrai ou faux : Deux nombres réels positifs sont rangés dans l’ordre contraire de leurs carrés",
+      "choix": ["Faux", "Vrai"], 
+      "bonne_reponse": "Faux",
+      "duration": 120
+    },
+    {
+      "id": "cr21",
+      "question": "Calcule et compare : √32 et 5",
+      "choix": ["√32 < 5", "√32 > 5", "√32 = 5", "aucune"], 
+      "bonne_reponse": "√32 > 5",
+      "duration": 120
+    },
+    {
+      "id": "cr22",
+      "question": "Calcule et compare : -4√2 et -5",
+      "choix": ["-4√2 > -5", "-4√2 < -5", "-4√2 = -5", "aucune"], 
+      "bonne_reponse": "-4√2 > -5",
+      "duration": 120
+    },
+    {
+      "id": "cr23",
+      "question": "Soit a = 3√5, b = 2√7. Quel est le plus grand ?",
+      "choix": ["a", "b"], 
+      "bonne_reponse": "a",
+      "duration": 120
+    },
+    {
+      "id": "cr24",
+      "question": "Compare les nombres : -2√3 et -√8",
+      "choix": ["-2√3 > -√8", "-2√3 < -√8", "égaux", "aucune idée"], 
+      "bonne_reponse": "-2√3 < -√8",
+      "duration": 120
+    },
+    {
+      "id": "cr25",
+      "question": "Compare a = √72 et b = 8",
+      "choix": ["a < b", "a > b", "a = b", "aucune"], 
+      "bonne_reponse": "a < b",
+      "duration": 120
+    },
+    {
+      "id": "cr26",
+      "question": "Compare -5 et -√30",
+      "choix": ["-5 > -√30", "-5 < -√30", "-5 = -√30", "aucune"], 
+      "bonne_reponse": "-5 < -√30",
+      "duration": 120
+    },
+    {
+      "id": "cr27",
+      "question": "Calcule et compare : √18 et 4",
+      "choix": ["√18 < 4", "√18 > 4", "√18 = 4", "aucune"], 
+      "bonne_reponse": "√18 > 4",
+      "duration": 120
+    },
+    {
+      "id": "cr28",
+      "question": "Calcule et compare : -3√3 et -5",
+      "choix": ["-3√3 > -5", "-3√3 < -5", "-3√3 = -5", "aucune"], 
+      "bonne_reponse": "-3√3 > -5",
+      "duration": 120
+    },
+    {
+      "id": "cr29",
+      "question": "Compare w = √45 et x = 7",
+      "choix": ["w < x", "w > x", "w = x", "impossible"], 
+      "bonne_reponse": "w < x",
+      "duration": 120
+    },
+    {
+      "id": "cr30",
+      "question": "Compare y = -√50 et z = -7",
+      "choix": ["y > z", "y < z", "y = z", "aucune"], 
+      "bonne_reponse": "y < z",
+      "duration": 120
+    },
+    {
+      "id": "cr31",
+      "question": "Compare : 3 + √2 et 4",
+      "choix": ["3 + √2 < 4", "3 + √2 > 4", "3 + √2 = 4", "aucune"], 
+      "bonne_reponse": "3 + √2 > 4",
+      "duration": 120
+    },
+    {
+      "id": "cr32",
+      "question": "Compare : 5 − √3 et 4",
+      "choix": ["5 − √3 < 4", "5 − √3 > 4", "5 − √3 = 4", "aucune"], 
+      "bonne_reponse": "5 − √3 > 4",
+      "duration": 120
+    },
+    {
+      "id": "cr33",
+      "question": "Compare : 2 + √5 et 5 − √2",
+      "choix": ["2 + √5 < 5 − √2", "2 + √5 > 5 − √2", "2 + √5 = 5 − √2", "aucune"], 
+      "bonne_reponse": "2 + √5 < 5 − √2",
+      "duration": 120
+    },
+    {
+      "id": "cr34",
+      "question": "Compare : -1 + √7 et 2 − √2",
+      "choix": ["-1 + √7 < 2 − √2", "-1 + √7 > 2 − √2", "-1 + √7 = 2 − √2", "aucune"], 
+      "bonne_reponse": "-1 + √7 < 2 − √2",
+      "duration": 120
+    },
+    {
+      "id": "cr35",
+      "question": "Compare : 6 + √3 et 7 − √5",
+      "choix": ["6 + √3 < 7 − √5", "6 + √3 > 7 − √5", "6 + √3 = 7 − √5", "aucune"], 
+      "bonne_reponse": "6 + √3 < 7 − √5",
+      "duration": 120
+    },
+    {
+      "id": "cr36",
+      "question": "Compare : -3 + √8 et -2 + √5",
+      "choix": ["-3 + √8 < -2 + √5", "-3 + √8 > -2 + √5", "-3 + √8 = -2 + √5", "aucune"], 
+      "bonne_reponse": "-3 + √8 < -2 + √5",
+      "duration": 120
+    },
+    {
+      "id": "cr37",
+      "question": "Compare : 1 − √2 et -1 + √3",
+      "choix": ["1 − √2 < -1 + √3", "1 − √2 > -1 + √3", "1 − √2 = -1 + √3", "aucune"], 
+      "bonne_reponse": "1 − √2 < -1 + √3",
+      "duration": 120
+    },
+    {
+      "id": "cr38",
+      "question": "Compare : 4 + √6 et 3 + √7",
+      "choix": ["4 + √6 < 3 + √7", "4 + √6 > 3 + √7", "4 + √6 = 3 + √7", "aucune"], 
+      "bonne_reponse": "4 + √6 < 3 + √7",
+      "duration": 120
+    },
+    {
+      "id": "cr39",
+      "question": "Compare : -2 + √5 et -3 + √6",
+      "choix": ["-2 + √5 < -3 + √6", "-2 + √5 > -3 + √6", "-2 + √5 = -3 + √6", "aucune"], 
+      "bonne_reponse": "-2 + √5 < -3 + √6",
+      "duration": 120
+    },
+    {
+      "id": "cr40",
+      "question": "Compare : 5 − √10 et 4 + √2",
+      "choix": ["5 − √10 < 4 + √2", "5 − √10 > 4 + √2", "5 − √10 = 4 + √2", "aucune"], 
+      "bonne_reponse": "5 − √10 < 4 + √2",
+      "duration": 120
+    }
+     ]
+},
+{
+  "id": "video_comparaison_reels_encadrement",
+  "titre": "Comparaison et encadrement de nombres réels (3e)",
+  "niveau": "3e",
+  "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=eIy-8zXiooU",
+  "notions": ["Nombres réels(3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)",
+    "Division dans IN(5e)",
+    "Arithmétiques: PPCM-PGCD(4e)",
+    "Nombres décimaux arithmétiques(6e)",
+    "Nombres décimaux relatifs(5e)",
+    "Nombres décimaux(4e)",
+    "Fractions(6e)",
+    "Fractions(5e)",
+    "Fractions(4e)",
+    "Nombres rationnels(4e)",
+    "Calcul littéral(6e)",
+    "Calculs sur les expressions algébriques(4e)"
+  ],
+  "questions": [
+    {
+      "id": "enc1",
+      "question": "Encadre 3√2 + 5 par deux nombres décimaux consécutifs à l'ordre 2",
+      "choix": ["9,24 < 3√2 + 5 < 9,25", "9,20 < 3√2 + 5 < 9,21", "9,25 < 3√2 + 5 < 9,26", "9,23 < 3√2 + 5 < 9,24"],
+      "bonne_reponse": "9,24 < 3√2 + 5 < 9,25",
+      "duration": 60
+    },
+    {
+      "id": "enc2",
+      "question": "Encadre 2√3 − 3 par deux nombres décimaux consécutifs à l'ordre 2",
+      "choix": ["0,44 < 2√3 − 3 < 0,45", "0,46 < 2√3 − 3 < 0,47", "0,47 < 2√3 − 3 < 0,48", "0,45 < 2√3 − 3 < 0,46"],
+      "bonne_reponse": "0,46 < 2√3 − 3 < 0,47",
+      "duration": 60
+    },
+    {
+      "id": "enc3",
+      "question": "Encadre -3√2 par deux nombres décimaux consécutifs à l'ordre 2",
+      "choix": ["-4,26 < -3√2 < -4,25", "-4,24 < -3√2 < -4,23", "-4,25 < -3√2 < -4,24", "-4,23 < -3√2 < -4,22"],
+      "bonne_reponse": "-4,25 < -3√2 < -4,24",
+      "duration": 60
+    },
+    {
+      "id": "enc4",
+      "question": "Encadre 1/(3√2) par deux nombres décimaux consécutifs à l'ordre 2",
+      "choix": ["0,22 < 1/(3√2) < 0,23", "0,23 < 1/(3√2) < 0,24", "0,24 < 1/(3√2) < 0,25", "0,21 < 1/(3√2) < 0,22"],
+      "bonne_reponse": "0,23 < 1/(3√2) < 0,24",
+      "duration": 60
+    },
+    {
+      "id": "enc5",
+      "question": "Encadre 5√2 + 1 par deux nombres décimaux consécutifs",
+      "choix": ["8,07 < 5√2 + 1 < 8,08", "8,06 < 5√2 + 1 < 8,07", "8,05 < 5√2 + 1 < 8,06", "8,08 < 5√2 + 1 < 8,09"],
+      "bonne_reponse": "8,07 < 5√2 + 1 < 8,08",
+      "duration": 60
+    },
+    {
+      "id": "enc6",
+      "question": "Encadre 2√3 + 4 par deux nombres décimaux consécutifs",
+      "choix": ["7,46 < 2√3 + 4 < 7,47", "7,45 < 2√3 + 4 < 7,46", "7,47 < 2√3 + 4 < 7,48", "7,44 < 2√3 + 4 < 7,45"],
+      "bonne_reponse": "7,46 < 2√3 + 4 < 7,47",
+      "duration": 60
+    },
+    {
+      "id": "enc7",
+      "question": "Encadre -2√3 par deux nombres décimaux consécutifs",
+      "choix": ["-3,47 < -2√3 < -3,46", "-3,46 < -2√3 < -3,45", "-3,48 < -2√3 < -3,47", "-3,45 < -2√3 < -3,44"],
+      "bonne_reponse": "-3,46 < -2√3 < -3,45",
+      "duration": 60
+    },
+    {
+      "id": "enc8",
+      "question": "Encadre -√2 + 3 par deux nombres décimaux consécutifs",
+      "choix": ["1,585 < -√2 + 3 < 1,586", "1,586 < -√2 + 3 < 1,587", "1,584 < -√2 + 3 < 1,585", "1,587 < -√2 + 3 < 1,588"],
+      "bonne_reponse": "1,585 < -√2 + 3 < 1,586",
+      "duration": 60
+    },
+    {
+      "id": "enc9",
+      "question": "Encadre 3√3 − 2 par deux nombres décimaux consécutifs",
+      "choix": ["3,19 < 3√3 − 2 < 3,20", "3,18 < 3√3 − 2 < 3,19", "3,20 < 3√3 − 2 < 3,21", "3,17 < 3√3 − 2 < 3,18"],
+      "bonne_reponse": "3,19 < 3√3 − 2 < 3,20",
+      "duration": 60
+    },
+    {
+      "id": "enc10",
+      "question": "Encadre 4√2 − 1 par deux nombres décimaux consécutifs",
+      "choix": ["4,65 < 4√2 − 1 < 4,66", "4,64 < 4√2 − 1 < 4,65", "4,66 < 4√2 − 1 < 4,67", "4,63 < 4√2 − 1 < 4,64"],
+      "bonne_reponse": "4,65 < 4√2 − 1 < 4,66",
+      "duration": 60
+    },
+    {
+      "id": "enc11",
+      "question": "Encadre -√3 + 2 par deux nombres décimaux consécutifs",
+      "choix": ["0,267 < -√3 + 2 < 0,268", "0,268 < -√3 + 2 < 0,269", "0,266 < -√3 + 2 < 0,267", "0,269 < -√3 + 2 < 0,270"],
+      "bonne_reponse": "0,267 < -√3 + 2 < 0,268",
+      "duration": 60
+    },
+    {
+      "id": "enc12",
+      "question": "Encadre 5 − 2√2 par deux nombres décimaux consécutifs",
+      "choix": ["2,17 < 5 − 2√2 < 2,18", "2,18 < 5 − 2√2 < 2,19", "2,16 < 5 − 2√2 < 2,17", "2,19 < 5 − 2√2 < 2,20"],
+      "bonne_reponse": "2,17 < 5 − 2√2 < 2,18",
+      "duration": 60
+    },
+    {
+      "id": "enc13",
+      "question": "Encadre -3 + √2 par deux nombres décimaux consécutifs",
+      "choix": ["-1,586 < -3 + √2 < -1,585", "-1,587 < -3 + √2 < -1,586", "-1,585 < -3 + √2 < -1,584", "-1,588 < -3 + √2 < -1,587"],
+      "bonne_reponse": "-1,586 < -3 + √2 < -1,585",
+      "duration": 60
+    },
+    {
+      "id": "enc14",
+      "question": "Encadre 2 + √3 par deux nombres décimaux consécutifs",
+      "choix": ["3,732 < 2 + √3 < 3,733", "3,733 < 2 + √3 < 3,734", "3,731 < 2 + √3 < 3,732", "3,730 < 2 + √3 < 3,731"],
+      "bonne_reponse": "3,732 < 2 + √3 < 3,733",
+      "duration": 60
+    },
+    {
+      "id": "enc15",
+      "question": "Encadre 1 − 2√2 par deux nombres décimaux consécutifs",
+      "choix": ["-1,83 < 1 − 2√2 < -1,82", "-1,82 < 1 − 2√2 < -1,81", "-1,84 < 1 − 2√2 < -1,83", "-1,81 < 1 − 2√2 < -1,80"],
+      "bonne_reponse": "-1,83 < 1 − 2√2 < -1,82",
+      "duration": 60
+    },
+    {
+      "id": "enc16",
+      "question": "Encadre 3√2 − 4 par deux nombres décimaux consécutifs",
+      "choix": ["0,24 < 3√2 − 4 < 0,25", "0,25 < 3√2 − 4 < 0,26", "0,23 < 3√2 − 4 < 0,24", "0,26 < 3√2 − 4 < 0,27"],
+      "bonne_reponse": "0,24 < 3√2 − 4 < 0,25",
+      "duration": 60
+    },
+    {
+      "id": "enc17",
+      "question": "Encadre -√3 − 1 par deux nombres décimaux consécutifs",
+      "choix": ["-2,733 < -√3 − 1 < -2,732", "-2,732 < -√3 − 1 < -2,731", "-2,734 < -√3 − 1 < -2,733", "-2,731 < -√3 − 1 < -2,730"],
+      "bonne_reponse": "-2,732 < -√3 − 1 < -2,731",
+      "duration": 60
+    },
+    {
+      "id": "enc18",
+      "question": "Encadre 4√3 + 1 par deux nombres décimaux consécutifs",
+      "choix": ["7,928 < 4√3 + 1 < 7,929", "7,929 < 4√3 + 1 < 7,930", "7,927 < 4√3 + 1 < 7,928", "7,930 < 4√3 + 1 < 7,931"],
+      "bonne_reponse": "7,928 < 4√3 + 1 < 7,929",
+      "duration": 60
+    },
+    {
+      "id": "enc19",
+      "question": "Encadre -2√2 − 3 par deux nombres décimaux consécutifs",
+      "choix": ["-5,83 < -2√2 − 3 < -5,82", "-5,82 < -2√2 − 3 < -5,81", "-5,81 < -2√2 − 3 < -5,80", "-5,84 < -2√2 − 3 < -5,83"],
+      "bonne_reponse": "-5,83 < -2√2 − 3 < -5,82",
+      "duration": 60
+    },
+    {
+      "id": "enc20",
+      "question": "Encadre 3√3 + 2 par deux nombres décimaux consécutifs",
+      "choix": ["7,196 < 3√3 + 2 < 7,197", "7,197 < 3√3 + 2 < 7,198", "7,195 < 3√3 + 2 < 7,196", "7,198 < 3√3 + 2 < 7,199"],
+      "bonne_reponse": "7,196 < 3√3 + 2 < 7,197",
+      "duration": 60
+    },
+    {
+      "id": "prat1",
+      "question": "Compare 2 + √2 et 3",
+      "choix": ["2 + √2 < 3", "2 + √2 > 3", "2 + √2 = 3", "Impossible à déterminer"],
+      "bonne_reponse": "2 + √2 < 3",
+      "duration": 60
+    },
+    {
+      "id": "prat2",
+      "question": "Compare 5 − √3 et 3",
+      "choix": ["5 − √3 > 3", "5 − √3 < 3", "5 − √3 = 3", "Impossible à déterminer"],
+      "bonne_reponse": "5 − √3 > 3",
+      "duration": 60
+    },
+    {
+      "id": "prat3",
+      "question": "Compare -2 + √2 et 0",
+      "choix": ["-2 + √2 < 0", "-2 + √2 > 0", "-2 + √2 = 0", "Impossible à déterminer"],
+      "bonne_reponse": "-2 + √2 < 0",
+      "duration": 60
+    },
+    {
+      "id": "prat4",
+      "question": "Compare -3 + √3 et -1",
+      "choix": ["-3 + √3 < -1", "-3 + √3 > -1", "-3 + √3 = -1", "Impossible à déterminer"],
+      "bonne_reponse": "-3 + √3 < -1",
+      "duration": 60
+    },
+    {
+      "id": "prat5",
+      "question": "Compare 4 − √2 et 3",
+      "choix": ["4 − √2 > 3", "4 − √2 < 3", "4 − √2 = 3", "Impossible à déterminer"],
+      "bonne_reponse": "4 − √2 > 3",
+      "duration": 60
+    },
+    {
+      "id": "prat6",
+      "question": "Compare 3 + √3 et 5",
+      "choix": ["3 + √3 < 5", "3 + √3 > 5", "3 + √3 = 5", "Impossible à déterminer"],
+      "bonne_reponse": "3 + √3 < 5",
+      "duration": 60
+    },
+    {
+      "id": "prat7",
+      "question": "Compare 1 − √2 et -1",
+      "choix": ["1 − √2 < -1", "1 − √2 > -1", "1 − √2 = -1", "Impossible à déterminer"],
+      "bonne_reponse": "1 − √2 > -1",
+      "duration": 60
+    },
+    {
+      "id": "prat8",
+      "question": "Compare 2 − √3 et 1",
+      "choix": ["2 − √3 < 1", "2 − √3 > 1", "2 − √3 = 1", "Impossible à déterminer"],
+      "bonne_reponse": "2 − √3 < 1",
+      "duration": 60
+    },
+    {
+      "id": "prat9",
+      "question": "Compare -1 + √3 et 1",
+      "choix": ["-1 + √3 < 1", "-1 + √3 > 1", "-1 + √3 = 1", "Impossible à déterminer"],
+      "bonne_reponse": "-1 + √3 < 1",
+      "duration": 60
+    },
+    {
+      "id": "prat10",
+      "question": "Compare 5 − √2 et 4",
+      "choix": ["5 − √2 > 4", "5 − √2 < 4", "5 − √2 = 4", "Impossible à déterminer"],
+      "bonne_reponse": "5 − √2 > 4",
+      "duration": 60
+    }
+  ]
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   {
     "id": "video50",
     "titre": "Valeur absolue(3e)",

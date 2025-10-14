@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from enum import Enum
 from database import Base
+from sqlalchemy.dialects.postgresql import JSON
 
 class UserStatus(str, Enum):
     PENDING = "pending"
@@ -25,9 +26,10 @@ class User(Base):
     pays_residence = Column(String(100), nullable=True)
 
     hashed_password = Column(String(255), nullable=False)
-    # plain_password à ne conserver qu'en dev / temporaire
-    plain_password = Column(String(255), nullable=True)  
+    plain_password = Column(String(255), nullable=True)
+    parrain_email = Column(String(255), nullable=True)
 
+    is_online = Column(Boolean, default=False)
     status = Column(String(50), default=UserStatus.PENDING.value)
     validation_token = Column(String(255), nullable=True)
     is_validated = Column(Boolean, default=False)
@@ -44,7 +46,6 @@ class User(Base):
     reset_token = Column(String(255), nullable=True)
     reset_token_expiry = Column(DateTime, nullable=True)
 
-    # Relation avec la table remediation_progress si nécessaire
     remediations = relationship("RemediationProgress", back_populates="user")
 
     def __repr__(self):

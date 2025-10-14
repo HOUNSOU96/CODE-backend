@@ -22,3 +22,4 @@ class PendingUser(Base):
     is_validated = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     date_inscription = Column(DateTime, default=datetime.utcnow)
+    parrain_email = Column(String(255), nullable=True)

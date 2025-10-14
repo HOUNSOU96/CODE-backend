@@ -171,6 +171,7 @@ app.add_middleware(
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "http://localhost:8000",
+        "http://code-frontend-rho.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -870,17 +871,27 @@ def get_remediation_videos(niveau: str = Query(...)):
         result.append(video)
         seen_ids.add(vid_id)
 
-    # 1️⃣ Ajouter d'abord toutes les vidéos **sans prérequis**
-    for video in all_videos:
-        if not video.get("prerequis") and normalize_string(video.get("niveau")) in [normalize_string(n) for n in niveaux_valides]:
-            add_video_recursive(video)
-
-    # 2️⃣ Ajouter ensuite toutes les autres vidéos (qui ont des prérequis)
+    # 🔹 Ajout des vidéos dans l’ordre des prérequis
     for video in all_videos:
         if normalize_string(video.get("niveau")) in [normalize_string(n) for n in niveaux_valides]:
             add_video_recursive(video)
 
-    return result
+    return [
+        {
+            "id": v["id"],
+            "titre": v["titre"],
+            "niveau": v["niveau"],
+            "fichier": v.get("fichier") or v.get("videoUrl"),
+            "mois": v["mois"],
+            "notions": v.get("notions"),
+            "prerequis": v["prerequis"],
+            "questions": v["questions"],
+            "videoUrl": v.get("videoUrl"), 
+        }
+        for v in result
+    ]
+
+
 
 
 

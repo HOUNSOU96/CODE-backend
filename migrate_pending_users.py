@@ -36,6 +36,7 @@ def migrate_pending_users():
                 lieu_naissance=pu.lieu_naissance,
                 nationalite=pu.nationalite,
                 pays_residence=pu.pays_residence,
+                parrain_email=pu.parrain_email,
                 is_validated=True,
                 date_inscription=pu.date_inscription,
                 created_at=datetime.utcnow()

@@ -11,178 +11,88 @@
     ],
     "date": "2025-10-01T16:20:54.668607"
   },
-  "a14bdb1e-85c5-4a45-8d6b-ad598c394771": {
-    "test_id": "a14bdb1e-85c5-4a45-8d6b-ad598c394771",
+  "041686c0-2e09-4deb-879e-5452365ac0dd": {
+    "test_id": "041686c0-2e09-4deb-879e-5452365ac0dd",
     "user_id": 1,
-    "niveau": "6e",
+    "niveau": "3e",
     "serie": null,
     "questions_ids": [
-      "cube5",
-      "fractions3",
-      "glissement4",
-      "droites_plan5",
-      "pave_droit5",
-      "fractions5",
-      "cube7",
-      "angles5",
-      "angles4",
-      "symetrie_point5",
-      "proportionnalite9",
-      "symetrie_point2",
-      "sphere9",
-      "segments_droites7",
-      "cercles7",
-      "rep2",
-      "rep5",
-      "parallelogrammes1",
-      "parallelogrammes8",
-      "segments_droites3",
-      "symetrie_droite4",
-      "cube9",
-      "glissement10",
-      "symetrie_droite5",
-      "cone_revolution8",
-      "glissement3",
-      "statistique1",
-      "nombres_decimaux1",
-      "sphere4",
-      "proportionnalite8"
+      "coord3",
+      "sec3",
+      "eq1_2"
     ],
-    "date": "2025-10-04T13:19:11.097706"
+    "date": "2025-10-13T20:57:24.462333"
   },
-  "c4dae3de-3be4-41e4-94c1-1860d2873af0": {
-    "test_id": "c4dae3de-3be4-41e4-94c1-1860d2873af0",
+  "c5d81fca-8fbe-4733-a168-28a483283ca3": {
+    "test_id": "c5d81fca-8fbe-4733-a168-28a483283ca3",
     "user_id": 1,
-    "niveau": "6e",
+    "niveau": "3e",
     "serie": null,
     "questions_ids": [
-      "calcul_litteral10",
-      "cube2",
-      "proportionnalite10",
-      "statistique2",
-      "fractions9",
-      "triangles5",
-      "symetrie_point9",
-      "triangles10",
-      "statistique4",
-      "nombres_decimaux10",
-      "rep4",
-      "pave_droit9",
-      "symetrie_point6",
-      "sphere10",
-      "angles4",
-      "pave_droit4",
-      "triangles6",
-      "cone_revolution6",
-      "segments_droites7",
-      "nombres_decimaux9_1",
-      "angles9",
-      "symetrie_point2",
-      "symetrie_point5",
-      "calcul_litteral1",
-      "sphere4",
-      "symetrie_droite3",
-      "parallelogrammes5",
-      "rep10",
-      "proportionnalite8",
-      "rep7"
+      "tri1_1",
+      "abs2",
+      "aff1"
     ],
-    "date": "2025-10-04T13:57:09.078563"
+    "date": "2025-10-13T21:14:57.081999"
   },
-  "5b7785c3-e2ee-4ee8-a74d-c050a3fa0639": {
-    "test_id": "5b7785c3-e2ee-4ee8-a74d-c050a3fa0639",
+  "64665508-ef0d-4bc4-a808-6ffe44d14805": {
+    "test_id": "64665508-ef0d-4bc4-a808-6ffe44d14805",
     "user_id": 1,
-    "niveau": "6e",
+    "niveau": "3e",
     "serie": null,
     "questions_ids": [
-      "droites_plan3",
-      "calcul_litteral9",
-      "glissement8"
+      "thal2",
+      "line1",
+      "line3"
     ],
-    "date": "2025-10-04T14:04:11.183619"
+    "date": "2025-10-13T21:31:04.862821"
   },
-  "d36847c1-0922-4e54-9a07-149269172645": {
-    "test_id": "d36847c1-0922-4e54-9a07-149269172645",
+  "8a8e465d-1fbb-404a-8ab2-f33988466bb9": {
+    "test_id": "8a8e465d-1fbb-404a-8ab2-f33988466bb9",
     "user_id": 1,
-    "niveau": "6e",
+    "niveau": "3e",
     "serie": null,
     "questions_ids": [
-      "angles6",
-      "symetrie_droite4",
-      "rep8"
+      "thal2",
+      "thal3",
+      "vec1"
     ],
-    "date": "2025-10-04T14:18:26.259378"
+    "date": "2025-10-13T22:16:15.347093"
   },
-  "a4c1708e-7072-4bcd-a3d2-4c4326b7eca8": {
-    "test_id": "a4c1708e-7072-4bcd-a3d2-4c4326b7eca8",
+  "57452dce-ae58-40fa-a3e8-b3831ab649e0": {
+    "test_id": "57452dce-ae58-40fa-a3e8-b3831ab649e0",
     "user_id": 1,
-    "niveau": "6e",
+    "niveau": "3e",
     "serie": null,
     "questions_ids": [
-      "symetrie_droite6",
-      "cercles10",
-      "rep6"
+      "ang2_1",
+      "thal2",
+      "sim3_1"
     ],
-    "date": "2025-10-04T14:27:38.740215"
+    "date": "2025-10-14T01:04:45.919382"
   },
-  "9096ed3e-4a5a-406f-968f-fd547370ac9e": {
-    "test_id": "9096ed3e-4a5a-406f-968f-fd547370ac9e",
+  "0b1e7ae8-5a0b-4733-8a26-ba642ba87a5c": {
+    "test_id": "0b1e7ae8-5a0b-4733-8a26-ba642ba87a5c",
     "user_id": 1,
-    "niveau": "6e",
+    "niveau": "3e",
     "serie": null,
     "questions_ids": [
-      "proportionnalite6",
-      "symetrie_droite3",
-      "cone_revolution6"
+      "ang2_1",
+      "real3",
+      "vec2"
     ],
-    "date": "2025-10-04T15:07:49.206011"
+    "date": "2025-10-14T02:07:21.866899"
   },
-  "64c21b35-72e7-4bfc-8857-11f3f843473e": {
-    "test_id": "64c21b35-72e7-4bfc-8857-11f3f843473e",
+  "a0d3c03a-9801-4dc6-87f8-2d18cfa9bcd5": {
+    "test_id": "a0d3c03a-9801-4dc6-87f8-2d18cfa9bcd5",
     "user_id": 1,
-    "niveau": "6e",
+    "niveau": "3e",
     "serie": null,
     "questions_ids": [
-      "cube2",
-      "statistique3",
-      "calcul_litteral5"
+      "con1_1",
+      "line2",
+      "con1_2"
     ],
-    "date": "2025-10-04T15:22:34.209772"
-  },
-  "b7b249ae-6fa4-44a5-b371-90744363cf31": {
-    "test_id": "b7b249ae-6fa4-44a5-b371-90744363cf31",
-    "user_id": 1,
-    "niveau": "6e",
-    "serie": null,
-    "questions_ids": [
-      "cone_revolution3",
-      "fractions6",
-      "symetrie_droite4"
-    ],
-    "date": "2025-10-04T15:30:38.294227"
-  },
-  "6c3bf4a9-9447-42ff-b441-5ab64e3cc967": {
-    "test_id": "6c3bf4a9-9447-42ff-b441-5ab64e3cc967",
-    "user_id": 1,
-    "niveau": "6e",
-    "serie": null,
-    "questions_ids": [
-      "symetrie_droite8",
-      "rep8",
-      "angles1"
-    ],
-    "date": "2025-10-04T15:33:27.696174"
-  },
-  "ddc52fcd-2aa6-47ea-814c-bcc70856ffe3": {
-    "test_id": "ddc52fcd-2aa6-47ea-814c-bcc70856ffe3",
-    "user_id": 1,
-    "niveau": "6e",
-    "serie": null,
-    "questions_ids": [
-      "segments_droites6",
-      "statistique3",
-      "fractions4"
-    ],
-    "date": "2025-10-04T15:49:49.007189"
+    "date": "2025-10-14T16:22:03.160571"
   }
 }

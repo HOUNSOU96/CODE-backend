@@ -62,6 +62,8 @@ def liste_inscrits(
                 "is_admin": i.is_admin,
                 "is_blocked": i.is_blocked,
                 "last_warning": i.last_warning,
+                "parrain_email": i.parrain_email,
+                "pays_residence": i.pays_residence,
                 "date_inscription": i.created_at if hasattr(i, "created_at") else None,
                 "is_online": bool(i.last_seen and i.last_seen > online_threshold)
             }
