@@ -42,6 +42,7 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 RESULTATS_FILE = os.path.join(DATA_DIR, "resultats.json")
 QUESTIONS_FILE = os.path.join(DATA_DIR, "questions.json")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
+os.makedirs(STATIC_DIR, exist_ok=True)
 
 app = FastAPI()
 
