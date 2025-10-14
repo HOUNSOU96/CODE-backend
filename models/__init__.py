@@ -1,62 +1,23 @@
 # 📁 backend/models/__init__.py
-from sqlalchemy import Column, String, Integer, JSON, ForeignKey
-from sqlalchemy.orm import declarative_base, relationship, Session
-from datetime import datetime
+import os, sys
+
+from sqlalchemy.orm import Session
 import json
-from database import engine
+from database import engine, Base
 
-Base = declarative_base()
-
-# ----------------- MODELS -----------------
-
-class Question(Base):
-    __tablename__ = "questions"
-    id = Column(String(255), primary_key=True)
-    niveau = Column(String(50))
-    serie = Column(String(50), nullable=True)
-    matiere = Column(String(50), nullable=True)
-    notion = Column(String(100))
-    duration = Column(Integer)
-    question = Column(String(500))
-    choix = Column(JSON)
-    bonne_reponse = Column(String(255))
-    situation = Column(JSON, nullable=True)
-
-
-class VideoQuestion(Base):
-    __tablename__ = "video_questions"
-    id = Column(String(255), primary_key=True)
-    question = Column(String(500))
-    choix = Column(JSON)
-    bonne_reponse = Column(String(255))
-    niveau = Column(String(50))
-    serie = Column(String(50), nullable=True)
-    matiere = Column(String(50), nullable=True)
-    notion = Column(String(100))
-    duration = Column(Integer)
-    remediation_video_id = Column(String(255), ForeignKey("remediation_videos.id"), nullable=False)
-
-    remediation_video = relationship("RemediationVideo", back_populates="questions")
-
-
-class RemediationVideo(Base):
-    __tablename__ = "remediation_videos"
-    id = Column(String(255), primary_key=True)
-    titre = Column(String(200))
-    niveau = Column(String(50))
-    serie = Column(String(50), nullable=True)
-    matiere = Column(String(50), nullable=True)
-    mois = Column(JSON)
-    videoUrl = Column(String(500))
-    notions = Column(JSON)
-    prerequis = Column(JSON)
-
-    questions = relationship("VideoQuestion", back_populates="remediation_video", cascade="all, delete-orphan")
+# Importation de tous les modèles
+from .user import User
+from .pending_user import PendingUser
+from .question import Question
+from .remediation_progress import RemediationProgress
+from .remediation_video import RemediationVideo
+from .video_question import VideoQuestion
 
 # ----------------- INITIALISATION -----------------
-
 def init_models():
+    """Crée toutes les tables du modèle dans la base de données"""
     Base.metadata.create_all(bind=engine)
+    print("✅ Toutes les tables ont été créées avec succès dans la base de données PostgreSQL !")
 
 # ----------------- UTILITAIRE IMPORT JSON -----------------
 
@@ -69,11 +30,14 @@ def generate_unique_id(existing_ids, base_id):
         i += 1
     return new_id
 
-def import_json_to_db(questions_file="questions.json",
-                      videos_file="remediation_videos.json",
-                      video_questions_file="video_questions.json"):
+
+def import_json_to_db(
+    questions_file="questions.json",
+    videos_file="remediation_videos.json",
+    video_questions_file="video_questions.json"
+):
     """Importe les questions, vidéos et video_questions depuis JSON en évitant les doublons."""
-    
+
     with Session(bind=engine) as db:
         # ---- Questions ----
         try:
@@ -88,13 +52,10 @@ def import_json_to_db(questions_file="questions.json",
                 question = Question(
                     id=q_id,
                     niveau=q.get("niveau"),
-                    serie=q.get("serie"),
-                    matiere=q.get("matiere"),
                     notion=q.get("notion"),
-                    duration=q.get("duration"),
                     question=q.get("question"),
+                    reponse_correcte=q.get("reponse_correcte"),
                     choix=q.get("choix"),
-                    bonne_reponse=q.get("bonne_reponse"),
                     situation=q.get("situation"),
                 )
                 db.merge(question)
@@ -150,7 +111,7 @@ def import_json_to_db(questions_file="questions.json",
                     matiere=vq.get("matiere"),
                     notion=vq.get("notion"),
                     duration=vq.get("duration"),
-                    remediation_video_id=vq.get("remediation_video_id")
+                    remediation_video_id=vq.get("remediation_video_id"),
                 )
                 db.merge(vq_entry)
             db.commit()
