@@ -166,7 +166,7 @@ announcements: List[Announcement] = [
 # -------------------- Middleware -------------------- #
 origins = [
     "http://localhost:5173",  # frontend dev
-    "https://ton-frontend.vercel.app"
+    "https://code-frontend-rho.vercel.app",
 ]
 
 app.add_middleware(
