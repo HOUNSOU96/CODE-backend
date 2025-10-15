@@ -167,6 +167,7 @@ announcements: List[Announcement] = [
 origins = [
     "http://localhost:5173",  # frontend dev
     "https://code-frontend-rho.vercel.app",
+    "https://code-backend-iuol.onrender.com"
 ]
 
 app.add_middleware(
