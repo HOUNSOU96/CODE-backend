@@ -1,16 +1,18 @@
 import os
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 import asyncio
+from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 
-MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-MAIL_FROM = os.environ.get("MAIL_FROM")
-MAIL_FROM_NAME = os.environ.get("MAIL_FROM_NAME")
-MAIL_SERVER = os.environ.get("MAIL_SERVER")
-MAIL_PORT = int(os.environ.get("MAIL_PORT", 465))
-MAIL_STARTTLS = os.environ.get("MAIL_STARTTLS") == "True"
-MAIL_SSL = os.environ.get("MAIL_SSL") == "True"
+# 🔹 Chargement des variables d'environnement
+MAIL_USERNAME = os.getenv("MAIL_USERNAME")
+MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
+MAIL_FROM = os.getenv("MAIL_FROM")
+MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "CODE")
+MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp-relay.brevo.com")
+MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
+MAIL_STARTTLS = os.getenv("MAIL_STARTTLS", "True").lower() == "true"
+MAIL_SSL = os.getenv("MAIL_SSL", "False").lower() == "true"
 
+# 🔹 Configuration du serveur SMTP (Brevo)
 conf = ConnectionConfig(
     MAIL_USERNAME=MAIL_USERNAME,
     MAIL_PASSWORD=MAIL_PASSWORD,
@@ -26,6 +28,7 @@ conf = ConnectionConfig(
 
 fm = FastMail(conf)
 
+# 🔹 Fonction asynchrone d’envoi d’email
 async def send_email(to: str, subject: str, body: str):
     message = MessageSchema(
         subject=subject,
@@ -35,9 +38,13 @@ async def send_email(to: str, subject: str, body: str):
     )
     await fm.send_message(message)
 
+# 🔹 Version synchrone (pour les appels non async)
 def send_email_sync(to: str, subject: str, body: str):
-    loop = asyncio.get_event_loop()
-    if loop.is_running():
-        loop.create_task(send_email(to, subject, body))
-    else:
-        asyncio.run(send_email(to, subject, body))
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            loop.create_task(send_email(to, subject, body))
+        else:
+            asyncio.run(send_email(to, subject, body))
+    except Exception as e:
+        print(f"❌ Erreur d'envoi d'email : {e}")
