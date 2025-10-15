@@ -227,7 +227,7 @@ def get_current_announcement():
 @app.get("/api/announcements/current", response_model=Optional[Announcement])
 def get_announcement(db: Session = Depends(get_db)):
     """Retourne l’annonce courante ou rien pendant la pause"""
-    return get_current_announcement(db)
+    return get_current_announcement()
 
 
 
@@ -521,7 +521,7 @@ def generer_test(niveau: str, serie: Optional[str] = Query(None), current_user: 
     if not filtered:
         raise HTTPException(status_code=404, detail="Aucune question disponible pour ce niveau/serie")
 
-    nb_questions = min(3, len(filtered))
+    nb_questions = min(30, len(filtered))
     questions_posees = random.sample(filtered, nb_questions)
 
     test_id = str(uuid.uuid4())
