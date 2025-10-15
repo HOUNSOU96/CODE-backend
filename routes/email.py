@@ -3,7 +3,8 @@ from fastapi.responses import JSONResponse
 from typing import Annotated
 import shutil
 import os
-from backend.utils.email import send_email_with_pdf
+import json
+from backend.utils.email import fm, MessageSchema  # ✅ importer depuis utils/email.py
 
 router = APIRouter()
 
@@ -14,16 +15,38 @@ async def send_result_pdf(
     apprenant: Annotated[str, Form()],
 ):
     try:
-        import json
         apprenant_dict = json.loads(apprenant)
 
+        # 📄 Sauvegarde temporaire du PDF
         temp_path = f"/tmp/{file.filename}"
         with open(temp_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        await send_email_with_pdf(apprenant=apprenant_dict, niveau=niveau, pdf_path=temp_path)
+        # 📧 Création du message avec pièce jointe
+        subject = f"Résultat du test de positionnement - Niveau {niveau}"
+        body = f"""
+Bonjour {apprenant_dict.get('nom', 'apprenant')},
 
+Voici ton résultat pour le test de niveau {niveau}.
+Tu trouveras le rapport complet en pièce jointe.
+
+L'équipe CODE 🚀
+        """
+
+        message = MessageSchema(
+            subject=subject,
+            recipients=[apprenant_dict.get("email")],
+            body=body,
+            subtype="plain",
+            attachments=[temp_path],  # ✅ ajoute le PDF ici
+        )
+
+        await fm.send_message(message)
+        os.remove(temp_path)  # ✅ Nettoyage du fichier temporaire
+
+        print(f"✅ Mail envoyé à {apprenant_dict.get('email')} pour le niveau {niveau}")
         return JSONResponse(content={"message": "PDF envoyé par email avec succès."})
+
     except Exception as e:
-        print(f"Erreur envoi mail : {e}")
+        print(f"❌ Erreur envoi mail : {e}")
         return JSONResponse(status_code=500, content={"error": str(e)})
