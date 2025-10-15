@@ -15,7 +15,7 @@ if not all([DB_USER, DB_PASSWORD, DB_HOST, DB_NAME]):
 
 DATABASE_URL = f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-print(f"🔗 DATABASE_URL = postgresql+psycopg2://{DB_USER}:****@{DB_HOST}:{DB_PORT}/{DB_NAME}")
+print(f"🔗 DATABASE_URL = postgresql+psycopg://{DB_USER}:****@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 engine = create_engine(DATABASE_URL, echo=True, future=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
