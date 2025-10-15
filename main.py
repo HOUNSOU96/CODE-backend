@@ -164,20 +164,19 @@ announcements: List[Announcement] = [
 
 
 # -------------------- Middleware -------------------- #
+origins = [
+    "http://localhost:5173",  # frontend dev
+    "https://ton-frontend.vercel.app"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:8000",
-        "http://code-frontend-rho.vercel.app",
-    ],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 
@@ -198,7 +197,8 @@ def get_current_announcement():
     ]
 
     if not valid_announcements:
-        return None
+        return {}  # au lieu de None
+
 
     display_time = 30  # secondes affichage
     pause_time = 20    # secondes pause
@@ -225,10 +225,9 @@ def get_current_announcement():
 
 # -------------------- ENDPOINTS -------------------- #
 @app.get("/api/announcements/current", response_model=Optional[Announcement])
-def get_announcement():
+def get_announcement(db: Session = Depends(get_db)):
     """Retourne l’annonce courante ou rien pendant la pause"""
-    return get_current_announcement()
-
+    return get_current_announcement(db)
 
 
 
