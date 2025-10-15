@@ -271,7 +271,13 @@ async def update_last_seen_middleware(request: Request, call_next):
         print(f"🔐 Authorization Header reçu : {auth_header}")
         try:
             db: Session = next(get_db())
-            current_user = await get_current_user(request, db)
+
+            # ✅ Extraire le token du header
+            token = auth_header.split(" ")[1] if " " in auth_header else auth_header
+
+            # ✅ Appeler correctement la fonction
+            current_user = await get_current_user(token, db)
+
             if current_user:
                 current_user.last_seen = datetime.utcnow()
                 db.commit()
@@ -281,9 +287,6 @@ async def update_last_seen_middleware(request: Request, call_next):
         print("🚫 Aucun token reçu dans la requête")
 
     return await call_next(request)
-
-
-
 
 
 
