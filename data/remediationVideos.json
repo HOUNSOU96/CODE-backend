@@ -3079,9 +3079,9 @@
 {
   "id": "vieotiersturels",
   "titre": "Entiers naturels(6e)",
-  "niveau":"6e",
+  "niveau": "6e",
   "mois": ["Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
-  "videoUrl": "http://localhost:8000/RemediationVideos/6e/1-1-1_L_ensemble_des_nombres_entiers_naturels__ℕ(720p).mp4",
+  "videoUrl": "https://www.youtube.com/watch?v=nVkqDYBFC9Q",
   "notions": ["Entiers naturels(6e)"],
   "prerequis": [],
   "questions": [
@@ -3098,6 +3098,107 @@
       "niveau": "6e",
       "notion": "Entiers naturels(6e)",
       "duration": 20
+    },
+    {
+      "id": "enta2",
+      "question": "Lequel de ces nombres est un entier naturel ?",
+      "choix": ["-3", "0", "1.5", "1/2"],
+      "bonne_reponse": "0",
+      "niveau": "6e",
+      "notion": "Entiers naturels(6e)",
+      "duration": 20
+    },
+    {
+      "id": "enta3",
+      "question": "Quel est le plus petit entier naturel ?",
+      "choix": ["1", "0", "-1", "2"],
+      "bonne_reponse": "0",
+      "niveau": "6e",
+      "notion": "Entiers naturels(6e)",
+      "duration": 20
+    },
+    {
+      "id": "enta4",
+      "question": "Si n ∈ ℕ, lequel est vrai ?",
+      "choix": [
+        "n peut être négatif",
+        "n peut être fractionnaire",
+        "n est un entier positif ou nul",
+        "n est un nombre décimal"
+      ],
+      "bonne_reponse": "n est un entier positif ou nul",
+      "niveau": "6e",
+      "notion": "Entiers naturels(6e)",
+      "duration": 20
+    },
+    {
+      "id": "enta5",
+      "question": "Quels nombres appartiennent à ℕ ?",
+      "choix": ["0, 1, 2", "-1, 0, 1", "1/2, 0, 3", "-2, -1, 0"],
+      "bonne_reponse": "0, 1, 2",
+      "niveau": "6e",
+      "notion": "Entiers naturels(6e)",
+      "duration": 25
+    },
+    {
+      "id": "enta6",
+      "question": "Parmi ces nombres, lequel n'appartient pas à ℕ ?",
+      "choix": ["5", "0", "-3", "12"],
+      "bonne_reponse": "-3",
+      "niveau": "6e",
+      "notion": "Entiers naturels(6e)",
+      "duration": 25
+    },
+    {
+      "id": "enta7",
+      "question": "Si a et b sont dans ℕ, que peut-on dire de a+b ?",
+      "choix": [
+        "a+b ∈ ℕ",
+        "a+b peut être négatif",
+        "a+b peut être fractionnaire",
+        "a+b est toujours pair"
+      ],
+      "bonne_reponse": "a+b ∈ ℕ",
+      "niveau": "6e",
+      "notion": "Entiers naturels(6e)",
+      "duration": 30
+    },
+    {
+      "id": "enta8",
+      "question": "Si a ∈ ℕ et a > 0, lequel est vrai ?",
+      "choix": [
+        "a est négatif",
+        "a est un entier positif",
+        "a peut être fractionnaire",
+        "a est nul"
+      ],
+      "bonne_reponse": "a est un entier positif",
+      "niveau": "6e",
+      "notion": "Entiers naturels(6e)",
+      "duration": 30
+    },
+    {
+      "id": "enta9",
+      "question": "Si n ∈ ℕ et n est pair, lequel de ces nombres peut être n ?",
+      "choix": ["1", "0", "3", "-2"],
+      "bonne_reponse": "0",
+      "niveau": "6e",
+      "notion": "Entiers naturels(6e)",
+      "duration": 35
+    },
+    {
+      "id": "enta10",
+      "question": "Lequel de ces énoncés est vrai pour tous les entiers naturels ?",
+      "choix": [
+        "ℕ contient tous les nombres entiers négatifs",
+        "ℕ contient zéro",
+        "ℕ contient tous les nombres décimaux positifs",
+        "ℕ ne contient aucun nombre positif"
+      ],
+      "bonne_reponse": "ℕ contient zéro",
+      "niveau": "6e",
+      "notion": "Entiers naturels(6e)",
+      "duration": 35
     }
   ]
 },

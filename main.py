@@ -482,7 +482,11 @@ def get_questions_par_notions_aleatoires(niveau: str, serie: Optional[str] = Que
         for q in resultat
     ]
 @app.get("/api/questions/{niveau}/generation")
-def generer_test(niveau: str, serie: Optional[str] = Query(None), current_user: User = Depends(get_current_user)):
+def generer_test(
+    niveau: str, 
+    serie: Optional[str] = Query(None), 
+    current_user: User = Depends(get_current_user)
+):
     niveau = niveau.lower()
     if serie == "none":
         serie = None
@@ -492,40 +496,31 @@ def generer_test(niveau: str, serie: Optional[str] = Query(None), current_user: 
         raise HTTPException(status_code=400, detail="Niveau invalide")
 
     niveau_index = ordres_niveaux.index(niveau)
+
+    # Déterminer les niveaux à inclure
+    if niveau in ['6e']:
+        niveaux_a_inclure = ['6e']
+    else:
+        niveaux_a_inclure = ordres_niveaux[:niveau_index + 1]
+
+    # Filtrage des questions
     filtered = []
-
-    if niveau in ['2nde', '1ere', 'tle']:
-        if serie is None:
-            raise HTTPException(status_code=400, detail="La série est obligatoire pour le lycée")
-        serie = serie.upper()
-
-        niveaux_precedents = ordres_niveaux[:niveau_index]  # 6e -> niveau juste en dessous du lycée
-        sous_series_map = {"A": ["A1", "A2"], "F": ["F1", "F2", "F3", "F4"], "G": ["G1", "G2", "G3"]}
-        series_valides = [serie]
-        for s, sous in sous_series_map.items():
-            if serie in sous or serie == s:
-                series_valides.extend(sous)
-                series_valides.append(s)
-
-        filtered = [
-            q for q in questions
-            if q.get("niveau", "").strip().lower() in niveaux_precedents
-            and (
-                q.get("niveau", "").strip().lower() in ['6e','5e','4e','3e']  # collège → ignorer série
-                or (q.get("serie", "").strip().upper() in series_valides)       # lycée → respecter série
-            )
-        ]
-
-    else:  # Collège
-        filtered = [
-            q for q in questions
-            if q.get("niveau", "").strip().lower() == niveau
-        ]
+    for q in questions:
+        q_niveau = q.get("niveau", "").strip().lower()
+        q_serie = q.get("serie", None)
+        if q_niveau in ['6e','5e','4e','3e']:  # Collège
+            if q_niveau in niveaux_a_inclure:
+                filtered.append(q)
+        else:  # Lycée
+            if serie is None:
+                raise HTTPException(status_code=400, detail="La série est obligatoire pour le lycée")
+            if q_niveau in niveaux_a_inclure and q_serie and q_serie.upper() == serie.upper():
+                filtered.append(q)
 
     if not filtered:
         raise HTTPException(status_code=404, detail="Aucune question disponible pour ce niveau/serie")
 
-    nb_questions = min(30, len(filtered))
+    nb_questions = min(20, len(filtered))
     questions_posees = random.sample(filtered, nb_questions)
 
     test_id = str(uuid.uuid4())
