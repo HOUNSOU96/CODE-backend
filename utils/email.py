@@ -10,7 +10,7 @@ MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "CODE")
 MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp-relay.brevo.com")
 MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
 MAIL_STARTTLS = os.getenv("MAIL_STARTTLS", "True").lower() == "true"
-MAIL_SSL = os.getenv("MAIL_SSL", "False").lower() == "true"
+MAIL_SSL_TLS = os.getenv("MAIL_SSL_TLS", "False").lower() == "true"
 
 # 🔹 Configuration du serveur SMTP (Brevo)
 conf = ConnectionConfig(
@@ -20,8 +20,6 @@ conf = ConnectionConfig(
     MAIL_FROM_NAME=MAIL_FROM_NAME,
     MAIL_SERVER=MAIL_SERVER,
     MAIL_PORT=MAIL_PORT,
-    MAIL_TLS=MAIL_STARTTLS,   # 🔹 starttls
-    MAIL_SSL=MAIL_SSL,        # 🔹 SSL
     USE_CREDENTIALS=True,
     VALIDATE_CERTS=True,
 )
@@ -45,7 +43,6 @@ def send_email_sync(to: str, subject: str, body: str, subtype: str = "plain", at
     try:
         asyncio.run(send_email(to, subject, body, subtype=subtype, attachments=attachments))
     except RuntimeError:
-        # Cas où un loop est déjà en cours (FastAPI)
         asyncio.get_event_loop().create_task(send_email(to, subject, body, subtype=subtype, attachments=attachments))
     except Exception as e:
         print(f"❌ Erreur d'envoi d'email : {e}")
