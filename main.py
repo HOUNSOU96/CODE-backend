@@ -674,11 +674,11 @@ async def send_email_with_pdf(to_email: str, pdf_path: str, nom_fichier: str):
     # Envoi via SMTP
     await aiosmtplib.send(
         msg,
-        hostname=MAIL_SERVER,
-        port=MAIL_PORT,
-        username=MAIL_USERNAME,
-        password=MAIL_PASSWORD,
-        use_tls=MAIL_SSL,
+        hostname=os.getenv("MAIL_SERVER"),
+        port=int(os.getenv("MAIL_PORT", 587)),
+        username=os.getenv("MAIL_USERNAME"),
+        password=os.getenv("MAIL_PASSWORD"),
+        start_tls=os.getenv("MAIL_TLS", "True").lower() == "true"
     )
 
 @app.post("/api/send-result-pdf")
