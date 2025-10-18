@@ -740,7 +740,7 @@ async def send_notification_email(to_email: str, subject: str, content: str):
         port=MAIL_PORT,
         username=MAIL_USERNAME,
         password=MAIL_PASSWORD,
-        use_tls=MAIL_SSL,
+        start_tls=True,
     )
 
 

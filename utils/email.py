@@ -20,8 +20,8 @@ conf = ConnectionConfig(
     MAIL_FROM_NAME=MAIL_FROM_NAME,
     MAIL_SERVER=MAIL_SERVER,
     MAIL_PORT=MAIL_PORT,
-    MAIL_STARTTLS=MAIL_STARTTLS,
-    MAIL_SSL_TLS=MAIL_SSL,
+    MAIL_TLS=MAIL_STARTTLS,   # 🔹 starttls
+    MAIL_SSL=MAIL_SSL,        # 🔹 SSL
     USE_CREDENTIALS=True,
     VALIDATE_CERTS=True,
 )
@@ -29,22 +29,23 @@ conf = ConnectionConfig(
 fm = FastMail(conf)
 
 # 🔹 Fonction asynchrone d’envoi d’email
-async def send_email(to: str, subject: str, body: str):
+async def send_email(to: str, subject: str, body: str, subtype: str = "plain", attachments: list[str] = None):
     message = MessageSchema(
         subject=subject,
         recipients=[to],
         body=body,
-        subtype="plain",
+        subtype=subtype,
+        attachments=attachments or [],
     )
     await fm.send_message(message)
 
+
 # 🔹 Version synchrone (pour les appels non async)
-def send_email_sync(to: str, subject: str, body: str):
+def send_email_sync(to: str, subject: str, body: str, subtype: str = "plain", attachments: list[str] = None):
     try:
-        loop = asyncio.get_event_loop()
-        if loop.is_running():
-            loop.create_task(send_email(to, subject, body))
-        else:
-            asyncio.run(send_email(to, subject, body))
+        asyncio.run(send_email(to, subject, body, subtype=subtype, attachments=attachments))
+    except RuntimeError:
+        # Cas où un loop est déjà en cours (FastAPI)
+        asyncio.get_event_loop().create_task(send_email(to, subject, body, subtype=subtype, attachments=attachments))
     except Exception as e:
         print(f"❌ Erreur d'envoi d'email : {e}")
