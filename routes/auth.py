@@ -163,6 +163,7 @@ def register_user(data: RegisterRequest, background_tasks: BackgroundTasks, db: 
         prenom=data.prenom,
         email=data.email,
         parrain_email=data.parrain_email, 
+        telephone=data.telephone,  
         hashed_password=hashed_password,
         is_validated=False,
         is_admin=False,

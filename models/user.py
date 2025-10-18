@@ -17,7 +17,7 @@ class User(Base):
     nom = Column(String(100), nullable=False, index=True)
     prenom = Column(String(100), nullable=False, index=True)
     email = Column(String(255), nullable=False, unique=True, index=True)
-    telephone = Column(String(20), nullable=True, index=True)
+    telephone = Column(String(50), nullable=True, index=True)
 
     sexe = Column(String(1), nullable=True)
     date_naissance = Column(Date, nullable=True)
