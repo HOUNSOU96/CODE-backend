@@ -483,25 +483,20 @@ def get_questions_par_notions_aleatoires(niveau: str, serie: Optional[str] = Que
     ]
 @app.get("/api/questions/{niveau}/generation")
 def generer_test(
-    niveau: str, 
-    serie: Optional[str] = Query(None), 
+    niveau: str,
+    serie: Optional[str] = Query(None),
     current_user: User = Depends(get_current_user)
 ):
     niveau = niveau.lower()
-    if serie == "none":
-        serie = None
-
     ordres_niveaux = ['6e', '5e', '4e', '3e', '2nde', '1ere', 'tle']
+
     if niveau not in ordres_niveaux:
         raise HTTPException(status_code=400, detail="Niveau invalide")
 
     niveau_index = ordres_niveaux.index(niveau)
 
     # Déterminer les niveaux à inclure
-    if niveau in ['6e']:
-        niveaux_a_inclure = ['6e']
-    else:
-        niveaux_a_inclure = ordres_niveaux[:niveau_index + 1]
+    niveaux_a_inclure = ordres_niveaux[:niveau_index + 1]
 
     # Filtrage des questions
     filtered = []
@@ -520,9 +515,11 @@ def generer_test(
     if not filtered:
         raise HTTPException(status_code=404, detail="Aucune question disponible pour ce niveau/serie")
 
+    # Limiter à 20 questions au total, aléatoires
     nb_questions = min(20, len(filtered))
     questions_posees = random.sample(filtered, nb_questions)
 
+    # Créer test_id et sauvegarder
     test_id = str(uuid.uuid4())
     sauvegarder_test({
         "test_id": test_id,
@@ -534,6 +531,7 @@ def generer_test(
     })
 
     return {"test_id": test_id, "questions": questions_posees}
+
 
 
 
