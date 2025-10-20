@@ -667,7 +667,8 @@ async def send_email_with_pdf(to_email: str, pdf_path: str, nom_fichier: str):
     MAIL_PORT = int(getenv("MAIL_PORT", 465))
     MAIL_USERNAME = getenv("MAIL_USERNAME")
     MAIL_PASSWORD = getenv("MAIL_PASSWORD")
-    MAIL_SSL = getenv("MAIL_SSL", "True").lower() == "true"
+    MAIL_STARTTLS = os.getenv("MAIL_STARTTLS", "True").lower() == "true"
+    MAIL_SSL_TLS = getenv("MAIL_SSL_TLS", "False").lower() == "true"
 
     # Envoi via SMTP
     await aiosmtplib.send(
@@ -676,7 +677,7 @@ async def send_email_with_pdf(to_email: str, pdf_path: str, nom_fichier: str):
         port=int(os.getenv("MAIL_PORT", 587)),
         username=os.getenv("MAIL_USERNAME"),
         password=os.getenv("MAIL_PASSWORD"),
-        start_tls=os.getenv("MAIL_TLS", "True").lower() == "true"
+        start_tls=os.getenv("MAIL_STARTTLS", "True").lower() == "true"
     )
 
 @app.post("/api/send-result-pdf")
@@ -727,18 +728,31 @@ async def send_notification_email(to_email: str, subject: str, content: str):
 
 
     MAIL_SERVER = os.getenv("MAIL_SERVER")
-    MAIL_PORT = int(os.getenv("MAIL_PORT", 465))
+    MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
-    MAIL_SSL = os.getenv("MAIL_SSL", "True").lower() == "true"
+    MAIL_FROM = os.getenv("MAIL_FROM")
+    MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "CODE")
+    MAIL_STARTTLS = os.getenv("MAIL_STARTTLS", "True").lower() == "true"
+    MAIL_SSL_TLS = os.getenv("MAIL_SSL_TLS", "False").lower() == "true"
 
-    await aiosmtplib.send(
+    if MAIL_SSL_TLS:
+      await aiosmtplib.send(
         msg,
         hostname=MAIL_SERVER,
         port=MAIL_PORT,
         username=MAIL_USERNAME,
         password=MAIL_PASSWORD,
-        start_tls=True,
+        use_tls=True
+    )
+    else:
+      await aiosmtplib.send(
+        msg,
+        hostname=MAIL_SERVER,
+        port=MAIL_PORT,
+        username=MAIL_USERNAME,
+        password=MAIL_PASSWORD,
+        start_tls=MAIL_STARTTLS
     )
 
 
