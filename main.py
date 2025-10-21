@@ -663,6 +663,7 @@ async def send_email_with_pdf(to_email: str, pdf_path: str, nom_fichier: str):
 
     # Lecture des variables d'environnement
     from os import getenv
+    BREVO_API_KEY = os.getenv("BREVO_API_KEY")
     MAIL_SERVER = getenv("MAIL_SERVER")
     MAIL_PORT = int(getenv("MAIL_PORT", 465))
     MAIL_USERNAME = getenv("MAIL_USERNAME")
@@ -673,10 +674,10 @@ async def send_email_with_pdf(to_email: str, pdf_path: str, nom_fichier: str):
     # Envoi via SMTP
     await aiosmtplib.send(
         msg,
-        hostname=os.getenv("MAIL_SERVER"),
+        hostname=os.getenv("MAIL_SERVER","smtp-relay.sendinblue.com"),
         port=int(os.getenv("MAIL_PORT", 587)),
         username=os.getenv("MAIL_USERNAME"),
-        password=os.getenv("MAIL_PASSWORD"),
+        password=os.getenv("BREVO_API_KEY"),
         start_tls=os.getenv("MAIL_STARTTLS", "True").lower() == "true"
     )
 
@@ -727,10 +728,11 @@ async def send_notification_email(to_email: str, subject: str, content: str):
     msg.set_content(content)
 
 
-    MAIL_SERVER = os.getenv("MAIL_SERVER")
+    BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+    MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp-relay.sendinblue.com")
     MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
+    MAIL_PASSWORD = os.getenv(" BREVO_API_KEY")
     MAIL_FROM = os.getenv("MAIL_FROM")
     MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "CODE")
     MAIL_STARTTLS = os.getenv("MAIL_STARTTLS", "True").lower() == "true"
@@ -742,7 +744,7 @@ async def send_notification_email(to_email: str, subject: str, content: str):
         hostname=MAIL_SERVER,
         port=MAIL_PORT,
         username=MAIL_USERNAME,
-        password=MAIL_PASSWORD,
+        password=BREVO_API_KEY,
         use_tls=True
     )
     else:
@@ -751,7 +753,7 @@ async def send_notification_email(to_email: str, subject: str, content: str):
         hostname=MAIL_SERVER,
         port=MAIL_PORT,
         username=MAIL_USERNAME,
-        password=MAIL_PASSWORD,
+        password=BREVO_API_KEY,
         start_tls=MAIL_STARTTLS
     )
 
