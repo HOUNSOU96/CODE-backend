@@ -732,7 +732,7 @@ async def send_notification_email(to_email: str, subject: str, content: str):
     MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp-relay.sendinblue.com")
     MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv(" BREVO_API_KEY")
+    MAIL_PASSWORD = os.getenv("BREVO_API_KEY")
     MAIL_FROM = os.getenv("MAIL_FROM")
     MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "CODE")
     MAIL_STARTTLS = os.getenv("MAIL_STARTTLS", "True").lower() == "true"
@@ -744,7 +744,7 @@ async def send_notification_email(to_email: str, subject: str, content: str):
         hostname=MAIL_SERVER,
         port=MAIL_PORT,
         username=MAIL_USERNAME,
-        password=BREVO_API_KEY,
+        password=MAIL_PASSWORD,
         use_tls=True
     )
     else:
@@ -753,7 +753,7 @@ async def send_notification_email(to_email: str, subject: str, content: str):
         hostname=MAIL_SERVER,
         port=MAIL_PORT,
         username=MAIL_USERNAME,
-        password=BREVO_API_KEY,
+        password=MAIL_PASSWORD,
         start_tls=MAIL_STARTTLS
     )
 
