@@ -167,6 +167,7 @@ announcements: List[Announcement] = [
 # -------------------- Middleware -------------------- #
 origins = [
     "http://localhost:5173",  # frontend dev
+    "https://moravi.vercel.app",
     "https://code-frontend-rho.vercel.app",
     "https://code-backend-iuol.onrender.com"
 ]
