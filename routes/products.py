@@ -3,6 +3,9 @@ from typing import Optional
 import os
 import json
 
+BACKEND_URL = os.environ.get("BACKEND_URL", "http://localhost:8000")
+
+
 router = APIRouter(prefix="/api/v1/products", tags=["Products"])
 
 # Chemins vers les dossiers d'images
@@ -52,7 +55,7 @@ for category, folder in IMAGE_FOLDERS.items():
                     "category": category.lower(),
                     "price": data["price"],
                     "promoPrice": data.get("promoPrice", 0),
-                    "image_url": f"/images/{category.lower()}/{filename}",
+                    "image_url": f"{BACKEND_URL}/images/{category.lower()}/{filename}",
                     "featured": True,
                     "short_description": data["short_description"]
                 })
@@ -75,13 +78,8 @@ def get_products(
         filtered = filtered[:limit]
     return {"products": filtered}
 
-# 🔹 Récupérer un produit par ID
-@router.get("/{id}")
-def get_product_by_id(id: int):
-    product = next((p for p in PRODUCTS if p["id"] == id), None)
-    if not product:
-        raise HTTPException(status_code=404, detail="Produit introuvable")
-    return product
+
+
 
 # 🔹 Récupérer un produit par slug
 @router.get("/slug/{slug}")
@@ -90,3 +88,13 @@ def get_product_by_slug(slug: str):
     if not product:
         raise HTTPException(status_code=404, detail="Produit introuvable")
     return product
+
+# 🔹 Récupérer un produit par ID
+@router.get("/{id}")
+def get_product_by_id(id: int):
+    product = next((p for p in PRODUCTS if p["id"] == id), None)
+    if not product:
+        raise HTTPException(status_code=404, detail="Produit introuvable")
+    return product
+
+

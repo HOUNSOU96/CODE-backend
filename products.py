@@ -3,6 +3,8 @@ import re
 import json
 from slugify import slugify  # pip install python-slugify
 
+BACKEND_URL = os.environ.get("BACKEND_URL", "http://localhost:8000")
+
 # --- CONFIG ---
 categories = {
     "vins": "Images/vins",
@@ -49,7 +51,7 @@ def generate_products_json():
                 # Création produit JSON
                 product_name = f"{prefix.capitalize()} {counter-1}"
                 product_slug = slugify(product_name)
-                image_url = f"/Images/{prefix}/{filename}"  # chemin relatif frontend
+                image_url = f"{BACKEND_URL}/images/{prefix}/{filename}"  # chemin relatif frontend
                 short_description = f"Description courte pour {product_name}."
                 prices = price_lookup.get(product_name, {"price": 0, "promoPrice": 0})
                 price = prices["price"]
