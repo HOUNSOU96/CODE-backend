@@ -167,10 +167,8 @@ announcements: List[Announcement] = [
 # -------------------- Middleware -------------------- #
 origins = [
     "http://localhost:5173",  # frontend local
-    "https://code-frontend-rho.vercel.app",  # ton frontend Vercel (CODE)
-    "https://moravi.vercel.app",              # ton autre frontend (Moravi)
-    os.environ.get("FRONTEND_CODE"),
-    os.environ.get("FRONTEND_MORAVI"),
+    "https://code-frontend-rho.vercel.app",  # frontend CODE sur Vercel
+    "https://moravi.vercel.app",              # frontend MORAVI sur Vercel
 ]
 
 
