@@ -28,5 +28,6 @@ SQLAlchemy==2.0.43
 uvicorn==0.37.0
 passlib[bcrypt]==1.7.4
 psycopg[binary]==3.2.3
+python-slugify
 
 
