@@ -1,9 +1,10 @@
-# backend/database.py
+# 📁 backend/database.py
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from dotenv import load_dotenv
 
+# Charger les variables d'environnement depuis .env
 load_dotenv()
 
 DB_USER = os.getenv("DB_USER")
@@ -12,18 +13,28 @@ DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT", "5432")
 DB_NAME = os.getenv("DB_DATABASE")
 
-if all([DB_USER, DB_PASSWORD, DB_HOST, DB_NAME]):
-    DATABASE_URL = f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-else:
-    print("⚠️ Variables DB non trouvées, utilisation de SQLite pour le développement")
-    DATABASE_URL = "sqlite:///./dev.db"
+if not all([DB_USER, DB_PASSWORD, DB_HOST, DB_NAME]):
+    raise ValueError("❌ Une ou plusieurs variables d'environnement DB ne sont pas définies !")
 
-print(f"🔗 DATABASE_URL = {DATABASE_URL}")
+# ✅ Chaîne de connexion adaptée à Neon (avec SSL obligatoire)
+DATABASE_URL = f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}?sslmode=require"
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False} if "sqlite" in DATABASE_URL else {})
+print(f"🔗 DATABASE_URL = postgresql+psycopg://{DB_USER}:****@{DB_HOST}:{DB_PORT}/{DB_NAME}")
+
+# Création du moteur SQLAlchemy
+engine = create_engine(
+    DATABASE_URL,
+    echo=True,        # Affiche les requêtes SQL dans la console
+    future=True
+)
+
+# Configuration de la session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Base pour les modèles SQLAlchemy
 Base = declarative_base()
 
+# Dépendance FastAPI pour obtenir la session
 def get_db():
     db = SessionLocal()
     try:

@@ -146,14 +146,14 @@ announcements: List[Announcement] = [
     Announcement(
         id=2,
         type="avantage",
-        message="📩 Pour nous soutenir, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    +229 01 52 99 95 32 (AZON Roméo D.) ou par mail : deogratiashounsou@gmail.com",
+        message="📩 Pour nous soutenir, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    +229 01 52 99 95 32 (AZON Roméo E.) ou par mail : deogratiashounsou@gmail.com",
         start_date=datetime(2025, 9, 1),
         end_date=datetime(2025, 12, 31),
     ),
     Announcement(
         id=1,
         type="info",
-        message="📩 Pour vos différentes publicités, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    +229 01 52 99 95 32 (AZON Roméo D.) ou par mail : deogratiashounsou@gmail.com",
+        message="📩 Pour vos différentes publicités, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    +229 01 52 99 95 32 (AZON Roméo E.) ou par mail : deogratiashounsou@gmail.com",
         start_date=datetime(2025, 9, 1),
         end_date=datetime(2025, 12, 31),
     ),
@@ -167,10 +167,11 @@ announcements: List[Announcement] = [
 # -------------------- Middleware -------------------- #
 origins = [
     "http://localhost:5173",  # frontend dev
-    "https://moravi.vercel.app",
-    "https://code-frontend-rho.vercel.app",
+    os.environ.get("FRONTEND_CODE"),
+    os.environ.get("FRONTEND_MORAVI"),
     "https://code-backend-iuol.onrender.com"
 ]
+
 
 app.add_middleware(
     CORSMiddleware,
