@@ -169,6 +169,8 @@ origins = [
     "http://localhost:5173",  # frontend local
     "https://code-frontend-rho.vercel.app",  # frontend CODE sur Vercel
     "https://moravi.vercel.app",              # frontend MORAVI sur Vercel
+    os.environ.get("FRONTEND_CODE"),
+    os.environ.get("FRONTEND_MORAVI"),
 ]
 
 
