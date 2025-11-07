@@ -30,7 +30,7 @@ from utils.evaluation import evaluer_reponses
 from utils.tests import sauvegarder_test, charger_test, supprimer_test
 from models.user import User
 from dependencies import get_current_user
-from routes import  progression, remediation_progress, auth, products, promotions
+from routes import  progression, remediation_progress, auth, products
 from models import init_models
 import unicodedata
 
@@ -257,7 +257,7 @@ app.include_router(remediation_progress.router, prefix="/api/remediation-progres
 app.include_router(progression.router)
 app.include_router(admin_router)
 app.include_router(products.router)
-app.include_router(promotions.router)
+
 
 
 
