@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Promo Vins 1",
+    "slug": "promo-vins-1",
+    "price": 31.54,
+    "promoPrice": 28.39,
+    "image_url": "/Images/vins/vins1.jpg",
+    "short_description": "Promotion spéciale sur Vins 1.",
+    "category": "vins"
+  },
+  {
+    "id": 2,
+    "name": "Promo Alimentaire 1",
+    "slug": "promo-alimentaire-1",
+    "price": 17.77,
+    "promoPrice": 15.99,
+    "image_url": "/Images/alimentaire/alimentaire2.jpg",
+    "short_description": "Promotion sur Alimentaire 2.",
+    "category": "alimentaire"
+  },
+  {
+    "id": 3,
+    "name": "Promo Entretien 1",
+    "slug": "promo-entretien-1",
+    "price": 13.45,
+    "promoPrice": 12.11,
+    "image_url": "/Images/entretien/entretien1.jpg",
+    "short_description": "Promotion sur Entretien 1.",
+    "category": "entretien"
+  },
+  {
+    "id": 4,
+    "name": "Promo Vins 2",
+    "slug": "promo-vins-2",
+    "price": 48.36,
+    "promoPrice": 43.52,
+    "image_url": "/Images/vins/vins13.jpg",
+    "short_description": "Promotion sur Vins 5.",
+    "category": "vins"
+  },
+  {
+    "id": 5,
+    "name": "Promo Alimentaire 2",
+    "slug": "promo-alimentaire-2",
+    "price": 11.02,
+    "promoPrice": 9.92,
+    "image_url": "/Images/alimentaire/alimentaire4.jpg",
+    "short_description": "Promotion sur Alimentaire 4.",
+    "category": "alimentaire"
+  }
+]
