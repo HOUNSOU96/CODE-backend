@@ -18,8 +18,8 @@ def send_admin_validation_emails(new_user: User, background_tasks: BackgroundTas
     admins = db.query(User).filter(User.is_admin == True).all()
     for admin in admins:
         subject = "Nouvelle inscription CODE à valider"
-        accept_link = f"{os.getenv('FRONTEND_URL')}/api/admin/validate/{new_user.validation_token}/accept"
-        reject_link = f"{os.getenv('FRONTEND_URL')}/api/admin/validate/{new_user.validation_token}/reject"
+        accept_link = f"{os.getenv('FRONTEND_CODE')}/api/admin/validate/{new_user.validation_token}/accept"
+        reject_link = f"{os.getenv('FRONTEND_CODE')}/api/admin/validate/{new_user.validation_token}/reject"
         content = (
             f"Bonjour {admin.nom},\n\n"
             f"Nouvelle inscription de {new_user.nom} {new_user.prenom} ({new_user.email}).\n\n"
