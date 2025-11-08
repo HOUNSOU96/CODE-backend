@@ -910,21 +910,21 @@ def get_remediation_videos(niveau: str = Query(...)):
         if normalize_string(video.get("niveau")) in [normalize_string(n) for n in niveaux_valides]:
             add_video_recursive(video)
 
+    
     return [
-        {
-            "id": v["id"],
-            "titre": v["titre"],
-            "niveau": v["niveau"],
-            "fichier": v.get("fichier") or v.get("videoUrl"),
-            "mois": v["mois"],
-            "notions": v.get("notions"),
-            "prerequis": v["prerequis"],
-            "questions": v["questions"],
-            "videoUrl": v.get("videoUrl"), 
-        }
-        for v in result
-    ]
-
+    {
+        "id": v["id"],
+        "titre": v["titre"],
+        "niveau": v["niveau"],
+        "fichier": v.get("fichier") or v.get("videoUrl"),
+        "mois": v.get("mois"),  # <- safe, renvoie None si absent
+        "notions": v.get("notions"),
+        "prerequis": v.get("prerequis"),
+        "questions": v.get("questions"),
+        "videoUrl": v.get("videoUrl"),
+    }
+    for v in result
+]
 
 
 
@@ -1038,7 +1038,7 @@ async def notify_connect(
 
 
 @app.post("/api/notify/disconnect")
-async def notify_connect(
+async def notify_disconnect(
     payload: NotifyRequest,
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)

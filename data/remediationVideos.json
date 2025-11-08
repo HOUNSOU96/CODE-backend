@@ -6835,7 +6835,7 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=8vB2JUGuUDM",
   "notions": ["Nombres réels(3e)"],
-  "prerequis": [ "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)" ],
+  "prerequis": ["Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"],
   "questions": [
     {
       "id": "real1",
@@ -6994,7 +6994,7 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=8vB2JUGuUDM",
   "notions": ["Nombres réels(3e)"],
-  "prerequis": [ "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)" ],
+  "prerequis": ["Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"],
   "questions": [
     {
       "id": "num1",
@@ -7154,7 +7154,7 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=8vB2JUGuUDM",
   "notions": ["Nombres réels(3e)"],
-  "prerequis": [ "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)" ],
+  "prerequis": ["Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"],
   "questions": [
     {
       "id": "irr1",
@@ -7314,12 +7314,10 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=uf7biPytTL4",
   "notions": ["Nombres réels(3e)"],
-  "prerequis": [
-    "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
+  "prerequis": ["Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
     "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", 
     "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", 
-    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"
-  ],
+    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"],
   "questions": [
     {
       "id": "tri1",
@@ -7455,8 +7453,7 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=-zZm_qk-Efw",
   "notions": ["Nombres réels(3e)"],
-  "prerequis": [ 
-    "Entiers naturels(6e)", 
+  "prerequis": ["Entiers naturels(6e)", 
     "Division dans IN(5e)", 
     "Arithmétiques: PPCM-PGCD(4e)", 
     "Nombres décimaux arithmétiques(6e)", 
@@ -7467,8 +7464,7 @@
     "Fractions(4e)", 
     "Nombres rationnels(4e)", 
     "Calcul littéral(6e)", 
-    "Calculs sur les expressions algébriques(4e)" 
-  ],
+    "Calculs sur les expressions algébriques(4e)"],
   "questions": [
     {
       "id": "esc1",
@@ -7625,12 +7621,10 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=z3RzvSo6m_g",
   "notions": ["Nombres réels(3e)"],
-  "prerequis": [
-    "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
+  "prerequis": ["Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
     "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", 
     "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", 
-    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"
-  ],
+    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"],
   "questions": [
     {
       "id": "dev1",
@@ -7844,12 +7838,10 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=12eL9LBY02U",
   "notions": ["Nombres réels(3e)"],
-  "prerequis": [
-    "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
+  "prerequis": ["Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
     "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", 
     "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", 
-    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"
-  ],
+    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"],
   "questions": [
     {
       "id": "fact1",
@@ -8047,12 +8039,10 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=iwtVOiSJ2Hs",
   "notions": ["Nombres réels(3e)"],
-  "prerequis": [
-     "Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
+  "prerequis": ["Entiers naturels(6e)", "Division dans IN(5e)", "Arithmétiques: PPCM-PGCD(4e)", 
     "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", 
     "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", 
-    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"
-  ],
+    "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"],
   "questions": [
     {
       "id": "rac1",
@@ -8123,7 +8113,10 @@
       "choix": ["4√2", "5√2", "6√2", "3√2"],
       "bonne_reponse": "5√2",
       "duration": 60
-    },
+    }
+     ]
+}
+    ,
     {
   "id": "video_puissances_complements",
   "titre": "Compléments sur les puissances et racines carrées (3e)",
@@ -8131,16 +8124,14 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=iwtVOiSJ2Hs",
   "notions": ["Nombres réels (3e)"],
-  "prerequis": [
-    "Entiers naturels (6e)",
+  "prerequis": ["Entiers naturels (6e)",
     "Puissances d’un nombre (5e)",
     "Arithmétique : PPCM - PGCD (4e)",
     "Nombres décimaux relatifs (5e)",
     "Fractions (4e)",
     "Nombres rationnels (4e)",
     "Calcul littéral (6e)",
-    "Calculs sur les expressions algébriques (4e)"
-  ],
+    "Calculs sur les expressions algébriques (4e)"],
   "questions": [
     {
       "id": "pc1",
@@ -8275,9 +8266,8 @@
       "duration": 60
     }
   ]
-}
-]
 },
+
 {
   "id": "video_puissances_racines",
   "titre": "Puissances et racines carrées (3e)",
@@ -14129,7 +14119,7 @@
   ]
 },
 {
-  "id": "video58",
+  "id": "video5343438",
   "titre": "Équation d'une droite, parallélisme et perpendicularité (3e)",
   "niveau": "3e",
   "mois": ["Mars", "Avril", "Mai", "Juin", "Juillet", "Août"],
@@ -14737,7 +14727,7 @@
     }
   ]
 }
-
+,
 
 
 
