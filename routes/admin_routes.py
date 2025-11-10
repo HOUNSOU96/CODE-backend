@@ -5,7 +5,9 @@ from datetime import datetime, timedelta
 from models.user import User, UserStatus
 from dependencies import get_current_user
 from utils.email import send_email, send_email_sync
-
+from typing import List
+from models.connection_log import UserConnectionLog
+from pydantic import BaseModel
 from database import get_db
 from utils.email import send_email
 import uuid
@@ -13,13 +15,24 @@ import os
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
+
+
+class ConnectionRecord(BaseModel):
+    id: int
+    nom: str
+    prenom: str
+    date: str
+    heure_connexion: str
+    heure_deconnexion: str
+
+
 # ---------------- Fonction d'envoi emails aux admins ----------------
 def send_admin_validation_emails(new_user: User, background_tasks: BackgroundTasks, db: Session):
     admins = db.query(User).filter(User.is_admin == True).all()
     for admin in admins:
         subject = "Nouvelle inscription CODE à valider"
-        accept_link = f"{os.getenv('FRONTEND_CODE')}/api/admin/validate/{new_user.validation_token}/accept"
-        reject_link = f"{os.getenv('FRONTEND_CODE')}/api/admin/validate/{new_user.validation_token}/reject"
+        accept_link = f"{os.getenv('FRONTEND_URL')}/api/admin/validate/{new_user.validation_token}/accept"
+        reject_link = f"{os.getenv('FRONTEND_URL')}/api/admin/validate/{new_user.validation_token}/reject"
         content = (
             f"Bonjour {admin.nom},\n\n"
             f"Nouvelle inscription de {new_user.nom} {new_user.prenom} ({new_user.email}).\n\n"
@@ -78,6 +91,28 @@ def liste_inscrits(
         "total": total,
         "inscrits": data,
     }
+
+
+@router.get("/historique-connections", response_model=List[ConnectionRecord])
+def get_historique_connections(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403)
+
+    logs = db.query(UserConnectionLog).all()  # récupère tous les logs
+    return [
+        ConnectionRecord(
+            id=log.user.id,
+            nom=log.user.nom,
+            prenom=log.user.prenom,
+            date=log.date.strftime("%Y-%m-%d"),
+            heure_connexion=log.heure_connexion.strftime("%H:%M"),
+            heure_deconnexion=log.heure_deconnexion.strftime("%H:%M") if log.heure_deconnexion else "-"
+        )
+        for log in logs
+    ]
+
+
+
 
 
 # ---------------- Création utilisateur admin ----------------

@@ -28,6 +28,8 @@ class User(Base):
     hashed_password = Column(String(255), nullable=False)
     plain_password = Column(String(255), nullable=True)
     parrain_email = Column(String(255), nullable=True)
+    
+    
 
     is_online = Column(Boolean, default=False)
     status = Column(String(50), default=UserStatus.PENDING.value)
@@ -48,6 +50,9 @@ class User(Base):
     reset_token_expiry = Column(DateTime, nullable=True)
 
     remediations = relationship("RemediationProgress", back_populates="user")
+
+    connection_logs = relationship("UserConnectionLog", back_populates="user", cascade="all, delete-orphan")
+
 
     def __repr__(self):
         return f"<User(id={self.id}, email={self.email}, status={self.status}, validated={self.is_validated})>"
