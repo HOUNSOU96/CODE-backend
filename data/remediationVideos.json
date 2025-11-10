@@ -8123,7 +8123,7 @@
   "niveau": "3e",
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=iwtVOiSJ2Hs",
-  "notions": ["Nombres réels (3e)"],
+  "notions": ["Nombres réels(3e)"],
   "prerequis": ["Entiers naturels (6e)",
     "Puissances d’un nombre (5e)",
     "Arithmétique : PPCM - PGCD (4e)",
