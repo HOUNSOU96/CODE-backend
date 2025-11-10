@@ -440,6 +440,50 @@ def get_me(current_user: User = Depends(get_current_user)):
         "prenom": current_user.prenom,
     }
 
+
+
+@app.get("/api/admin/parrain/{email}")
+def get_parrain_details(email: str, db: Session = Depends(get_db)):
+    # Récupération du parrain
+    parrain = db.query(User).filter(User.email == email).first()
+    if not parrain:
+        raise HTTPException(status_code=404, detail="Parrain non trouvé")
+
+    # Récupération des filleuls dont le parrain_email correspond, mais en excluant le parrain lui-même
+    filleuls = (
+        db.query(User)
+        .filter(User.parrain_email == email)
+        .filter(User.email != email)  # <-- exclure le parrain lui-même
+        .all()
+    )
+
+    return {
+        "id": parrain.id,
+        "nom": parrain.nom,
+        "prenom": parrain.prenom,
+        "email": parrain.email,
+        "telephone": parrain.telephone,
+        "date_inscription": parrain.date_inscription,
+        "is_blocked": parrain.is_blocked,
+        "total_filleuls": len(filleuls),
+        "filleuls": [
+            {
+                "id": f.id,
+                "nom": f.nom,
+                "prenom": f.prenom,
+                "email": f.email,
+                "telephone": f.telephone,
+                "date_inscription": f.date_inscription,
+                "is_blocked": f.is_blocked,
+                "is_online": f.is_online,
+            }
+            for f in filleuls
+        ],
+    }
+
+
+
+
 @app.get("/api/questions_fichier/{niveau}")
 def get_questions_par_fichier(niveau: str, serie: Optional[str] = Query(None)):
     niveau = niveau.lower()

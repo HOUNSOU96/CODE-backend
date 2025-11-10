@@ -45,31 +45,40 @@ def liste_inscrits(
     total = query.count()
     inscrits = query.offset((page - 1) * page_size).limit(page_size).all()
 
-    online_threshold = datetime.utcnow() - timedelta(minutes=1)  # connecté si activité dans les 5 dernières minutes
+    online_threshold = datetime.utcnow() - timedelta(minutes=1)  # connecté si activité dans la dernière minute
 
+    data = []  # Liste finale des inscrits enrichis
+
+    for user in inscrits:
+        # Récupération des filleuls
+        filleuls = db.query(User.email).filter(User.parrain_email == user.email).all()
+
+        # Construction du dictionnaire utilisateur
+        user_data = {
+            "id": user.id,
+            "nom": user.nom,
+            "prenom": user.prenom,
+            "email": user.email,
+            "telephone": user.telephone,
+            "is_validated": user.is_validated,
+            "status": user.status if user.status else UserStatus.ACTIVE.value,
+            "is_admin": user.is_admin,
+            "is_blocked": user.is_blocked,
+            "last_warning": user.last_warning,
+            "parrain_email": user.parrain_email,
+            "pays_residence": user.pays_residence,
+            "date_inscription": user.created_at if hasattr(user, "created_at") else None,
+            "is_online": bool(user.last_seen and user.last_seen > online_threshold),
+            "filleuls_emails": [f[0] for f in filleuls],  # ✅ liste des e-mails de filleuls
+        }
+
+        data.append(user_data)
 
     return {
         "total": total,
-        "inscrits": [
-            {
-                "id": i.id,
-                "nom": i.nom,
-                "prenom": i.prenom,
-                "email": i.email,
-                "telephone": i.telephone,
-                "is_validated": i.is_validated,
-                "status": i.status if i.status else UserStatus.ACTIVE.value,
-                "is_admin": i.is_admin,
-                "is_blocked": i.is_blocked,
-                "last_warning": i.last_warning,
-                "parrain_email": i.parrain_email,
-                "pays_residence": i.pays_residence,
-                "date_inscription": i.created_at if hasattr(i, "created_at") else None,
-                "is_online": bool(i.last_seen and i.last_seen > online_threshold)
-            }
-            for i in inscrits
-        ],
+        "inscrits": data,
     }
+
 
 # ---------------- Création utilisateur admin ----------------
 @router.post("/create-user")
