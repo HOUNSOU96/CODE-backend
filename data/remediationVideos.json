@@ -14728,11 +14728,1596 @@
   ]
 }
 ,
+{
+
+  "id": "videovideo58",
+    "titre": "Equations et Inéquations(3e)",
+    "niveau":"3e",
+    "mois": ["Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+    "videoUrl": "https://www.youtube.com/watch?v=YfohJYZeqhk",
+    "notions": ["Equations et Inéquations(3e)"],
+    "prerequis": [
+      "Entiers naturels(6e)",
+      "Nombres décimaux arithmétiques(6e)",
+      "Nombres relatifs(5e)",
+      "Fractions(6e)",
+      "Fractions(5e)",
+      "Nombres rationnels(4e)",
+      "Calcul littéral(6e)",
+      "Equations(5e)",
+      "Equations-Inéquations(4e)",
+      "Equations de droites(3e)",
+      "Equations-Inéquations(4e)",
+      "Projection(4e)"
+    ],
+  "questions": [
+    {
+      "id": "ineq1",
+      "question": "Qu’est-ce qu’une inéquation ?",
+      "choix": [
+        "Une égalité entre deux nombres",
+        "Une inégalité entre deux expressions contenant une inconnue",
+        "Une équation à deux inconnues",
+        "Une proportionnalité"
+      ],
+      "bonne_reponse": "Une inégalité entre deux expressions contenant une inconnue",
+      "duration": 25
+    },
+    {
+      "id": "ineq2",
+      "question": "Résoudre une inéquation, c’est :",
+      "choix": [
+        "Trouver une seule valeur de x",
+        "Trouver toutes les valeurs de x qui rendent l’inégalité vraie",
+        "Simplifier l’expression",
+        "Tracer une droite"
+      ],
+      "bonne_reponse": "Trouver toutes les valeurs de x qui rendent l’inégalité vraie",
+      "duration": 25
+    },
+    {
+      "id": "ineq3",
+      "question": "Dans 7x + 3 > 0, quelle est la première étape ?",
+      "choix": [
+        "Diviser par 7",
+        "Soustraire 3 des deux côtés",
+        "Ajouter 3 aux deux côtés",
+        "Changer le signe de l’inégalité"
+      ],
+      "bonne_reponse": "Soustraire 3 des deux côtés",
+      "duration": 25
+    },
+    {
+      "id": "ineq4",
+      "question": "Quand on multiplie ou divise une inégalité par un nombre positif, que se passe-t-il ?",
+      "choix": [
+        "Le sens de l’inégalité change",
+        "Le sens de l’inégalité reste le même",
+        "L’inégalité devient une équation",
+        "Elle perd sa validité"
+      ],
+      "bonne_reponse": "Le sens de l’inégalité reste le même",
+      "duration": 25
+    },
+    {
+      "id": "ineq5",
+      "question": "Que faut-il faire si on divise une inégalité par un nombre négatif ?",
+      "choix": [
+        "Ne rien changer",
+        "Changer le sens de l’inégalité",
+        "Ajouter 1",
+        "Mettre un signe égal"
+      ],
+      "bonne_reponse": "Changer le sens de l’inégalité",
+      "duration": 25
+    },
+    {
+      "id": "ineq6",
+      "question": "La solution de 7x + 3 > 0 est :",
+      "choix": [
+        "x > -3/7",
+        "x < -3/7",
+        "x = -3/7",
+        "x ≥ -3/7"
+      ],
+      "bonne_reponse": "x > -3/7",
+      "duration": 25
+    },
+    {
+      "id": "ineq7",
+      "question": "Dans -4x - 5 ≤ 0, pourquoi l’inégalité change-t-elle de sens lors de la division par -4 ?",
+      "choix": [
+        "Parce que -4 est négatif",
+        "Parce que x est inconnu",
+        "Parce que l’on ajoute un nombre",
+        "Parce que c’est une règle spéciale"
+      ],
+      "bonne_reponse": "Parce que -4 est négatif",
+      "duration": 25
+    },
+    {
+      "id": "ineq8",
+      "question": "La solution de -4x - 5 ≤ 0 est :",
+      "choix": [
+        "x ≥ -5/4",
+        "x ≤ -5/4",
+        "x = -5/4",
+        "x > -5/4"
+      ],
+      "bonne_reponse": "x ≥ -5/4",
+      "duration": 25
+    },
+    {
+      "id": "ineq9",
+      "question": "Lorsque x ≤ 8/3, comment représente-t-on les solutions sur une droite graduée ?",
+      "choix": [
+        "Toutes les valeurs à droite de 8/3",
+        "Toutes les valeurs à gauche de 8/3",
+        "Uniquement le point 8/3",
+        "Aucune valeur"
+      ],
+      "bonne_reponse": "Toutes les valeurs à gauche de 8/3",
+      "duration": 25
+    },
+    {
+      "id": "ineq10",
+      "question": "Quel est l’ensemble des solutions de -3x + 8 ≥ 0 ?",
+      "choix": [
+        "x ≥ 8/3",
+        "x ≤ 8/3",
+        "x = 8/3",
+        "x > 8/3"
+      ],
+      "bonne_reponse": "x ≤ 8/3",
+      "duration": 25
+    }
+  ]
+}
+,
+
+{ 
 
 
 
 
+  "id": "videovide58",
+    "titre": "Inéquations du type ax + b ≤ cx + d (3e)",
+    "niveau":"3e",
+    "mois": ["Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+    "videoUrl": "https://www.youtube.com/watch?v=2im2mfY_AMM",
+    "notions": ["Equations et Inéquations(3e)"],
+    "prerequis": [
+      "Entiers naturels(6e)",
+      "Nombres décimaux arithmétiques(6e)",
+      "Nombres relatifs(5e)",
+      "Fractions(6e)",
+      "Fractions(5e)",
+      "Nombres rationnels(4e)",
+      "Calcul littéral(6e)",
+      "Equations(5e)",
+      "Equations-Inéquations(4e)",
+      "Equations de droites(3e)",
+      "Equations-Inéquations(4e)",
+      "Projection(4e)"
+    ],
+  "questions": [
+    {
+      "id": "ineq1",
+      "question": "Que signifie résoudre une inéquation ?",
+      "choix": [
+        "Trouver toutes les valeurs qui rendent l’inégalité vraie",
+        "Trouver une seule valeur qui vérifie l’équation",
+        "Calculer le coefficient d’inconnue",
+        "Simplifier l’expression"
+      ],
+      "bonne_reponse": "Trouver toutes les valeurs qui rendent l’inégalité vraie",
+     "duration": 25
+    },
+    {
+      "id": "ineq2",
+      "question": "Si l’on a l’inéquation 3x + 5 > 2, quelle est la première étape ?",
+      "choix": [
+        "Soustraire 5 des deux côtés",
+        "Diviser par 3",
+        "Changer le signe de l’inégalité",
+        "Multiplier par 3"
+      ],
+      "bonne_reponse": "Soustraire 5 des deux côtés",
+     "duration": 25
+    },
+    {
+      "id": "ineq3",
+      "question": "Après avoir obtenu 3x > -3, que fait-on pour isoler x ?",
+      "choix": [
+        "On divise par 3",
+        "On multiplie par 3",
+        "On ajoute 3",
+        "On soustrait 3"
+      ],
+      "bonne_reponse": "On divise par 3",
+     "duration": 25
+    },
+    {
+      "id": "ineq4",
+      "question": "Lorsque l’on divise ou multiplie une inéquation par un nombre négatif, que doit-on faire ?",
+      "choix": [
+        "Changer le sens de l’inégalité",
+        "Ne rien changer",
+        "Transformer en équation",
+        "Mettre un point d’interrogation"
+      ],
+      "bonne_reponse": "Changer le sens de l’inégalité",
+      "duration": 25
+    },
+    {
+      "id": "ineq5",
+      "question": "Dans -4x ≤ 8, quelle est la solution pour x ?",
+      "choix": [
+        "x ≥ -2",
+        "x ≤ -2",
+        "x = -2",
+        "x > -2"
+      ],
+      "bonne_reponse": "x ≥ -2",
+     "duration": 25
+    },
+    {
+      "id": "ineq6",
+      "question": "L’inéquation 5x - 2 > 3x + 4 devient :",
+      "choix": [
+        "2x > 6",
+        "2x < 6",
+        "8x > 6",
+        "x > 3"
+      ],
+      "bonne_reponse": "2x > 6",
+      "duration": 25
+    },
+    {
+      "id": "ineq7",
+      "question": "Pour résoudre 2x/3 ≤ 4, on multiplie par 3. Quelle règle applique-t-on ?",
+      "choix": [
+        "Multiplier par un nombre positif ne change pas le sens",
+        "Changer le sens de l’inégalité",
+        "Ajouter 3 des deux côtés",
+        "Diviser par 2"
+      ],
+      "bonne_reponse": "Multiplier par un nombre positif ne change pas le sens",
+      "duration": 25
+    },
+    {
+      "id": "ineq8",
+      "question": "L’inéquation x - 7 < 0 a pour solution :",
+      "choix": [
+        "x < 7",
+        "x > 7",
+        "x = 7",
+        "x ≤ 7"
+      ],
+      "bonne_reponse": "x < 7",
+     "duration": 25
+    },
+    {
+      "id": "ineq9",
+      "question": "Si x/5 + 2 ≥ 0, quelle est la solution pour x ?",
+      "choix": [
+        "x ≥ -10",
+        "x ≤ -10",
+        "x > 10",
+        "x < 10"
+      ],
+      "bonne_reponse": "x ≥ -10",
+      "duration": 25
+    },
+    {
+      "id": "ineq10",
+      "question": "Comment représente-t-on x ≤ 2/3 sur une droite graduée ?",
+      "choix": [
+        "Toutes les valeurs à gauche de 2/3, point vide sur 2/3",
+        "Toutes les valeurs à droite de 2/3, point plein sur 2/3",
+        "Toutes les valeurs à gauche de 2/3, point plein sur 2/3",
+        "Toutes les valeurs à droite de 2/3, point vide sur 2/3"
+      ],
+      "bonne_reponse": "Toutes les valeurs à gauche de 2/3, point plein sur 2/3",
+      "duration": 25
+    },
+    {
+      "id": "ineq11",
+      "question": "Si -3x + 5 > 2, que fait-on pour isoler x ?",
+      "choix": [
+        "Soustraire 5 puis diviser par -3",
+        "Ajouter 5 puis multiplier par 3",
+        "Soustraire 2 puis multiplier par -3",
+        "Ajouter 2 puis diviser par 3"
+      ],
+      "bonne_reponse": "Soustraire 5 puis diviser par -3",
+      "duration": 25
+    },
+    {
+      "id": "ineq12",
+      "question": "Après avoir divisé par -3, le sens de l’inégalité change-t-il ?",
+      "choix": [
+        "Oui, parce qu’on divise par un nombre négatif",
+        "Non, le sens reste identique",
+        "Oui, parce que x est négatif",
+        "Non, uniquement si x > 0"
+      ],
+      "bonne_reponse": "Oui, parce qu’on divise par un nombre négatif",
+       "duration": 25
+    },
+    {
+      "id": "ineq13",
+      "question": "Pour l’inéquation 7x - 2 > 0, la solution est :",
+      "choix": [
+        "x > 2/7",
+        "x < 2/7",
+        "x ≥ 2/7",
+        "x ≤ 2/7"
+      ],
+      "bonne_reponse": "x > 2/7",
+      "duration": 25
+    },
+    {
+      "id": "ineq14",
+      "question": "L’inéquation 5x + 2 ≥ 0 se résout par :",
+      "choix": [
+        "x ≥ -2/5",
+        "x ≤ -2/5",
+        "x > -2/5",
+        "x < -2/5"
+      ],
+      "bonne_reponse": "x ≥ -2/5",
+      "duration": 25
+    },
+    {
+      "id": "ineq15",
+      "question": "Comment écrit-on l’ensemble des solutions x > -2/7 sous forme d’intervalle ?",
+      "choix": [
+        "]-2/7 ; +∞[",
+        "[-2/7 ; +∞[",
+        "]-∞ ; -2/7[",
+        "[-∞ ; -2/7["
+      ],
+      "bonne_reponse": "] -2/7 ; +∞[",
+      "duration": 25
+    }
+  ]
+}
+,
 
+{
+  "id": "video58sds",
+  "titre": "Système d’inéquations du 1er degré dans ℝ (3e)",
+  "niveau": "3e",
+  "mois": ["Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=WTcFs5oyG3M",
+  "notions": ["Equations et Inéquations(3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)",
+    "Nombres décimaux arithmétiques(6e)",
+    "Nombres relatifs(5e)",
+    "Fractions(6e)",
+    "Fractions(5e)",
+    "Nombres rationnels(4e)",
+    "Calcul littéral(6e)",
+    "Equations(5e)",
+    "Equations-Inéquations(4e)",
+    "Equations de droites(3e)",
+    "Equations-Inéquations(4e)",
+    "Projection(4e)"
+  ],
+  "questions": [
+    {
+      "id": "sys1",
+      "question": "Quelle est la première étape pour résoudre un système d'inéquations ?",
+      "choix": [
+        "Résoudre séparément chaque inéquation",
+        "Ajouter les deux inéquations",
+        "Multiplier les deux inéquations",
+        "Changer le signe de l'inéquation"
+      ],
+      "bonne_reponse": "Résoudre séparément chaque inéquation",
+       "duration": 25
+    },
+    {
+      "id": "sys2",
+      "question": "Pour l’inéquation 3x + 4 > 2x + 3, que fait-on en premier ?",
+      "choix": [
+        "On met tous les x d’un côté et les constantes de l’autre",
+        "On divise par 2",
+        "On multiplie par -1",
+        "On ajoute 4 des deux côtés"
+      ],
+      "bonne_reponse": "On met tous les x d’un côté et les constantes de l’autre",
+       "duration": 25
+    },
+    {
+      "id": "sys3",
+      "question": "Résoudre 3x + 4 > 2x + 3 donne :",
+      "choix": [
+        "x > -1",
+        "x < -1",
+        "x > 1",
+        "x < 1"
+      ],
+      "bonne_reponse": "x > -1",
+      "duration": 25
+    },
+    {
+      "id": "sys4",
+      "question": "Pour x - 5 ≥ 3x - 13, quelle étape nécessite de changer le sens de l’inégalité ?",
+      "choix": [
+        "Diviser par -2",
+        "Soustraire 5",
+        "Ajouter 13",
+        "Soustraire 3x"
+      ],
+      "bonne_reponse": "Diviser par -2",
+     "duration": 25
+    },
+    {
+      "id": "sys5",
+      "question": "Après résolution, x - 5 ≥ 3x - 13 devient :",
+      "choix": [
+        "x ≤ 4",
+        "x ≥ 4",
+        "x < 4",
+        "x > 4"
+      ],
+      "bonne_reponse": "x ≤ 4",
+      "duration": 25
+    },
+    {
+      "id": "sys6",
+      "question": "Pour obtenir la solution finale d’un système d’inéquations, que fait-on ?",
+      "choix": [
+        "On prend l’intersection des solutions",
+        "On additionne les solutions",
+        "On choisit la plus grande valeur",
+        "On choisit la plus petite valeur"
+      ],
+      "bonne_reponse": "On prend l’intersection des solutions",
+      "duration": 25
+    },
+    {
+      "id": "sys7",
+      "question": "L’intervalle solution x > -1 et x ≤ 4 s’écrit :",
+      "choix": [
+        "] -1 ; 4 ]",
+        "[ -1 ; 4 ]",
+        "] -1 ; 4 [",
+        "[ -1 ; 4 ["
+      ],
+      "bonne_reponse": "] -1 ; 4 ]",
+       "duration": 25
+    },
+    {
+      "id": "sys8",
+      "question": "Sur une droite graduée, comment représente-t-on x > -1 et x ≤ 4 ?",
+      "choix": [
+        "Point vide sur -1, point plein sur 4, intervalle entre",
+        "Point plein sur -1, point vide sur 4, intervalle entre",
+        "Points pleins sur -1 et 4",
+        "Points vides sur -1 et 4"
+      ],
+      "bonne_reponse": "Point vide sur -1, point plein sur 4, intervalle entre",
+      "duration": 25
+    },
+    {
+      "id": "sys9",
+      "question": "Si l’on a x > -3 et x < 2, l’intersection des solutions est :",
+      "choix": [
+        "] -3 ; 2 [",
+        "[ -3 ; 2 [",
+        "] -3 ; 2 ]",
+        "[ -3 ; 2 ]"
+      ],
+      "bonne_reponse": "] -3 ; 2 [",
+     "duration": 25
+    },
+    {
+      "id": "sys10",
+      "question": "Pourquoi divise-t-on parfois par un nombre négatif en résolvant un système ?",
+      "choix": [
+        "Pour isoler x",
+        "Pour changer le sens de l’inégalité",
+        "Pour simplifier les fractions",
+        "Pour additionner les termes"
+      ],
+      "bonne_reponse": "Pour isoler x",
+      "duration": 25
+    }
+  ]
+},
+{
+  "id": "video59graph",
+  "titre": "Résolution d’un système d’équation dans ℝ x ℝ par la méthode graphique (3e)",
+  "niveau": "3e",
+  "mois": ["Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=LII4ZDOTjh8",
+  "notions": ["Equations et Inéquations(3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)",
+    "Nombres décimaux arithmétiques(6e)",
+    "Nombres relatifs(5e)",
+    "Fractions(6e)",
+    "Fractions(5e)",
+    "Nombres rationnels(4e)",
+    "Calcul littéral(6e)",
+    "Equations(5e)",
+    "Equations-Inéquations(4e)",
+    "Equations de droites(3e)",
+    "Equations-Inéquations(4e)",
+    "Projection(4e)"
+  ],
+  "questions": [
+    {
+      "id": "graph1",
+      "question": "Quelle est la première étape pour résoudre graphiquement un système d'équations ?",
+      "choix": [
+        "Construire des tableaux de valeurs pour chaque équation",
+        "Additionner les deux équations",
+        "Multiplier chaque équation par 2",
+        "Tracer directement une droite"
+      ],
+      "bonne_reponse": "Construire des tableaux de valeurs pour chaque équation",
+      "duration": 25
+    },
+    {
+      "id": "graph2",
+      "question": "Pour y = 60 - x, quel point obtient-on en remplaçant x par 0 ?",
+      "choix": [
+        "(0, 60)",
+        "(60, 0)",
+        "(0, 0)",
+        "(30, 30)"
+      ],
+      "bonne_reponse": "(0, 60)",
+      "duration": 25
+    },
+    {
+      "id": "graph3",
+      "question": "Pour y = 30 + x, quel point obtient-on en remplaçant y par 0 ?",
+      "choix": [
+        "(-30, 0)",
+        "(0, 30)",
+        "(30, 0)",
+        "(0, 0)"
+      ],
+      "bonne_reponse": "(-30, 0)",
+      "duration": 25
+    },
+    {
+      "id": "graph4",
+      "question": "Comment détermine-t-on la solution d’un système graphiquement ?",
+      "choix": [
+        "En trouvant le point d’intersection des droites",
+        "En additionnant les points des tableaux",
+        "En prenant la moyenne des x et y",
+        "En traçant un seul point"
+      ],
+      "bonne_reponse": "En trouvant le point d’intersection des droites",
+      "duration": 25
+    },
+    {
+      "id": "graph5",
+      "question": "Pour le système y = 60 - x et y = 30 + x, quelle est la solution ?",
+      "choix": [
+        "(15, 45)",
+        "(30, 30)",
+        "(0, 0)",
+        "(45, 15)"
+      ],
+      "bonne_reponse": "(15, 45)",
+      "duration": 25
+    },
+    {
+      "id": "graph6",
+      "question": "Que signifie un même coefficient directeur pour deux droites ?",
+      "choix": [
+        "Les droites sont parallèles",
+        "Les droites se coupent à l’origine",
+        "Les droites sont perpendiculaires",
+        "Les droites ont des solutions multiples"
+      ],
+      "bonne_reponse": "Les droites sont parallèles",
+      "duration": 25
+    },
+    {
+      "id": "graph7",
+      "question": "Si deux droites sont parallèles, que peut-on conclure pour le système ?",
+      "choix": [
+        "Le système n’a pas de solution",
+        "Le système a une solution unique",
+        "Le système a une infinité de solutions",
+        "Le système est indéfini"
+      ],
+      "bonne_reponse": "Le système n’a pas de solution",
+      "duration": 25
+    },
+    {
+      "id": "graph8",
+      "question": "Pour 2y + 4x = 8, quelle forme y = ? utilise-t-on pour tracer la droite ?",
+      "choix": [
+        "y = -2x + 4",
+        "y = 2x - 4",
+        "y = 4x - 8",
+        "y = -4x + 8"
+      ],
+      "bonne_reponse": "y = -2x + 4",
+      "duration": 25
+    },
+    {
+      "id": "graph9",
+      "question": "Pourquoi la méthode graphique peut être insuffisante ?",
+      "choix": [
+        "Elle n’est pas toujours précise",
+        "Elle prend trop de temps",
+        "Elle ne permet pas de tracer les droites",
+        "Elle ne fonctionne que pour x positif"
+      ],
+      "bonne_reponse": "Elle n’est pas toujours précise",
+      "duration": 25
+    },
+    {
+      "id": "graph10",
+      "question": "Que représente le point d’intersection des droites ?",
+      "choix": [
+        "La solution du système",
+        "La moyenne des équations",
+        "Le point d’origine",
+        "Une solution approximative"
+      ],
+      "bonne_reponse": "La solution du système",
+      "duration": 25
+    }
+  ]
+},
+
+
+{
+  "id": "video60substitution",
+  "titre": "Résolution d’un système de deux équations par la méthode de substitution (3e)",
+  "niveau": "3e",
+  "mois": ["Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=vXSDO4HNn2c",
+  "notions": ["Équations et Inéquations (3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)",
+    "Nombres décimaux arithmétiques(6e)",
+    "Nombres relatifs(5e)",
+    "Fractions(6e)",
+    "Fractions(5e)",
+    "Nombres rationnels(4e)",
+    "Calcul littéral(6e)",
+    "Equations(5e)",
+    "Equations-Inéquations(4e)",
+    "Equations de droites(3e)",
+    "Equations-Inéquations(4e)",
+    "Projection(4e)"
+  ],
+  "questions": [
+    {
+      "id": "subs1",
+      "question": "Quel est le principe de la méthode de substitution ?",
+      "choix": [
+        "Remplacer une inconnue par une valeur arbitraire",
+        "Isoler une inconnue dans une équation et la remplacer dans l’autre",
+        "Tracer deux droites et chercher leur intersection",
+        "Additionner directement les deux équations"
+      ],
+      "bonne_reponse": "Isoler une inconnue dans une équation et la remplacer dans l’autre",
+      "duration": 25
+    },
+    {
+      "id": "subs2",
+      "question": "Dans un système, pourquoi choisit-on souvent d’isoler l’inconnue qui n’a pas de coefficient ?",
+      "choix": [
+        "Parce que cela simplifie les calculs",
+        "Parce qu’elle vaut toujours zéro",
+        "Parce que c’est la règle obligatoire",
+        "Parce que cela évite les fractions"
+      ],
+      "bonne_reponse": "Parce que cela simplifie les calculs",
+      "duration": 25
+    },
+    {
+      "id": "subs3",
+      "question": "Si on isole x dans la première équation x + 2y = 13, que devient x ?",
+      "choix": [
+        "x = 2y + 13",
+        "x = 13 - 2y",
+        "x = 13 + y",
+        "x = 2y - 13"
+      ],
+      "bonne_reponse": "x = 13 - 2y",
+      "duration": 25
+    },
+    {
+      "id": "subs4",
+      "question": "Après avoir isolé x = 13 - 2y, dans quelle équation remplace-t-on x ?",
+      "choix": [
+        "Dans la première équation",
+        "Dans la deuxième équation",
+        "Dans les deux équations",
+        "Dans aucune équation"
+      ],
+      "bonne_reponse": "Dans la deuxième équation",
+      "duration": 25
+    },
+    {
+      "id": "subs5",
+      "question": "En remplaçant x par (13 - 2y) dans 2x - 3y = 12, on obtient :",
+      "choix": [
+        "2(13 - 2y) - 3y = 12",
+        "13 - 2y - 3y = 12",
+        "2x = 13 - 2y",
+        "3x - 2y = 12"
+      ],
+      "bonne_reponse": "2(13 - 2y) - 3y = 12",
+      "duration": 25
+    },
+    {
+      "id": "subs6",
+      "question": "En développant 2(13 - 2y) - 3y = 12, quelle équation obtient-on ?",
+      "choix": [
+        "26 - 4y - 3y = 12",
+        "26 + 4y - 3y = 12",
+        "26 - 3y = 12",
+        "13 - 5y = 12"
+      ],
+      "bonne_reponse": "26 - 4y - 3y = 12",
+      "duration": 25
+    },
+    {
+      "id": "subs7",
+      "question": "Après simplification, -7y = 12 - 26. Quelle est la valeur de y ?",
+      "choix": [
+        "y = -2",
+        "y = 2",
+        "y = 7",
+        "y = -7"
+      ],
+      "bonne_reponse": "y = 2",
+      "duration": 25
+    },
+    {
+      "id": "subs8",
+      "question": "Une fois y trouvé, comment calcule-t-on x ?",
+      "choix": [
+        "On remplace y dans l’équation x = 13 - 2y",
+        "On remplace y dans la deuxième équation uniquement",
+        "On additionne les deux équations",
+        "On soustrait y à x"
+      ],
+      "bonne_reponse": "On remplace y dans l’équation x = 13 - 2y",
+      "duration": 25
+    },
+    {
+      "id": "subs9",
+      "question": "En remplaçant y = 2 dans x = 13 - 2y, on trouve :",
+      "choix": [
+        "x = 9",
+        "x = 17",
+        "x = 11",
+        "x = 8"
+      ],
+      "bonne_reponse": "x = 9",
+      "duration": 25
+    },
+    {
+      "id": "subs10",
+      "question": "Quelle est la solution finale du système ?",
+      "choix": [
+        "(9 ; 2)",
+        "(2 ; 9)",
+        "x = 2 et y = 9",
+        "x = 9 ou y = 2"
+      ],
+      "bonne_reponse": "(9 ; 2)",
+      "duration": 25
+    }
+  ]
+},
+
+{
+  "id": "video61comparaison",
+  "titre": "Résolution d’un système de deux équations par la méthode de comparaison (3e)",
+  "niveau": "3e",
+  "mois": ["Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=a0RerigL3r8",
+  "notions": ["Équations et Inéquations (3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)",
+    "Nombres décimaux arithmétiques(6e)",
+    "Nombres relatifs(5e)",
+    "Fractions(6e)",
+    "Fractions(5e)",
+    "Nombres rationnels(4e)",
+    "Calcul littéral(6e)",
+    "Equations(5e)",
+    "Equations-Inéquations(4e)",
+    "Equations de droites(3e)",
+    "Equations-Inéquations(4e)",
+    "Projection(4e)"
+  ],
+  "questions": [
+    {
+      "id": "comp1",
+      "question": "Quel est le principe de base de la méthode de comparaison ?",
+      "choix": [
+        "Remplacer une inconnue par une valeur numérique",
+        "Comparer les coefficients des deux équations",
+        "Égaler deux expressions qui sont égales au même membre",
+        "Soustraire les deux équations entre elles"
+      ],
+      "bonne_reponse": "Égaler deux expressions qui sont égales au même membre",
+      "duration": 25
+    },
+    {
+      "id": "comp2",
+      "question": "Si y = -x + 5 et y = -3x + 1, pourquoi peut-on dire que -x + 5 = -3x + 1 ?",
+      "choix": [
+        "Parce que les deux expressions représentent la même variable y",
+        "Parce que les deux équations ont le même coefficient directeur",
+        "Parce qu’elles ont la même ordonnée à l’origine",
+        "Parce qu’elles sont parallèles"
+      ],
+      "bonne_reponse": "Parce que les deux expressions représentent la même variable y",
+      "duration": 25
+    },
+    {
+      "id": "comp3",
+      "question": "Que doit-on faire après avoir égalé les deux expressions ?",
+      "choix": [
+        "Tracer un graphique",
+        "Résoudre l’équation obtenue pour trouver x",
+        "Multiplier les deux équations",
+        "Remplacer y par une valeur donnée"
+      ],
+      "bonne_reponse": "Résoudre l’équation obtenue pour trouver x",
+      "duration": 25
+    },
+    {
+      "id": "comp4",
+      "question": "Dans l’équation -x + 5 = -3x + 1, que se passe-t-il quand on ajoute 3x des deux côtés ?",
+      "choix": [
+        "On obtient 2x + 5 = 1",
+        "On obtient 2x = 4",
+        "On obtient 2x = -4",
+        "On obtient -2x = 4"
+      ],
+      "bonne_reponse": "On obtient 2x = -4",
+      "duration": 25
+    },
+    {
+      "id": "comp5",
+      "question": "Quelle est la valeur de x trouvée à partir de 2x = -4 ?",
+      "choix": [
+        "x = 4",
+        "x = -2",
+        "x = 2",
+        "x = -4"
+      ],
+      "bonne_reponse": "x = -2",
+      "duration": 25
+    },
+    {
+      "id": "comp6",
+      "question": "Une fois x trouvé, que faut-il faire pour trouver y ?",
+      "choix": [
+        "Le remplacer dans une des deux équations initiales",
+        "Multiplier par -1",
+        "Soustraire les deux équations",
+        "Tracer un graphique pour estimer y"
+      ],
+      "bonne_reponse": "Le remplacer dans une des deux équations initiales",
+      "duration": 25
+    },
+    {
+      "id": "comp7",
+      "question": "Si on remplace x = -2 dans y = -x + 5, que vaut y ?",
+      "choix": [
+        "y = 3",
+        "y = 7",
+        "y = -7",
+        "y = -3"
+      ],
+      "bonne_reponse": "y = 7",
+      "duration": 25
+    },
+    {
+      "id": "comp8",
+      "question": "Quel est le couple solution du système ?",
+      "choix": [
+        "(2 ; -7)",
+        "(-2 ; 7)",
+        "(7 ; -2)",
+        "(-7 ; 2)"
+      ],
+      "bonne_reponse": "(-2 ; 7)",
+      "duration": 25
+    },
+    {
+      "id": "comp9",
+      "question": "Quelle phrase peut-on écrire pour conclure la résolution ?",
+      "choix": [
+        "Le système n’a pas de solution",
+        "Le couple (-2 ; 7) est la solution du système",
+        "Le système a une infinité de solutions",
+        "Les deux droites sont perpendiculaires"
+      ],
+      "bonne_reponse": "Le couple (-2 ; 7) est la solution du système",
+      "duration": 25
+    },
+    {
+      "id": "comp10",
+      "question": "Que faut-il faire pour vérifier le résultat obtenu ?",
+      "choix": [
+        "Remplacer x et y trouvés dans les équations de départ",
+        "Tracer le graphique des deux droites",
+        "Diviser les deux équations",
+        "Échanger les valeurs de x et y"
+      ],
+      "bonne_reponse": "Remplacer x et y trouvés dans les équations de départ",
+      "duration": 25
+    }
+  ]
+},
+
+{
+  "id": "video62combinaison",
+  "titre": "Résolution d’un système de deux équations par la méthode de combinaison (3e)",
+  "niveau": "3e",
+  "mois": ["Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=xlcJc2gOg9U",
+  "notions": ["Équations et Inéquations (3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)",
+    "Nombres décimaux arithmétiques(6e)",
+    "Nombres relatifs(5e)",
+    "Fractions(6e)",
+    "Fractions(5e)",
+    "Nombres rationnels(4e)",
+    "Calcul littéral(6e)",
+    "Equations(5e)",
+    "Equations-Inéquations(4e)",
+    "Equations de droites(3e)",
+    "Equations-Inéquations(4e)",
+    "Projection(4e)"
+  ],
+  "questions": [
+    {
+      "id": "comb1",
+      "question": "Quel est le principe de base de la méthode de combinaison ?",
+      "choix": [
+        "Remplacer une équation par une autre",
+        "Multiplier les équations pour obtenir des coefficients opposés",
+        "Soustraire directement les deux équations",
+        "Tracer les deux droites dans un repère"
+      ],
+      "bonne_reponse": "Multiplier les équations pour obtenir des coefficients opposés",
+      "duration": 25
+    },
+    {
+      "id": "comb2",
+      "question": "Pourquoi multiplie-t-on parfois une équation par un nombre ?",
+      "choix": [
+        "Pour simplifier les termes constants",
+        "Pour obtenir des coefficients identiques ou opposés sur une inconnue",
+        "Pour changer le signe de toutes les variables",
+        "Pour vérifier si le système a une solution"
+      ],
+      "bonne_reponse": "Pour obtenir des coefficients identiques ou opposés sur une inconnue",
+      "duration": 25
+    },
+    {
+      "id": "comb3",
+      "question": "Dans le système 3x + y = 1 et 2x + 3y = -4, quel coefficient peut-on rendre identique d’abord ?",
+      "choix": [
+        "Les coefficients de x",
+        "Les coefficients de y",
+        "Les termes constants",
+        "Aucun des deux"
+      ],
+      "bonne_reponse": "Les coefficients de y",
+      "duration": 25
+    },
+    {
+      "id": "comb4",
+      "question": "Pourquoi multiplie-t-on la première équation par 3 ?",
+      "choix": [
+        "Pour obtenir 3y comme dans la deuxième équation",
+        "Pour simplifier les x",
+        "Pour trouver directement y",
+        "Pour annuler le terme constant"
+      ],
+      "bonne_reponse": "Pour obtenir 3y comme dans la deuxième équation",
+      "duration": 25
+    },
+    {
+      "id": "comb5",
+      "question": "Après avoir multiplié par 3, que fait-on pour éliminer y ?",
+      "choix": [
+        "On additionne les deux équations",
+        "On soustrait les deux équations membre à membre",
+        "On divise les deux équations",
+        "On multiplie encore les deux équations"
+      ],
+      "bonne_reponse": "On soustrait les deux équations membre à membre",
+      "duration": 25
+    },
+    {
+      "id": "comb6",
+      "question": "Quelle équation obtient-on après la soustraction  (9x + 3y) – (2x + 3y) = 3 – (-4) ?",
+      "choix": [
+        "7x = 7",
+        "7x = -7",
+        "x = 7",
+        "x = -1"
+      ],
+      "bonne_reponse": "7x = 7",
+      "duration": 25
+    },
+    {
+      "id": "comb7",
+      "question": "Quelle est la valeur de x trouvée à partir de 7x = 7 ?",
+      "choix": [
+        "x = 1",
+        "x = -1",
+        "x = 7",
+        "x = 0"
+      ],
+      "bonne_reponse": "x = 1",
+      "duration": 25
+    },
+    {
+      "id": "comb8",
+      "question": "Que fait-on une fois x trouvé ?",
+      "choix": [
+        "On le remplace dans l’une des deux équations pour trouver y",
+        "On soustrait encore les équations",
+        "On change les signes des coefficients",
+        "On trace la courbe de y"
+      ],
+      "bonne_reponse": "On le remplace dans l’une des deux équations pour trouver y",
+      "duration": 25
+    },
+    {
+      "id": "comb9",
+      "question": "En remplaçant x = 1 dans 3x + y = 1, quelle valeur trouve-t-on pour y ?",
+      "choix": [
+        "y = 2",
+        "y = -2",
+        "y = 3",
+        "y = -3"
+      ],
+      "bonne_reponse": "y = -2",
+      "duration": 25
+    },
+    {
+      "id": "comb10",
+      "question": "Quel est le couple solution du système ?",
+      "choix": [
+        "(1 ; -2)",
+        "(-2 ; 1)",
+        "(-1 ; 2)",
+        "(2 ; -1)"
+      ],
+      "bonne_reponse": "(1 ; -2)",
+      "duration": 25
+    }
+  ]
+},
+{
+  "id": "video63graphique",
+  "titre": "Résolution d’un système d’inéquations du premier degré dans ℝ×ℝ (3e)",
+  "niveau": "3e",
+  "mois": ["Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=8mdUwMiGhY8&t=14s",
+  "notions": ["Équations et Inéquations (3e)"],
+  "prerequis": [
+    "Entiers naturels(6e)",
+    "Nombres décimaux arithmétiques(6e)",
+    "Nombres relatifs(5e)",
+    "Fractions(6e)",
+    "Fractions(5e)",
+    "Nombres rationnels(4e)",
+    "Calcul littéral(6e)",
+    "Equations(5e)",
+    "Equations-Inéquations(4e)",
+    "Equations de droites(3e)",
+    "Repère orthonormé(6e)",
+    "Graphique d'une fonction(4e)"
+  ],
+  "questions": [
+    {
+      "id": "graph1",
+      "question": "Qu’est-ce qu’une inéquation de premier degré à deux inconnues ?",
+      "choix": [
+        "Une équation du type y = mx + p",
+        "Une inéquation de la forme mx + ny + p ≥ 0 ou mx + ny + p ˂ 0 ou mx + ny + p > 0 ou mx + ny + p ≤ 0",
+        "Une inéquation avec des carrés",
+        "Une équation du second degré"
+      ],
+      "bonne_reponse": "Une inéquation de la forme mx + ny + p ≥ 0 ou mx + ny + p ˂ 0 ou mx + ny + p > 0 ou mx + ny + p ≤ 0",
+      "duration": 25
+    },
+    {
+      "id": "graph2",
+      "question": "Que représente la droite mx + ny + p = 0 dans le plan ?",
+      "choix": [
+        "Toutes les solutions de l’inéquation",
+        "La frontière qui sépare deux demi-plans",
+        "L’axe des x",
+        "L’origine du repère"
+      ],
+      "bonne_reponse": "La frontière qui sépare deux demi-plans",
+      "duration": 25
+    },
+    {
+      "id": "graph3",
+      "question": "Comment déterminer graphiquement le demi-plan solution d’une inéquation ?",
+      "choix": [
+        "On trace la droite et on colorie la moitié gauche",
+        "On choisit un point test et on hachure le demi-plan qui contient ce point si c’est solution",
+        "On trace une ligne parallèle",
+        "On ne trace rien"
+      ],
+      "bonne_reponse": "On choisit un point test et on hachure le demi-plan qui contient ce point si c’est solution",
+      "duration": 25
+    },
+    {
+      "id": "graph4",
+      "question": "Si l’inéquation est y > 3x - 2, comment tracer la droite frontière ?",
+      "choix": [
+        "En trait plein",
+        "En pointillé",
+        "En rouge uniquement",
+        "En bleu uniquement"
+      ],
+      "bonne_reponse": "En pointillé",
+      "duration": 25
+    },
+    {
+      "id": "graph5",
+      "question": "Pour y ≤ -2x + 4, comment doit-on tracer la droite frontière ?",
+      "choix": [
+        "En trait plein",
+        "En pointillé",
+        "En pointillé rouge",
+        "En trait zigzag"
+      ],
+      "bonne_reponse": "En trait plein",
+      "duration": 25
+    },
+    {
+      "id": "graph6",
+      "question": "Comment trouve-t-on les points de la droite frontière ?",
+      "choix": [
+        "En choisissant arbitrairement deux points sur le plan",
+        "En choisissant deux valeurs pour x et calculant y",
+        "En utilisant seulement x = 0",
+        "En utilisant seulement y = 0"
+      ],
+      "bonne_reponse": "En choisissant deux valeurs pour x et calculant y",
+      "duration": 25
+    },
+    {
+      "id": "graph7",
+      "question": "Que signifie barrer une zone sur le graphique ?",
+      "choix": [
+        "C’est la zone solution",
+        "C’est la zone qui n’est pas solution",
+        "C’est la frontière",
+        "C’est la zone test"
+      ],
+      "bonne_reponse": "C’est la zone qui n’est pas solution",
+      "duration": 25
+    },
+    {
+      "id": "graph8",
+      "question": "Dans un système d’inéquations, la solution correspond :",
+      "choix": [
+        "À la zone barrée de la première inéquation",
+        "À la zone barrée de la deuxième inéquation",
+        "À l’intersection des zones non barrées des deux inéquations",
+        "À la zone totale du plan"
+      ],
+      "bonne_reponse": "À l’intersection des zones non barrées des deux inéquations",
+      "duration": 25
+    },
+    {
+      "id": "graph9",
+      "question": "Quelle est la solution du système : y > 3x - 2 et y ≤ -2x + 4 ?",
+      "choix": [
+        "La zone au-dessus de la première droite",
+        "La zone en dessous de la deuxième droite",
+        "La zone non barrée entre les deux droites",
+        "Tout le plan"
+      ],
+      "bonne_reponse": "La zone non barrée entre les deux droites",
+      "duration": 25
+    },
+    {
+      "id": "graph10",
+      "question": "Que se passe-t-il si on choisit un point test qui n’est pas solution ?",
+      "choix": [
+        "On hachure le demi-plan correct",
+        "On hachure le mauvais demi-plan",
+        "On ne fait rien",
+        "On change la droite"
+      ],
+      "bonne_reponse": "On hachure le mauvais demi-plan",
+      "duration": 25
+    },
+    {
+      "id": "graph11",
+      "question": "Quelle couleur peut-on utiliser pour distinguer une inéquation strictement supérieure ?",
+      "choix": [
+        "Vert",
+        "Rouge",
+        "Pointillé",
+        "Bleu"
+      ],
+      "bonne_reponse": "Pointillé",
+      "duration": 25
+    },
+    {
+      "id": "graph12",
+      "question": "Quelle couleur peut-on utiliser pour une inéquation avec ≤ ou ≥ ?",
+      "choix": [
+        "Trait plein",
+        "Pointillé",
+        "Zigzag",
+        "Pas de couleur"
+      ],
+      "bonne_reponse": "Trait plein",
+      "duration": 25
+    },
+    {
+      "id": "graph13",
+      "question": "Pour tracer y > 3x - 2, quel point test peut-on utiliser ?",
+      "choix": [
+        "(0 ; 0)",
+        "(1 ; 0)",
+        "(-1 ; -1)",
+        "(2 ; 2)"
+      ],
+      "bonne_reponse": "(0 ; 0)",
+      "duration": 25
+    },
+    {
+      "id": "graph14",
+      "question": "Que signifie une zone non barrée sur le graphique ?",
+      "choix": [
+        "Zone non solution",
+        "Zone solution",
+        "Zone frontière",
+        "Zone test"
+      ],
+      "bonne_reponse": "Zone solution",
+      "duration": 25
+    },
+    {
+      "id": "graph15",
+      "question": "Comment vérifier graphiquement qu’une solution est correcte ?",
+      "choix": [
+        "En traçant seulement la droite",
+        "En vérifiant que la zone solution respecte toutes les inéquations",
+        "En calculant x et y seulement",
+        "En effaçant la zone non solution"
+      ],
+      "bonne_reponse": "En vérifiant que la zone solution respecte toutes les inéquations",
+      "duration": 25
+    },
+    {
+      "id": "graph16",
+      "question": "Si n = 0 dans mx + ny + p = 0, la droite est :",
+      "choix": [
+        "Verticale",
+        "Horizontale",
+        "Oblique",
+        "Parallèle à l’axe des y"
+      ],
+      "bonne_reponse": "Horizontale",
+      "duration": 25
+    },
+    {
+      "id": "graph17",
+      "question": "Si m = 0 dans mx + ny + p = 0, la droite est :",
+      "choix": [
+        "Verticale",
+        "Horizontale",
+        "Oblique",
+        "Inexistante"
+      ],
+      "bonne_reponse": "Horizontale",
+      "duration": 25
+    },
+    {
+      "id": "graph18",
+      "question": "Quelle est la première étape pour résoudre graphiquement un système ?",
+      "choix": [
+        "Tracer toutes les droites et identifier les demi-plans",
+        "Additionner les inéquations",
+        "Multiplier les inéquations",
+        "Faire le calcul des coefficients"
+      ],
+      "bonne_reponse": "Tracer toutes les droites et identifier les demi-plans",
+      "duration": 25
+    },
+    {
+      "id": "graph19",
+      "question": "Dans le système d’inéquations, les points sur la droite stricte (>) :",
+      "choix": [
+        "Sont inclus dans les solutions",
+        "Ne sont pas inclus dans les solutions",
+        "Sont toujours solution",
+        "Ne sont jamais solution"
+      ],
+      "bonne_reponse": "Ne sont pas inclus dans les solutions",
+      "duration": 25
+    },
+    {
+      "id": "graph20",
+      "question": "La solution d’un système d’inéquations peut être représentée par :",
+      "choix": [
+        "Une seule droite",
+        "Une zone hachurée correspondant à l’intersection des demi-plans",
+        "Le point (0 ; 0) seulement",
+        "Le repère entier"
+      ],
+      "bonne_reponse": "Une zone hachurée correspondant à l’intersection des demi-plans",
+      "duration": 25
+    }
+  ]
+},
+{
+    "id": "video_vecteurs_intro",
+    "titre": "Découverte des vecteurs et translations (3e)",
+    "niveau":"3e",
+    "mois": ["Mars","Avril","Mai","Juin","Juillet","Août"],
+    "videoUrl": "https://www.youtube.com/watch?v=nFHuglLbClc&t=46s",
+    "notions": ["Multiplication d'un vecteur par un nombre réel(3e)"],
+    "prerequis": [
+      "Glissement(6e)",
+      "Glissement(5e)",
+      "Translation(4e)",
+      "Projection(4e)",
+      "Equations de droites(3e)"
+    ],
+  "questions": [
+    {
+      "id": "vec1",
+      "question": "Qu'est-ce qu'un vecteur selon la vidéo ?",
+      "choix": [
+        "Un segment de droite sans direction",
+        "Un segment orienté avec une longueur et une direction",
+        "Un point dans le plan",
+        "Une droite infinie"
+      ],
+      "bonne_reponse": "Un segment orienté avec une longueur et une direction",
+      "duration": 30
+    },
+    {
+      "id": "vec2",
+      "question": "Quels sont les trois éléments caractéristiques d'un vecteur ?",
+      "choix": [
+        "Longueur, couleur, largeur",
+        "Direction, sens, longueur (norme)",
+        "Origine, extrémité, pente",
+        "Point de départ, point d'arrivée, axe"
+      ],
+      "bonne_reponse": "Direction, sens, longueur (norme)",
+      "duration": 30
+    },
+    {
+      "id": "vec3",
+      "question": "Comment appelle-t-on la longueur d'un vecteur ?",
+      "choix": [
+        "Amplitude",
+        "Norme",
+        "Module",
+        "Diamètre"
+      ],
+      "bonne_reponse": "Norme",
+      "duration": 20
+    },
+    {
+      "id": "vec4",
+      "question": "Quelle est la différence entre sens et direction ?",
+      "choix": [
+        "Direction indique la droite support, sens indique le côté vers lequel la flèche s'oriente",
+        "Sens est la longueur, direction est le point de départ",
+        "Sens est le point final, direction est le milieu",
+        "Il n’y a pas de différence"
+      ],
+      "bonne_reponse": "Direction indique la droite support, sens indique le côté vers lequel la flèche s'oriente",
+      "duration": 25
+    },
+    {
+      "id": "vec5",
+      "question": "Deux vecteurs égaux doivent avoir :",
+      "choix": [
+        "Même origine uniquement",
+        "Même direction, même sens, même norme",
+        "Même longueur seulement",
+        "Même direction uniquement"
+      ],
+      "bonne_reponse": "Même direction, même sens, même norme",
+      "duration": 25
+    },
+    {
+      "id": "vec6",
+      "question": "Si un vecteur est déplacé sans changer sa direction, son sens ou sa norme, que se passe-t-il ?",
+      "choix": [
+        "Il devient un autre vecteur",
+        "Il reste le même vecteur",
+        "Il disparaît",
+        "Il devient un segment"
+      ],
+      "bonne_reponse": "Il reste le même vecteur",
+      "duration": 20
+    },
+    {
+      "id": "vec7",
+      "question": "Que signifie deux vecteurs « égaux » dans un parallélogramme ?",
+      "choix": [
+        "Ils ont leurs supports parralèles et ont même longueur et même sens",
+        "Ils sont perpendiculaires",
+        "Ils ont la même origine",
+        "Ils ont des longueurs différentes"
+      ],
+      "bonne_reponse": "Ils ont leurs supports parralèles et ont même longueur et même sens",
+      "duration": 25
+    },
+    {
+      "id": "vec8",
+      "question": "Que signifie deux vecteurs « de même direction » ?",
+      "choix": [
+        "Ils sont à supports parallèles",
+        "Ils sont perpendiculaires",
+        "Ils ont la même norme",
+        "Ils ont le même point de départ"
+      ],
+      "bonne_reponse": "Ils sont à supports parallèles",
+      "duration": 20
+    },
+    {
+      "id": "vec10",
+      "question": "Comment décrire un vecteur en termes simples selon la vidéo ?",
+      "choix": [
+        "Un point à point",
+        "Un segment avec flèche indiquant la sens",
+        "Une ligne horizontale uniquement",
+        "Un triangle"
+      ],
+      "bonne_reponse": "Un segment avec flèche indiquant la sens",
+      "duration": 20
+    },
+    {
+      "id": "vec12",
+      "question": "Comment appliquer deux vecteurs successivement sur un point ?",
+      "choix": [
+        "En additionnant les coordonnées des vecteurs",
+        "En appliquant le premier puis le second depuis la nouvelle position",
+        "En ignorant le premier",
+        "En appliquant les vecteurs en sens inverse"
+      ],
+      "bonne_reponse": "En appliquant le premier puis le second depuis la nouvelle position",
+      "duration": 25
+    },
+    {
+      "id": "vec13",
+      "question": "Quel est l’objectif de la translation en utilisant un vecteur ?",
+      "choix": [
+        "Déplacer un point selon la direction, le sens et la norme du vecteur",
+        "Tourner le point autour d’un centre",
+        "Changer la longueur du vecteur",
+        "Tracer une droite"
+      ],
+      "bonne_reponse": "Déplacer un point selon la direction, le sens et la norme du vecteur",
+      "duration": 25
+    },
+    {
+      "id": "vec15",
+      "question": "Si deux vecteurs ont leurs supports parallèles mais n'ont pas même sens, que peut-on dire ?",
+      "choix": [
+        "Ils sont égaux",
+        "Ils ont même direction mais sens opposé",
+        "Ils ont la même norme et sens",
+        "Ils sont identiques"
+      ],
+      "bonne_reponse": "Ils ont même direction mais sens opposé",
+      "duration": 25
+    },
+    {
+      "id": "vec17",
+      "question": "Comment s'appelle la droite sur laquelle un vecteur se trouve ?",
+      "choix": [
+        "Droite support",
+        "Droite parallèle",
+        "Axe vectoriel",
+        "Segment directeur"
+      ],
+      "bonne_reponse": "Droite support",
+      "duration": 25
+    },
+    {
+      "id": "vec18",
+      "question": "Que doit-on vérifier pour que deux vecteurs soient égaux ?",
+      "choix": [
+        "Même longueur, même direction, même sens",
+        "Même longueur uniquement",
+        "Même direction uniquement",
+        "Même point d’origine"
+      ],
+      "bonne_reponse": "Même longueur, même direction, même sens",
+      "duration": 25
+    },
+    {
+      "id": "vec19",
+      "question": "Comment trouver le point image après une combinaison de deux translations ?",
+      "choix": [
+        "On applique successivement chaque vecteur depuis la nouvelle position",
+        "On ne peut pas combiner deux vecteurs",
+        "On trace une diagonale",
+        "On ajoute les segments graphiquement"
+      ],
+      "bonne_reponse": "On applique successivement chaque vecteur depuis la nouvelle position",
+      "duration": 25
+    },
+    {
+      "id": "vec20",
+      "question": "Quelle est l’utilité de la notation vectorielle dans les translations ?",
+      "choix": [
+        "Identifier le sens, la direction et la longueur",
+        "Définir le point moyen",
+        "Tracer un segment sans orientation",
+        "Mesurer l’angle"
+      ],
+      "bonne_reponse": "Identifier le sens, la direction et la longueur",
+      "duration": 25
+    },
+    {
+      "id": "vec22",
+      "question": "Comment vérifier qu’une égalité vectorielle est correcte ?",
+      "choix": [
+        "En appliquant les translations sur les points et vérifiant les images",
+        "En mesurant uniquement la longueur",
+        "En regardant la figure",
+        "En calculant l’angle"
+      ],
+      "bonne_reponse": "En appliquant les translations sur les points et vérifiant les images",
+      "duration": 25
+    },
+    {
+      "id": "vec23",
+      "question": "Peut-on déplacer un vecteur dans le plan sans le modifier ?",
+      "choix": [
+        "Oui, tant que sens, direction et norme restent identiques",
+        "Non, il reste fixe",
+        "Oui, mais sa longueur change",
+        "Oui, mais son sens change"
+      ],
+      "bonne_reponse": "Oui, tant que sens, direction et norme restent identiques",
+      "duration": 25
+    },
+    {
+      "id": "vec24",
+      "question": "Lorsqu’on lit un quadrilatère avec vecteurs, que faut-il respecter ?",
+      "choix": [
+        "L’ordre des lettres pour les vecteurs",
+        "La couleur des segments",
+        "La longueur uniquement",
+        "La position du tableau"
+      ],
+      "bonne_reponse": "L’ordre des lettres pour les vecteurs",
+      "duration": 25
+    }
+  ]
+},
 
 
 
@@ -14791,136 +16376,7 @@
   
   
  
-  {
-    "id": "video57",
-    "titre": "Equations de droites(3e)",
-    "niveau":"3e",
-    "mois": ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
-    "videoUrl": "https://www.youtube.com/watch?v=IoDcQ9313Og",
-    "notions": ["Equations de droites(3e)"],
-    "prerequis": [
-      "Entiers naturels(6e)",
-      "Nombres décimaux arithmétiques(6e)",
-      "Nombres relatifs(5e)",
-      "Fractions(6e)",
-      "Fractions(5e)",
-      "Nombres rationnels(4e)",
-      "Calcul littéral(6e)",
-      "Equations(5e)",
-      "Equations-Inéquations(4e)",
-      "Projection(4e)"
-    ],
-    "questions": [
-      {
-        "id": "line1",
-        "question": "Qu'est-ce qu'une équation de droite ?",
-        "choix": [
-          "Une équation qui représente une courbe",
-          "Une équation qui représente une ligne droite",
-          "Une équation qui représente un cercle",
-          "Une équation qui représente un carré"
-        ],
-        "bonne_reponse": "Une équation qui représente une ligne droite",
-        "niveau": "3e",
-        "notion": "Equations de droites(3e)",
-        "duration": 20
-      },
-      {
-        "id": "line2",
-        "question": "Quelle est la forme générale d'une équation de droite ?",
-        "choix": [
-          "y = mx + b",
-          "y = x^2 + b",
-          "y = mx^2 + b",
-          "y = x + b"
-        ],
-        "bonne_reponse": "y = mx + b",
-        "niveau": "3e",
-        "notion": "Equations de droites(3e)",
-        "duration": 20
-      },
-      {
-        "id": "line3",
-        "question": "Quelle est la pente d'une droite représentée par l'équation y = 2x + 3 ?",
-        "choix": [
-          "2",
-          "3",
-          "1",
-          "0"
-        ],
-        "bonne_reponse": "2",
-        "niveau": "3e",
-        "notion": "Equations de droites(3e)",
-        "duration": 20
-      }
-    ]
-  },
-  {
-    "id": "video58",
-    "titre": "Equations et Inéquations(3e)",
-    "niveau":"3e",
-    "mois": ["Février","Mars","Avril","Mai","Juin","Juillet","Août"],
-    "videoUrl": "https://www.youtube.com/watch?v=5_V4WSDjn8M&t=33s",
-    "notions": ["Equations et Inéquations(3e)"],
-    "prerequis": [
-      "Entiers naturels(6e)",
-      "Nombres décimaux arithmétiques(6e)",
-      "Nombres relatifs(5e)",
-      "Fractions(6e)",
-      "Fractions(5e)",
-      "Nombres rationnels(4e)",
-      "Calcul littéral(6e)",
-      "Equations(5e)",
-      "Equations-Inéquations(4e)",
-      "Equations de droites(3e)",
-      "Equations-Inéquations(4e)",
-      "Projection(4e)"
-    ],
-    "questions": [
-      {
-        "id": "eq1",
-        "question": "Qu'est-ce qu'une équation ?",
-        "choix": [
-          "Une expression mathématique qui montre une égalité",
-          "Une expression mathématique qui montre une inégalité",
-          "Une expression mathématique qui montre une différence",
-          "Une expression mathématique qui montre une somme"
-        ],
-        "bonne_reponse": "Une expression mathématique qui montre une égalité",
-        "niveau": "3e",
-        "notion": "Equations et Inéquations(3e)",
-        "duration": 20
-      },
-      {
-        "id": "eq2",
-        "question": "Qu'est-ce qu'une inéquation ?",
-        "choix": [
-          "Une expression mathématique qui montre une égalité",
-          "Une expression mathématique qui montre une inégalité",
-          "Une expression mathématique qui montre une différence",
-          "Une expression mathématique qui montre une somme"
-        ],
-        "bonne_reponse": "Une expression mathématique qui montre une inégalité",
-        "niveau": "3e",
-        "notion": "Equations et Inéquations(3e)",
-        "duration": 20
-      },
-      {
-        "id": "eq3",
-        "question": "Quelle est la solution de l'équation 2x + 3 = 7 ?",
-        "choix": [
-          "x = 2",
-          "x = 3",
-          "x = 4",
-          "x = 5"
-        ],
-        "bonne_reponse": "x = 2",
-        "niveau": "3e",
-        "notion": "Equations et Inéquations(3e)",
-        "duration": 20
-      }
-    ]
-  },
+  
   {
     "id": "video59",
     "titre": "Opération sur les vecteurs: Somme et produit(3e)",
