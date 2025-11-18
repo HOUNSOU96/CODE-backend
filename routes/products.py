@@ -56,7 +56,7 @@ for category, folder in IMAGE_FOLDERS.items():
                     "category": category.lower(),
                     "price": data["price"],
                     "promoPrice": data.get("promoPrice", 0),
-                    "image_url": f"/images/{category.lower()}/{filename}",
+                    "image_url": f"{BACKEND_URL}/images/{category.lower()}/{filename}",
                     "featured": True,
                     "short_description": data["short_description"]
                 })
