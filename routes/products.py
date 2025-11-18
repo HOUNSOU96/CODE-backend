@@ -4,7 +4,7 @@ import os
 import json
 
 
-BACKEND_URL = os.environ.get("BACKEND_URL", "http://localhost:8000")
+BACKEND_URL = os.environ.get("BACKEND_URL")
 
 
 router = APIRouter(prefix="/api/v1/products", tags=["Products"])
