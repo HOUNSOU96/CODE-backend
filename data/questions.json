@@ -1570,9 +1570,9 @@
     "notion": "Triangles(6e)",
     "duration": 20,
     "situation": {
-      "texte": "Un triangle scalène a trois côtés de longueurs différentes."
+      "texte": "Un triangle possède trois côtés."
     },
-    "question": "Qu'est-ce qu'un triangle scalène ?",
+    "question": "Qu'est-ce qu'un triangle quelconque ?",
     "choix": [
       "Un triangle avec trois côtés de même longueur",
       "Un triangle avec deux côtés de même longueur",
