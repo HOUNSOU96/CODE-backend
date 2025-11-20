@@ -263,6 +263,7 @@ app.include_router(remediation_progress.router, prefix="/api/remediation-progres
 app.include_router(progression.router)
 app.include_router(admin_router)
 app.include_router(products.router)
+app.include_router(admin_router, prefix="/api")
 
 
 
@@ -839,6 +840,7 @@ def debug_routes():
 
 
 
+
 # -------------------- Chargement des vidéos -------------------- #
 DATA_PATH = Path(__file__).parent / "data" / "remediationVideos.json"
 
@@ -886,8 +888,11 @@ def filter_videos(all_videos: List[dict], niveau: str, notion_cible: Optional[st
         if not vid_id or vid_id in seen_ids:
             return
         for prereq in video.get("prerequis", []):
-            for prereq_vid in notion_to_videos.get(normalize_string(prereq), []):
-                add_video_recursive(prereq_vid)
+    # Recherche la vidéo correspondante par son titre
+         for prereq_vid in all_videos:
+          if normalize_string(prereq_vid["titre"]) == normalize_string(prereq):
+            add_video_recursive(prereq_vid)
+
         final_videos.append(video)
         seen_ids.add(vid_id)
 
@@ -936,39 +941,44 @@ def get_remediation_videos(niveau: str = Query(...)):
     seen_ids: Set[str] = set()
     result: List[dict] = []
 
-    id_to_video = {v.get("id"): v for v in all_videos if v.get("id")}
-
     def add_video_recursive(video: dict):
         vid_id = video.get("id")
         if not vid_id or vid_id in seen_ids:
             return
-        for prereq_id in video.get("prerequis", []):
-            prereq_video = id_to_video.get(prereq_id)
+
+        # Ajouter d'abord les prérequis
+        for prereq_titre in video.get("prerequis", []):
+            prereq_video = next(
+                (v for v in all_videos
+                 if normalize_string(v.get("titre")) == normalize_string(prereq_titre)),
+                None
+            )
             if prereq_video:
                 add_video_recursive(prereq_video)
+
+        # Ajouter la vidéo courante
         result.append(video)
         seen_ids.add(vid_id)
 
-    # 🔹 Ajout des vidéos dans l’ordre des prérequis
+    # Ajouter les vidéos dans l’ordre
     for video in all_videos:
         if normalize_string(video.get("niveau")) in [normalize_string(n) for n in niveaux_valides]:
             add_video_recursive(video)
 
-    
     return [
-    {
-        "id": v["id"],
-        "titre": v["titre"],
-        "niveau": v["niveau"],
-        "fichier": v.get("fichier") or v.get("videoUrl"),
-        "mois": v.get("mois"),  # <- safe, renvoie None si absent
-        "notions": v.get("notions"),
-        "prerequis": v.get("prerequis"),
-        "questions": v.get("questions"),
-        "videoUrl": v.get("videoUrl"),
-    }
-    for v in result
-]
+        {
+            "id": v["id"],
+            "titre": v["titre"],
+            "niveau": v["niveau"],
+            "fichier": v.get("fichier") or v.get("videoUrl"),
+            "mois": v.get("mois"),
+            "notions": v.get("notions"),
+            "prerequis": v.get("prerequis"),
+            "questions": v.get("questions"),
+            "videoUrl": v.get("videoUrl"),
+        }
+        for v in result
+    ]
 
 
 

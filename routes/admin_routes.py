@@ -16,6 +16,14 @@ import os
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
 
+# Modèle pour la requête
+class AdminCode(BaseModel):
+    password: str
+
+# Mot de passe admin caché
+ADMIN_CODE = "MOraVi"
+
+
 
 class ConnectionRecord(BaseModel):
     id: int
@@ -254,6 +262,13 @@ def delete_user(user_id: int, current_user: User = Depends(get_current_user), db
 
 
     
+
+
+@router.post("/check-admin")
+def check_admin(code: AdminCode):
+    if code.password == ADMIN_CODE:
+        return {"access": True}
+    raise HTTPException(status_code=401, detail="Mot de passe incorrect")
 
 
 

@@ -3028,6 +3028,168 @@
 },
 
 {
+  "id": "video_naturels_001",
+  "titre": "Nombres entiers naturels consécutifs (6e)",
+  "niveau":"6e",
+  "mois": ["Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
+  "videoUrl": "https://www.youtube.com/watch?v=tVpQ6RGHs5k",
+  "notions": ["Entiers naturels(6e)"],
+  "prerequis": [],
+  "questions": [
+  {
+    "id": "nat01",
+    "question": "Quels sont les premiers nombres entiers naturels ?",
+    "choix": ["−1, 0, 1, 2", "0, 1, 2, 3", "1, 2, 3, 4, 5 uniquement", "2, 3, 4, 5"],
+    "bonne_reponse": "0, 1, 2, 3",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat02",
+    "question": "À quoi servent principalement les nombres entiers naturels ?",
+    "choix": ["À mesurer des distances", "À représenter des fractions", "À compter et à donner un rang", "À décrire des vitesses"],
+    "bonne_reponse": "À compter et à donner un rang",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+
+  {
+    "id": "nat04",
+    "question": "Quel est le rang de l’élève juste après le 3ᵉ ?",
+    "choix": ["2ᵉ", "4ᵉ", "5ᵉ", "6ᵉ"],
+    "bonne_reponse": "4ᵉ",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat05",
+    "question": "La suite 3, 4, 5, 6, 7, 8 est-elle une suite de nombres entiers naturels consécutifs ?",
+    "choix": ["Oui", "Non"],
+    "bonne_reponse": "Oui",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat06",
+    "question": "La suite 17, 18, 19, 20 est-elle constituée de nombres naturels consécutifs ?",
+    "choix": ["Oui", "Non"],
+    "bonne_reponse": "Oui",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat07",
+    "question": "La suite 45, 48, 49, 50 est-elle constituée de nombres naturels consécutifs ?",
+    "choix": ["Oui", "Non"],
+    "bonne_reponse": "Non",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat08",
+    "question": "Quelle est la suite de nombres entiers naturels située entre 150 et 160 ?",
+    "choix": [
+      "150 à 160",
+      "150, 152, 154, 156, 158",
+      "151, 152, 153, 154, 155, 156, 157, 158, 159",
+      "152, 153, 154"
+    ],
+    "bonne_reponse": "151, 152, 153, 154, 155, 156, 157, 158, 159",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 25
+  },
+
+  {
+    "id": "nat09",
+    "question": "Les nombres 148, 150, 152 sont-ils des entiers naturels consécutifs ?",
+    "choix": ["Oui", "Non"],
+    "bonne_reponse": "Non",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat10",
+    "question": "Qu’est-ce qu'une suite de nombres entiers naturels consécutifs ?",
+    "choix": [
+      "Une suite de nombres qui se suivent sans sauter de valeur",
+      "Une suite de nombres impairs",
+      "Une suite de nombres décimaux",
+      "Une suite de nombres négatifs"
+    ],
+    "bonne_reponse": "Une suite de nombres qui se suivent sans sauter de valeur",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat11",
+    "question": "Quel est le plus grand entier naturel ?",
+    "choix": ["100", "1 000 000", "Il n'existe pas de plus grand entier naturel", "0"],
+    "bonne_reponse": "Il n'existe pas de plus grand entier naturel",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 25
+  },
+
+  {
+    "id": "nat12",
+    "question": "Quel nombre vient juste après 19 dans les entiers naturels ?",
+    "choix": ["18", "20", "21", "19,5"],
+    "bonne_reponse": "20",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat13",
+    "question": "Quel est le premier entier naturel ?",
+    "choix": ["1", "−1", "0", "2"],
+    "bonne_reponse": "0",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat14",
+    "question": "Parmi les nombres suivants, lequel n'est pas un entier naturel ?",
+    "choix": ["5", "12", "0", "3,5"],
+    "bonne_reponse": "3,5",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  },
+
+  {
+    "id": "nat15",
+    "question": "Complète la suite de nombres entiers naturels consécutifs : 7, 8, 9, ...",
+    "choix": ["10", "11", "12", "7,5"],
+    "bonne_reponse": "10",
+    "niveau": "6e",
+    "notion": "Entiers naturels(6e)",
+    "duration": 20
+  }
+]
+},
+
+{
   "id": "vdeensnaturels",
   "titre": "Ensembles(6e)",
   "niveau":"6e",
@@ -6026,10 +6188,11 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=luvxkidFvjc",
   "notions": ["Division dans IN(5e)"],
-  "prerequis": ["Entiers naturels(6e)"],
+  "prerequis": ["Nombres entiers naturels consécutifs (6e)"],
   "questions": [
     {
       "id": "fp-q1",
+      "notions": "Division dans IN(5e)",
       "question": "Qu’est-ce qu’un nombre premier ?",
       "choix": [
         "Un nombre qui possède exactement 2 diviseurs : 1 et lui-même",
@@ -6042,6 +6205,7 @@
     },
     {
       "id": "fp-q2",
+      "notions": "Division dans IN(5e)",
       "question": "Le nombre 7 est-il un nombre premier ?",
       "choix": ["Oui", "Non"],
       "bonne_reponse": "Oui",
@@ -6049,6 +6213,7 @@
     },
     {
       "id": "fp-q3",
+      "notions": "Division dans IN(5e)",
       "question": "Pourquoi 4 n’est-il pas un nombre premier ?",
       "choix": [
         "Parce qu’il est pair",
@@ -6061,6 +6226,7 @@
     },
     {
       "id": "fp-q4",
+      "notions": "Division dans IN(5e)",
       "question": "Quels sont les nombres premiers inférieurs à 30 selon la vidéo ?",
       "choix": [
         "2, 3, 5, 7, 11, 13, 17, 19, 23, 29",
@@ -6073,6 +6239,7 @@
     },
     {
       "id": "fp-q5",
+      "notions": "Division dans IN(5e)",
       "question": "Quel est le premier diviseur premier que l’on teste pour décomposer un nombre ?",
       "choix": ["Le plus grand", "Le plus petit", "N’importe lequel", "Le pair le plus proche"],
       "bonne_reponse": "Le plus petit",
@@ -6080,6 +6247,7 @@
     },
     {
       "id": "fp-q6",
+      "notions": "Division dans IN(5e)",
       "question": "220 est-il divisible par 2 ?",
       "choix": ["Oui", "Non"],
       "bonne_reponse": "Oui",
@@ -6087,6 +6255,7 @@
     },
     {
       "id": "fp-q7",
+      "notions": "Division dans IN(5e)",
       "question": "Pourquoi 220 est divisible par 2 ?",
       "choix": [
         "Parce qu’il est pair",
@@ -6099,6 +6268,7 @@
     },
     {
       "id": "fp-q8",
+      "notions": "Division dans IN(5e)",
       "question": "220 ÷ 2 = ?",
       "choix": ["110", "120", "55", "22"],
       "bonne_reponse": "110",
@@ -6106,6 +6276,7 @@
     },
     {
       "id": "fp-q9",
+      "notions": "Division dans IN(5e)",
       "question": "110 est-il divisible par 2 ?",
       "choix": ["Oui", "Non"],
       "bonne_reponse": "Oui",
@@ -6113,6 +6284,7 @@
     },
     {
       "id": "fp-q10",
+      "notions": "Division dans IN(5e)",
       "question": "110 ÷ 2 = ?",
       "choix": ["55", "22", "11", "110"],
       "bonne_reponse": "55",
@@ -6120,6 +6292,7 @@
     },
     {
       "id": "fp-q11",
+      "notions": "Division dans IN(5e)",
       "question": "55 est-il divisible par 2 ?",
       "choix": ["Oui", "Non"],
       "bonne_reponse": "Non",
@@ -6127,6 +6300,7 @@
     },
     {
       "id": "fp-q12",
+      "notions": "Division dans IN(5e)",
       "question": "Quel critère utilise-t-on pour vérifier si un nombre est divisible par 3 ?",
       "choix": [
         "La somme des chiffres doit être un multiple de 3",
@@ -6139,6 +6313,7 @@
     },
     {
       "id": "fp-q13",
+      "notions": "Division dans IN(5e)",
       "question": "55 est-il divisible par 3 ?",
       "choix": ["Oui", "Non"],
       "bonne_reponse": "Non",
@@ -6146,6 +6321,7 @@
     },
     {
       "id": "fp-q14",
+      "notions": "Division dans IN(5e)",
       "question": "Quel est le plus petit diviseur premier de 55 ?",
       "choix": ["2", "3", "5", "7"],
       "bonne_reponse": "5",
@@ -6153,6 +6329,7 @@
     },
     {
       "id": "fp-q15",
+      "notions": "Division dans IN(5e)",
       "question": "55 ÷ 5 = ?",
       "choix": ["5", "11", "10", "50"],
       "bonne_reponse": "11",
@@ -6160,6 +6337,7 @@
     },
     {
       "id": "fp-q16",
+      "notions": "Division dans IN(5e)",
       "question": "11 est-il un nombre premier ?",
       "choix": ["Oui", "Non"],
       "bonne_reponse": "Oui",
@@ -6167,6 +6345,7 @@
     },
     {
       "id": "fp-q17",
+      "notions": "Division dans IN(5e)",
       "question": "Quel est le plus petit diviseur de 11 dans la liste des nombres premiers ?",
       "choix": ["1", "11", "2", "5"],
       "bonne_reponse": "11",
@@ -6174,6 +6353,7 @@
     },
     {
       "id": "fp-q18",
+      "notions": "Division dans IN(5e)",
       "question": "11 ÷ 11 = ?",
       "choix": ["0", "1", "11", "111"],
       "bonne_reponse": "1",
@@ -6181,6 +6361,7 @@
     },
     {
       "id": "fp-q19",
+      "notions": "Division dans IN(5e)",
       "question": "Quand la décomposition en facteurs premiers est-elle terminée ?",
       "choix": [
         "Quand on obtient 0",
@@ -6193,6 +6374,7 @@
     },
     {
       "id": "fp-q20",
+      "notions": "Division dans IN(5e)",
       "question": "Quelle est la décomposition de 220 en produit de facteurs premiers ?",
       "choix": [
         "220 = 2 × 2 × 5 × 11",
@@ -7106,7 +7288,7 @@
     "titre": "Arithmétiques: PPCM-PGCD(4e)",
     "niveau": "4e",
     "mois": ["Février","Mars","Avril","Mai","Juin","Juillet","Août"],
-    "videoUrl": "http://localhost:8000/RemediationVideos/4e/ArithmetiquesPPCM_PGCD(4e).mp4",
+    "videoUrl": "https://www.youtube.com/watch?v=OFmVVrPbPDk",
     "notions": ["Arithmétiques: PPCM-PGCD(4e)"],
     "prerequis": ["Entiers naturels(6e)","Division dans IN(5e)"],
     "questions": [
@@ -7368,7 +7550,7 @@
   "mois": ["Septembre","Octobre","Novembre","Décembre","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août"],
   "videoUrl": "https://www.youtube.com/watch?v=8vB2JUGuUDM",
   "notions": ["Nombres réels(3e)"],
-  "prerequis": ["Entiers naturels en ensemble ℕ (6e)","Nombres entiers naturels consécutifs (6e)", "Décomposer un nombre en produit de facteurs premiers (5e)", "Arithmétiques: PPCM-PGCD(4e)", "Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"],
+  "prerequis": ["Entiers naturels(6e)","Nombres entiers naturels consécutifs (6e)","Division dans IN(5e)","Décomposer un nombre en produit de facteurs premiers (5e)","Arithmétiques: PPCM-PGCD(4e)","Nombres décimaux arithmétiques(6e)", "Nombres décimaux relatifs(5e)", "Nombres décimaux(4e)", "Fractions(6e)", "Fractions(5e)", "Fractions(4e)", "Nombres rationnels(4e)", "Calcul littéral(6e)", "Calculs sur les expressions algébriques(4e)"],
   "questions": [
     {
       "id": "real1",
