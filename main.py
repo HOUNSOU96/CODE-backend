@@ -966,19 +966,23 @@ def get_remediation_videos(niveau: str = Query(...)):
             add_video_recursive(video)
 
     return [
-        {
-            "id": v["id"],
-            "titre": v["titre"],
-            "niveau": v["niveau"],
-            "fichier": v.get("fichier") or v.get("videoUrl"),
-            "mois": v.get("mois"),
-            "notions": v.get("notions"),
-            "prerequis": v.get("prerequis"),
-            "questions": v.get("questions"),
-            "videoUrl": v.get("videoUrl"),
-        }
-        for v in result
-    ]
+    {
+        "id": v["id"],
+        "titre": v["titre"],
+        "niveau": v["niveau"],
+        "fichier": v.get("fichier") or v.get("videoUrl"),
+        "mois": v.get("mois"),     # optionnel
+        "notions": v.get("notions"),
+        "prerequis": v.get("prerequis"),
+        "questions": v.get("questions"),
+        "videoUrl": v.get("videoUrl"),
+
+        # 👉 Ajout demandé : Exercices transmis au frontend
+        #    Optionnel : renvoie None si absent, ne casse rien
+        "exercices": v.get("exercices"),
+    }
+    for v in result
+]
 
 
 
