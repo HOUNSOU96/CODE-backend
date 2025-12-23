@@ -1,96 +1,79 @@
 from fastapi import APIRouter, Query, HTTPException
-from typing import Optional
+from typing import Optional, List
 import os
 import json
 
-
-BACKEND_URL = os.environ.get("BACKEND_URL")
-
-
 router = APIRouter(prefix="/api/v1/products", tags=["Products"])
 
-# Chemins vers les dossiers d'images
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-IMAGE_FOLDERS = {
-    "Vins": os.path.join(BASE_DIR, "../Images/vins"),
-    "Alimentaire": os.path.join(BASE_DIR, "../Images/alimentaire"),
-    "Entretien": os.path.join(BASE_DIR, "../Images/entretien"),
-}
+PRODUCTS_JSON_PATH = os.path.join(BASE_DIR, "../products.json")
 
-# Charger les prix depuis un JSON existant (products.json)
-products_json_path = os.path.join(BASE_DIR, "../products.json")
-if os.path.exists(products_json_path):
-    with open(products_json_path, "r", encoding="utf-8") as f:
-        existing_products = json.load(f)
-else:
-    existing_products = []
+if not os.path.exists(PRODUCTS_JSON_PATH):
+    raise RuntimeError("Le fichier products.json est introuvable")
 
-# Créer un dictionnaire de lookup pour retrouver prix ET description par nom
-product_lookup = {
-    p["name"]: {
-        "price": p.get("price", 0),
-        "promoPrice": p.get("promoPrice", 0),
-        "short_description": p.get("short_description", f"Description courte pour {p['name']}.")
+with open(PRODUCTS_JSON_PATH, "r", encoding="utf-8") as f:
+    PRODUCTS: List[dict] = json.load(f)
+
+# URL de base pour les images servies par FastAPI
+IMAGES_BASE_URL = "/images"
+
+def sanitize_product(product: dict) -> dict:
+    """
+    Produit retourné au frontend avec URL d'image correcte
+    """
+    image_path = product.get("image_url", "")
+    # Remplacer le préfixe /Images par /images pour correspondre à StaticFiles
+    if image_path:
+        image_url = image_path.replace("/Images", IMAGES_BASE_URL)
+    else:
+        image_url = None
+
+    return {
+        "id": product.get("id"),
+        "name": product.get("name"),
+        "slug": product.get("slug"),
+        "price": product.get("price"),
+        # "promoPrice": product.get("promoPrice"), # désactivé pour l'instant
+        "image_url": image_url,
+        "short_description": product.get("short_description"),
+        "category": product.get("category"),
     }
-    for p in existing_products
-}
 
-PRODUCTS = []
-current_id = 1
-
-for category, folder in IMAGE_FOLDERS.items():
-    if os.path.exists(folder):
-        for filename in sorted(os.listdir(folder)):
-            if filename.lower().endswith((".jpg", ".jpeg", ".png")):
-                slug = filename.rsplit(".", 1)[0].lower().replace(" ", "-")
-                product_name = f"{category} {current_id}"
-                data = product_lookup.get(product_name, {
-                    "price": 5.0,
-                    "promoPrice": 0,
-                    "short_description": f"Description courte pour {product_name}."
-                })
-                PRODUCTS.append({
-                    "id": current_id,
-                    "name": product_name,
-                    "slug": slug,
-                    "category": category.lower(),
-                    "price": data["price"],
-                    "promoPrice": data.get("promoPrice", 0),
-                    "image_url": f"{BACKEND_URL}/images/{category.lower()}/{filename}",
-                    "featured": True,
-                    "short_description": data["short_description"]
-                })
-                current_id += 1
-
-
-# 🔹 Liste des produits
 @router.get("/")
 def get_products(
-    featured: Optional[bool] = Query(None),
-    limit: Optional[int] = Query(None),
-    category: Optional[str] = Query(None)
+    category: Optional[str] = Query(None),
+    limit: Optional[int] = Query(None)
 ):
-    filtered = PRODUCTS
-    if featured is not None:
-        filtered = [p for p in filtered if p["featured"] == featured]
-    if category:
-        filtered = [p for p in filtered if p["category"].lower() == category.lower()]
-    if limit:
-        filtered = filtered[:limit]
-    return {"products": filtered}
+    results = PRODUCTS
 
-# 🔹 Récupérer un produit par ID
+    if category:
+        results = [
+            p for p in results
+            if p.get("category", "").lower() == category.lower()
+        ]
+
+    if limit:
+        results = results[:limit]
+
+    return {
+        "count": len(results),
+        "products": [sanitize_product(p) for p in results]
+    }
+
 @router.get("/{id}")
 def get_product_by_id(id: int):
-    product = next((p for p in PRODUCTS if p["id"] == id), None)
+    product = next((p for p in PRODUCTS if p.get("id") == id), None)
+
     if not product:
         raise HTTPException(status_code=404, detail="Produit introuvable")
-    return product
 
-# 🔹 Récupérer un produit par slug
+    return sanitize_product(product)
+
 @router.get("/slug/{slug}")
 def get_product_by_slug(slug: str):
-    product = next((p for p in PRODUCTS if p["slug"] == slug), None)
+    product = next((p for p in PRODUCTS if p.get("slug") == slug), None)
+
     if not product:
         raise HTTPException(status_code=404, detail="Produit introuvable")
-    return product
+
+    return sanitize_product(product)

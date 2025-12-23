@@ -1,80 +1,76 @@
 import os
-import re
 import json
-from slugify import slugify  # pip install python-slugify
-
-BACKEND_URL = os.environ.get("BACKEND_URL")
 
 # --- CONFIG ---
-categories = {
-    "vins": "Images/vins",
-    "alimentaire": "Images/alimentaire",
-    "entretien": "Images/entretien"
-}
+PRODUCTS_JSON_PATH = "products.json"
+IMAGES_BASE_PATH = "Images"  # dossier racine des images
+IMAGES_URL_PREFIX = "/images"  # préfixe à utiliser côté frontend
 
-# --- SCRIPT ---
+
 def generate_products_json():
-    # Charger le JSON existant pour récupérer les prix
-    existing_products = []
-    if os.path.exists("products.json"):
-        with open("products.json", "r", encoding="utf-8") as f:
-            existing_products = json.load(f)
+    """
+    Ce script NE MODIFIE PAS les données.
+    Il recharge simplement products.json, vérifie les images,
+    puis réécrit le fichier proprement.
+    """
 
-    price_lookup = {p["name"]: {"price": p["price"], "promoPrice": p.get("promoPrice", 0)} for p in existing_products}
+    if not os.path.exists(PRODUCTS_JSON_PATH):
+        raise FileNotFoundError("❌ products.json introuvable")
 
-    all_products = []
-    global_id = 1
+    # 🔹 Charger le JSON existant
+    with open(PRODUCTS_JSON_PATH, "r", encoding="utf-8") as f:
+        products = json.load(f)
 
-    for prefix, folder in categories.items():
-        print(f"📁 Traitement de la catégorie '{prefix}' dans {folder}")
-        if not os.path.exists(folder):
-            print(f"⚠️ Le dossier {folder} n'existe pas, skipping...")
-            continue
+    cleaned_products = []
 
-        files = sorted(os.listdir(folder))
-        counter = 1
-        pattern = re.compile(rf"^{prefix}\d+\.(jpg|jpeg|png)$", re.IGNORECASE)
+    for product in products:
+        # 🔹 Vérification minimale des champs attendus
+        required_fields = [
+            "id",
+            "name",
+            "slug",
+            "price",
+            # "promoPrice",  # 🔕 promoPrice commenté pour l'instant
+            "image_url",
+            "short_description",
+            "category"
+        ]
 
-        for filename in files:
-            old_path = os.path.join(folder, filename)
-            if os.path.isfile(old_path) and filename.lower().endswith((".jpg", ".jpeg", ".png")):
-                # Renommage
-                if not pattern.match(filename):
-                    ext = filename.split(".")[-1].lower()
-                    new_name = f"{prefix}{counter}.{ext}"
-                    new_path = os.path.join(folder, new_name)
-                    os.rename(old_path, new_path)
-                    print(f"{filename} -> {new_name}")
-                    filename = new_name
-                counter += 1
+        for field in required_fields:
+            if field not in product:
+                raise ValueError(
+                    f"❌ Champ manquant '{field}' dans le produit ID {product.get('id')}"
+                )
 
-                # Création produit JSON
-                product_name = f"{prefix.capitalize()} {counter-1}"
-                product_slug = slugify(product_name)
-                image_url = f"{BACKEND_URL}/images/{prefix}/{filename}"  # chemin relatif frontend
-                short_description = f"Description courte pour {product_name}."
-                prices = price_lookup.get(product_name, {"price": 0, "promoPrice": 0})
-                price = prices["price"]
-                promo_price = prices["promoPrice"]
+        # 🔹 Vérifier l'existence de l'image (optionnel mais recommandé)
+        image_path = product["image_url"].lstrip("/")  # /Images/vins/vins1.jpeg → Images/vins/vins1.jpeg
+        if not os.path.exists(image_path):
+            print(f"⚠️ Image manquante : {image_path}")
 
-                all_products.append({
-                    "id": global_id,
-                    "name": product_name,
-                    "slug": product_slug,
-                    "price": price,
-                    "promoPrice": promo_price,
-                    "image_url": image_url,
-                    "short_description": short_description,
-                    "category": prefix
-                })
-                global_id += 1
+        # 🔹 Adapter le chemin pour le frontend (remplacer /Images par /images)
+        image_url = product["image_url"].replace("/Images", IMAGES_URL_PREFIX)
 
-    # Écriture JSON
-    with open("products.json", "w", encoding="utf-8") as f:
-        json.dump(all_products, f, ensure_ascii=False, indent=2)
+        # 🔹 On garde le produit TEL QUEL, promoPrice commenté pour l'instant
+        cleaned_product = {
+            "id": product.get("id"),
+            "name": product.get("name"),
+            "slug": product.get("slug"),
+            "price": product.get("price"),
+            # "promoPrice": product.get("promoPrice"),
+            "image_url": image_url,
+            "short_description": product.get("short_description"),
+            "category": product.get("category")
+        }
 
-    print("✅ JSON mis à jour : products.json")
-    return all_products
+        cleaned_products.append(cleaned_product)
+
+    # 🔹 Réécriture propre du JSON
+    with open(PRODUCTS_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(cleaned_products, f, ensure_ascii=False, indent=2)
+
+    print(f"✅ products.json validé et réécrit ({len(cleaned_products)} produits)")
+    return cleaned_products
+
 
 if __name__ == "__main__":
     generate_products_json()
