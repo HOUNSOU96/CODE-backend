@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict
 from typing import Dict, List, Optional, Set
 import json
+from routes import admin
 import os
 from fastapi import Request, BackgroundTasks
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -55,6 +56,9 @@ if not os.path.exists(STATIC_DIR):
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/images", StaticFiles(directory="Images"), name="images")
 
+
+app.include_router(products.router)
+app.include_router(admin.router, prefix="/api")
 
 logger = logging.getLogger(__name__)
 class Apprenant(BaseModel):
