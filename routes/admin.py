@@ -23,6 +23,8 @@ def create_access_token(data: dict, expires_delta: timedelta):
 
 @router.post("/check-admin")
 async def check_admin(login: AdminLogin):
+    print("DEBUG reçu:", login.password)
+    print("DEBUG MORAVI_PASSWORD:", MORAVI_PASSWORD)
     if login.password != MORAVI_PASSWORD:
         raise HTTPException(status_code=401, detail="Mot de passe incorrect")
 
