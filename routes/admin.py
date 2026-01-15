@@ -1,19 +1,36 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from datetime import timedelta
+from jose import jwt
+from moravi_auth import create_admin_token
 
-router = APIRouter()
+router = APIRouter(prefix="/api/admin", tags=["admin"])
 
-# ---------- Modèle de requête ----------
+SECRET_KEY = "CHANGE_CECI_IMPERATIVEMENT"
+ALGORITHM = "HS256"
+
 class AdminLogin(BaseModel):
     password: str
 
-# ---------- Mot de passe MORAVI ----------
-MORAVI_PASSWORD = "moravi"  # change si nécessaire
+MORAVI_PASSWORD = "moravi"
 
-# ---------- Route POST pour vérifier le mot de passe ----------
+def create_access_token(data: dict, expires_delta: timedelta):
+    to_encode = data.copy()
+    expire = timedelta.total_seconds(expires_delta)
+    to_encode.update({"exp": int(expire)})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
 @router.post("/check-admin")
 async def check_admin(login: AdminLogin):
-    if login.password == MORAVI_PASSWORD:
-        return {"access": True, "message": "Connexion réussie."}
-    else:
-        return {"access": False, "message": "Mot de passe incorrect."}
+    if login.password != MORAVI_PASSWORD:
+        raise HTTPException(status_code=401, detail="Mot de passe incorrect")
+
+    token = create_access_token(
+        data={"sub": "admin", "is_admin": True},
+        expires_delta=timedelta(hours=12)
+    )
+
+    return {
+        "access": True,
+        "token": token
+    }

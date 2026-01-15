@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models.order import Order
 from models.user import User
+from moravi_auth import get_current_admin
 from dependencies import get_current_user
 from typing import List
 
@@ -37,10 +38,9 @@ def create_order(order_data: dict, db: Session = Depends(get_db)):
 @router.get("/all")
 def get_all_orders(
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    admin = Depends(get_current_admin)
 ):
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
 
     orders = db.query(Order).all()
 
@@ -70,10 +70,9 @@ def get_all_orders(
 def delete_order(
     order_id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    admin = Depends(get_current_admin)
 ):
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
 
     order = db.query(Order).filter(Order.id == order_id).first()
     if not order:
@@ -93,10 +92,9 @@ def update_order(
     order_id: int,
     data: dict,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    admin = Depends(get_current_admin)
 ):
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
 
     order = db.query(Order).filter(Order.id == order_id).first()
     if not order:
