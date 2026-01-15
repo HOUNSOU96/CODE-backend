@@ -1,10 +1,8 @@
-import os
+import time
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from datetime import timedelta
 from jose import jwt
-from moravi_auth import create_admin_token
-import time
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
@@ -14,17 +12,14 @@ ALGORITHM = "HS256"
 class AdminLogin(BaseModel):
     password: str
 
-MORAVI_PASSWORD = os.getenv("MORAVI_PASSWORD", "moravi")
-
-
-import time
+# Mot de passe fixe pour MORAVI
+MORAVI_PASSWORD = "moravi"
 
 def create_access_token(data: dict, expires_delta: timedelta):
     to_encode = data.copy()
     expire = int(time.time() + expires_delta.total_seconds())
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
 
 @router.post("/check-admin")
 async def check_admin(login: AdminLogin):
