@@ -1,4 +1,3 @@
-# backend/routes/admin_dashboard.py
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
@@ -109,7 +108,6 @@ def eleves_plus_actifs(
     if not current_user.is_admin:
         raise HTTPException(status_code=403)
 
-    # Récupérer tous les logs terminés
     logs = db.query(
         UserConnectionLog.user_id,
         UserConnectionLog.date,
@@ -117,7 +115,6 @@ def eleves_plus_actifs(
         UserConnectionLog.heure_deconnexion
     ).filter(UserConnectionLog.heure_deconnexion.isnot(None)).all()
 
-    # Calcul du temps total par élève
     temps_par_eleve: Dict[int, int] = {}  # id -> minutes
     for log in logs:
         start = datetime.combine(log.date, log.heure_connexion)
@@ -125,10 +122,8 @@ def eleves_plus_actifs(
         mins = (end - start).total_seconds() / 60
         temps_par_eleve[log.user_id] = temps_par_eleve.get(log.user_id, 0) + mins
 
-    # Récupérer les infos élèves
     eleves = db.query(User).filter(User.id.in_(temps_par_eleve.keys())).all()
 
-    # Préparer liste triée
     result = [
         {"id": u.id, "nom": u.nom, "prenom": u.prenom, "email": u.email, "total_minutes": round(temps_par_eleve[u.id])}
         for u in eleves
@@ -136,3 +131,33 @@ def eleves_plus_actifs(
     result.sort(key=lambda x: x["total_minutes"], reverse=True)
 
     return result[:limit]
+
+
+# 🔹 🔹 Nouvel endpoint : historique complet avec last_seen
+@router.get("/historique-connections")
+def historique_connections(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403)
+
+    logs = db.query(
+        UserConnectionLog,
+        User
+    ).join(User, UserConnectionLog.user_id == User.id).all()
+
+    result = []
+    for log, user in logs:
+        result.append({
+            "id": user.id,
+            "nom": user.nom,
+            "prenom": user.prenom,
+            "email": user.email,
+            "date": log.date.strftime("%Y-%m-%d"),
+            "heure_connexion": log.heure_connexion.strftime("%H:%M:%S"),
+            "heure_deconnexion": log.heure_deconnexion.strftime("%H:%M:%S") if log.heure_deconnexion else "-",
+            "last_seen": user.last_seen.isoformat() if user.last_seen else None
+        })
+
+    return result
