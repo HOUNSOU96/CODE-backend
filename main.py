@@ -34,6 +34,10 @@ from dependencies import get_current_user
 from routes import  progression, remediation_progress, auth, products
 from models import init_models
 import unicodedata
+from routes.admin_dashboard import router as admin_dashboard_router
+
+
+
 
 # -------------------- Initialisation -------------------- #
 init_models()
@@ -268,7 +272,7 @@ app.include_router(progression.router)
 app.include_router(admin_router)
 app.include_router(products.router)
 app.include_router(admin_router, prefix="/api")
-
+app.include_router(admin_dashboard_router)
 
 
 

@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models.user import User
 from models.pending_user import PendingUser
+from models.connection_log import UserConnectionLog
+from datetime import datetime
 import uuid
 from pydantic import BaseModel, EmailStr
 from jose import jwt
@@ -73,24 +75,34 @@ def get_current_user(request: Request, db: Session = Depends(get_db)) -> User:
 
 @router.post("/login")
 def login(data: LoginRequest, db: Session = Depends(get_db)):
+
     user = db.query(User).filter(User.email == data.email).first()
+
     if not user:
         raise HTTPException(status_code=401, detail="Email ou mot de passe incorrect.")
 
     if not verify_password(data.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Email ou mot de passe incorrect.")
 
-    # 🔹 Gestion des statuts spéciaux pour le frontend
     if user.is_blocked:
         raise HTTPException(status_code=403, detail="USER_BLOCKED")
+
     if not user.is_validated:
         raise HTTPException(status_code=403, detail="USER_NOT_VALIDATED")
 
-    # 🔹 Mettre à jour last_seen
+    # 🔹 Mise à jour activité
     user.last_seen = datetime.utcnow()
+
+    # 🔹 ENREGISTRER LA CONNEXION
+    log = UserConnectionLog(
+        user_id=user.id,
+        date=datetime.utcnow().date(),
+        heure_connexion=datetime.utcnow().time()
+    )
+
+    db.add(log)
     db.commit()
 
-    # Création du token JWT
     token = create_access_token(user.id)
 
     return {
@@ -104,6 +116,27 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
             "is_validated": user.is_validated
         }
     }
+
+
+@router.post("/logout")
+def logout(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    log = (
+        db.query(UserConnectionLog)
+        .filter(
+            UserConnectionLog.user_id == current_user.id,
+            UserConnectionLog.heure_deconnexion == None
+        )
+        .order_by(UserConnectionLog.id.desc())
+        .first()
+    )
+
+    if log:
+        log.heure_deconnexion = datetime.utcnow().time()
+        db.commit()
+
+    return {"message": "Déconnexion enregistrée"}
+
 
 
 @router.post("/ping")

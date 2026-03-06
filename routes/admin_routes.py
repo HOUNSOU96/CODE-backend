@@ -1,28 +1,27 @@
-# 📁 admin_routes.py
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
-from models.user import User, UserStatus
-from dependencies import get_current_user
-from utils.email import send_email, send_email_sync
-from typing import List
-from models.connection_log import UserConnectionLog
+from typing import List, Optional
 from pydantic import BaseModel
-from database import get_db
-from utils.email import send_email
 import uuid
 import os
+
+from database import get_db
+from dependencies import get_current_user
+from models.user import User, UserStatus
+from models.connection_log import UserConnectionLog
+from utils.email import send_email, send_email_sync
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
 
-# Modèle pour la requête
-class AdminCode(BaseModel):
-    password: str
-
-# Mot de passe admin caché
+# ---------------- Mot de passe admin ----------------
 ADMIN_CODE = "MOraVi"
 
+
+# ---------------- Modèles ----------------
+class AdminCode(BaseModel):
+    password: str
 
 
 class ConnectionRecord(BaseModel):
@@ -36,11 +35,16 @@ class ConnectionRecord(BaseModel):
 
 # ---------------- Fonction d'envoi emails aux admins ----------------
 def send_admin_validation_emails(new_user: User, background_tasks: BackgroundTasks, db: Session):
+
     admins = db.query(User).filter(User.is_admin == True).all()
+
     for admin in admins:
+
         subject = "Nouvelle inscription CODE à valider"
+
         accept_link = f"{os.getenv('FRONTEND_URL')}/api/admin/validate/{new_user.validation_token}/accept"
         reject_link = f"{os.getenv('FRONTEND_URL')}/api/admin/validate/{new_user.validation_token}/reject"
+
         content = (
             f"Bonjour {admin.nom},\n\n"
             f"Nouvelle inscription de {new_user.nom} {new_user.prenom} ({new_user.email}).\n\n"
@@ -48,8 +52,16 @@ def send_admin_validation_emails(new_user: User, background_tasks: BackgroundTas
             f"Pour REFUSER : {reject_link}\n\n"
             "Cordialement,\nL'équipe CODE"
         )
-        background_tasks.add_task(send_email_sync, to=admin.email, subject=subject, body=content)
+
+        background_tasks.add_task(
+            send_email_sync,
+            to=admin.email,
+            subject=subject,
+            body=content
+        )
+
         print(f"[DEBUG] Email envoyé à {admin.email} pour {new_user.email}")
+
 
 # ---------------- Liste des inscrits ----------------
 @router.get("/liste-inscrits")
@@ -59,38 +71,56 @@ def liste_inscrits(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+
     if not current_user.is_admin:
         raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
 
     query = db.query(User).filter(User.email != "deogratiashounsou@gmail.com")
+
     total = query.count()
-    inscrits = query.offset((page - 1) * page_size).limit(page_size).all()
 
-    online_threshold = datetime.utcnow() - timedelta(minutes=1)  # connecté si activité dans la dernière minute
+    inscrits = (
+        query
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+        .all()
+    )
 
-    data = []  # Liste finale des inscrits enrichis
+    online_threshold = datetime.utcnow() - timedelta(minutes=1)
+
+    data = []
 
     for user in inscrits:
-        # Récupération des filleuls
+
         filleuls = db.query(User.email).filter(User.parrain_email == user.email).all()
 
-        # Construction du dictionnaire utilisateur
         user_data = {
+
             "id": user.id,
             "nom": user.nom,
             "prenom": user.prenom,
             "email": user.email,
             "telephone": user.telephone,
+
             "is_validated": user.is_validated,
+
             "status": user.status if user.status else UserStatus.ACTIVE.value,
+
             "is_admin": user.is_admin,
             "is_blocked": user.is_blocked,
             "last_warning": user.last_warning,
+
             "parrain_email": user.parrain_email,
             "pays_residence": user.pays_residence,
+
             "date_inscription": user.created_at if hasattr(user, "created_at") else None,
-            "is_online": bool(user.last_seen and user.last_seen > online_threshold),
-            "filleuls_emails": [f[0] for f in filleuls],  # ✅ liste des e-mails de filleuls
+
+            "is_online": bool(
+                user.last_seen and user.last_seen > online_threshold
+            ),
+
+            "filleuls_emails": [f[0] for f in filleuls],
+
         }
 
         data.append(user_data)
@@ -101,32 +131,74 @@ def liste_inscrits(
     }
 
 
+# ---------------- Historique des connexions ----------------
 @router.get("/historique-connections", response_model=List[ConnectionRecord])
-def get_historique_connections(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def get_historique_connections(
+    date: Optional[str] = None,
+    limit: int = 500,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
     if not current_user.is_admin:
-        raise HTTPException(status_code=403)
+        raise HTTPException(status_code=403, detail="Accès admin requis")
 
-    logs = db.query(UserConnectionLog).all()  # récupère tous les logs
-    return [
-        ConnectionRecord(
-            id=log.user.id,
-            nom=log.user.nom,
-            prenom=log.user.prenom,
-            date=log.date.strftime("%Y-%m-%d"),
-            heure_connexion=log.heure_connexion.strftime("%H:%M"),
-            heure_deconnexion=log.heure_deconnexion.strftime("%H:%M") if log.heure_deconnexion else "-"
+    query = db.query(UserConnectionLog)
+
+    if date:
+        try:
+            date_obj = datetime.strptime(date, "%Y-%m-%d").date()
+            query = query.filter(UserConnectionLog.date == date_obj)
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Format date invalide")
+
+    logs = (
+        query
+        .order_by(
+            UserConnectionLog.date.desc(),
+            UserConnectionLog.heure_connexion.desc()
         )
-        for log in logs
-    ]
+        .limit(limit)
+        .all()
+    )
 
+    results = []
 
+    for log in logs:
 
+        results.append(
+
+            ConnectionRecord(
+                id=log.user.id,
+                nom=log.user.nom,
+                prenom=log.user.prenom,
+
+                date=log.date.strftime("%Y-%m-%d"),
+
+                heure_connexion=log.heure_connexion.strftime("%H:%M"),
+
+                heure_deconnexion=(
+                    log.heure_deconnexion.strftime("%H:%M")
+                    if log.heure_deconnexion
+                    else "-"
+                )
+
+            )
+
+        )
+
+    return results
 
 
 # ---------------- Création utilisateur admin ----------------
 @router.post("/create-user")
-def create_user(user_data: dict, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
-    if db.query(User).filter(User.email == user_data['email']).first():
+def create_user(
+    user_data: dict,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+
+    if db.query(User).filter(User.email == user_data["email"]).first():
         raise HTTPException(status_code=400, detail="Email déjà utilisé")
 
     new_user = User(
@@ -137,141 +209,238 @@ def create_user(user_data: dict, background_tasks: BackgroundTasks, db: Session 
         is_validated=False,
         status=UserStatus.PENDING.value
     )
+
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
 
     send_admin_validation_emails(new_user, background_tasks, db)
 
-    return {"message": f"Utilisateur {new_user.email} créé et notifications envoyées aux admins."}
+    return {
+        "message": f"Utilisateur {new_user.email} créé et notifications envoyées aux admins."
+    }
 
-# ---------------- Relancer l’envoi d’email pour tous les utilisateurs en attente ----------------
+
+# ---------------- Relancer les emails ----------------
 @router.post("/resend-pending-emails")
-def resend_pending_emails(background_tasks: BackgroundTasks, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def resend_pending_emails(
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
     if not current_user.is_admin:
         raise HTTPException(status_code=403)
 
     pending_users = db.query(User).filter(User.is_validated == False).all()
+
     for u in pending_users:
         send_admin_validation_emails(u, background_tasks, db)
 
-    return {"message": f"Emails de validation envoyés pour {len(pending_users)} utilisateurs en attente."}
+    return {
+        "message": f"Emails envoyés pour {len(pending_users)} utilisateurs en attente."
+    }
 
-# ---------------- Valider / Refuser un inscrit ----------------
+
+# ---------------- Valider inscrit ----------------
 @router.post("/valider-inscrit/{user_id}")
-def valider_inscrit(user_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def valider_inscrit(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
     if not current_user.is_admin:
         raise HTTPException(status_code=403)
+
     user = db.query(User).filter(User.id == user_id).first()
+
     if not user:
         raise HTTPException(status_code=404)
+
     user.is_validated = True
     user.status = UserStatus.VALIDATED.value
     user.token_used = True
+
     db.commit()
+
     return {"message": f"Utilisateur {user.email} validé avec succès."}
 
+
+# ---------------- Refuser inscrit ----------------
 @router.post("/refuser-inscrit/{user_id}")
-def refuser_inscrit(user_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def refuser_inscrit(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+
     if not current_user.is_admin:
         raise HTTPException(status_code=403)
 
     user = db.query(User).filter(User.id == user_id).first()
+
     if not user:
         raise HTTPException(status_code=404)
 
     db.delete(user)
     db.commit()
-    return {"message": f"Utilisateur {user.email} supprimé (refusé) avec succès."}
+
+    return {"message": f"Utilisateur {user.email} supprimé (refusé)."}
 
 
-# ---------------- Validation via token unique ----------------
+# ---------------- Validation via token ----------------
 @router.get("/validate/{token}/{action}")
-def validate_inscription(token: str, action: str, db: Session = Depends(get_db)):
+def validate_inscription(
+    token: str,
+    action: str,
+    db: Session = Depends(get_db)
+):
+
     user = db.query(User).filter(User.validation_token == token).first()
+
     if not user:
         raise HTTPException(status_code=404)
+
     if user.token_used:
-        raise HTTPException(status_code=400, detail="Ce lien de validation a déjà été utilisé.")
+        raise HTTPException(status_code=400, detail="Lien déjà utilisé.")
 
     if action == "accept":
+
         user.is_validated = True
         user.status = UserStatus.VALIDATED.value
+
     elif action == "reject":
+
         user.is_validated = False
         user.status = UserStatus.SUSPENDED.value
+
     else:
         raise HTTPException(status_code=400, detail="Action invalide")
 
     user.token_used = True
     db.commit()
-    return {"message": f"Inscription de {user.nom} {action}ée avec succès."}
 
-# ---------------- Bloquer / Réactiver ----------------
+    return {"message": f"Inscription de {user.nom} traitée."}
+
+
+# ---------------- Bloquer utilisateur ----------------
 @router.post("/block-user/{user_id}")
-def block_user(user_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def block_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
     if not current_user.is_admin:
         raise HTTPException(status_code=403)
+
     user = db.query(User).filter(User.id == user_id).first()
+
     if not user:
         raise HTTPException(status_code=404)
+
     user.is_blocked = True
     db.commit()
+
     return {"message": f"Utilisateur {user.email} bloqué"}
 
+
+# ---------------- Réactiver utilisateur ----------------
 @router.post("/reactivate-user/{user_id}")
-def reactivate_user(user_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def reactivate_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
     if not current_user.is_admin:
         raise HTTPException(status_code=403)
+
     user = db.query(User).filter(User.id == user_id).first()
+
     if not user:
         raise HTTPException(status_code=404)
+
     user.is_blocked = False
     db.commit()
+
     return {"message": f"Utilisateur {user.email} réactivé"}
+
 
 # ---------------- Avertissement ----------------
 @router.post("/send-warning/{user_id}")
-def send_warning(user_id: int, background_tasks: BackgroundTasks, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def send_warning(
+    user_id: int,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
     if not current_user.is_admin:
         raise HTTPException(status_code=403)
+
     user = db.query(User).filter(User.id == user_id).first()
+
     if not user:
         raise HTTPException(status_code=404)
+
     if user.last_warning and (datetime.utcnow() - user.last_warning).days < 21:
+
         jours_restants = 21 - (datetime.utcnow() - user.last_warning).days
-        return {"message": f"Avertissement déjà envoyé. Prochain possible dans {jours_restants} jours."}
+
+        return {
+            "message": f"Avertissement déjà envoyé. Prochain possible dans {jours_restants} jours."
+        }
+
     user.last_warning = datetime.utcnow()
     db.commit()
+
     subject = "Avertissement CODE"
-    content = f"Bonjour {user.nom} {user.prenom},\n\nVous devez renouveller votre abonnement.\n\nCordialement."
-    background_tasks.add_task(send_email, to=user.email, subject=subject, body=content)
+
+    content = (
+        f"Bonjour {user.nom} {user.prenom},\n\n"
+        "Vous devez renouveler votre abonnement.\n\n"
+        "Cordialement."
+    )
+
+    background_tasks.add_task(
+        send_email,
+        to=user.email,
+        subject=subject,
+        body=content
+    )
+
     return {"message": "Email d'avertissement envoyé"}
+
 
 # ---------------- Supprimer utilisateur ----------------
 @router.delete("/delete-user/{user_id}")
-def delete_user(user_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def delete_user(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+
     if not current_user.is_admin:
         raise HTTPException(status_code=403)
+
     user = db.query(User).filter(User.id == user_id).first()
+
     if not user:
         raise HTTPException(status_code=404)
+
     db.delete(user)
     db.commit()
-    return {"message": f"Utilisateur {user.email} supprimé avec succès."}
+
+    return {"message": f"Utilisateur {user.email} supprimé"}
 
 
-    
-
-
+# ---------------- Vérification admin ----------------
 @router.post("/check-admin")
 def check_admin(code: AdminCode):
+
     if code.password == ADMIN_CODE:
         return {"access": True}
+
     raise HTTPException(status_code=401, detail="Mot de passe incorrect")
-
-
-
-
-
-
