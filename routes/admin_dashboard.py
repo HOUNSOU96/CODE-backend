@@ -143,10 +143,15 @@ def historique_connections(
         raise HTTPException(status_code=403)
 
     logs = db.query(
-        UserConnectionLog,
-        User
-    ).join(User, UserConnectionLog.user_id == User.id).all()
-
+    UserConnectionLog,
+    User
+).join(
+    User, UserConnectionLog.user_id == User.id
+).order_by(
+    UserConnectionLog.date.desc(),
+    UserConnectionLog.heure_connexion.desc()
+).all()
+    
     result = []
     for log, user in logs:
         result.append({
