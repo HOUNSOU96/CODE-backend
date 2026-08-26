@@ -5,7 +5,6 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict
 from typing import Dict, List, Optional, Set
 import json
-from routes import admin
 import os
 from fastapi import Request, BackgroundTasks
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -63,7 +62,6 @@ app.mount("/images", StaticFiles(directory="Images"), name="images")
 
 app.include_router(activation_router)
 app.include_router(products.router)
-app.include_router(admin.router, prefix="/api")
 
 logger = logging.getLogger(__name__)
 class Apprenant(BaseModel):
@@ -148,23 +146,23 @@ announcements: List[Announcement] = [
     Announcement(
         id=1,
         type="alerte",
-        message="📩 Cette plateforme sera payante à partir de 31 Décembre 2025.",
+        message="📩 Cette plateforme est purement éducative.",
         start_date=datetime(2025, 9, 1),
         end_date=datetime(2025, 12, 30),
     ),
     Announcement(
         id=2,
         type="avantage",
-        message="📩 Pour nous soutenir, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    +229 01 52 99 95 32 (AZON Roméo E.) ou par mail : deogratiashounsou@gmail.com",
+        message="📩 Pour nous soutenir, contactez-nous par WhatsApp : +229 01 61 86 64 53     ou    par mail : deogratiashounsou@gmail.com",
         start_date=datetime(2025, 9, 1),
-        end_date=datetime(2025, 12, 31),
+        end_date=datetime(2026, 12, 31),
     ),
     Announcement(
         id=1,
         type="info",
-        message="📩 Pour vos différentes publicités, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    +229 01 52 99 95 32 (AZON Roméo E.) ou par mail : deogratiashounsou@gmail.com",
+        message="📩 Pour vos différentes publicités, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    par mail : deogratiashounsou@gmail.com",
         start_date=datetime(2025, 9, 1),
-        end_date=datetime(2025, 12, 31),
+        end_date=datetime(2026, 12, 31),
     ),
 ]
 
@@ -271,7 +269,6 @@ app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(remediation_progress.router, prefix="/api/remediation-progress", tags=["RemediationProgress"])
 app.include_router(progression.router)
 app.include_router(admin_router)
-app.include_router(products.router)
 app.include_router(admin_dashboard_router)
 
 

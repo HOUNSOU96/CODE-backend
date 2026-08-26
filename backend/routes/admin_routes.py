@@ -5,7 +5,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 import uuid
 import os
-
+from routes.auth import create_access_token
 from sqlalchemy import func
 from database import get_db
 from dependencies import get_current_user
@@ -712,9 +712,38 @@ def delete_user(
 
 # ---------------- Vérification admin ----------------
 @router.post("/check-admin")
-def check_admin(code: AdminCode):
+def check_admin(
+    code: AdminCode,
+    db: Session = Depends(get_db)
+):
+    if code.password != ADMIN_CODE:
+        raise HTTPException(
+            status_code=401,
+            detail="Mot de passe incorrect"
+        )
 
-    if code.password == ADMIN_CODE:
-        return {"access": True}
+    admin = (
+        db.query(User)
+        .filter(User.is_admin == True)
+        .first()
+    )
 
-    raise HTTPException(status_code=401, detail="Mot de passe incorrect")
+    if not admin:
+        raise HTTPException(
+            status_code=404,
+            detail="Aucun administrateur trouvé"
+        )
+
+    token = create_access_token(admin.id)
+
+    return {
+        "access": True,
+        "token": token,
+        "user": {
+            "id": admin.id,
+            "nom": admin.nom,
+            "prenom": admin.prenom,
+            "email": admin.email,
+            "is_admin": True
+        }
+    }
