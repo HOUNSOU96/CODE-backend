@@ -148,7 +148,7 @@ announcements: List[Announcement] = [
         type="alerte",
         message="📩 Cette plateforme est purement éducative.",
         start_date=datetime(2025, 9, 1),
-        end_date=datetime(2025, 12, 30),
+        end_date=datetime(2026, 12, 30),
     ),
     Announcement(
         id=2,
