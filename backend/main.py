@@ -236,19 +236,28 @@ def get_current_announcement():
 
 
 # -------------------- ENDPOINTS -------------------- #
-@app.get("/api/announcements/current", response_model=Optional[Announcement])
+@app.get("/api/announcements/current")
 def get_announcement(request: Request, db: Session = Depends(get_db)):
-    """Retourne l’annonce courante ou rien pendant la pause uniquement pour le frontend voulu"""
-    
-    # Vérifie l'origine de la requête
+    """Retourne l'annonce courante ou null pendant la pause."""
+
+    # Vérifie que la requête vient bien du frontend CODE
     referer = request.headers.get("referer", "")
+
     if "https://code-frontend-rho.vercel.app" not in referer:
-        return None  # Ne rien renvoyer si ce n'est pas le frontend voulu
-    
-    # Sinon retourne l'annonce actuelle
-    return get_current_announcement()
+        return JSONResponse(content=None, status_code=200)
 
+    # Récupère l'annonce actuellement affichable
+    announcement = get_current_announcement()
 
+    # Pendant la pause : réponse JSON explicite null
+    if announcement is None:
+        return JSONResponse(content=None, status_code=200)
+
+    # Pendant l'affichage : on renvoie l'objet
+    return JSONResponse(
+        content=announcement.model_dump(mode="json"),
+        status_code=200
+    )
 # -------------------- Modèles -------------------- #
 
 
