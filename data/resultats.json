@@ -1,0 +1,16 @@
+[
+  {
+    "user_id": 1,
+    "niveau": "6e",
+    "serie": null,
+    "note": 7,
+    "mention": "Insuffisant",
+    "nbQuestions": 3,
+    "nbBonnesReponses": 0,
+    "notionsNonAcquises": [
+      "Repérage(6e)",
+      "Droites du plan(6e)"
+    ],
+    "date": "2025-10-01T16:21:03.461112"
+  }
+]

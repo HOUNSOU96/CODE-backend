@@ -1,0 +1,313 @@
+[
+  {
+    "id": 1,
+    "name": "CAPERNET D'ANJOU",
+    "slug": "capernet-d-anjou",
+    "price": 28000,
+    "promoPrice": 28.39,
+    "image_url": "/Images/vins/vins1.jpeg",
+    "short_description": "Il s'agit d'un vin pas comme les autres.",
+    "category": "vins"
+  },
+  {
+    "id": 2,
+    "name": "PATA NEGRA (VIN)",
+    "slug": "pata-negra",
+    "price": 35000,
+    "promoPrice": 16.75,
+    "image_url": "/Images/vins/vins2.jpeg",
+    "short_description": "Description courte pour Vins 2.",
+    "category": "vins"
+  },
+  {
+    "id": 3,
+    "name": "PATA NEGRA (CHAMPAGNE)",
+    "slug": "pata-negra-champagne",
+    "price": 35000,
+    "promoPrice": 16.75,
+    "image_url": "/Images/vins/vins3.jpeg",
+    "short_description": "Description courte pour Vins 2.",
+    "category": "vins"
+  },
+  
+  {
+    "id": 4,
+    "name": "CHÂTEAU LUBAT",
+    "slug": "chateau-lubat",
+    "price": 50000,
+    "promoPrice": 26.08,
+    "image_url": "/Images/vins/vins4.jpeg",
+    "short_description": "Description courte pour Vins 4.",
+    "category": "vins"
+  },
+  {
+    "id": 5,
+    "name": "CHÂTEAU FRADIN",
+    "slug": "chateau-fradin",
+    "price": 18000,
+    "promoPrice": 43.52,
+    "image_url": "/Images/vins/vins5.jpeg",
+    "short_description": "Description courte pour Vins 5.",
+    "category": "vins"
+  },
+  {
+    "id": 6,
+    "name": "CHÂTEAU MOULIN BOYER",
+    "slug": "chateau-moulin-boyer",
+    "price": 48.29,
+    "promoPrice": 43.46,
+    "image_url": "/Images/vins/vins6.jpeg",
+    "short_description": "Description courte pour Vins 6.",
+    "category": "vins"
+  },
+  {
+    "id": 7,
+    "name": "CLÉMENT BOSQUET",
+    "slug": "clement-bosquet",
+    "price": 20000,
+    "promoPrice": 23.41,
+    "image_url": "/Images/vins/vins7.jpeg",
+    "short_description": "Description courte pour Vins 7.",
+    "category": "vins"
+  },
+  {
+    "id": 8,
+    "name": "BARON DE LUZE (BLANC)",
+    "slug": "baron-de-luze-blanc",
+    "price": 27000,
+    "promoPrice": 32.99,
+    "image_url": "/Images/vins/vins8.jpeg",
+    "short_description": "Description courte pour Vins 8.",
+    "category": "vins"
+  },
+  {
+    "id": 9,
+    "name": "GRAND PICARDE",
+    "slug": "grand-picard",
+    "price": 28000,
+    "promoPrice": 24.90,
+    "image_url": "/Images/vins/vins9.jpeg",
+    "short_description": "Description courte pour Vins 9.",
+    "category": "vins"
+  },
+  {
+    "id": 10,
+    "name": "CHÂTEAU GRAND BARBEY",
+    "slug": "chateau-grand-barbey",
+    "price": 28000,
+    "promoPrice": 24.36,
+    "image_url": "/Images/vins/vins10.jpeg",
+    "short_description": "Description courte pour Vins 10.",
+    "category": "vins"
+  },
+  {
+    "id": 11,
+    "name": "LES TRESQUOTS (MEDOC)",
+    "slug": "les-tresquots-medoc",
+    "price": 30000,
+    "promoPrice": 28.94,
+    "image_url": "/Images/vins/vins11.jpeg",
+    "short_description": "Description courte pour Vins 11.",
+    "category": "vins"
+  },
+  {
+    "id": 12,
+    "name": "CHÂTEAU AUGÈRE",
+    "slug": "chateau-augere",
+    "price": 28000,
+    "promoPrice": 36.10,
+    "image_url": "/Images/vins/vins12.jpeg",
+    "short_description": "Description courte pour Vins 12.",
+    "category": "vins"
+  },
+  {
+    "id": 13,
+    "name": "HÉRITAGE DE LUZE",
+    "slug": "héritage-de-luze",
+    "price": 27000,
+    "promoPrice": 22.81,
+    "image_url": "/Images/vins/vins13.jpeg",
+    "short_description": "Description courte pour Vins 13.",
+    "category": "vins"
+  },
+  {
+    "id": 14,
+    "name": "BARON DE LUZE BORDEAUX BLANC",
+    "slug": "baron-de-luze-bordeaux-blanc",
+    "price": 27000,
+    "promoPrice": 32.99,
+    "image_url": "/Images/vins/vins14.jpeg",
+    "short_description": "Description courte pour Vins 8.",
+    "category": "vins"
+  },
+  {
+    "id": 15,
+    "name": "CHÂTEAU MOULIN DE SERET",
+    "slug": "chateau-moulin-de-seret",
+    "price": 28000,
+    "promoPrice": 31.36,
+    "image_url": "/Images/vins/vins15.jpeg",
+    "short_description": "Description courte pour Vins 15.",
+    "category": "vins"
+  },
+  {
+    "id": 16,
+    "name": "CHÂTEAU MOULIN DE LAGUT",
+    "slug": "chateau-moulin-de-lagut",
+    "price": 28000,
+    "promoPrice": 43.08,
+    "image_url": "/Images/vins/vins16.jpeg",
+    "short_description": "Description courte pour Vins 16.",
+    "category": "vins"
+  },
+  {
+    "id": 17,
+    "name": "CHÂTEAU LE RETOU",
+    "slug": "chateau-le-retou",
+    "price": 28000,
+    "promoPrice": 22.57,
+    "image_url": "/Images/vins/vins17.jpeg",
+    "short_description": "Description courte pour Vins 17.",
+    "category": "vins"
+  },
+  {
+    "id": 18,
+    "name": "COMTE LAVIGNAC",
+    "slug": "comte-lavignac",
+    "price": 18000,
+    "promoPrice": 13.47,
+    "image_url": "/Images/vins/vins18.jpeg",
+    "short_description": "Description courte pour Vins 14.",
+    "category": "vins"
+  },
+  {
+    "id": 19,
+    "name": "BAYART PITON",
+    "slug": "bayart-piton",
+    "price": 30000,
+    "promoPrice": 25.63,
+    "image_url": "/Images/vins/vins19.jpeg",
+    "short_description": "Description courte pour Vins 3.",
+    "category": "vins"
+  },
+  {
+    "id": 20,
+    "name": "ROSE D'ANJOU",
+    "slug": "rose-d'anjou",
+    "price": 28000,
+    "promoPrice": 25.63,
+    "image_url": "/Images/vins/vins20.jpeg",
+    "short_description": "Description courte pour Vins 3.",
+    "category": "vins"
+  },
+  {
+    "id": 32,
+    "name": "Alimentaire 1",
+    "slug": "alimentaire-1",
+    "price": 3.77,
+    "promoPrice": 3.39,
+    "image_url": "/Images/alimentaire/alimentaire1.jpg",
+    "short_description": "Description courte pour Alimentaire 1.",
+    "category": "alimentaire"
+  },
+  {
+    "id": 33,
+    "name": "Alimentaire 2",
+    "slug": "alimentaire-2",
+    "price": 17.77,
+    "promoPrice": 15.99,
+    "image_url": "/Images/alimentaire/alimentaire2.jpg",
+    "short_description": "Description courte pour Alimentaire 2.",
+    "category": "alimentaire"
+  },
+  {
+    "id": 34,
+    "name": "Alimentaire 3",
+    "slug": "alimentaire-3",
+    "price": 11.38,
+    "promoPrice": 10.24,
+    "image_url": "/Images/alimentaire/alimentaire3.jpg",
+    "short_description": "Description courte pour Alimentaire 3.",
+    "category": "alimentaire"
+  },
+  {
+    "id": 35,
+    "name": "Alimentaire 4",
+    "slug": "alimentaire-4",
+    "price": 11.02,
+    "promoPrice": 9.92,
+    "image_url": "/Images/alimentaire/alimentaire4.jpg",
+    "short_description": "Description courte pour Alimentaire 4.",
+    "category": "alimentaire"
+  },
+  {
+    "id": 36,
+    "name": "Alimentaire 5",
+    "slug": "alimentaire-5",
+    "price": 18.3,
+    "promoPrice": 16.47,
+    "image_url": "/Images/alimentaire/alimentaire5.jpg",
+    "short_description": "Description courte pour Alimentaire 5.",
+    "category": "alimentaire"
+  },
+  {
+    "id": 37,
+    "name": "Alimentaire 6",
+    "slug": "alimentaire-6",
+    "price": 8.35,
+    "promoPrice": 7.52,
+    "image_url": "/Images/alimentaire/alimentaire6.jpg",
+    "short_description": "Description courte pour Alimentaire 6.",
+    "category": "alimentaire"
+  },
+  {
+    "id": 38,
+    "name": "Alimentaire 7",
+    "slug": "alimentaire-7",
+    "price": 8.02,
+    "promoPrice": 7.22,
+    "image_url": "/Images/alimentaire/alimentaire7.jpg",
+    "short_description": "Description courte pour Alimentaire 7.",
+    "category": "alimentaire"
+  },
+  {
+    "id": 39,
+    "name": "Alimentaire 8",
+    "slug": "alimentaire-8",
+    "price": 15.52,
+    "promoPrice": 13.97,
+    "image_url": "/Images/alimentaire/alimentaire8.jpg",
+    "short_description": "Description courte pour Alimentaire 8.",
+    "category": "alimentaire"
+  },
+  {
+    "id": 40,
+    "name": "Entretien 1",
+    "slug": "entretien-1",
+    "price": 13.45,
+    "promoPrice": 12.11,
+    "image_url": "/Images/entretien/entretien1.jpg",
+    "short_description": "Description courte pour Entretien 1.",
+    "category": "entretien"
+  },
+  {
+    "id": 41,
+    "name": "Entretien 2",
+    "slug": "entretien-2",
+    "price": 10.39,
+    "promoPrice": 9.35,
+    "image_url": "/Images/entretien/entretien2.jpg",
+    "short_description": "Description courte pour Entretien 2.",
+    "category": "entretien"
+  },
+  {
+    "id": 42,
+    "name": "Entretien 3",
+    "slug": "entretien-3",
+    "price": 12.85,
+    "promoPrice": 11.57,
+    "image_url": "/Images/entretien/entretien3.jpg",
+    "short_description": "Description courte pour Entretien 3.",
+    "category": "entretien"
+  }
+]

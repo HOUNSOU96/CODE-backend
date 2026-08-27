@@ -1,0 +1,36 @@
+[
+  {
+    "resultat": {
+      "note": 0,
+      "mention": "Insuffisant",
+      "notions_non_acquises": [
+        "Triangles semblables(3e)",
+        "Polynômes(3e)",
+        "Application linéaire(3e)"
+      ]
+    },
+    "details_questions": [
+      {
+        "question_id": "sim2",
+        "notion": "Triangles semblables(3e)",
+        "status": "incorrect",
+        "reponse_user": "d",
+        "bonne_reponse": "Ils doivent avoir les mêmes angles"
+      },
+      {
+        "question_id": "pol3_1",
+        "notion": "Polynômes(3e)",
+        "status": "incorrect",
+        "reponse_user": "b",
+        "bonne_reponse": "2x^2 + 3x - 4"
+      },
+      {
+        "question_id": "lin1",
+        "notion": "Application linéaire(3e)",
+        "status": "incorrect",
+        "reponse_user": "d",
+        "bonne_reponse": "Une transformation qui conserve les rapports de distances"
+      }
+    ]
+  }
+]
