@@ -14,6 +14,7 @@ from .remediation_videos import RemediationVideo
 from .video_questions import VideoQuestion
 from .connection_log import UserConnectionLog
 from .document_activation import DocumentActivation
+from .order import Order
 
 # ----------------- INITIALISATION -----------------
 def init_models():
