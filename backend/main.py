@@ -158,7 +158,7 @@ announcements: List[Announcement] = [
         end_date=datetime(2026, 12, 31),
     ),
     Announcement(
-        id=1,
+        id=3,
         type="info",
         message="📩 Pour vos différentes publicités, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    par mail : deogratiashounsou@gmail.com",
         start_date=datetime(2025, 9, 1),
@@ -210,8 +210,7 @@ def get_current_announcement():
     ]
 
     if not valid_announcements:
-        return {}  # au lieu de None
-
+        return None
 
     display_time = 30  # secondes affichage
     pause_time = 20    # secondes pause
