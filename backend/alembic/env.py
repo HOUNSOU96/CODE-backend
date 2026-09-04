@@ -15,13 +15,16 @@ from database import Base
 
 # Charger TOUS les modèles afin qu'ils soient connus par Base.metadata
 from models.user import User
-from models.pending_user import PendingUser
 from models.question import Question
 from models.remediation_progress import RemediationProgress
 from models.remediation_videos import RemediationVideo
 from models.video_questions import VideoQuestion
 from models.connection_log import UserConnectionLog
 from models.order import Order
+from models.document_activation import DocumentActivation
+from models.teacher_subject import TeacherSubject
+from models.user_question import UserQuestion
+from models.question_message import QuestionMessage
 
 # ---------------------------------------------------------
 # Configuration

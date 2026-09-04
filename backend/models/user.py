@@ -30,7 +30,7 @@ class User(Base):
     parrain_email = Column(String(255), nullable=True)
     
     
-
+    current_token = Column(String(500), nullable=True, index=True)
     is_online = Column(Boolean, default=False)
     status = Column(String(50), default=UserStatus.PENDING.value)
     validation_token = Column(String(255), nullable=True)

@@ -1,5 +1,6 @@
 # 📁 backend/database.py
 import os
+import socket
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from dotenv import load_dotenv
@@ -21,10 +22,36 @@ DATABASE_URL = f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT
 
 print(f"🔗 DATABASE_URL = postgresql+psycopg://{DB_USER}:****@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
+# Résoudre explicitement l'adresse IPv4 de Neon.
+# Render peut résoudre le hostname en IPv6, mais son environnement
+# ne permet pas actuellement d'atteindre cette adresse IPv6.
+try:
+    ipv4_addresses = socket.getaddrinfo(
+        DB_HOST,
+        int(DB_PORT),
+        socket.AF_INET,
+        socket.SOCK_STREAM
+    )
+
+    if not ipv4_addresses:
+        raise RuntimeError(f"Aucune adresse IPv4 trouvée pour {DB_HOST}")
+
+    DB_HOSTADDR = ipv4_addresses[0][4][0]
+
+    print(f"🌐 IPv4 Neon utilisée : {DB_HOSTADDR}")
+
+except Exception as e:
+    raise RuntimeError(
+        f"❌ Impossible de résoudre {DB_HOST} en IPv4 : {e}"
+    ) from e
+
 # Création du moteur SQLAlchemy
+# DB_HOST conserve le nom DNS Neon pour SSL/SNI.
+# hostaddr force la connexion réseau vers l'IPv4.
 engine = create_engine(
     DATABASE_URL,
-    echo=True,        # Affiche les requêtes SQL dans la console
+    connect_args={"hostaddr": DB_HOSTADDR},
+    echo=True,
     future=True
 )
 
