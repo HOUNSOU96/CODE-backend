@@ -23,6 +23,15 @@ class DocumentActivation(Base):
         index=True
     )
 
+
+        # Email du bénéficiaire final
+    # Peut être différent de celui de l'acheteur
+    beneficiary_email = Column(
+        String(255),
+        nullable=True,
+        index=True
+    )
+
     # Document concerné
     document_name = Column(
         String(255),

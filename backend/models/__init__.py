@@ -15,12 +15,15 @@ from .video_questions import VideoQuestion
 from .connection_log import UserConnectionLog
 from .document_activation import DocumentActivation
 from .order import Order
+from .teacher_subject import TeacherSubject
+from .user_question import UserQuestion
+from .question_message import QuestionMessage
 
 # ----------------- INITIALISATION -----------------
 def init_models():
     """Crée toutes les tables du modèle dans la base de données"""
     Base.metadata.create_all(bind=engine)
-    print("✅ Toutes les tables ont été créées avec succès dans la base de données PostgreSQL !")
+    print("✅ Toutes les tables ont été créées avec succès dans la base de données MySQL !")
 
 # ----------------- UTILITAIRE IMPORT JSON -----------------
 

@@ -36,6 +36,8 @@ class User(Base):
     validation_token = Column(String(255), nullable=True)
     is_validated = Column(Boolean, default=False)
     is_admin = Column(Boolean, default=False)
+    enseignant = Column(Boolean, default=False, nullable=False, index=True)
+    enseignant_actif = Column(Boolean, default=True, nullable=False)
     is_blocked = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
@@ -54,6 +56,10 @@ class User(Base):
     connection_logs = relationship("UserConnectionLog", back_populates="user", cascade="all, delete-orphan")
 
     document_activations = relationship("DocumentActivation",back_populates="user")
+
+    teacher_subjects = relationship("TeacherSubject", back_populates="teacher", cascade="all, delete-orphan")
+
+    questions = relationship("UserQuestion", back_populates="user", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<User(id={self.id}, email={self.email}, status={self.status}, validated={self.is_validated})>"

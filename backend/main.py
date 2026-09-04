@@ -35,6 +35,7 @@ from routes import  progression, remediation_progress, auth, products
 from models import init_models
 import unicodedata
 from routes.admin_dashboard import router as admin_dashboard_router
+from routes.question_messages import router as question_messages_router
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -142,30 +143,13 @@ class TZFormatter(logging.Formatter):
         return dt.isoformat()
 
 # -------------------- DONNEES -------------------- #
-announcements: List[Announcement] = [
-    Announcement(
-        id=1,
-        type="alerte",
-        message="📩 Cette plateforme est purement éducative.",
-        start_date=datetime(2025, 9, 1),
-        end_date=datetime(2026, 12, 30),
-    ),
-    Announcement(
-        id=2,
-        type="avantage",
-        message="📩 Pour nous soutenir, contactez-nous par WhatsApp : +229 01 61 86 64 53     ou    par mail : deogratiashounsou@gmail.com",
-        start_date=datetime(2025, 9, 1),
-        end_date=datetime(2026, 12, 31),
-    ),
-    Announcement(
-        id=3,
-        type="info",
-        message="📩 Pour vos différentes publicités, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    par mail : deogratiashounsou@gmail.com",
-        start_date=datetime(2025, 9, 1),
-        end_date=datetime(2026, 12, 31),
-    ),
-]
-
+@app.get("/api/announcements/current", response_model=Optional[Announcement])
+def get_announcement():
+    """
+    Retourne l'annonce actuellement affichable
+    ou None pendant la pause.
+    """
+    return get_current_announcement()
 
 
 
@@ -173,12 +157,16 @@ announcements: List[Announcement] = [
 
 # -------------------- Middleware -------------------- #
 origins = [
-    "http://localhost:5173",  # frontend local
-    "https://code-frontend-rho.vercel.app",  # frontend CODE sur Vercel
-    "https://moravi.vercel.app",              # frontend MORAVI sur Vercel
-    os.environ.get("FRONTEND_CODE"),
-    os.environ.get("FRONTEND_MORAVI"),
+    "http://localhost:5173",
+    "https://code-frontend-rho.vercel.app",
+    "https://moravi.vercel.app",
 ]
+
+if os.environ.get("FRONTEND_CODE"):
+    origins.append(os.environ["FRONTEND_CODE"])
+
+if os.environ.get("FRONTEND_MORAVI"):
+    origins.append(os.environ["FRONTEND_MORAVI"])
 
 
 
@@ -190,7 +178,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+announcements: List[Announcement] = [
+    Announcement(
+        id=1,
+        type="alerte",
+        message="📩 Cette plateforme est purement éducative.",
+        start_date=datetime(2026, 8, 28),
+        end_date=datetime(2026, 12, 30),
+    ),
+    Announcement(
+        id=2,
+        type="avantage",
+        message="📩 Pour nous soutenir, contactez-nous par WhatsApp : +229 01 61 86 64 53     ou    par mail : deogratiashounsou@gmail.com",
+        start_date=datetime(2026, 8, 28),
+        end_date=datetime(2026, 12, 31),
+    ),
+    Announcement(
+        id=3,
+        type="info",
+        message="📩 Pour vos différentes publicités, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    par mail : deogratiashounsou@gmail.com",
+        start_date=datetime(2026, 8, 28),
+        end_date=datetime(2026, 12, 31),
+    ),
+]
 
 
 
@@ -234,26 +244,17 @@ def get_current_announcement():
         return None  # pause
 
 
-
 # -------------------- ENDPOINTS -------------------- #
+
 @app.get("/api/announcements/current")
-def get_announcement(request: Request, db: Session = Depends(get_db)):
-    """Retourne l'annonce courante ou null pendant la pause."""
+def get_announcement():
+    """Retourne l'annonce actuellement affichable ou null."""
 
-    # Vérifie que la requête vient bien du frontend CODE
-    referer = request.headers.get("referer", "")
-
-    if "https://code-frontend-rho.vercel.app" not in referer:
-        return JSONResponse(content=None, status_code=200)
-
-    # Récupère l'annonce actuellement affichable
     announcement = get_current_announcement()
 
-    # Pendant la pause : réponse JSON explicite null
     if announcement is None:
         return JSONResponse(content=None, status_code=200)
 
-    # Pendant l'affichage : on renvoie l'objet
     return JSONResponse(
         content=announcement.model_dump(mode="json"),
         status_code=200
@@ -278,6 +279,7 @@ app.include_router(remediation_progress.router, prefix="/api/remediation-progres
 app.include_router(progression.router)
 app.include_router(admin_router)
 app.include_router(admin_dashboard_router)
+app.include_router(question_messages_router)
 
 
 
