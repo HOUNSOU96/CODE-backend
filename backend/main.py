@@ -143,15 +143,6 @@ class TZFormatter(logging.Formatter):
         return dt.isoformat()
 
 # -------------------- DONNEES -------------------- #
-@app.get("/api/announcements/current", response_model=Optional[Announcement])
-def get_announcement():
-    """
-    Retourne l'annonce actuellement affichable
-    ou None pendant la pause.
-    """
-    return get_current_announcement()
-
-
 
 
 
