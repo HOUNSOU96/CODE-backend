@@ -5,13 +5,13 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict
 from typing import Dict, List, Optional, Set
 import json
-from routes import admin
 import os
 from fastapi import Request, BackgroundTasks
 from apscheduler.schedulers.background import BackgroundScheduler
 from zoneinfo import ZoneInfo
 import logging
 import random
+from routes.activation import router as activation_router
 from routes.admin_routes import router as admin_router
 import threading
 import uuid
@@ -35,7 +35,8 @@ from routes import  progression, remediation_progress, auth, products
 from models import init_models
 import unicodedata
 from routes.admin_dashboard import router as admin_dashboard_router
-
+from routes.question_messages import router as question_messages_router
+from pydantic import BaseModel, ConfigDict, Field
 
 
 
@@ -60,9 +61,8 @@ if not os.path.exists(STATIC_DIR):
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/images", StaticFiles(directory="Images"), name="images")
 
-
+app.include_router(activation_router)
 app.include_router(products.router)
-app.include_router(admin.router, prefix="/api")
 
 logger = logging.getLogger(__name__)
 class Apprenant(BaseModel):
@@ -143,43 +143,21 @@ class TZFormatter(logging.Formatter):
         return dt.isoformat()
 
 # -------------------- DONNEES -------------------- #
-announcements: List[Announcement] = [
-    Announcement(
-        id=1,
-        type="alerte",
-        message="📩 Cette plateforme sera payante à partir de 31 Décembre 2025.",
-        start_date=datetime(2025, 9, 1),
-        end_date=datetime(2025, 12, 30),
-    ),
-    Announcement(
-        id=2,
-        type="avantage",
-        message="📩 Pour nous soutenir, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    +229 01 52 99 95 32 (AZON Roméo E.) ou par mail : deogratiashounsou@gmail.com",
-        start_date=datetime(2025, 9, 1),
-        end_date=datetime(2025, 12, 31),
-    ),
-    Announcement(
-        id=1,
-        type="info",
-        message="📩 Pour vos différentes publicités, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    +229 01 52 99 95 32 (AZON Roméo E.) ou par mail : deogratiashounsou@gmail.com",
-        start_date=datetime(2025, 9, 1),
-        end_date=datetime(2025, 12, 31),
-    ),
-]
-
-
-
 
 
 
 # -------------------- Middleware -------------------- #
 origins = [
-    "http://localhost:5173",  # frontend local
-    "https://code-frontend-rho.vercel.app",  # frontend CODE sur Vercel
-    "https://moravi.vercel.app",              # frontend MORAVI sur Vercel
-    os.environ.get("FRONTEND_CODE"),
-    os.environ.get("FRONTEND_MORAVI"),
+    "http://localhost:5173",
+    "https://code-frontend-rho.vercel.app",
+    "https://moravi.vercel.app",
 ]
+
+if os.environ.get("FRONTEND_CODE"):
+    origins.append(os.environ["FRONTEND_CODE"])
+
+if os.environ.get("FRONTEND_MORAVI"):
+    origins.append(os.environ["FRONTEND_MORAVI"])
 
 
 
@@ -191,7 +169,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+announcements: List[Announcement] = [
+    Announcement(
+        id=1,
+        type="alerte",
+        message="📩 Cette plateforme est purement éducative.",
+        start_date=datetime(2026, 8, 28),
+        end_date=datetime(2026, 12, 30),
+    ),
+    Announcement(
+        id=2,
+        type="avantage",
+        message="📩 Pour nous soutenir, contactez-nous par WhatsApp : +229 01 61 86 64 53     ou    par mail : deogratiashounsou@gmail.com",
+        start_date=datetime(2026, 8, 28),
+        end_date=datetime(2026, 12, 31),
+    ),
+    Announcement(
+        id=3,
+        type="info",
+        message="📩 Pour vos différentes publicités, contactez-nous par WhatsApp : +229 01 61 86 64 53 (HOUNSOU Déo-Gratias S.)     ou    par mail : deogratiashounsou@gmail.com",
+        start_date=datetime(2026, 8, 28),
+        end_date=datetime(2026, 12, 31),
+    ),
+]
 
 
 
@@ -211,8 +211,7 @@ def get_current_announcement():
     ]
 
     if not valid_announcements:
-        return {}  # au lieu de None
-
+        return None
 
     display_time = 30  # secondes affichage
     pause_time = 20    # secondes pause
@@ -236,21 +235,21 @@ def get_current_announcement():
         return None  # pause
 
 
-
 # -------------------- ENDPOINTS -------------------- #
-@app.get("/api/announcements/current", response_model=Optional[Announcement])
-def get_announcement(request: Request, db: Session = Depends(get_db)):
-    """Retourne l’annonce courante ou rien pendant la pause uniquement pour le frontend voulu"""
-    
-    # Vérifie l'origine de la requête
-    referer = request.headers.get("referer", "")
-    if "https://code-frontend-rho.vercel.app" not in referer:
-        return None  # Ne rien renvoyer si ce n'est pas le frontend voulu
-    
-    # Sinon retourne l'annonce actuelle
-    return get_current_announcement()
 
+@app.get("/api/announcements/current")
+def get_announcement():
+    """Retourne l'annonce actuellement affichable ou null."""
 
+    announcement = get_current_announcement()
+
+    if announcement is None:
+        return JSONResponse(content=None, status_code=200)
+
+    return JSONResponse(
+        content=announcement.model_dump(mode="json"),
+        status_code=200
+    )
 # -------------------- Modèles -------------------- #
 
 
@@ -270,9 +269,8 @@ app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(remediation_progress.router, prefix="/api/remediation-progress", tags=["RemediationProgress"])
 app.include_router(progression.router)
 app.include_router(admin_router)
-app.include_router(products.router)
-app.include_router(admin_router, prefix="/api")
 app.include_router(admin_dashboard_router)
+app.include_router(question_messages_router)
 
 
 
@@ -367,6 +365,7 @@ class Resultat(Base):
     note = Column(Integer)
     mention = Column(String)
     notions_non_acquises = Column(JSON)
+    questions_remediation = Column(JSON)
     date = Column(DateTime, default=datetime.utcnow)
 
 # -------------------- Pydantic Schemas -------------------- #
@@ -379,12 +378,27 @@ class ReponsesModel(BaseModel):
     resultats: List[ReponseUnique]
     model_config = ConfigDict(from_attributes=True)
 
+
+class ResultatRemediation(BaseModel):
+    id: str
+    question: str
+    classe: str | None = None
+    choix: list[str] = Field(default_factory=list)
+    correcte: bool = False
+    bonne_reponse: str
+    reponse_apprenant: str
+    notion: str | None = None
+    situation: dict | None = None
+
+from pydantic import BaseModel, ConfigDict, Field
+
 class ResultatTest(BaseModel):
     note: int
     mention: str
     notionsNonAcquises: List[str]
-    model_config = ConfigDict(from_attributes=True)
+    questionsRemediation: List[ResultatRemediation] = Field(default_factory=list)
 
+    model_config = ConfigDict(from_attributes=True)
 class EnvoiPDFRequest(BaseModel):
     apprenant: dict
     niveau: str
@@ -610,19 +624,225 @@ def generer_test(
 
 
 
-@app.post("/api/questions/{niveau}/resultats", response_model=ResultatTest)
-def evaluer_test_par_niveau(niveau: str, payload: ReponsesModel, test_id: str = Query(...), current_user: User = Depends(get_current_user)):
-    test_data = charger_test(test_id)
-    if not test_data or test_data["user_id"] != current_user.id:
-        raise HTTPException(404, detail="Test introuvable ou non autorisé")
+@app.post(
+    "/api/questions/{niveau}/resultats",
+    response_model=ResultatTest
+)
+def evaluer_test_par_niveau(
+    niveau: str,
+    payload: ReponsesModel,
+    test_id: str = Query(...),
+    current_user: User = Depends(get_current_user)
+):
+    print("\n")
+    print("================================================")
+    print("🚀 ÉVALUATION DU TEST")
+    print("================================================")
 
-    reponses = {r.id: r.reponse for r in payload.resultats}
-    filtered = [q for q in questions if str(q["id"]) in reponses]
+    # --------------------------------------------------
+    # 1. RÉCUPÉRATION DU TEST
+    # --------------------------------------------------
+
+    test_data = charger_test(test_id)
+
+    print("🆔 TEST ID :", test_id)
+    print("📦 TEST DATA :", test_data)
+
+    if not test_data:
+        raise HTTPException(
+            404,
+            detail="Test introuvable"
+        )
+
+    if test_data["user_id"] != current_user.id:
+        raise HTTPException(
+            404,
+            detail="Test introuvable ou non autorisé"
+        )
+
+    # --------------------------------------------------
+    # 2. RÉCUPÉRATION DES RÉPONSES DE L'ÉLÈVE
+    # --------------------------------------------------
+
+    reponses = {
+        str(r.id): r.reponse
+        for r in payload.resultats
+    }
+
+    print("📥 RÉPONSES REÇUES :", reponses)
+
+    # --------------------------------------------------
+    # 3. QUESTIONS DISPONIBLES
+    # --------------------------------------------------
+
+    print("📚 NOMBRE QUESTIONS GLOBAL :", len(questions))
+
+    print(
+        "📚 IDS QUESTIONS GLOBAL :",
+        [str(q["id"]) for q in questions]
+    )
+
+    # --------------------------------------------------
+    # 4. QUESTIONS DU TEST
+    # --------------------------------------------------
+
+    questions_test = test_data.get("questions")
+
+    print("📝 QUESTIONS DU TEST :", questions_test)
+
+    if questions_test is None:
+        print(
+            "⚠️ Le test sauvegardé ne contient pas de clé 'questions'."
+        )
+
+        # Si ton architecture utilise encore la variable globale
+        questions_test = questions
+
+    print(
+        "📚 NOMBRE QUESTIONS TEST :",
+        len(questions_test)
+    )
+
+    print(
+        "📚 IDS QUESTIONS TEST :",
+        [str(q["id"]) for q in questions_test]
+    )
+
+    # --------------------------------------------------
+    # 5. FILTRAGE PAR IDS
+    # --------------------------------------------------
+
+    questions_ids = {
+        str(qid)
+        for qid in test_data.get("questions_ids", [])
+}
+
+    filtered = [
+        q
+        for q in questions
+        if str(q["id"]) in questions_ids
+        and str(q["id"]) in reponses
+]
+
+    print("🎯 FILTERED :", filtered)
+
+    print(
+        "🎯 NOMBRE FILTERED :",
+        len(filtered)
+    )
+
+    # --------------------------------------------------
+    # 6. AUCUNE QUESTION
+    # --------------------------------------------------
 
     if not filtered:
-        raise HTTPException(404, detail="Aucune question valide dans ce test")
+        print("❌ AUCUNE QUESTION CORRESPONDANTE")
 
-    note, mention, non_acquises = evaluer_reponses(filtered, reponses)
+        raise HTTPException(
+            404,
+            detail="Aucune question valide dans ce test"
+        )
+
+    # --------------------------------------------------
+    # 7. CONSTRUCTION DES QUESTIONS DE REMÉDIATION
+    # --------------------------------------------------
+
+    questions_remediation = []
+
+    for q in filtered:
+
+        question_id = str(q["id"])
+
+        reponse_apprenant = reponses.get(question_id)
+
+        bonne_reponse = q.get("bonne_reponse")
+
+        correcte = (
+            reponse_apprenant is not None
+            and bonne_reponse is not None
+            and str(reponse_apprenant).strip().lower()
+            ==
+            str(bonne_reponse).strip().lower()
+        )
+
+        question_remediation = {
+            "id": question_id,
+            "question": q.get("question"),
+            "classe": q.get("niveau"),
+            "choix": q.get("choix", []),
+            "correcte": correcte,
+            "bonne_reponse": bonne_reponse,
+            "reponse_apprenant": reponse_apprenant,
+            "notion": q.get("notion"),
+            "situation": q.get("situation"),
+        }
+
+        questions_remediation.append(
+            question_remediation
+        )
+
+    # --------------------------------------------------
+    # 8. DEBUG FINAL
+    # --------------------------------------------------
+
+    print("================================================")
+    print("📚 QUESTIONS REMEDIATION")
+    print(
+        "📚 NOMBRE :",
+        len(questions_remediation)
+    )
+    print(
+        "📚 DONNÉES :",
+        questions_remediation
+    )
+    print("================================================")
+
+    # --------------------------------------------------
+    # 9. ÉVALUATION
+    # --------------------------------------------------
+
+    note, mention, non_acquises = evaluer_reponses(
+        filtered,
+        reponses
+    )
+
+    # --------------------------------------------------
+    # 10. SAUVEGARDE
+    # --------------------------------------------------
+    print("\n")
+    print("=" * 80)
+    print("🔎 DEBUG AVANT SAUVEGARDE DU RÉSULTAT")
+    print("=" * 80)
+
+    print("📌 Nombre de questions de remédiation :",
+      len(questions_remediation))
+
+    print("📌 Type de questions_remediation :",
+      type(questions_remediation))
+
+    print("📌 questions_remediation :")
+    print(questions_remediation)
+
+    print("-" * 80)
+
+    for i, qr in enumerate(questions_remediation, start=1):
+        print(f"📝 QUESTION DE REMÉDIATION #{i}")
+        print("   id                  :", qr.get("id"))
+        print("   question            :", qr.get("question"))
+        print("   classe              :", qr.get("classe"))
+        print("   choix               :", qr.get("choix"))
+        print("   correcte            :", qr.get("correcte"))
+        print("   bonne_reponse       :", qr.get("bonne_reponse"))
+        print("   reponse_apprenant   :", qr.get("reponse_apprenant"))
+        print("   notion              :", qr.get("notion"))
+        print("   situation           :", qr.get("situation"))
+        print("-" * 80)
+
+        print("📚 Notions non acquises :", non_acquises)
+
+        print("=" * 80)
+        print("💾 SAUVEGARDE EN COURS...")
+        print("=" * 80)
 
     sauvegarder_resultat({
         "user_id": current_user.id,
@@ -631,14 +851,46 @@ def evaluer_test_par_niveau(niveau: str, payload: ReponsesModel, test_id: str = 
         "note": note,
         "mention": mention,
         "nbQuestions": len(filtered),
-        "nbBonnesReponses": sum(1 for q in filtered if str(q["id"]) in reponses and q["bonne_reponse"] == reponses[str(q["id"])]),
+        "nbBonnesReponses": sum(
+            1
+            for q in filtered
+            if (
+                str(q["id"]) in reponses
+                and
+                str(q["bonne_reponse"]).strip().lower()
+                ==
+                str(reponses[str(q["id"])]).strip().lower()
+            )
+        ),
         "notionsNonAcquises": non_acquises,
+        "questionsRemediation": questions_remediation,
         "date": datetime.now().isoformat()
     })
 
-    supprimer_test(test_id)
-    return ResultatTest(note=note, mention=mention, notionsNonAcquises=non_acquises)
+    # --------------------------------------------------
+    # 11. SUPPRESSION DU TEST TEMPORAIRE
+    # --------------------------------------------------
 
+    supprimer_test(test_id)
+
+    # --------------------------------------------------
+    # 12. RÉPONSE
+    # --------------------------------------------------
+
+    resultat = ResultatTest(
+        note=note,
+        mention=mention,
+        notionsNonAcquises=non_acquises,
+        questionsRemediation=questions_remediation
+    )
+
+    print("================================================")
+    print("📤 RÉPONSE FINALE")
+    print("📤 RESULTAT :", resultat)
+    print("📤 QUESTIONS REMEDIATION :", resultat.questionsRemediation)
+    print("================================================")
+
+    return resultat
 
 @app.get("/api/resultats/dernier", response_model=ResultatTest)
 def get_last_result(
@@ -679,8 +931,9 @@ def get_last_result(
     return ResultatTest(
         note=dernier["note"],
         mention=dernier["mention"],
-        notionsNonAcquises=dernier["notionsNonAcquises"]
-    )
+        notionsNonAcquises=dernier["notionsNonAcquises"],
+        questionsRemediation=dernier.get("questionsRemediation",[])
+)
 
 async def send_email_with_pdf(to_email: str, pdf_path: str, nom_fichier: str):
     msg = EmailMessage()

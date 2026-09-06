@@ -20,11 +20,9 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 from fastapi import BackgroundTasks
 from dotenv import load_dotenv
-import aiosmtplib
 from database import get_db
 from sqlalchemy.orm import Session
-from utils.email import send_email
-from email.message import EmailMessage
+from utils.email import send_email, send_email_sync
 from email.utils import make_msgid
 import base64, os, uuid, logging
 from utils.evaluation import evaluer_reponses
@@ -271,7 +269,6 @@ app.include_router(progression.router)
 app.include_router(admin_router)
 app.include_router(admin_dashboard_router)
 app.include_router(question_messages_router)
-
 
 
 # -------------------- Debug Middleware -------------------- #
@@ -936,76 +933,55 @@ def get_last_result(
 )
 
 async def send_email_with_pdf(to_email: str, pdf_path: str, nom_fichier: str):
-    msg = EmailMessage()
-    MAIL_FROM = os.getenv("MAIL_FROM") or "code@gmail.com"
-    MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME") or "CODE"
-    msg["From"] = f"{MAIL_FROM_NAME} <{MAIL_FROM}>"
-    msg["To"] = to_email
-    msg["Subject"] = "📝 Vos résultats CODE – Fiche PDF"
-
-
-    logo_cid = make_msgid(domain="code.com")
+    """
+    Envoie la fiche de résultats PDF via l'API Brevo.
+    """
 
     html_content = f"""
     <html>
       <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 30px;">
         <div style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
           <div style="text-align: center;">
-            <img src="cid:{logo_cid[1:-1]}" alt="CODE" style="height: 60px; margin-bottom: 20px;" />
             <h2 style="color: #0055a5;">Résultats de votre évaluation diagnostique</h2>
           </div>
+
           <p>Bonjour,</p>
-          <p>Veuillez trouver ci-joint votre fiche de résultats générée par notre plateforme <strong>CODE</strong>.</p>
-          <p style="margin-top: 20px;">Bonne continuation dans vos apprentissages&nbsp;!</p>
-          <p style="margin-top: 30px;">Cordialement,<br>L'équipe <strong>CODE</strong></p>
+
+          <p>
+            Veuillez trouver ci-joint votre fiche de résultats générée
+            par notre plateforme <strong>CODE</strong>.
+          </p>
+
+          <p style="margin-top: 20px;">
+            Bonne continuation dans vos apprentissages&nbsp;!
+          </p>
+
+          <p style="margin-top: 30px;">
+            Cordialement,<br>
+            L'équipe <strong>CODE</strong>
+          </p>
+
           <hr style="margin-top: 40px;" />
-          <p style="font-size: 12px; color: #888888; text-align: center;">Ce message a été généré automatiquement. Merci de ne pas y répondre.</p>
+
+          <p style="font-size: 12px; color: #888888; text-align: center;">
+            Ce message a été généré automatiquement. Merci de ne pas y répondre.
+          </p>
         </div>
       </body>
     </html>
     """
 
-    msg.set_content("Veuillez trouver ci-joint votre fiche de résultats CODE.")
-    msg.add_alternative(html_content, subtype="html")
-
-    # Attacher le logo SVG si présent
-    logo_path = "public/code.png"
-    if os.path.exists(logo_path):
-        with open(logo_path, "rb") as img:
-            msg.get_payload()[1].add_related(
-                img.read(),
-                maintype="image",
-                subtype="png",
-                cid=logo_cid
-            )
-
-    # Attacher le fichier PDF
-    with open(pdf_path, "rb") as f:
-        msg.add_attachment(
-            f.read(),
-            maintype="application",
-            subtype="pdf",
-            filename=nom_fichier
-        )
-
-    # Lecture des variables d'environnement
-    from os import getenv
-    BREVO_API_KEY = os.getenv("BREVO_API_KEY")
-    MAIL_SERVER = getenv("MAIL_SERVER")
-    MAIL_PORT = int(getenv("MAIL_PORT", 465))
-    MAIL_USERNAME = getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = getenv("MAIL_PASSWORD")
-    MAIL_STARTTLS = os.getenv("MAIL_STARTTLS", "True").lower() == "true"
-    MAIL_SSL_TLS = getenv("MAIL_SSL_TLS", "False").lower() == "true"
-
-    # Envoi via SMTP
-    await aiosmtplib.send(
-        msg,
-        hostname=os.getenv("MAIL_SERVER","smtp-relay.sendinblue.com"),
-        port=int(os.getenv("MAIL_PORT", 587)),
-        username=os.getenv("MAIL_USERNAME"),
-        password=os.getenv("BREVO_API_KEY"),
-        start_tls=os.getenv("MAIL_STARTTLS", "True").lower() == "true"
+    return await send_email(
+        to=to_email,
+        subject="📝 Vos résultats CODE – Fiche PDF",
+        body="Veuillez trouver ci-joint votre fiche de résultats CODE.",
+        html_body=html_content,
+        attachments=[
+            {
+                "path": pdf_path,
+                "name": nom_fichier,
+            }
+        ],
     )
 
 @app.post("/api/send-result-pdf")
@@ -1046,47 +1022,15 @@ async def envoyer_resultat_pdf(
 
 
 async def send_notification_email(to_email: str, subject: str, content: str):
-    msg = EmailMessage()
-    MAIL_FROM = os.getenv("MAIL_FROM") or "code@gmail.com"
-    MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME") or "CODE"
-    msg["From"] = f"{MAIL_FROM_NAME} <{MAIL_FROM}>"
-    msg["To"] = to_email
-    msg["Subject"] = subject
-    msg.set_content(content)
-
-
-    BREVO_API_KEY = os.getenv("BREVO_API_KEY")
-    MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp-relay.sendinblue.com")
-    MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
-    MAIL_USERNAME = os.getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv("BREVO_API_KEY")
-    MAIL_FROM = os.getenv("MAIL_FROM")
-    MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "CODE")
-    MAIL_STARTTLS = os.getenv("MAIL_STARTTLS", "True").lower() == "true"
-    MAIL_SSL_TLS = os.getenv("MAIL_SSL_TLS", "False").lower() == "true"
-
-    if MAIL_SSL_TLS:
-      await aiosmtplib.send(
-        msg,
-        hostname=MAIL_SERVER,
-        port=MAIL_PORT,
-        username=MAIL_USERNAME,
-        password=MAIL_PASSWORD,
-        use_tls=True
+    """
+    Envoie une notification email via le système centralisé
+    défini dans utils/email.py.
+    """
+    return await send_email(
+        to=to_email,
+        subject=subject,
+        body=content,
     )
-    else:
-      await aiosmtplib.send(
-        msg,
-        hostname=MAIL_SERVER,
-        port=MAIL_PORT,
-        username=MAIL_USERNAME,
-        password=MAIL_PASSWORD,
-        start_tls=MAIL_STARTTLS
-    )
-
-
-
-
 
 
 
@@ -1346,7 +1290,7 @@ async def notify_connect(
             
             f" {user.nom} {user.prenom} vient de se connecter le {get_timestamp()}"
         )
-        background_tasks.add_task(send_notification_email, to_email=user.email, subject=subject, content=content)
+        await send_notification_email(to_email=user.email, subject=subject, content=content)
 
     except Exception as e:
         logger.error(f"Erreur envoi email connexion : {e}")
@@ -1375,7 +1319,7 @@ async def notify_disconnect(
             
             f"{user.nom} {user.prenom}  a quitté CODE le {get_timestamp()}"
         )
-        background_tasks.add_task(send_notification_email, to_email=user.email, subject=subject, content=content)
+        await send_notification_email(to_email=user.email, subject=subject, content=content)
 
     except Exception as e:
         logger.error(f"Erreur envoi email déconnexion : {e}")
@@ -1405,7 +1349,7 @@ def send_warning_automatique():
                 "Cordialement,\nL'équipe CODE"
             )
             # On peut utiliser threading ou background_tasks si tu veux l'intégrer à FastAPI
-            send_email(to_email=user.email, subject=subject, content=content)
+            send_email_sync(to=user.email, subject=subject, body=content)
             print(f"Avertissement envoyé à {user.email}")
 
 # Scheduler qui s'exécute tous les jours à minuit
