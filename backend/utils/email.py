@@ -44,48 +44,6 @@ async def send_email(
 ):
     """
     Envoie un email transactionnel via l'API HTTPS de Brevo.
-
-    Paramètres :
-        to:
-            Adresse email du destinataire.
-
-        subject:
-            Sujet du message.
-
-        body:
-            Version texte du message.
-
-        html_body:
-            Version HTML facultative du message.
-
-        attachments:
-            Liste facultative de pièces jointes.
-            Chaque élément doit contenir :
-                {
-                    "path": "/chemin/vers/fichier.pdf",
-                    "name": "nom_du_fichier.pdf"
-                }
-
-    Exemple simple :
-        await send_email(
-            to="destinataire@example.com",
-            subject="Test",
-            body="Bonjour"
-        )
-
-    Exemple avec HTML et PDF :
-        await send_email(
-            to="destinataire@example.com",
-            subject="Vos résultats",
-            body="Veuillez trouver votre document.",
-            html_body="<h1>Vos résultats</h1>",
-            attachments=[
-                {
-                    "path": "/chemin/document.pdf",
-                    "name": "document.pdf"
-                }
-            ]
-        )
     """
 
     config = _brevo_config()
@@ -148,7 +106,15 @@ async def send_email(
         "content-type": "application/json",
     }
 
-    async with httpx.AsyncClient(timeout=60) as client:
+    # Timeout adapté à l'envoi de PDF volumineux
+    timeout = httpx.Timeout(
+        connect=20.0,
+        read=60.0,
+        write=300.0,
+        pool=20.0,
+    )
+
+    async with httpx.AsyncClient(timeout=timeout) as client:
         response = await client.post(
             BREVO_API_URL,
             json=payload,
@@ -169,9 +135,6 @@ def send_email_sync(
 ):
     """
     Version synchrone du service d'envoi.
-
-    Utilisée notamment par les tâches ou fonctions
-    qui ne sont pas elles-mêmes asynchrones.
     """
 
     return asyncio.run(

@@ -1,0 +1,362 @@
+// ==========================================================
+// IDENTITÉ DE L'APPRENANT
+// CODE-MATHS
+// ==========================================================
+
+#import "../../code/code.typ": *
+
+#let identite() = [
+
+
+#align(center)[
+
+#text(
+ size:26pt,
+ weight:"bold",
+ fill:code-blue,
+)[
+👤 IDENTITÉ DE L'APPRENANT
+]
+
+
+#v(0.1cm)
+
+
+#line(
+ length:5cm,
+ stroke:1.3pt + code-blue,
+)
+
+]
+
+
+#v(0.2cm)
+
+
+
+#align(center)[
+
+#box(
+ width:14cm,
+ fill:rgb("#F2F6FA"),
+ radius:12pt,
+ inset:0.35cm,
+ stroke:0.5pt + rgb("#D5E2EF"),
+)[
+
+
+#table(
+ columns:(4cm,8cm),
+ stroke:none,
+ inset:0.15cm,
+
+
+[
+#align(center)[
+
+#box(
+ width:3cm,
+ height:3.5cm,
+ fill:white,
+ radius:8pt,
+ stroke:1pt + rgb("#C5D5E5"),
+)[
+
+#align(center)[
+📷
+
+#v(0.2cm)
+
+Photo
+
+]
+
+]
+
+]
+
+],
+
+
+[
+
+#strong[Nom et prénoms]
+
+#v(0.15cm)
+
+.............................................................
+
+
+#v(0.2cm)
+
+#strong[Établissement]
+
+#v(0.15cm)
+
+.............................................................
+
+
+#v(0.2cm)
+
+#strong[Ville / Commune]
+
+#v(0.15cm)
+
+.............................................................
+
+
+#v(0.2cm)
+
+#strong[Pays]
+
+#v(0.15cm)
+
+.............................................................
+
+
+#v(0.2cm)
+
+#strong[Année scolaire]
+
+#v(0.15cm)
+
+.............................................................
+
+]
+
+)
+
+]
+
+]
+
+
+#v(0.2cm)
+
+
+
+// ----------------------------------------------------------
+// PARTICULARITÉ DU MANUEL
+// ----------------------------------------------------------
+
+
+#align(center)[
+
+#box(
+ width:14cm,
+ fill:code-blue,
+ radius:10pt,
+ inset:0.25cm,
+)[
+
+#text(
+ size:14pt,
+ weight:"bold",
+ fill:white,
+)[
+🔐 LES AVANTAGES DU MANUEL CODE
+]
+
+]
+
+]
+
+
+#v(0.1cm)
+
+
+Ce manuel constitue une passerelle vers un environnement
+numérique d'apprentissage.
+
+
+#table(
+  columns:(7cm,7cm),
+  stroke:none,
+  inset:0.15cm,
+
+
+  table.cell(
+    fill:rgb("#EEF6FF"),
+    inset:0.25cm,
+  )[
+    #align(center)[
+      #text(
+        weight:"bold",
+        fill:code-blue,
+      )[
+        Plateforme CODE
+      ]
+    ]
+  ],
+
+
+  table.cell(
+    fill:rgb("#F8FAFC"),
+    inset:0.25cm,
+  )[
+    #align(center)[
+      #text(
+        weight:"bold",
+      )[
+        Intelligence Artificielle CODE
+      ]
+    ]
+  ],
+
+
+
+  table.cell(
+    fill:rgb("#F8FAFC"),
+    inset:0.25cm,
+  )[
+    #align(center)[
+      #text(
+        weight:"bold",
+      )[
+        Vidéos pédagogiques
+      ]
+    ]
+  ],
+
+
+  table.cell(
+    fill:rgb("#EEF6FF"),
+    inset:0.25cm,
+  )[
+    #align(center)[
+      #text(
+        weight:"bold",
+        fill:code-blue,
+      )[
+        Exercices interactifs
+      ]
+    ]
+  ],
+
+
+
+  table.cell(
+    fill:rgb("#EEF8F2"),
+    inset:0.25cm,
+  )[
+    #align(center)[
+      #text(
+        weight:"bold",
+        fill:rgb("#39704F"),
+      )[
+        Défis hebdomadaires nationaux et internationaux
+      ]
+    ]
+  ],
+
+
+  table.cell(
+    fill:rgb("#F8FAFC"),
+    inset:0.25cm,
+  )[
+    #align(center)[
+      #text(
+        weight:"bold",
+      )[
+        Jeux de réflexion
+      ]
+    ]
+  ],
+
+
+
+  table.cell(
+    fill:rgb("#EEF6FF"),
+    inset:0.25cm,
+  )[
+    #align(center)[
+      #text(
+        weight:"bold",
+        fill:code-blue,
+      )[
+        Suivi personnalisé
+      ]
+    ]
+  ],
+
+
+  table.cell(
+    fill:rgb("#F8FAFC"),
+    inset:0.25cm,
+  )[
+    #align(center)[
+      #text(
+        weight:"bold",
+      )[
+        Ressources complémentaires
+      ]
+    ]
+  ],
+)
+
+
+
+#v(0.1cm)
+
+
+
+
+
+
+
+
+// ----------------------------------------------------------
+// CERTIFICAT
+// ----------------------------------------------------------
+
+
+#align(center)[
+
+#box(
+ width:14cm,
+ fill:rgb("#FFF8E7"),
+ radius:12pt,
+ inset:0.35cm,
+ stroke:0.8pt + rgb("#D9B44A"),
+)[
+
+
+#text(
+ size:14pt,
+ weight:"bold",
+ fill:code-blue,
+)[
+
+🛡 CERTIFICAT D'AUTHENTICITÉ
+
+]
+
+
+#v(0.1cm)
+
+
+Ce manuel appartient à la collection officielle :
+
+#strong[CODE — Maths]
+
+
+Chaque exemplaire possède un numéro de série unique
+servant de code d'activation personnel.
+
+
+Après activation sur la plateforme CODE, ce code est
+associé définitivement à son propriétaire afin de
+garantir l'authenticité du manuel.
+
+
+]
+
+]
+
+
+
+
+
+
+
+]

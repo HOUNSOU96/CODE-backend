@@ -1,0 +1,652 @@
+// ==========================================================
+// CODE Framework
+// cover.typ
+// Moteur officiel des couvertures CODE
+// Étape 2 — Zone d'activation
+// ==========================================================
+
+
+#let cover_front(code: "CODE-0B9L-C7IA-JJP5-LEG8") = {
+
+  set page(
+    paper: "a4",
+    margin: 0pt,
+  )
+
+
+  // ----------------------------------------------------------
+  // Image de fond
+  // ----------------------------------------------------------
+
+  place(
+    dx: 0pt,
+    dy: 0pt,
+  )[
+    #image(
+      "../assets/covers/cover-front.png",
+      width: 21cm,
+      height: 29.7cm,
+    )
+  ]
+
+
+
+// ----------------------------------------------------------
+// Titre principal (haut droite)
+// ----------------------------------------------------------
+
+// ----------------------------------------------------------
+// Titre principal (haut droite)
+// ----------------------------------------------------------
+
+place(
+  dx: 11.5cm,
+  dy: 1.5cm,
+)[
+  #align(right)[
+
+    #text(
+      size: 28pt,
+      weight: "bold",
+      fill: white,
+    )[
+      CODE-MATHS
+    ]
+
+    #v(0.01cm)
+     #text(
+      size: 20pt,
+      weight: "bold",
+      fill: white,
+    )[
+      TOME I
+    ]
+
+    
+
+    #v(0.02cm)
+
+    #line(
+      length: 6.2cm,
+      stroke: 1.2pt + white,
+    )
+
+
+    #v(0.01cm)
+
+    #text(
+      size: 20pt,
+      weight: "bold",
+      fill: white,
+    )[
+     6e → 5e → 4e → 3e
+    ]
+
+
+
+  ]
+]
+
+  // ----------------------------------------------------------
+  // Logo CODE
+  // ----------------------------------------------------------
+
+  place(
+    dx: 1.2cm,
+    dy: 22.3cm,
+  )[
+    #image(
+      "../assets/logo/logo.jpg",
+      width: 3.5cm,
+    )
+  ]
+
+
+ // ----------------------------------------------------------
+// Rectangle contenant le code unique
+// ----------------------------------------------------------
+
+place(
+  dx: 5.3cm,
+  dy: 22.55cm,
+)[
+  #rect(
+    width: 10cm,
+    height: 1.5cm,
+    radius: 12pt,
+    fill: rgb("#0B2F55"),
+    stroke: 2pt + rgb("#5A381E"),
+  )[
+    #align(center + horizon)[
+      #text(
+        fill: white,
+        size: 14pt,
+        weight: "bold",
+      )[
+        #code
+      ]
+    ]
+  ]
+]
+
+  // ----------------------------------------------------------
+  // QR Code
+  // ----------------------------------------------------------
+
+  place(
+    dx: 16.4cm,
+    dy: 22.3cm,
+  )[
+    #image(
+      "../assets/qr/qr.png",
+      width: 3.5cm,
+    )
+  ]
+
+
+
+
+
+  pagebreak()
+
+}
+
+// ==========================================================
+// Couverture arrière — CODE-MATHS
+// PARTIE 1/4
+// ==========================================================
+
+#let cover_back() = {
+
+  set page(
+    paper: "a4",
+    margin: 0pt,
+    background: none,
+  )
+
+
+  // ----------------------------------------------------------
+  // Image arrière-plan (inchangée)
+  // ----------------------------------------------------------
+
+  place(
+    dx: 0pt,
+    dy: 0pt,
+  )[
+    #image(
+      "../assets/covers/cover-back.png",
+      width: 21cm,
+      height: 29.7cm,
+    )
+  ]
+
+
+
+  // ----------------------------------------------------------
+  // Identité sur la tranche
+  // ----------------------------------------------------------
+
+  place(
+    dx: 0.35cm,
+    dy: 14.8cm,
+  )[
+
+    #rotate(
+      -90deg,
+    )[
+
+      #text(
+        size: 16pt,
+        weight: "bold",
+        fill: white,
+      )[
+
+        CODE-MATHS
+
+      ]
+
+    ]
+
+  ]
+
+
+
+  place(
+    dx: 0.48cm,
+    dy: 8cm,
+  )[
+
+    #rotate(
+      -90deg,
+    )[
+
+      #text(
+        size: 7pt,
+        fill: white,
+      )[
+
+        MAÎTRISE DES MATHÉMATIQUES
+
+      ]
+
+    ]
+
+  ]
+
+
+
+  // ----------------------------------------------------------
+  // Variables de mise en page
+  // ----------------------------------------------------------
+
+  let blue = rgb(11,47,85)
+
+  let card(
+    title,
+    body,
+  ) = {
+
+    box(
+      width: 10.5cm,
+      fill: rgb("#FFFFFFDD"),
+      radius: 16pt,
+      inset: 0.45cm,
+      stroke: 1pt + blue,
+    )[
+
+      #text(
+        size: 12pt,
+        weight: "bold",
+        fill: blue,
+      )[
+
+        #title
+
+      ]
+
+
+      #v(0.25cm)
+
+
+      #text(
+        size: 10.5pt,
+      )[
+
+        #body
+
+      ]
+
+    ]
+
+  }
+
+
+
+  // ==========================================================
+  // COLONNE GAUCHE
+  // Pourquoi CODE-Maths ?
+  // ==========================================================
+
+
+  place(
+    dx: 1.5cm,
+    dy: 4.5cm,
+  )[
+
+
+    #card(
+      [
+        POURQUOI CODE-MATHS ?
+      ],
+
+      [
+
+        #text(
+          size:11pt,
+          style:"italic",
+          fill:rgb(80,80,80),
+        )[
+
+          Comprendre aujourd'hui pour construire
+          les compétences de demain.
+
+        ]
+
+
+        #v(0.35cm)
+
+
+
+        Les mathématiques ne doivent plus être une matière
+        où l'apprenant accumule des difficultés sans comprendre
+        leurs origines.
+
+        \
+
+        CODE-MATHS est un manuel intelligent conçu pour
+        accompagner chaque apprenant depuis ses fondations
+        jusqu'à la maîtrise des notions essentielles.
+
+        \
+
+        À travers une progression structurée, des explications
+        accessibles et une approche basée sur la compréhension,
+        CODE-MATHS transforme les difficultés en compétences.
+
+        \
+
+        Notre ambition :
+
+        Faire des mathématiques un langage compris par tous,
+        un outil de réflexion, de création et de réussite.
+
+      ]
+
+    )
+
+  ]
+
+
+
+
+// ==========================================================
+// COLONNE DROITE
+// Photo + Présentation auteur
+// PARTIE 2/4
+// ==========================================================
+
+
+// ----------------------------------------------------------
+// Photo auteur circulaire
+// ----------------------------------------------------------
+
+place(
+  dx: 14cm,
+  dy: 1.7cm,
+)[
+
+  #circle(
+    radius: 2.95cm,
+    fill: white,
+    stroke: 3pt + rgb(11,47,85),
+  )
+
+]
+
+
+place(
+  dx: 14.04cm,
+  dy: 1.75cm,
+)[
+
+  #image(
+    "../assets/photos/deo-gratias-circle.png",
+    width: 5.8cm,
+    height: 5.8cm,
+  )
+
+]
+
+
+
+// ----------------------------------------------------------
+// Carte identité auteur
+// ----------------------------------------------------------
+
+place(
+  dx: 13.8cm,
+  dy: 8cm,
+)[
+
+
+  #align(center)[
+
+
+    #box(
+      width: 6cm,
+      fill: rgb(11,47,85),
+      radius: 12pt,
+      inset: 0.28cm,
+      stroke: 1pt + white,
+    )[
+
+
+      #text(
+        size: 11.5pt,
+        weight: "bold",
+        fill: white,
+      )[
+
+        Déo-Gratias S. HOUNSOU
+
+      ]
+
+
+      #v(0.18cm)
+
+
+
+      #line(
+        length: 4.8cm,
+        stroke: 1pt + white,
+      )
+
+
+
+      #v(0.25cm)
+
+
+
+     #text(
+  size: 9.5pt,
+  fill: white,
+)[
+
+  Fondateur de CODE
+
+  \
+
+  Professeur adjoint de mathématiques,
+  chercheur indépendant en Intelligence Artificielle
+  et Technologies Éducatives.
+
+  \
+
+  Animé par la conviction que chaque apprenant peut réussir lorsqu'il bénéficie d'un accompagnement adapté, il développe des solutions éducatives qui associent les mathématiques, les sciences, l'intelligence artificielle et les technologies numériques afin de proposer une nouvelle manière d'apprendre.
+
+
+  \
+
+
+À travers CODE-MATHS, il poursuit une ambition claire : rendre les mathématiques plus accessibles, plus concrètes et plus utiles, tout en développant chez les apprenants le raisonnement, la créativité et l'autonomie.
+
+\
+
+Il mène également des travaux sur l'apprentissage personnalisé, les systèmes tutoriels intelligents et l'utilisation de l'intelligence artificielle au service de l'éducation.
+]
+
+
+    ]
+
+  ]
+
+]
+
+// ==========================================================
+// PARTIE 3/4
+// Public concerné + Biographie auteur
+// ==========================================================
+
+
+
+// ----------------------------------------------------------
+// Pour qui est CODE-MATHS ?
+// Colonne gauche
+// ----------------------------------------------------------
+
+place(
+  dx: 1.5cm,
+  dy: 17.8cm,
+)[
+
+
+  #box(
+    width: 10.5cm,
+    fill: rgb("#FFFFFFDD"),
+    radius: 16pt,
+    inset: 0.45cm,
+    stroke: 1pt + rgb(11,47,85),
+  )[
+
+
+    #text(
+      size: 12pt,
+      weight: "bold",
+      fill: rgb(11,47,85),
+    )[
+
+      POUR QUI EST CODE-MATHS ?
+
+    ]
+
+
+
+    #v(0.3cm)
+
+
+
+    #text(
+      size:10.5pt,
+    )[
+
+
+      #text(
+        weight:"bold",
+      )[
+
+        Élèves :
+
+      ]
+
+      pour comprendre les notions,
+      combler leurs lacunes et progresser
+      avec une méthode adaptée.
+
+
+      \
+
+
+      #text(
+        weight:"bold",
+      )[
+
+        Parents :
+
+      ]
+
+      pour accompagner efficacement
+      la réussite scolaire de leurs enfants.
+
+
+      \
+
+
+      #text(
+        weight:"bold",
+      )[
+
+        Enseignants :
+
+      ]
+
+      pour disposer d'un support structuré
+      favorisant l'explication, la remédiation
+      et la maîtrise durable.
+
+    ]
+
+  ]
+
+]
+
+
+
+
+
+
+
+// ==========================================================
+// PARTIE 4/4
+// Signature éditoriale
+// ==========================================================
+
+
+
+// ----------------------------------------------------------
+// Badge IA BLEUE — L'Éveil de l'Intelligence
+// Conservé volontairement
+// ----------------------------------------------------------
+
+place(
+  dx: 0cm,
+  dy: 27cm,
+)[
+
+
+  #block(
+    width: 21cm,
+  )[
+
+
+    #align(center)[
+
+
+
+
+#line(
+      length: 8cm,
+      stroke: 0.8pt + rgb(11,47,85),
+    )
+
+    #v(0.3cm)
+
+        #text(
+          size: 12pt,
+          weight: "bold",
+          fill: black,
+        )[
+
+
+          CODE — L'Éveil de l'Intelligence
+
+
+        ]
+
+
+        #v(0.15cm)
+
+
+
+        #text(
+          size: 10pt,
+          fill: black,
+        )[
+
+
+          ÉDITION 2026
+
+
+        ]
+
+
+      ]
+
+    ]
+
+  ]
+
+
+
+
+
+}

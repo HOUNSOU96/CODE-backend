@@ -1,0 +1,19 @@
+# PDF générés
+*.pdf
+
+# Dossiers de sortie
+exports/
+
+# Fichiers temporaires
+*.tmp
+*.log
+
+# Sauvegardes d'éditeur
+*~
+*.swp
+
+# macOS
+.DS_Store
+
+# VS Code (optionnel)
+.vscode/settings.json

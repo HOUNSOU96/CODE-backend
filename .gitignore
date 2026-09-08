@@ -69,3 +69,21 @@ Thumbs.db
 
 backend/RemediationVideos/*.mp4
 backend/RemediationVideos/**/*.mp4
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# =========================================================
+# CODE-MathsI — fichiers générés / lourds
+# =========================================================
+
+backend/CODE-MathsI/*.pdf
+backend/CODE-MathsI/output/
+backend/CODE-MathsI/assets/fonts/*.zip
+
+
+# Fichiers temporaires CODE-MathsI
+backend/CODE-MathsI/tmp/
+

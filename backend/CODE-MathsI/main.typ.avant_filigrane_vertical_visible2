@@ -1,0 +1,252 @@
+// ==========================================================
+// CODE Framework
+// Document principal
+// ==========================================================
+
+
+// ----------------------------------------------------------
+// Imports
+// ----------------------------------------------------------
+
+#import "code/code.typ": *
+#import "code/cover.typ": *
+#import "books/front-matter/page-garde.typ": page_garde
+#import "books/front-matter/copyright.typ": copyright
+
+#import "code/methodologie.typ": methodologie
+
+#import "books/front-matter/avant-propos.typ": avant_propos
+#import "books/front-matter/sommaire.typ": sommaire
+#import "books/front-matter/preface.typ": preface
+#import "books/front-matter/identite.typ": identite
+#import "books/front-matter/commencer.typ": commencez_ici
+#import "books/front-matter/usage-code.typ": usage_code
+#import "books/front-matter/carte-des-notions.typ": carte_des_notions
+#import "books/college/domaine-a-nombres/index.typ": domaine-a
+#import "books/college/domaine-d-geometrie/index.typ": domaine-d
+#import "books/college/domaine-c-donnees/index.typ": domaine-c
+#import "books/college/domaine-b-algebre/index.typ": domaine-b
+#import "books/back-matter/remerciements.typ": remerciements
+#import "books/back-matter/reconnaissances.typ": reconnaissances
+#import "books/back-matter/references.typ": references
+#import "books/back-matter/edition.typ": edition
+#import "books/back-matter/echecs.typ": echecs
+#import "books/back-matter/problemes-ouverts.typ": problemes_ouverts
+
+
+// ----------------------------------------------------------
+// Initialisation CODE
+// ----------------------------------------------------------
+
+#code-init()
+
+// ----------------------------------------------------------
+// Données de personnalisation
+// ----------------------------------------------------------
+
+#let nom = sys.inputs.at("nom", default: "")
+#let prenom = sys.inputs.at("prenom", default: "")
+#let pays = sys.inputs.at("pays", default: "")
+#let etablissement = sys.inputs.at("etablissement", default: "")
+#let ville = sys.inputs.at("ville", default: "")
+#let annee_scolaire = sys.inputs.at("annee_scolaire", default: "")
+#let photo_path = sys.inputs.at("photo_path", default: "")
+#let code_activation = sys.inputs.at("code", default: "CODE-0B9L-C7IA-JJP5-LEG8")
+
+
+
+
+// ----------------------------------------------------------
+// Couverture avant
+// ----------------------------------------------------------
+
+#set page(
+  paper: "a4",
+  margin: (
+    top: 2cm,
+    bottom: 2cm,
+    left: 2cm,
+    right: 2cm,
+  ),
+)
+
+#cover_front(code: code_activation)
+
+
+// ----------------------------------------------------------
+// Pages préliminaires sans numérotation visible
+// ----------------------------------------------------------
+
+#set page(
+  background: context [
+    #place(
+      dx: 0pt,
+      dy: 0pt,
+      image(
+        "assets/backgrounds/page-bg.png",
+        width: 21cm,
+        height: 29.7cm,
+      )
+    )
+
+    // Filigrane personnalisé vertical sur le bord droit
+    #place(
+      right + 10pt,
+      horizon,
+    )[
+      #rotate(90deg)[
+        #text(
+          size: 10pt,
+          fill: rgb(120, 120, 120, 75%),
+          weight: "bold",
+        )[
+          #nom — #prenom • CODE — #code_activation
+        ]
+      ]
+    ]
+  ],
+)
+
+
+#page_garde()
+
+
+#pagebreak()
+
+
+// ----------------------------------------------------------
+// Début officiel de la pagination
+// ----------------------------------------------------------
+
+#counter(page).update(2)
+
+
+#set page(
+  footer: context [
+    #align(center)[
+      #text(
+        size:9pt,
+        fill:code-gray,
+      )[
+        Page #counter(page).display()
+      ]
+    ]
+  ],
+
+  header: context [
+    #align(right)[
+      #text(
+        size:9pt,
+        fill:code-gray,
+      )[
+        CODE — L'Éveil de l'intelligence
+      ]
+    ]
+  ],
+)
+
+#copyright()
+
+#pagebreak()
+
+#identite(
+  nom: nom,
+  prenom: prenom,
+  pays: pays,
+  etablissement: etablissement,
+  ville: ville,
+  annee_scolaire: annee_scolaire,
+  photo_path: photo_path,
+  code: code_activation,
+)
+
+#pagebreak()
+
+#avant_propos()
+
+#pagebreak()
+
+#preface()
+
+#pagebreak()
+
+#commencez_ici()
+
+#pagebreak()
+
+#usage_code()
+
+#pagebreak()
+
+#carte_des_notions()
+
+#pagebreak()
+
+#sommaire()
+
+
+
+
+// ----------------------------------------------------------
+// Filigrane officielle de toutes les pages du manuel
+// ----------------------------------------------------------
+
+
+
+
+// ----------------------------------------------------------
+// Corps du document
+// ----------------------------------------------------------
+
+
+// ==========================================================
+// PAGE — COMMENT LIRE ET RAISONNER DANS CODE-MATHS
+// ==========================================================
+
+#methodologie()
+
+#pagebreak()
+
+#domaine-a()
+
+#pagebreak()
+
+#domaine-b()
+
+#pagebreak()
+
+#domaine-c()
+
+#pagebreak()
+
+#domaine-d()
+
+
+#pagebreak()
+
+#problemes_ouverts()
+
+#pagebreak()
+#remerciements()
+
+
+#pagebreak()
+
+#reconnaissances()
+
+#pagebreak()
+#echecs()
+
+#pagebreak()
+#references()
+
+#pagebreak()
+#edition()
+
+// ----------------------------------------------------------
+// Couverture arrière
+// ----------------------------------------------------------
+#pagebreak()
+#set page(background: none)
+
+#cover_back()
