@@ -36,9 +36,23 @@ class User(Base):
     validation_token = Column(String(255), nullable=True)
     is_validated = Column(Boolean, default=False)
     is_admin = Column(Boolean, default=False)
+
     enseignant = Column(Boolean, default=False, nullable=False, index=True)
     enseignant_actif = Column(Boolean, default=True, nullable=False)
+
+    # Profil enseignant
+    teacher_profile_validated = Column(
+        Boolean,
+        default=False,
+        nullable=False,
+    )
+    teacher_photo = Column(
+        String(500),
+        nullable=True,
+    )
+
     is_blocked = Column(Boolean, default=False)
+
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
     last_warning = Column(DateTime, nullable=True)

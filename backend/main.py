@@ -13,6 +13,7 @@ import logging
 import random
 from routes.activation import router as activation_router
 from routes.admin_routes import router as admin_router
+from routes.teacher import router as teacher_router
 import threading
 import uuid
 from pathlib import Path
@@ -61,6 +62,8 @@ app.mount("/images", StaticFiles(directory="Images"), name="images")
 
 app.include_router(activation_router)
 app.include_router(products.router)
+app.include_router(teacher_router)
+
 
 logger = logging.getLogger(__name__)
 class Apprenant(BaseModel):

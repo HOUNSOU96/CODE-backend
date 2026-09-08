@@ -106,16 +106,19 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
     token = create_access_token(user.id)
 
     return {
-        "access_token": token,
-        "user": {
-            "id": user.id,
-            "nom": user.nom,
-            "prenom": user.prenom,
-            "email": user.email,
-            "is_admin": user.is_admin,
-            "is_validated": user.is_validated
-        }
+    "access_token": token,
+    "user": {
+        "id": user.id,
+        "nom": user.nom,
+        "prenom": user.prenom,
+        "email": user.email,
+        "is_admin": user.is_admin,
+        "is_validated": user.is_validated,
+        "enseignant": user.enseignant,
+        "enseignant_actif": user.enseignant_actif,
+        "teacher_profile_validated": user.teacher_profile_validated,
     }
+}
 
 
 @router.post("/logout")
@@ -363,7 +366,10 @@ def me(current_user: User = Depends(get_current_user)):
         "prenom": current_user.prenom,
         "is_active": current_user.is_active,
         "is_verified": current_user.is_verified,
-        "is_admin": current_user.is_admin 
+        "is_admin": current_user.is_admin,
+        "enseignant": current_user.enseignant,
+        "enseignant_actif": current_user.enseignant_actif,
+        "teacher_profile_validated": current_user.teacher_profile_validated,
     }
 
 __all__ = [
