@@ -106,6 +106,13 @@ def get_teacher_profile(
     }
 
 
+
+
+
+
+
+
+
 # ============================================================
 # VALIDATION DU PROFIL ENSEIGNANT
 # ============================================================
@@ -238,4 +245,38 @@ async def validate_teacher_profile(
         "teacher_profile_validated": True,
         "teacher_photo": f"/images/{current_user.teacher_photo}",
         "subjects": cleaned_subjects,
+    }
+
+
+@router.get("/public-profile")
+def get_teacher_public_profile(
+    email: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    teacher = (
+        db.query(User)
+        .filter(
+            User.email == email,
+            User.enseignant.is_(True),
+            User.enseignant_actif.is_(True),
+        )
+        .first()
+    )
+
+    if not teacher:
+        raise HTTPException(
+            status_code=404,
+            detail="Enseignant introuvable.",
+        )
+
+    return {
+        "nom": teacher.nom,
+        "prenom": teacher.prenom,
+        "email": teacher.email,
+        "teacher_photo": (
+            f"/images/{teacher.teacher_photo}"
+            if teacher.teacher_photo
+            else None
+        ),
     }

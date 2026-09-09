@@ -773,6 +773,7 @@ def evaluer_test_par_niveau(
             "correcte": correcte,
             "bonne_reponse": bonne_reponse,
             "reponse_apprenant": reponse_apprenant,
+            "enseignant": q.get("enseignant"),
             "notion": q.get("notion"),
             "situation": q.get("situation"),
         }
@@ -1182,6 +1183,7 @@ def get_remediation_videos(niveau: str = Query(...)):
         "mois": v.get("mois"),     # optionnel
         "notions": v.get("notions"),
         "prerequis": v.get("prerequis"),
+        "enseignant": v.get("enseignant"),
         "questions": v.get("questions"),
         "videoUrl": v.get("videoUrl"),
 

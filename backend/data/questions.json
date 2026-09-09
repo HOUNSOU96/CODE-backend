@@ -1,5 +1,4 @@
 [
-
   {
     "id": "pave_droit1",
     "niveau": "6e",
@@ -15,7 +14,8 @@
       "8",
       "12"
     ],
-    "bonne_reponse": "6"
+    "bonne_reponse": "6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pave_droit2",
@@ -32,7 +32,8 @@
       "12",
       "10"
     ],
-    "bonne_reponse": "12"
+    "bonne_reponse": "12",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pave_droit3",
@@ -49,7 +50,8 @@
       "10",
       "12"
     ],
-    "bonne_reponse": "8"
+    "bonne_reponse": "8",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pave_droit4",
@@ -66,7 +68,8 @@
       "longueur + largeur + hauteur",
       "longueur × largeur"
     ],
-    "bonne_reponse": "longueur × largeur × hauteur"
+    "bonne_reponse": "longueur × largeur × hauteur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pave_droit5",
@@ -83,7 +86,8 @@
       "longueur × largeur × hauteur",
       "longueur × largeur"
     ],
-    "bonne_reponse": "2 * (longueur × largeur + largeur × hauteur + hauteur × longueur)"
+    "bonne_reponse": "2 * (longueur × largeur + largeur × hauteur + hauteur × longueur)",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pave_droit6",
@@ -100,7 +104,8 @@
       "120 cm³",
       "30 cm³"
     ],
-    "bonne_reponse": "60 cm³"
+    "bonne_reponse": "60 cm³",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pave_droit7",
@@ -117,7 +122,8 @@
       "88 cm²",
       "48 cm²"
     ],
-    "bonne_reponse": "88 cm²"
+    "bonne_reponse": "88 cm²",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pave_droit8",
@@ -134,7 +140,8 @@
       "15 cm",
       "20 cm"
     ],
-    "bonne_reponse": "5 cm"
+    "bonne_reponse": "5 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pave_droit9",
@@ -151,7 +158,8 @@
       "18 cm",
       "24 cm"
     ],
-    "bonne_reponse": "6 cm"
+    "bonne_reponse": "6 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pave_droit10",
@@ -168,7 +176,8 @@
       "24 cm³",
       "36 cm³"
     ],
-    "bonne_reponse": "24 cm³"
+    "bonne_reponse": "24 cm³",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube1",
@@ -185,7 +194,8 @@
       "8",
       "12"
     ],
-    "bonne_reponse": "6"
+    "bonne_reponse": "6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube2",
@@ -202,7 +212,8 @@
       "12",
       "10"
     ],
-    "bonne_reponse": "12"
+    "bonne_reponse": "12",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube3",
@@ -219,7 +230,8 @@
       "10",
       "12"
     ],
-    "bonne_reponse": "8"
+    "bonne_reponse": "8",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube4",
@@ -236,7 +248,8 @@
       "2 * côté²",
       "3 * côté²"
     ],
-    "bonne_reponse": "côté³"
+    "bonne_reponse": "côté³",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube5",
@@ -253,7 +266,8 @@
       "2 * côté²",
       "côté²"
     ],
-    "bonne_reponse": "6 * côté²"
+    "bonne_reponse": "6 * côté²",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube6",
@@ -270,7 +284,8 @@
       "18 cm³",
       "36 cm³"
     ],
-    "bonne_reponse": "27 cm³"
+    "bonne_reponse": "27 cm³",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube7",
@@ -287,7 +302,8 @@
       "96 cm²",
       "48 cm²"
     ],
-    "bonne_reponse": "96 cm²"
+    "bonne_reponse": "96 cm²",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube8",
@@ -304,7 +320,8 @@
       "15 cm",
       "20 cm"
     ],
-    "bonne_reponse": "5 cm"
+    "bonne_reponse": "5 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube9",
@@ -321,7 +338,8 @@
       "18 cm",
       "24 cm"
     ],
-    "bonne_reponse": "6 cm"
+    "bonne_reponse": "6 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cube10",
@@ -338,7 +356,8 @@
       "16 cm³",
       "32 cm³"
     ],
-    "bonne_reponse": "8 cm³"
+    "bonne_reponse": "8 cm³",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution1",
@@ -355,7 +374,8 @@
       "Triangle",
       "Rectangle"
     ],
-    "bonne_reponse": "Cercle"
+    "bonne_reponse": "Cercle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution2",
@@ -372,7 +392,8 @@
       "3 surfaces planes",
       "Aucune base"
     ],
-    "bonne_reponse": "1 base plane et 1 surface courbe"
+    "bonne_reponse": "1 base plane et 1 surface courbe",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution3",
@@ -389,7 +410,8 @@
       "Sur la génératrice",
       "Inutile"
     ],
-    "bonne_reponse": "Le point opposé à la base"
+    "bonne_reponse": "Le point opposé à la base",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution4",
@@ -406,7 +428,8 @@
       "Un rectangle",
       "Un triangle"
     ],
-    "bonne_reponse": "Un secteur circulaire et un disque"
+    "bonne_reponse": "Un secteur circulaire et un disque",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution5",
@@ -423,7 +446,8 @@
       "Transparent",
       "Cubique"
     ],
-    "bonne_reponse": "De révolution"
+    "bonne_reponse": "De révolution",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution6",
@@ -440,7 +464,8 @@
       "2/3 × π × rayon² × hauteur",
       "1/2 × π × rayon² × hauteur"
     ],
-    "bonne_reponse": "1/3 × π × rayon² × hauteur"
+    "bonne_reponse": "1/3 × π × rayon² × hauteur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution7",
@@ -457,7 +482,8 @@
       "2 × π × rayon × génératrice",
       "π × rayon²"
     ],
-    "bonne_reponse": "π × rayon × (rayon + génératrice)"
+    "bonne_reponse": "π × rayon × (rayon + génératrice)",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution8",
@@ -474,7 +500,8 @@
       "48π cm³",
       "60π cm³"
     ],
-    "bonne_reponse": "12π cm³"
+    "bonne_reponse": "12π cm³",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution9",
@@ -491,7 +518,8 @@
       "48π cm²",
       "60π cm²"
     ],
-    "bonne_reponse": "60π cm²"
+    "bonne_reponse": "60π cm²",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cone_revolution10",
@@ -508,7 +536,8 @@
       "5 cm",
       "6 cm"
     ],
-    "bonne_reponse": "5 cm"
+    "bonne_reponse": "5 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere1",
@@ -525,7 +554,8 @@
       "2",
       "∞"
     ],
-    "bonne_reponse": "0"
+    "bonne_reponse": "0",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere2",
@@ -542,7 +572,8 @@
       "Triangle",
       "Rectangulaire"
     ],
-    "bonne_reponse": "Courbe"
+    "bonne_reponse": "Courbe",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere3",
@@ -559,7 +590,8 @@
       "Seulement avec compas",
       "Parfois"
     ],
-    "bonne_reponse": "Oui"
+    "bonne_reponse": "Oui",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere4",
@@ -576,7 +608,8 @@
       "π × rayon² × hauteur",
       "4 × π × rayon²"
     ],
-    "bonne_reponse": "4/3 × π × rayon³"
+    "bonne_reponse": "4/3 × π × rayon³",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere5",
@@ -593,7 +626,8 @@
       "π × rayon²",
       "π × rayon × hauteur"
     ],
-    "bonne_reponse": "4 × π × rayon²"
+    "bonne_reponse": "4 × π × rayon²",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere6",
@@ -610,7 +644,8 @@
       "60π cm³",
       "108π cm³"
     ],
-    "bonne_reponse": "36π cm³"
+    "bonne_reponse": "36π cm³",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere7",
@@ -627,7 +662,8 @@
       "128π cm²",
       "160π cm²"
     ],
-    "bonne_reponse": "128π cm²"
+    "bonne_reponse": "128π cm²",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere8",
@@ -644,7 +680,8 @@
       "15 cm",
       "20 cm"
     ],
-    "bonne_reponse": "10 cm"
+    "bonne_reponse": "10 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere9",
@@ -661,7 +698,8 @@
       "15 cm",
       "20 cm"
     ],
-    "bonne_reponse": "5 cm"
+    "bonne_reponse": "5 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sphere10",
@@ -678,7 +716,8 @@
       "24π cm³",
       "32π cm³"
     ],
-    "bonne_reponse": "8π cm³"
+    "bonne_reponse": "8π cm³",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep1",
@@ -695,7 +734,8 @@
       "Mesurer des distances entre des points",
       "Dessiner des figures géométriques"
     ],
-    "bonne_reponse": "Identifier des points sur un plan à l'aide de coordonnées"
+    "bonne_reponse": "Identifier des points sur un plan à l'aide de coordonnées",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep2",
@@ -712,7 +752,8 @@
       "(1, 0)",
       "(0, 1)"
     ],
-    "bonne_reponse": "(0, 0)"
+    "bonne_reponse": "(0, 0)",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep3",
@@ -729,7 +770,8 @@
       "Sur l'axe",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "Au-dessus"
+    "bonne_reponse": "Au-dessus",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep4",
@@ -746,7 +788,8 @@
       "Sur l'axe",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "À gauche"
+    "bonne_reponse": "À gauche",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep5",
@@ -763,7 +806,8 @@
       "(3, 3)",
       "(4, 4)"
     ],
-    "bonne_reponse": "(1, 1)"
+    "bonne_reponse": "(1, 1)",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep6",
@@ -780,7 +824,8 @@
       "Au-dessus de l'axe des abscisses",
       "En dessous de l'axe des abscisses"
     ],
-    "bonne_reponse": "Sur l'axe des ordonnées"
+    "bonne_reponse": "Sur l'axe des ordonnées",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep7",
@@ -797,7 +842,8 @@
       "(2, -3)",
       "(-2, 3)"
     ],
-    "bonne_reponse": "(2, 3)"
+    "bonne_reponse": "(2, 3)",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep8",
@@ -814,7 +860,8 @@
       "En haut à droite",
       "En bas à droite"
     ],
-    "bonne_reponse": "En bas à gauche"
+    "bonne_reponse": "En bas à gauche",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep9",
@@ -831,7 +878,8 @@
       "(-5, 5)",
       "(-5, -5)"
     ],
-    "bonne_reponse": "(5, 5)"
+    "bonne_reponse": "(5, 5)",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rep10",
@@ -848,7 +896,8 @@
       "Au-dessus de l'axe des abscisses",
       "En dessous de l'axe des abscisses"
     ],
-    "bonne_reponse": "Sur l'axe des ordonnées"
+    "bonne_reponse": "Sur l'axe des ordonnées",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan1",
@@ -865,7 +914,8 @@
       "Elles sont perpendiculaires",
       "Elles ont le même point de départ"
     ],
-    "bonne_reponse": "Elles n'ont aucun point commun"
+    "bonne_reponse": "Elles n'ont aucun point commun",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan2",
@@ -882,7 +932,8 @@
       "Une droite qui coupe une autre droite en formant un angle obtus",
       "Une droite qui coupe une autre droite en formant un angle plat"
     ],
-    "bonne_reponse": "Une droite qui coupe une autre droite en formant un angle droit"
+    "bonne_reponse": "Une droite qui coupe une autre droite en formant un angle droit",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan3",
@@ -899,7 +950,8 @@
       "Elles forment des angles obtus",
       "Elles forment des angles plats"
     ],
-    "bonne_reponse": "Elles forment des angles droits"
+    "bonne_reponse": "Elles forment des angles droits",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan4",
@@ -916,7 +968,8 @@
       "Elles sont perpendiculaires",
       "Elles ont le même point de départ"
     ],
-    "bonne_reponse": "Elles n'ont aucun point commun"
+    "bonne_reponse": "Elles n'ont aucun point commun",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan5",
@@ -933,7 +986,8 @@
       "180 degrés",
       "360 degrés"
     ],
-    "bonne_reponse": "90 degrés"
+    "bonne_reponse": "90 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan6",
@@ -950,7 +1004,8 @@
       "Peut-être",
       "Impossible à dire"
     ],
-    "bonne_reponse": "Non"
+    "bonne_reponse": "Non",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan7",
@@ -967,7 +1022,8 @@
       "270 degrés",
       "360 degrés"
     ],
-    "bonne_reponse": "360 degrés"
+    "bonne_reponse": "360 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan8",
@@ -984,7 +1040,8 @@
       "Peut-être",
       "Impossible à dire"
     ],
-    "bonne_reponse": "Oui"
+    "bonne_reponse": "Oui",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan9",
@@ -1001,7 +1058,8 @@
       "Les droites parallèles sont toujours perpendiculaires",
       "Les droites perpendiculaires sont toujours parallèles"
     ],
-    "bonne_reponse": "Les droites parallèles ne se croisent pas, les droites perpendiculaires se croisent en formant un angle droit"
+    "bonne_reponse": "Les droites parallèles ne se croisent pas, les droites perpendiculaires se croisent en formant un angle droit",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "droites_plan10",
@@ -1018,7 +1076,8 @@
       "Peut-être",
       "Impossible à dire"
     ],
-    "bonne_reponse": "Oui"
+    "bonne_reponse": "Oui",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites1",
@@ -1035,7 +1094,8 @@
       "Un point sur une droite",
       "Une courbe"
     ],
-    "bonne_reponse": "Une partie de droite limitée par deux points"
+    "bonne_reponse": "Une partie de droite limitée par deux points",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites2",
@@ -1052,7 +1112,8 @@
       "2",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "0"
+    "bonne_reponse": "0",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites3",
@@ -1069,7 +1130,8 @@
       "Ils ont une longueur finie",
       "Ils ont une longueur infinie"
     ],
-    "bonne_reponse": "Ils ont une longueur finie"
+    "bonne_reponse": "Ils ont une longueur finie",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites4",
@@ -1086,7 +1148,8 @@
       "15 cm",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "8 cm"
+    "bonne_reponse": "8 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites5",
@@ -1103,7 +1166,8 @@
       "2",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "Impossible à déterminer"
+    "bonne_reponse": "Impossible à déterminer",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites6",
@@ -1120,7 +1184,8 @@
       "28 cm",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "11 cm"
+    "bonne_reponse": "11 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites7",
@@ -1137,7 +1202,8 @@
       "12 cm",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "6 cm"
+    "bonne_reponse": "6 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites8",
@@ -1154,7 +1220,8 @@
       "18 cm",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "11 cm"
+    "bonne_reponse": "11 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites9",
@@ -1171,7 +1238,8 @@
       "16 cm",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "8 cm"
+    "bonne_reponse": "8 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "segments_droites10",
@@ -1188,7 +1256,8 @@
       "50 cm",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "15 cm"
+    "bonne_reponse": "15 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles1",
@@ -1205,7 +1274,8 @@
       "Une droite courbe",
       "Un segment de droite"
     ],
-    "bonne_reponse": "Un ensemble de points équidistants d'un point fixe"
+    "bonne_reponse": "Un ensemble de points équidistants d'un point fixe",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles2",
@@ -1222,7 +1292,8 @@
       "La distance entre deux points opposés du cercle",
       "La distance entre le centre et l'extérieur du cercle"
     ],
-    "bonne_reponse": "La distance entre le centre et un point du cercle"
+    "bonne_reponse": "La distance entre le centre et un point du cercle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles3",
@@ -1239,7 +1310,8 @@
       "La distance entre deux points du cercle",
       "La distance entre le centre et un point du cercle"
     ],
-    "bonne_reponse": "Deux fois le rayon"
+    "bonne_reponse": "Deux fois le rayon",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles4",
@@ -1256,7 +1328,8 @@
       "2 × rayon",
       "π × diamètre"
     ],
-    "bonne_reponse": "2 × π × rayon"
+    "bonne_reponse": "2 × π × rayon",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles5",
@@ -1273,7 +1346,8 @@
       "2 × rayon",
       "π × diamètre"
     ],
-    "bonne_reponse": "π × rayon²"
+    "bonne_reponse": "π × rayon²",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles6",
@@ -1290,7 +1364,8 @@
       "12π cm",
       "18π cm"
     ],
-    "bonne_reponse": "6π cm"
+    "bonne_reponse": "6π cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles7",
@@ -1307,7 +1382,8 @@
       "32π cm²",
       "64π cm²"
     ],
-    "bonne_reponse": "16π cm²"
+    "bonne_reponse": "16π cm²",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles8",
@@ -1324,7 +1400,8 @@
       "15 cm",
       "20 cm"
     ],
-    "bonne_reponse": "10 cm"
+    "bonne_reponse": "10 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles9",
@@ -1341,7 +1418,8 @@
       "9 cm",
       "12 cm"
     ],
-    "bonne_reponse": "6 cm"
+    "bonne_reponse": "6 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercles10",
@@ -1358,7 +1436,8 @@
       "8π cm",
       "16π cm"
     ],
-    "bonne_reponse": "4π cm"
+    "bonne_reponse": "4π cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles1",
@@ -1375,7 +1454,8 @@
       "Un angle qui mesure 180 degrés",
       "Un angle qui mesure 360 degrés"
     ],
-    "bonne_reponse": "Un angle qui mesure 90 degrés"
+    "bonne_reponse": "Un angle qui mesure 90 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles2",
@@ -1392,7 +1472,8 @@
       "Un angle qui mesure 180 degrés",
       "Un angle qui mesure 360 degrés"
     ],
-    "bonne_reponse": "Un angle qui mesure 180 degrés"
+    "bonne_reponse": "Un angle qui mesure 180 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles3",
@@ -1409,7 +1490,8 @@
       "Un angle qui mesure 180 degrés",
       "Un angle qui mesure 360 degrés"
     ],
-    "bonne_reponse": "Un angle qui mesure 360 degrés"
+    "bonne_reponse": "Un angle qui mesure 360 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles4",
@@ -1426,7 +1508,8 @@
       "La somme de leurs mesures est 180 degrés",
       "Ils sont égaux"
     ],
-    "bonne_reponse": "La somme de leurs mesures est 90 degrés"
+    "bonne_reponse": "La somme de leurs mesures est 90 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles5",
@@ -1443,7 +1526,8 @@
       "La somme de leurs mesures est 180 degrés",
       "Ils sont égaux"
     ],
-    "bonne_reponse": "La somme de leurs mesures est 180 degrés"
+    "bonne_reponse": "La somme de leurs mesures est 180 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles6",
@@ -1460,7 +1544,8 @@
       "Mesure entre 90 et 180 degrés",
       "Mesure plus de 180 degrés"
     ],
-    "bonne_reponse": "Mesure moins de 90 degrés"
+    "bonne_reponse": "Mesure moins de 90 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles7",
@@ -1477,7 +1562,8 @@
       "Mesure entre 90 et 180 degrés",
       "Mesure plus de 180 degrés"
     ],
-    "bonne_reponse": "Mesure entre 90 et 180 degrés"
+    "bonne_reponse": "Mesure entre 90 et 180 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles8",
@@ -1494,7 +1580,8 @@
       "Deux angles qui sont égaux",
       "Deux angles qui sont opposés"
     ],
-    "bonne_reponse": "Deux angles qui partagent un côté commun"
+    "bonne_reponse": "Deux angles qui partagent un côté commun",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles9",
@@ -1511,7 +1598,8 @@
       "Deux angles qui sont supplémentaires",
       "Deux angles qui sont adjacents"
     ],
-    "bonne_reponse": "Deux angles qui sont égaux"
+    "bonne_reponse": "Deux angles qui sont égaux",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angles10",
@@ -1528,7 +1616,8 @@
       "Peut être un angle aigu, obtus ou droit",
       "Impossible à déterminer"
     ],
-    "bonne_reponse": "Peut être un angle aigu, obtus ou droit"
+    "bonne_reponse": "Peut être un angle aigu, obtus ou droit",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles1",
@@ -1545,7 +1634,8 @@
       "Un triangle avec trois côtés de longueurs différentes",
       "Un triangle avec un angle droit"
     ],
-    "bonne_reponse": "Un triangle avec trois côtés de même longueur"
+    "bonne_reponse": "Un triangle avec trois côtés de même longueur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles2",
@@ -1562,7 +1652,8 @@
       "Un triangle avec trois côtés de longueurs différentes",
       "Un triangle avec un angle droit"
     ],
-    "bonne_reponse": "Un triangle avec deux côtés de même longueur"
+    "bonne_reponse": "Un triangle avec deux côtés de même longueur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles3",
@@ -1579,7 +1670,8 @@
       "Un triangle avec trois côtés de longueurs différentes",
       "Un triangle avec un angle droit"
     ],
-    "bonne_reponse": "Un triangle avec trois côtés de longueurs différentes"
+    "bonne_reponse": "Un triangle avec trois côtés de longueurs différentes",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles4",
@@ -1596,7 +1688,8 @@
       "Un triangle avec trois côtés de longueurs différentes",
       "Un triangle avec un angle droit"
     ],
-    "bonne_reponse": "Un triangle avec un angle droit"
+    "bonne_reponse": "Un triangle avec un angle droit",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles5",
@@ -1613,7 +1706,8 @@
       "270 degrés",
       "360 degrés"
     ],
-    "bonne_reponse": "180 degrés"
+    "bonne_reponse": "180 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles6",
@@ -1630,7 +1724,8 @@
       "Peut-être",
       "Impossible à dire"
     ],
-    "bonne_reponse": "Non"
+    "bonne_reponse": "Non",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles7",
@@ -1647,7 +1742,8 @@
       "Trois angles droits",
       "Un angle droit et deux angles aigus égaux"
     ],
-    "bonne_reponse": "Un angle droit et deux angles aigus égaux"
+    "bonne_reponse": "Un angle droit et deux angles aigus égaux",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles8",
@@ -1664,7 +1760,8 @@
       "Le côté le plus court",
       "Le côté moyen"
     ],
-    "bonne_reponse": "Le côté opposé à l'angle droit"
+    "bonne_reponse": "Le côté opposé à l'angle droit",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles9",
@@ -1681,7 +1778,8 @@
       "Peut-être",
       "Impossible à dire"
     ],
-    "bonne_reponse": "Non"
+    "bonne_reponse": "Non",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "triangles10",
@@ -1698,7 +1796,8 @@
       "Deux angles sont égaux",
       "Un angle est plus grand que les autres"
     ],
-    "bonne_reponse": "Tous les angles sont égaux"
+    "bonne_reponse": "Tous les angles sont égaux",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes1",
@@ -1715,7 +1814,8 @@
       "Un quadrilatère avec quatre côtés de même longueur",
       "Un quadrilatère avec quatre angles droits"
     ],
-    "bonne_reponse": "Un quadrilatère avec deux paires de côtés parallèles"
+    "bonne_reponse": "Un quadrilatère avec deux paires de côtés parallèles",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes2",
@@ -1732,7 +1832,8 @@
       "Ils sont parallèles mais pas de même longueur",
       "Ils sont de même longueur mais pas parallèles"
     ],
-    "bonne_reponse": "Ils sont parallèles et de même longueur"
+    "bonne_reponse": "Ils sont parallèles et de même longueur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes3",
@@ -1749,7 +1850,8 @@
       "Ils sont toujours supplémentaires",
       "Ils sont toujours différents"
     ],
-    "bonne_reponse": "Ils sont toujours égaux"
+    "bonne_reponse": "Ils sont toujours égaux",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes4",
@@ -1766,7 +1868,8 @@
       "Elles se coupent en leurs milieux",
       "Elles ne se coupent pas"
     ],
-    "bonne_reponse": "Elles se coupent en leurs milieux"
+    "bonne_reponse": "Elles se coupent en leurs milieux",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes5",
@@ -1783,7 +1886,8 @@
       "Un parallélogramme avec deux côtés parallèles",
       "Un parallélogramme avec deux angles droits"
     ],
-    "bonne_reponse": "Un parallélogramme avec tous ses angles droits"
+    "bonne_reponse": "Un parallélogramme avec tous ses angles droits",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes6",
@@ -1800,7 +1904,8 @@
       "Un parallélogramme avec deux côtés parallèles",
       "Un parallélogramme avec deux angles droits"
     ],
-    "bonne_reponse": "Un parallélogramme avec tous ses côtés de même longueur"
+    "bonne_reponse": "Un parallélogramme avec tous ses côtés de même longueur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes7",
@@ -1817,7 +1922,8 @@
       "Un parallélogramme avec tous ses angles droits",
       "Un parallélogramme avec deux côtés parallèles"
     ],
-    "bonne_reponse": "Un parallélogramme avec tous ses côtés de même longueur et tous ses angles droits"
+    "bonne_reponse": "Un parallélogramme avec tous ses côtés de même longueur et tous ses angles droits",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes8",
@@ -1834,7 +1940,8 @@
       "Elles se coupent en leurs milieux",
       "Elles ne se coupent pas"
     ],
-    "bonne_reponse": "Elles sont de même longueur"
+    "bonne_reponse": "Elles sont de même longueur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes9",
@@ -1851,7 +1958,8 @@
       "Elles se coupent en leurs milieux",
       "Elles ne se coupent pas"
     ],
-    "bonne_reponse": "Elles sont perpendiculaires"
+    "bonne_reponse": "Elles sont perpendiculaires",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "parallelogrammes10",
@@ -1868,7 +1976,8 @@
       "Peut-être",
       "Impossible à dire"
     ],
-    "bonne_reponse": "Oui"
+    "bonne_reponse": "Oui",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux9",
@@ -1885,7 +1994,8 @@
       "4,5",
       "5,5"
     ],
-    "bonne_reponse": "3,7"
+    "bonne_reponse": "3,7",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux1",
@@ -1902,7 +2012,8 @@
       "Un nombre qui ne peut être que fractionnaire",
       "Un nombre qui ne peut être que positif"
     ],
-    "bonne_reponse": "Un nombre qui a une partie entière et une partie décimale"
+    "bonne_reponse": "Un nombre qui a une partie entière et une partie décimale",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux2",
@@ -1919,7 +2030,8 @@
       "5,5",
       "6,5"
     ],
-    "bonne_reponse": "6,2"
+    "bonne_reponse": "6,2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux3",
@@ -1936,7 +2048,8 @@
       "3,4",
       "4,4"
     ],
-    "bonne_reponse": "3,6"
+    "bonne_reponse": "3,6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux4",
@@ -1953,7 +2066,8 @@
       "20",
       "40"
     ],
-    "bonne_reponse": "10"
+    "bonne_reponse": "10",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux5",
@@ -1970,7 +2084,8 @@
       "5",
       "10"
     ],
-    "bonne_reponse": "2,5"
+    "bonne_reponse": "2,5",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux6",
@@ -1987,7 +2102,8 @@
       "9",
       "10"
     ],
-    "bonne_reponse": "8"
+    "bonne_reponse": "8",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux7",
@@ -2004,7 +2120,8 @@
       "5",
       "10"
     ],
-    "bonne_reponse": "5"
+    "bonne_reponse": "5",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux8",
@@ -2021,7 +2138,8 @@
       "12",
       "15"
     ],
-    "bonne_reponse": "9"
+    "bonne_reponse": "9",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux9_1",
@@ -2038,7 +2156,8 @@
       "4,5",
       "5,5"
     ],
-    "bonne_reponse": "3,7"
+    "bonne_reponse": "3,7",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "nombres_decimaux10",
@@ -2055,7 +2174,8 @@
       "12",
       "15"
     ],
-    "bonne_reponse": "10"
+    "bonne_reponse": "10",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions1",
@@ -2072,7 +2192,8 @@
       "Un nombre qui ne peut être que décimal",
       "Un nombre qui ne peut être que positif"
     ],
-    "bonne_reponse": "Un nombre qui représente une partie d'un tout"
+    "bonne_reponse": "Un nombre qui représente une partie d'un tout",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions2",
@@ -2089,7 +2210,8 @@
       "13/20",
       "19/20"
     ],
-    "bonne_reponse": "17/20"
+    "bonne_reponse": "17/20",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions3",
@@ -2106,7 +2228,8 @@
       "1/4",
       "1/5"
     ],
-    "bonne_reponse": "1/2"
+    "bonne_reponse": "1/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions4",
@@ -2123,7 +2246,8 @@
       "1/4",
       "1/5"
     ],
-    "bonne_reponse": "1/2"
+    "bonne_reponse": "1/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions5",
@@ -2140,7 +2264,8 @@
       "3/5",
       "5/3"
     ],
-    "bonne_reponse": "6/5"
+    "bonne_reponse": "6/5",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions6",
@@ -2157,7 +2282,8 @@
       "3/4",
       "7/8"
     ],
-    "bonne_reponse": "5/8"
+    "bonne_reponse": "5/8",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions7",
@@ -2174,7 +2300,8 @@
       "5/9",
       "7/9"
     ],
-    "bonne_reponse": "5/9"
+    "bonne_reponse": "5/9",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions8",
@@ -2191,7 +2318,8 @@
       "1/7",
       "2/5"
     ],
-    "bonne_reponse": "2/7"
+    "bonne_reponse": "2/7",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions9",
@@ -2208,7 +2336,8 @@
       "1/2",
       "3/4"
     ],
-    "bonne_reponse": "3/2"
+    "bonne_reponse": "3/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fractions10",
@@ -2225,7 +2354,8 @@
       "1/6",
       "2/5"
     ],
-    "bonne_reponse": "5/6"
+    "bonne_reponse": "5/6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral1",
@@ -2242,7 +2372,8 @@
       "2x + 3",
       "3x + 2"
     ],
-    "bonne_reponse": "5x"
+    "bonne_reponse": "5x",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral2",
@@ -2259,7 +2390,8 @@
       "4y - 2",
       "2y - 4"
     ],
-    "bonne_reponse": "2y"
+    "bonne_reponse": "2y",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral3",
@@ -2276,7 +2408,8 @@
       "3a + 4b",
       "4a + 3b"
     ],
-    "bonne_reponse": "12ab"
+    "bonne_reponse": "12ab",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral4",
@@ -2293,7 +2426,8 @@
       "10c",
       "2c"
     ],
-    "bonne_reponse": "5/2"
+    "bonne_reponse": "5/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral5",
@@ -2310,7 +2444,8 @@
       "x + y",
       "2x + y"
     ],
-    "bonne_reponse": "x + 5y"
+    "bonne_reponse": "x + 5y",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral6",
@@ -2327,7 +2462,8 @@
       "a - b",
       "a + b"
     ],
-    "bonne_reponse": "7a - 3b"
+    "bonne_reponse": "7a - 3b",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral7",
@@ -2344,7 +2480,8 @@
       "xy",
       "x ÷ y"
     ],
-    "bonne_reponse": "xy"
+    "bonne_reponse": "xy",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral8",
@@ -2361,7 +2498,8 @@
       "10x",
       "12x"
     ],
-    "bonne_reponse": "6x"
+    "bonne_reponse": "6x",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral9",
@@ -2378,7 +2516,8 @@
       "5y",
       "6y"
     ],
-    "bonne_reponse": "3y"
+    "bonne_reponse": "3y",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "calcul_litteral10",
@@ -2395,7 +2534,8 @@
       "a + b",
       "a - b"
     ],
-    "bonne_reponse": "3ab"
+    "bonne_reponse": "3ab",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite1",
@@ -2412,7 +2552,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui agrandit ou réduit un objet"
     ],
-    "bonne_reponse": "Une transformation qui réfléchit un objet par rapport à une ligne"
+    "bonne_reponse": "Une transformation qui réfléchit un objet par rapport à une ligne",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite2",
@@ -2429,7 +2570,8 @@
       "La ligne de rotation",
       "La ligne de translation"
     ],
-    "bonne_reponse": "La ligne de symétrie"
+    "bonne_reponse": "La ligne de symétrie",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite3",
@@ -2446,7 +2588,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle identique"
+    "bonne_reponse": "Un triangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite4",
@@ -2463,7 +2606,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un carré identique"
+    "bonne_reponse": "Un carré identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite5",
@@ -2480,7 +2624,8 @@
       "Un carré",
       "Un rectangle"
     ],
-    "bonne_reponse": "Un cercle identique"
+    "bonne_reponse": "Un cercle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite6",
@@ -2497,7 +2642,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un rectangle identique"
+    "bonne_reponse": "Un rectangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite7",
@@ -2514,7 +2660,8 @@
       "Un rectangle",
       "Un cercle"
     ],
-    "bonne_reponse": "Un losange identique"
+    "bonne_reponse": "Un losange identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite8",
@@ -2531,7 +2678,8 @@
       "Un carré",
       "Un rectangle"
     ],
-    "bonne_reponse": "Un ovale identique"
+    "bonne_reponse": "Un ovale identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite9",
@@ -2548,7 +2696,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un polygone régulier identique"
+    "bonne_reponse": "Un polygone régulier identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_droite10",
@@ -2565,7 +2714,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un pentagone régulier identique"
+    "bonne_reponse": "Un pentagone régulier identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point1",
@@ -2582,7 +2732,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui agrandit ou réduit un objet"
     ],
-    "bonne_reponse": "Une transformation qui tourne un objet autour d'un point"
+    "bonne_reponse": "Une transformation qui tourne un objet autour d'un point",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point2",
@@ -2599,7 +2750,8 @@
       "Le point de rotation",
       "Le point de translation"
     ],
-    "bonne_reponse": "Le centre de symétrie"
+    "bonne_reponse": "Le centre de symétrie",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point3",
@@ -2616,7 +2768,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un carré identique"
+    "bonne_reponse": "Un carré identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point4",
@@ -2633,7 +2786,8 @@
       "Un carré",
       "Un rectangle"
     ],
-    "bonne_reponse": "Un cercle identique"
+    "bonne_reponse": "Un cercle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point5",
@@ -2650,7 +2804,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle identique"
+    "bonne_reponse": "Un triangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point6",
@@ -2667,7 +2822,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un rectangle identique"
+    "bonne_reponse": "Un rectangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point7",
@@ -2684,7 +2840,8 @@
       "Un rectangle",
       "Un cercle"
     ],
-    "bonne_reponse": "Un losange identique"
+    "bonne_reponse": "Un losange identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point8",
@@ -2701,7 +2858,8 @@
       "Un carré",
       "Un rectangle"
     ],
-    "bonne_reponse": "Un ovale identique"
+    "bonne_reponse": "Un ovale identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point9",
@@ -2718,7 +2876,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un polygone régulier identique"
+    "bonne_reponse": "Un polygone régulier identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "symetrie_point10",
@@ -2735,7 +2894,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un pentagone régulier identique"
+    "bonne_reponse": "Un pentagone régulier identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement1",
@@ -2752,7 +2912,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui agrandit ou réduit un objet"
     ],
-    "bonne_reponse": "Une transformation qui déplace un objet sans le tourner"
+    "bonne_reponse": "Une transformation qui déplace un objet sans le tourner",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement2",
@@ -2769,7 +2930,8 @@
       "La direction de déplacement",
       "La direction de symétrie"
     ],
-    "bonne_reponse": "La direction de déplacement"
+    "bonne_reponse": "La direction de déplacement",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement3",
@@ -2786,7 +2948,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un carré identique"
+    "bonne_reponse": "Un carré identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement4",
@@ -2803,7 +2966,8 @@
       "Un carré",
       "Un rectangle"
     ],
-    "bonne_reponse": "Un cercle identique"
+    "bonne_reponse": "Un cercle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement5",
@@ -2820,7 +2984,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle identique"
+    "bonne_reponse": "Un triangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement6",
@@ -2837,7 +3002,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un rectangle identique"
+    "bonne_reponse": "Un rectangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement7",
@@ -2854,7 +3020,8 @@
       "Un rectangle",
       "Un cercle"
     ],
-    "bonne_reponse": "Un losange identique"
+    "bonne_reponse": "Un losange identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement8",
@@ -2871,7 +3038,8 @@
       "Un carré",
       "Un rectangle"
     ],
-    "bonne_reponse": "Un ovale identique"
+    "bonne_reponse": "Un ovale identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement9",
@@ -2888,7 +3056,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un polygone régulier identique"
+    "bonne_reponse": "Un polygone régulier identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "glissement10",
@@ -2905,7 +3074,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un pentagone régulier identique"
+    "bonne_reponse": "Un pentagone régulier identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite1",
@@ -2922,7 +3092,8 @@
       "La relation entre quatre quantités",
       "La relation entre cinq quantités"
     ],
-    "bonne_reponse": "La relation entre deux quantités"
+    "bonne_reponse": "La relation entre deux quantités",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite2",
@@ -2939,7 +3110,8 @@
       "partie * total",
       "total / partie"
     ],
-    "bonne_reponse": "(partie / total) * 100"
+    "bonne_reponse": "(partie / total) * 100",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite3",
@@ -2956,7 +3128,8 @@
       "30%",
       "40%"
     ],
-    "bonne_reponse": "20%"
+    "bonne_reponse": "20%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite4",
@@ -2973,7 +3146,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite5",
@@ -2990,7 +3164,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite6",
@@ -3007,7 +3182,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite7",
@@ -3024,7 +3200,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite8",
@@ -3041,7 +3218,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite9",
@@ -3058,7 +3236,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "proportionnalite10",
@@ -3075,7 +3254,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "statistique1",
@@ -3092,7 +3272,8 @@
       "Une méthode pour comparer des figures géométriques",
       "Une méthode pour déterminer des angles"
     ],
-    "bonne_reponse": "Une méthode pour analyser des données"
+    "bonne_reponse": "Une méthode pour analyser des données",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "statistique2",
@@ -3109,7 +3290,8 @@
       "La valeur la plus basse",
       "La différence entre la valeur la plus élevée et la plus basse"
     ],
-    "bonne_reponse": "La somme des valeurs divisée par le nombre de valeurs"
+    "bonne_reponse": "La somme des valeurs divisée par le nombre de valeurs",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "statistique3",
@@ -3126,7 +3308,8 @@
       "La valeur moyenne",
       "La valeur qui sépare les données en deux moitiés"
     ],
-    "bonne_reponse": "La valeur qui sépare les données en deux moitiés"
+    "bonne_reponse": "La valeur qui sépare les données en deux moitiés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "statistique4",
@@ -3143,7 +3326,8 @@
       "La valeur la plus basse",
       "La valeur moyenne"
     ],
-    "bonne_reponse": "La valeur qui apparaît le plus souvent"
+    "bonne_reponse": "La valeur qui apparaît le plus souvent",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme1",
@@ -3160,7 +3344,8 @@
       "Un cercle et un polygone",
       "Deux rectangles"
     ],
-    "bonne_reponse": "Deux polygones parallèles et congruents"
+    "bonne_reponse": "Deux polygones parallèles et congruents",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme2",
@@ -3177,7 +3362,8 @@
       "Des cercles",
       "Des parallélogrammes"
     ],
-    "bonne_reponse": "Des rectangles"
+    "bonne_reponse": "Des rectangles",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme3",
@@ -3194,7 +3380,8 @@
       "Aire latérale + hauteur",
       "Aire de la base × périmètre"
     ],
-    "bonne_reponse": "Aire de la base × hauteur"
+    "bonne_reponse": "Aire de la base × hauteur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme4",
@@ -3211,7 +3398,8 @@
       "Une ellipse uniquement",
       "Un rectangle uniquement"
     ],
-    "bonne_reponse": "Un triangle, un carré ou un autre polygone"
+    "bonne_reponse": "Un triangle, un carré ou un autre polygone",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme5",
@@ -3228,7 +3416,8 @@
       "Elles sont toujours obliques",
       "Elles sont toujours perpendiculaires à la base"
     ],
-    "bonne_reponse": "Oui, elles sont parallèles"
+    "bonne_reponse": "Oui, elles sont parallèles",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme6",
@@ -3245,7 +3434,8 @@
       "Mètre (m)",
       "Litres"
     ],
-    "bonne_reponse": "Centimètre cube (cm³)"
+    "bonne_reponse": "Centimètre cube (cm³)",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme7",
@@ -3262,7 +3452,8 @@
       "6",
       "3"
     ],
-    "bonne_reponse": "5"
+    "bonne_reponse": "5",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme8",
@@ -3279,7 +3470,8 @@
       "Seulement si elles sont carrées",
       "Seulement si elles sont triangulaires"
     ],
-    "bonne_reponse": "Oui"
+    "bonne_reponse": "Oui",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme9",
@@ -3296,7 +3488,8 @@
       "Le périmètre de la base",
       "La somme des côtés de la base"
     ],
-    "bonne_reponse": "La distance entre les deux bases"
+    "bonne_reponse": "La distance entre les deux bases",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "prisme10",
@@ -3313,7 +3506,8 @@
       "Oui, si la base est une ellipse",
       "Oui, mais c’est rare"
     ],
-    "bonne_reponse": "Non"
+    "bonne_reponse": "Non",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn1",
@@ -3330,7 +3524,8 @@
       "Multiplier des nombres",
       "Soustraire des nombres"
     ],
-    "bonne_reponse": "Partager en parts égales"
+    "bonne_reponse": "Partager en parts égales",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn2",
@@ -3347,7 +3542,8 @@
       "Il est égal au dividende",
       "Il est égal au quotient"
     ],
-    "bonne_reponse": "Il est plus petit que le diviseur"
+    "bonne_reponse": "Il est plus petit que le diviseur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn3",
@@ -3364,7 +3560,8 @@
       "Seulement pour zéro",
       "Parfois"
     ],
-    "bonne_reponse": "Non"
+    "bonne_reponse": "Non",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn4",
@@ -3381,7 +3578,8 @@
       "15",
       "25"
     ],
-    "bonne_reponse": "4"
+    "bonne_reponse": "4",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn5",
@@ -3398,7 +3596,8 @@
       "4",
       "5"
     ],
-    "bonne_reponse": "2"
+    "bonne_reponse": "2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn6",
@@ -3415,7 +3614,8 @@
       "Quand le reste est négatif",
       "Quand le quotient est zéro"
     ],
-    "bonne_reponse": "Quand le reste est zéro"
+    "bonne_reponse": "Quand le reste est zéro",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn7",
@@ -3432,7 +3632,8 @@
       "3",
       "4"
     ],
-    "bonne_reponse": "1"
+    "bonne_reponse": "1",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn8",
@@ -3449,7 +3650,8 @@
       "5",
       "6"
     ],
-    "bonne_reponse": "3"
+    "bonne_reponse": "3",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn9",
@@ -3466,7 +3668,8 @@
       "3",
       "12"
     ],
-    "bonne_reponse": "6"
+    "bonne_reponse": "6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "divn10",
@@ -3483,7 +3686,8 @@
       "6",
       "20"
     ],
-    "bonne_reponse": "24"
+    "bonne_reponse": "24",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist1",
@@ -3500,7 +3704,8 @@
       "En utilisant un rapporteur",
       "En utilisant un équerre"
     ],
-    "bonne_reponse": "En utilisant une règle"
+    "bonne_reponse": "En utilisant une règle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist2",
@@ -3517,7 +3722,8 @@
       "A+B",
       "A-B"
     ],
-    "bonne_reponse": "AB"
+    "bonne_reponse": "AB",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist3",
@@ -3534,7 +3740,8 @@
       "Parfois",
       "Seulement si les points sont alignés"
     ],
-    "bonne_reponse": "Non"
+    "bonne_reponse": "Non",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist4",
@@ -3551,7 +3758,8 @@
       "Le rapporteur",
       "L’équerre"
     ],
-    "bonne_reponse": "La règle graduée"
+    "bonne_reponse": "La règle graduée",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist5",
@@ -3568,7 +3776,8 @@
       "Le segment AB est nul",
       "Le segment AB est un angle"
     ],
-    "bonne_reponse": "Le segment AB mesure 5 cm"
+    "bonne_reponse": "Le segment AB mesure 5 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist6",
@@ -3585,7 +3794,8 @@
       "Le litre",
       "Le degré"
     ],
-    "bonne_reponse": "Le mètre"
+    "bonne_reponse": "Le mètre",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist7",
@@ -3602,7 +3812,8 @@
       "Un cercle",
       "Un angle"
     ],
-    "bonne_reponse": "Un segment"
+    "bonne_reponse": "Un segment",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist8",
@@ -3619,7 +3830,8 @@
       "La distance est négative",
       "Le segment est infini"
     ],
-    "bonne_reponse": "Les points A et B sont confondus"
+    "bonne_reponse": "Les points A et B sont confondus",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist9",
@@ -3636,7 +3848,8 @@
       "Ni l’un ni l’autre",
       "Les deux"
     ],
-    "bonne_reponse": "Scalaire"
+    "bonne_reponse": "Scalaire",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dist10",
@@ -3653,7 +3866,8 @@
       "0 cm",
       "3,5 cm"
     ],
-    "bonne_reponse": "7 cm"
+    "bonne_reponse": "7 cm",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle1",
@@ -3670,7 +3884,8 @@
       "La mesure de l’angle",
       "Le centre du cercle"
     ],
-    "bonne_reponse": "Le point commun des deux demi-droites"
+    "bonne_reponse": "Le point commun des deux demi-droites",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle2",
@@ -3687,7 +3902,8 @@
       "Un compas",
       "Un équerre"
     ],
-    "bonne_reponse": "Un rapporteur"
+    "bonne_reponse": "Un rapporteur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle3",
@@ -3704,7 +3920,8 @@
       "180°",
       "60°"
     ],
-    "bonne_reponse": "90°"
+    "bonne_reponse": "90°",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle4",
@@ -3721,7 +3938,8 @@
       "Un angle supérieur à 90°",
       "Un angle nul"
     ],
-    "bonne_reponse": "Un angle inférieur à 90°"
+    "bonne_reponse": "Un angle inférieur à 90°",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle5",
@@ -3738,7 +3956,8 @@
       "Un angle supérieur à 180°",
       "Un angle nul"
     ],
-    "bonne_reponse": "Un angle compris entre 90° et 180°"
+    "bonne_reponse": "Un angle compris entre 90° et 180°",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle6",
@@ -3755,7 +3974,8 @@
       "360°",
       "270°"
     ],
-    "bonne_reponse": "180°"
+    "bonne_reponse": "180°",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle7",
@@ -3772,7 +3992,8 @@
       "L’angle mesure 180°",
       "L’angle est obtus"
     ],
-    "bonne_reponse": "Les deux demi-droites sont confondues"
+    "bonne_reponse": "Les deux demi-droites sont confondues",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle8",
@@ -3789,7 +4010,8 @@
       "Angle aigu",
       "Angle obtus"
     ],
-    "bonne_reponse": "Angle étendu"
+    "bonne_reponse": "Angle étendu",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle9",
@@ -3806,7 +4028,8 @@
       "Deux angles égaux",
       "Deux angles adjacents"
     ],
-    "bonne_reponse": "Deux angles dont la somme est égale à 90°"
+    "bonne_reponse": "Deux angles dont la somme est égale à 90°",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "angle10",
@@ -3823,7 +4046,8 @@
       "Deux angles égaux",
       "Deux angles opposés"
     ],
-    "bonne_reponse": "Deux angles dont la somme est égale à 180°"
+    "bonne_reponse": "Deux angles dont la somme est égale à 180°",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle1",
@@ -3840,7 +4064,8 @@
       "Le diamètre",
       "La circonférence"
     ],
-    "bonne_reponse": "Le centre"
+    "bonne_reponse": "Le centre",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle2",
@@ -3857,7 +4082,8 @@
       "Le double du diamètre",
       "La distance entre deux points du cercle"
     ],
-    "bonne_reponse": "La distance entre le centre et un point du cercle"
+    "bonne_reponse": "La distance entre le centre et un point du cercle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle3",
@@ -3874,7 +4100,8 @@
       "Le diamètre est le même que le rayon",
       "Le diamètre est toujours plus petit"
     ],
-    "bonne_reponse": "Le diamètre est égal au double du rayon"
+    "bonne_reponse": "Le diamètre est égal au double du rayon",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle4",
@@ -3891,7 +4118,8 @@
       "Le rayon",
       "Le centre"
     ],
-    "bonne_reponse": "La circonférence"
+    "bonne_reponse": "La circonférence",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle5",
@@ -3908,7 +4136,8 @@
       "Cubique",
       "Sphérique"
     ],
-    "bonne_reponse": "Plane"
+    "bonne_reponse": "Plane",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle6",
@@ -3925,7 +4154,8 @@
       "Seulement certains",
       "Parfois"
     ],
-    "bonne_reponse": "Oui"
+    "bonne_reponse": "Oui",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle7",
@@ -3942,7 +4172,8 @@
       "À l’extérieur du cercle",
       "À l’intérieur du cercle, mais pas au centre"
     ],
-    "bonne_reponse": "À égale distance de tous les points du cercle"
+    "bonne_reponse": "À égale distance de tous les points du cercle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle8",
@@ -3959,7 +4190,8 @@
       "Un rayon multiplié par 3",
       "La distance entre deux points du cercle"
     ],
-    "bonne_reponse": "Une corde passant par le centre"
+    "bonne_reponse": "Une corde passant par le centre",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle9",
@@ -3976,7 +4208,8 @@
       "r² × π",
       "2 × r"
     ],
-    "bonne_reponse": "2 × π × r"
+    "bonne_reponse": "2 × π × r",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "cercle10",
@@ -3993,7 +4226,8 @@
       "Parfois",
       "Seulement si son rayon est entier"
     ],
-    "bonne_reponse": "Non"
+    "bonne_reponse": "Non",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para1",
@@ -4010,7 +4244,8 @@
       "Ils sont toujours égaux à zéro",
       "Ils ne sont jamais parallèles"
     ],
-    "bonne_reponse": "Ils sont parallèles et de même longueur"
+    "bonne_reponse": "Ils sont parallèles et de même longueur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para2",
@@ -4027,7 +4262,8 @@
       "Supplémentaires",
       "Nuls"
     ],
-    "bonne_reponse": "Égaux"
+    "bonne_reponse": "Égaux",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para3",
@@ -4044,7 +4280,8 @@
       "90°",
       "270°"
     ],
-    "bonne_reponse": "360°"
+    "bonne_reponse": "360°",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para4",
@@ -4061,7 +4298,8 @@
       "360°",
       "270°"
     ],
-    "bonne_reponse": "180°"
+    "bonne_reponse": "180°",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para5",
@@ -4078,7 +4316,8 @@
       "Elles sont égales",
       "Elles sont parallèles"
     ],
-    "bonne_reponse": "Elles se coupent en leur milieu"
+    "bonne_reponse": "Elles se coupent en leur milieu",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para6",
@@ -4095,7 +4334,8 @@
       "Seulement s’il est rectangle",
       "Seulement s’il est losange"
     ],
-    "bonne_reponse": "Oui"
+    "bonne_reponse": "Oui",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para7",
@@ -4112,7 +4352,8 @@
       "Périmètre × hauteur",
       "Base ÷ hauteur"
     ],
-    "bonne_reponse": "Base × hauteur"
+    "bonne_reponse": "Base × hauteur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para8",
@@ -4129,7 +4370,8 @@
       "5",
       "6"
     ],
-    "bonne_reponse": "4"
+    "bonne_reponse": "4",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para9",
@@ -4146,7 +4388,8 @@
       "Ils ne se touchent pas",
       "Ils sont parallèles mais pas égaux"
     ],
-    "bonne_reponse": "Ils sont de même longueur"
+    "bonne_reponse": "Ils sont de même longueur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "para10",
@@ -4163,7 +4406,8 @@
       "Le rectangle",
       "Le carré"
     ],
-    "bonne_reponse": "Le losange"
+    "bonne_reponse": "Le losange",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly1",
@@ -4180,7 +4424,8 @@
       "Rectangle",
       "Losange"
     ],
-    "bonne_reponse": "Triangle"
+    "bonne_reponse": "Triangle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly2",
@@ -4197,7 +4442,8 @@
       "Trapèze",
       "Parallélogramme"
     ],
-    "bonne_reponse": "Polygone régulier"
+    "bonne_reponse": "Polygone régulier",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly3",
@@ -4214,7 +4460,8 @@
       "3",
       "1"
     ],
-    "bonne_reponse": "4"
+    "bonne_reponse": "4",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly4",
@@ -4231,7 +4478,8 @@
       "Les diagonales sont égales",
       "C’est un cercle"
     ],
-    "bonne_reponse": "Tous les côtés sont égaux"
+    "bonne_reponse": "Tous les côtés sont égaux",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly5",
@@ -4248,7 +4496,8 @@
       "Côtés égaux et angles aigus",
       "Côtés inégaux et angles obtus"
     ],
-    "bonne_reponse": "Côtés égaux et angles droits"
+    "bonne_reponse": "Côtés égaux et angles droits",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly6",
@@ -4265,7 +4514,8 @@
       "6",
       "3"
     ],
-    "bonne_reponse": "5"
+    "bonne_reponse": "5",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly7",
@@ -4282,7 +4532,8 @@
       "1",
       "0"
     ],
-    "bonne_reponse": "3"
+    "bonne_reponse": "3",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly8",
@@ -4299,7 +4550,8 @@
       "1",
       "0"
     ],
-    "bonne_reponse": "2"
+    "bonne_reponse": "2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly9",
@@ -4316,7 +4568,8 @@
       "2",
       "3"
     ],
-    "bonne_reponse": "0"
+    "bonne_reponse": "0",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "poly10",
@@ -4333,7 +4586,8 @@
       "4",
       "7"
     ],
-    "bonne_reponse": "6"
+    "bonne_reponse": "6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec1",
@@ -4350,7 +4604,8 @@
       "5,5",
       "6,5"
     ],
-    "bonne_reponse": "6,2"
+    "bonne_reponse": "6,2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec2",
@@ -4367,7 +4622,8 @@
       "3,4",
       "4,4"
     ],
-    "bonne_reponse": "3,6"
+    "bonne_reponse": "3,6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec3",
@@ -4384,7 +4640,8 @@
       "12",
       "6"
     ],
-    "bonne_reponse": "10"
+    "bonne_reponse": "10",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec4",
@@ -4401,7 +4658,8 @@
       "2,8",
       "2,2"
     ],
-    "bonne_reponse": "2,4"
+    "bonne_reponse": "2,4",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec5",
@@ -4418,7 +4676,8 @@
       "2,5",
       "1"
     ],
-    "bonne_reponse": "2"
+    "bonne_reponse": "2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec6",
@@ -4435,7 +4694,8 @@
       "4,6",
       "4,8"
     ],
-    "bonne_reponse": "4,2"
+    "bonne_reponse": "4,2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec7",
@@ -4452,7 +4712,8 @@
       "8",
       "5"
     ],
-    "bonne_reponse": "7"
+    "bonne_reponse": "7",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec8",
@@ -4469,7 +4730,8 @@
       "2,9",
       "2,6"
     ],
-    "bonne_reponse": "2,7"
+    "bonne_reponse": "2,7",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec9",
@@ -4486,7 +4748,8 @@
       "6,5",
       "5"
     ],
-    "bonne_reponse": "6"
+    "bonne_reponse": "6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec10",
@@ -4503,7 +4766,8 @@
       "6,8",
       "6,2"
     ],
-    "bonne_reponse": "6,4"
+    "bonne_reponse": "6,4",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra1",
@@ -4520,7 +4784,8 @@
       "13/20",
       "19/20"
     ],
-    "bonne_reponse": "17/20"
+    "bonne_reponse": "17/20",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra2",
@@ -4537,7 +4802,8 @@
       "1/4",
       "1/5"
     ],
-    "bonne_reponse": "1/2"
+    "bonne_reponse": "1/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra3",
@@ -4554,7 +4820,8 @@
       "1/4",
       "1/3"
     ],
-    "bonne_reponse": "1/2"
+    "bonne_reponse": "1/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra4",
@@ -4571,7 +4838,8 @@
       "2/3",
       "3/2"
     ],
-    "bonne_reponse": "4/3"
+    "bonne_reponse": "4/3",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra5",
@@ -4588,7 +4856,8 @@
       "1/4",
       "1/3"
     ],
-    "bonne_reponse": "3/4"
+    "bonne_reponse": "3/4",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra6",
@@ -4605,7 +4874,8 @@
       "1/2",
       "1/4"
     ],
-    "bonne_reponse": "5/8"
+    "bonne_reponse": "5/8",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra7",
@@ -4622,7 +4892,8 @@
       "1/3",
       "1/4"
     ],
-    "bonne_reponse": "1/2"
+    "bonne_reponse": "1/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra8",
@@ -4639,7 +4910,8 @@
       "5/6",
       "6/5"
     ],
-    "bonne_reponse": "3/2"
+    "bonne_reponse": "3/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra9",
@@ -4656,7 +4928,8 @@
       "1/3",
       "1/4"
     ],
-    "bonne_reponse": "5/6"
+    "bonne_reponse": "5/6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "fra10",
@@ -4673,7 +4946,8 @@
       "1/4",
       "1/5"
     ],
-    "bonne_reponse": "1/2"
+    "bonne_reponse": "1/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow1",
@@ -4690,7 +4964,8 @@
       "12",
       "16"
     ],
-    "bonne_reponse": "8"
+    "bonne_reponse": "8",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow2",
@@ -4707,7 +4982,8 @@
       "12",
       "18"
     ],
-    "bonne_reponse": "9"
+    "bonne_reponse": "9",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow3",
@@ -4724,7 +5000,8 @@
       "16",
       "20"
     ],
-    "bonne_reponse": "16"
+    "bonne_reponse": "16",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow4",
@@ -4741,7 +5018,8 @@
       "25",
       "30"
     ],
-    "bonne_reponse": "25"
+    "bonne_reponse": "25",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow5",
@@ -4758,7 +5036,8 @@
       "16",
       "20"
     ],
-    "bonne_reponse": "16"
+    "bonne_reponse": "16",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow6",
@@ -4775,7 +5054,8 @@
       "27",
       "36"
     ],
-    "bonne_reponse": "27"
+    "bonne_reponse": "27",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow7",
@@ -4792,7 +5072,8 @@
       "64",
       "128"
     ],
-    "bonne_reponse": "64"
+    "bonne_reponse": "64",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow8",
@@ -4809,7 +5090,8 @@
       "75",
       "125"
     ],
-    "bonne_reponse": "125"
+    "bonne_reponse": "125",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow9",
@@ -4826,7 +5108,8 @@
       "64",
       "128"
     ],
-    "bonne_reponse": "32"
+    "bonne_reponse": "32",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow10",
@@ -4843,7 +5126,8 @@
       "81",
       "108"
     ],
-    "bonne_reponse": "81"
+    "bonne_reponse": "81",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym1",
@@ -4860,7 +5144,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui agrandit ou réduit un objet"
     ],
-    "bonne_reponse": "Une transformation qui réfléchit un objet par rapport à une ligne"
+    "bonne_reponse": "Une transformation qui réfléchit un objet par rapport à une ligne",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym2",
@@ -4877,7 +5162,8 @@
       "La ligne de rotation",
       "La ligne de translation"
     ],
-    "bonne_reponse": "La ligne de symétrie"
+    "bonne_reponse": "La ligne de symétrie",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym3",
@@ -4894,7 +5180,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle identique"
+    "bonne_reponse": "Un triangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym4",
@@ -4911,7 +5198,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un carré identique"
+    "bonne_reponse": "Un carré identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym5",
@@ -4928,7 +5216,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un rectangle identique"
+    "bonne_reponse": "Un rectangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym6",
@@ -4945,7 +5234,8 @@
       "Un rectangle",
       "Un cercle"
     ],
-    "bonne_reponse": "Un losange identique"
+    "bonne_reponse": "Un losange identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym7",
@@ -4962,7 +5252,8 @@
       "Un losange",
       "Un carré"
     ],
-    "bonne_reponse": "Un cercle identique"
+    "bonne_reponse": "Un cercle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym8",
@@ -4979,7 +5270,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle équilatéral identique"
+    "bonne_reponse": "Un triangle équilatéral identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym9",
@@ -4996,7 +5288,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle isocèle identique"
+    "bonne_reponse": "Un triangle isocèle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym10",
@@ -5013,7 +5306,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle scalène identique"
+    "bonne_reponse": "Un triangle scalène identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym1_1",
@@ -5030,7 +5324,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui agrandit ou réduit un objet"
     ],
-    "bonne_reponse": "Une transformation qui tourne un objet autour d'un point"
+    "bonne_reponse": "Une transformation qui tourne un objet autour d'un point",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym2_1",
@@ -5047,7 +5342,8 @@
       "Le point de rotation",
       "Le point de translation"
     ],
-    "bonne_reponse": "Le centre de symétrie"
+    "bonne_reponse": "Le centre de symétrie",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym3_1",
@@ -5064,7 +5360,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un carré identique"
+    "bonne_reponse": "Un carré identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym4_1",
@@ -5081,7 +5378,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un rectangle identique"
+    "bonne_reponse": "Un rectangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym5_1",
@@ -5098,7 +5396,8 @@
       "Un rectangle",
       "Un cercle"
     ],
-    "bonne_reponse": "Un losange identique"
+    "bonne_reponse": "Un losange identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym6_1",
@@ -5115,7 +5414,8 @@
       "Un losange",
       "Un carré"
     ],
-    "bonne_reponse": "Un cercle identique"
+    "bonne_reponse": "Un cercle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym7_1",
@@ -5132,7 +5432,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle équilatéral identique"
+    "bonne_reponse": "Un triangle équilatéral identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym8_1",
@@ -5149,7 +5450,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle isocèle identique"
+    "bonne_reponse": "Un triangle isocèle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym9_1",
@@ -5166,7 +5468,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle scalène identique"
+    "bonne_reponse": "Un triangle scalène identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym10_1",
@@ -5183,7 +5486,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un pentagone régulier identique"
+    "bonne_reponse": "Un pentagone régulier identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli1",
@@ -5200,7 +5504,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui agrandit ou réduit un objet"
     ],
-    "bonne_reponse": "Une transformation qui déplace un objet sans le tourner"
+    "bonne_reponse": "Une transformation qui déplace un objet sans le tourner",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli2",
@@ -5217,7 +5522,8 @@
       "La direction de déplacement",
       "La direction de symétrie"
     ],
-    "bonne_reponse": "La direction de déplacement"
+    "bonne_reponse": "La direction de déplacement",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli3",
@@ -5234,7 +5540,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un carré identique"
+    "bonne_reponse": "Un carré identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli4",
@@ -5251,7 +5558,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un rectangle identique"
+    "bonne_reponse": "Un rectangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli5",
@@ -5268,7 +5576,8 @@
       "Un rectangle",
       "Un cercle"
     ],
-    "bonne_reponse": "Un losange identique"
+    "bonne_reponse": "Un losange identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli6",
@@ -5285,7 +5594,8 @@
       "Un losange",
       "Un carré"
     ],
-    "bonne_reponse": "Un cercle identique"
+    "bonne_reponse": "Un cercle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli7",
@@ -5302,7 +5612,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle équilatéral identique"
+    "bonne_reponse": "Un triangle équilatéral identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli8",
@@ -5319,7 +5630,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle isocèle identique"
+    "bonne_reponse": "Un triangle isocèle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli9",
@@ -5336,7 +5648,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle scalène identique"
+    "bonne_reponse": "Un triangle scalène identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "gli10",
@@ -5353,7 +5666,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un pentagone régulier identique"
+    "bonne_reponse": "Un pentagone régulier identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq1",
@@ -5370,7 +5684,8 @@
       "Une expression mathématique qui montre une différence",
       "Une expression mathématique qui montre une somme"
     ],
-    "bonne_reponse": "Une expression mathématique qui montre une égalité"
+    "bonne_reponse": "Une expression mathématique qui montre une égalité",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq2",
@@ -5387,7 +5702,8 @@
       "x = 4",
       "x = 5"
     ],
-    "bonne_reponse": "x = 2"
+    "bonne_reponse": "x = 2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq3",
@@ -5404,7 +5720,8 @@
       "x = 4",
       "x = 2"
     ],
-    "bonne_reponse": "x = 5"
+    "bonne_reponse": "x = 5",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq4",
@@ -5421,7 +5738,8 @@
       "x = 5",
       "x = 2"
     ],
-    "bonne_reponse": "x = 4"
+    "bonne_reponse": "x = 4",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq5",
@@ -5438,7 +5756,8 @@
       "x = 4",
       "x = 2"
     ],
-    "bonne_reponse": "x = 6"
+    "bonne_reponse": "x = 6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq6",
@@ -5455,7 +5774,8 @@
       "x = 4",
       "x = 5"
     ],
-    "bonne_reponse": "x = 3"
+    "bonne_reponse": "x = 3",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq7",
@@ -5472,7 +5792,8 @@
       "x = 4",
       "x = 5"
     ],
-    "bonne_reponse": "x = 3"
+    "bonne_reponse": "x = 3",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq8",
@@ -5489,7 +5810,8 @@
       "x = 4",
       "x = 2"
     ],
-    "bonne_reponse": "x = 5"
+    "bonne_reponse": "x = 5",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq9",
@@ -5506,7 +5828,8 @@
       "x = 4",
       "x = 5"
     ],
-    "bonne_reponse": "x = 3"
+    "bonne_reponse": "x = 3",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq10",
@@ -5523,7 +5846,8 @@
       "x = 4",
       "x = 2"
     ],
-    "bonne_reponse": "x = 6"
+    "bonne_reponse": "x = 6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro1",
@@ -5540,7 +5864,8 @@
       "La relation entre quatre quantités",
       "La relation entre cinq quantités"
     ],
-    "bonne_reponse": "La relation entre deux quantités"
+    "bonne_reponse": "La relation entre deux quantités",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro2",
@@ -5557,7 +5882,8 @@
       "partie * total",
       "total / partie"
     ],
-    "bonne_reponse": "(partie / total) * 100"
+    "bonne_reponse": "(partie / total) * 100",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro3",
@@ -5574,7 +5900,8 @@
       "30%",
       "40%"
     ],
-    "bonne_reponse": "20%"
+    "bonne_reponse": "20%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro4",
@@ -5591,7 +5918,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro5",
@@ -5608,7 +5936,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro6",
@@ -5625,7 +5954,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "20%"
+    "bonne_reponse": "20%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro7",
@@ -5642,7 +5972,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro8",
@@ -5659,7 +5990,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro9",
@@ -5676,7 +6008,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro10",
@@ -5693,7 +6026,8 @@
       "25%",
       "50%"
     ],
-    "bonne_reponse": "25%"
+    "bonne_reponse": "25%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "ang1",
@@ -5710,7 +6044,8 @@
       "Un angle formé par deux cordes",
       "Un angle formé par deux diamètres"
     ],
-    "bonne_reponse": "Un angle formé par deux rayons d'un cercle"
+    "bonne_reponse": "Un angle formé par deux rayons d'un cercle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "ang2",
@@ -5727,7 +6062,8 @@
       "270 degrés",
       "360 degrés"
     ],
-    "bonne_reponse": "360 degrés"
+    "bonne_reponse": "360 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "ang3",
@@ -5744,7 +6080,8 @@
       "180 degrés",
       "225 degrés"
     ],
-    "bonne_reponse": "45 degrés"
+    "bonne_reponse": "45 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dis1",
@@ -5761,7 +6098,8 @@
       "La somme de deux longueurs",
       "La multiplication de deux longueurs"
     ],
-    "bonne_reponse": "La longueur entre deux points"
+    "bonne_reponse": "La longueur entre deux points",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dis2",
@@ -5778,7 +6116,8 @@
       "sqrt((x2 - x1)^2 - (y2 - y1)^2)",
       "sqrt((x2 - x1) + (y2 - y1))"
     ],
-    "bonne_reponse": "sqrt((x2 - x1)^2 + (y2 - y1)^2)"
+    "bonne_reponse": "sqrt((x2 - x1)^2 + (y2 - y1)^2)",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dis3",
@@ -5795,7 +6134,8 @@
       "10",
       "15"
     ],
-    "bonne_reponse": "5"
+    "bonne_reponse": "5",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "geo3",
@@ -5813,7 +6153,8 @@
       "AC² + BC² = AB²",
       "AB² = AC² + BC²"
     ],
-    "bonne_reponse": "AB² + AC² = BC²"
+    "bonne_reponse": "AB² + AC² = BC²",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "tri1",
@@ -5830,7 +6171,8 @@
       "270 degrés",
       "360 degrés"
     ],
-    "bonne_reponse": "180 degrés"
+    "bonne_reponse": "180 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "tri2",
@@ -5847,7 +6189,8 @@
       "Triangle scalène",
       "Triangle rectangle"
     ],
-    "bonne_reponse": "Triangle équilatéral"
+    "bonne_reponse": "Triangle équilatéral",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "tri3",
@@ -5864,7 +6207,8 @@
       "Triangle scalène",
       "Triangle rectangle"
     ],
-    "bonne_reponse": "Triangle rectangle"
+    "bonne_reponse": "Triangle rectangle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pol1",
@@ -5881,7 +6225,8 @@
       "Un polygone dont tous les côtés et tous les angles sont égaux",
       "Un polygone dont tous les côtés sont de longueurs différentes"
     ],
-    "bonne_reponse": "Un polygone dont tous les côtés et tous les angles sont égaux"
+    "bonne_reponse": "Un polygone dont tous les côtés et tous les angles sont égaux",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pol2",
@@ -5898,7 +6243,8 @@
       "Hexagone",
       "Octogone"
     ],
-    "bonne_reponse": "Hexagone"
+    "bonne_reponse": "Hexagone",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pol3",
@@ -5915,7 +6261,8 @@
       "Hexagone",
       "Octogone"
     ],
-    "bonne_reponse": "Octogone"
+    "bonne_reponse": "Octogone",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec1_1",
@@ -5932,7 +6279,8 @@
       "Un nombre qui ne peut être que fractionnaire",
       "Un nombre qui ne peut être que positif"
     ],
-    "bonne_reponse": "Un nombre qui a une partie entière et une partie décimale"
+    "bonne_reponse": "Un nombre qui a une partie entière et une partie décimale",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec2_1",
@@ -5949,7 +6297,8 @@
       "5,5",
       "6,5"
     ],
-    "bonne_reponse": "6,2"
+    "bonne_reponse": "6,2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "dec3_1",
@@ -5966,7 +6315,8 @@
       "3,4",
       "4,4"
     ],
-    "bonne_reponse": "3,6"
+    "bonne_reponse": "3,6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rat1",
@@ -5983,7 +6333,8 @@
       "Un nombre qui ne peut être que décimal",
       "Un nombre qui ne peut être que positif"
     ],
-    "bonne_reponse": "Un nombre qui peut être écrit comme un quotient de deux entiers"
+    "bonne_reponse": "Un nombre qui peut être écrit comme un quotient de deux entiers",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rat2",
@@ -6000,7 +6351,8 @@
       "13/20",
       "19/20"
     ],
-    "bonne_reponse": "17/20"
+    "bonne_reponse": "17/20",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rat3",
@@ -6017,7 +6369,8 @@
       "1/4",
       "1/5"
     ],
-    "bonne_reponse": "1/2"
+    "bonne_reponse": "1/2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow1_1",
@@ -6034,7 +6387,8 @@
       "Une division répétée d'un même nombre",
       "Une soustraction répétée d'un même nombre"
     ],
-    "bonne_reponse": "Une multiplication répétée d'un même nombre"
+    "bonne_reponse": "Une multiplication répétée d'un même nombre",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow2_1",
@@ -6051,7 +6405,8 @@
       "12",
       "16"
     ],
-    "bonne_reponse": "8"
+    "bonne_reponse": "8",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pow3_1",
@@ -6068,7 +6423,8 @@
       "12",
       "18"
     ],
-    "bonne_reponse": "9"
+    "bonne_reponse": "9",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "alg1",
@@ -6085,7 +6441,8 @@
       "Une expression contenant uniquement des lettres",
       "Une expression contenant des symboles spéciaux"
     ],
-    "bonne_reponse": "Une expression contenant des lettres et des nombres"
+    "bonne_reponse": "Une expression contenant des lettres et des nombres",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "alg2",
@@ -6102,7 +6459,8 @@
       "2x + 3",
       "3x + 2"
     ],
-    "bonne_reponse": "5x"
+    "bonne_reponse": "5x",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "alg3",
@@ -6119,7 +6477,8 @@
       "4y - 2",
       "2y - 4"
     ],
-    "bonne_reponse": "2y"
+    "bonne_reponse": "2y",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pyr1",
@@ -6136,7 +6495,8 @@
       "Un solide avec une base circulaire et des faces triangulaires",
       "Un solide avec une base polygonale et des faces carrées"
     ],
-    "bonne_reponse": "Un solide avec une base polygonale et des faces triangulaires"
+    "bonne_reponse": "Un solide avec une base polygonale et des faces triangulaires",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pyr2",
@@ -6153,7 +6513,8 @@
       "Pyramide hexagonale",
       "Pyramide pentagonale"
     ],
-    "bonne_reponse": "Pyramide carrée"
+    "bonne_reponse": "Pyramide carrée",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pyr3",
@@ -6170,7 +6531,8 @@
       "Pyramide hexagonale",
       "Pyramide pentagonale"
     ],
-    "bonne_reponse": "Pyramide hexagonale"
+    "bonne_reponse": "Pyramide hexagonale",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "con1",
@@ -6187,7 +6549,8 @@
       "Un solide avec une base polygonale et une surface courbe",
       "Un solide avec une base circulaire et une surface plane"
     ],
-    "bonne_reponse": "Un solide avec une base circulaire et une surface courbe"
+    "bonne_reponse": "Un solide avec une base circulaire et une surface courbe",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "con2",
@@ -6204,7 +6567,8 @@
       "Diamètre",
       "Hauteur"
     ],
-    "bonne_reponse": "Génératrice"
+    "bonne_reponse": "Génératrice",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "con3",
@@ -6221,7 +6585,8 @@
       "Diamètre",
       "Hauteur"
     ],
-    "bonne_reponse": "Hauteur"
+    "bonne_reponse": "Hauteur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "per1",
@@ -6238,7 +6603,8 @@
       "Une méthode pour mesurer les angles",
       "Une méthode pour dessiner des cercles"
     ],
-    "bonne_reponse": "Une méthode pour dessiner des objets en 3D sur une surface 2D"
+    "bonne_reponse": "Une méthode pour dessiner des objets en 3D sur une surface 2D",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "per2",
@@ -6255,7 +6621,8 @@
       "60 degrés",
       "90 degrés"
     ],
-    "bonne_reponse": "45 degrés"
+    "bonne_reponse": "45 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "per3",
@@ -6272,7 +6639,8 @@
       "Mesurer des angles",
       "Dessiner des cercles"
     ],
-    "bonne_reponse": "Donner l'impression de profondeur"
+    "bonne_reponse": "Donner l'impression de profondeur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sph1",
@@ -6289,7 +6657,8 @@
       "Un solide avec une base circulaire",
       "Un solide avec une base carrée"
     ],
-    "bonne_reponse": "Un solide avec une surface courbe"
+    "bonne_reponse": "Un solide avec une surface courbe",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sph2",
@@ -6306,7 +6675,8 @@
       "Circonférence",
       "Chord"
     ],
-    "bonne_reponse": "Rayon"
+    "bonne_reponse": "Rayon",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sph3",
@@ -6323,7 +6693,8 @@
       "Circonférence",
       "Chord"
     ],
-    "bonne_reponse": "Diamètre"
+    "bonne_reponse": "Diamètre",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "esp1",
@@ -6340,7 +6711,8 @@
       "Une ligne droite",
       "Un point"
     ],
-    "bonne_reponse": "Une surface plane et infinie"
+    "bonne_reponse": "Une surface plane et infinie",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "esp2",
@@ -6357,7 +6729,8 @@
       "Une surface plane",
       "Un point"
     ],
-    "bonne_reponse": "Une ligne droite et infinie"
+    "bonne_reponse": "Une ligne droite et infinie",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "esp3",
@@ -6374,7 +6747,8 @@
       "Un endroit précis dans l'espace",
       "Une ligne courbe"
     ],
-    "bonne_reponse": "Un endroit précis dans l'espace"
+    "bonne_reponse": "Un endroit précis dans l'espace",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "ari1",
@@ -6391,7 +6765,8 @@
       "La somme des deux nombres",
       "La différence des deux nombres"
     ],
-    "bonne_reponse": "Le plus grand nombre qui divise les deux nombres"
+    "bonne_reponse": "Le plus grand nombre qui divise les deux nombres",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "ari2",
@@ -6408,7 +6783,8 @@
       "La somme des deux nombres",
       "La différence des deux nombres"
     ],
-    "bonne_reponse": "Le plus petit nombre qui est multiple des deux nombres"
+    "bonne_reponse": "Le plus petit nombre qui est multiple des deux nombres",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "ari3",
@@ -6425,7 +6801,8 @@
       "6",
       "12"
     ],
-    "bonne_reponse": "6"
+    "bonne_reponse": "6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym1_2",
@@ -6442,7 +6819,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui agrandit ou réduit un objet"
     ],
-    "bonne_reponse": "Une transformation qui tourne un objet autour d'un point"
+    "bonne_reponse": "Une transformation qui tourne un objet autour d'un point",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym2_2",
@@ -6459,7 +6837,8 @@
       "Le point de rotation",
       "Le point de translation"
     ],
-    "bonne_reponse": "Le centre de symétrie"
+    "bonne_reponse": "Le centre de symétrie",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym3_2",
@@ -6476,7 +6855,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un carré identique"
+    "bonne_reponse": "Un carré identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym4_2",
@@ -6493,7 +6873,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui agrandit ou réduit un objet"
     ],
-    "bonne_reponse": "Une transformation qui réfléchit un objet par rapport à une ligne"
+    "bonne_reponse": "Une transformation qui réfléchit un objet par rapport à une ligne",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym5_2",
@@ -6510,7 +6891,8 @@
       "La ligne de rotation",
       "La ligne de translation"
     ],
-    "bonne_reponse": "La ligne de symétrie"
+    "bonne_reponse": "La ligne de symétrie",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sym6_2",
@@ -6527,7 +6909,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un triangle identique"
+    "bonne_reponse": "Un triangle identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "tra1",
@@ -6544,7 +6927,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui agrandit ou réduit un objet"
     ],
-    "bonne_reponse": "Une transformation qui déplace un objet sans le tourner"
+    "bonne_reponse": "Une transformation qui déplace un objet sans le tourner",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "tra2",
@@ -6561,7 +6945,8 @@
       "La direction de déplacement",
       "La direction de symétrie"
     ],
-    "bonne_reponse": "La direction de déplacement"
+    "bonne_reponse": "La direction de déplacement",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "tra3",
@@ -6578,7 +6963,8 @@
       "Un losange",
       "Un cercle"
     ],
-    "bonne_reponse": "Un carré identique"
+    "bonne_reponse": "Un carré identique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro1_1",
@@ -6595,7 +6981,8 @@
       "Une transformation qui déplace un objet sans le tourner",
       "Une transformation qui projette un objet sur une surface"
     ],
-    "bonne_reponse": "Une transformation qui projette un objet sur une surface"
+    "bonne_reponse": "Une transformation qui projette un objet sur une surface",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro2_1",
@@ -6612,7 +6999,8 @@
       "La surface de rotation",
       "La surface de translation"
     ],
-    "bonne_reponse": "La surface de projection"
+    "bonne_reponse": "La surface de projection",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro3_1",
@@ -6629,7 +7017,8 @@
       "Un carré",
       "Un rectangle"
     ],
-    "bonne_reponse": "Un ovale"
+    "bonne_reponse": "Un ovale",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq1_1",
@@ -6646,7 +7035,8 @@
       "Une expression mathématique qui montre une différence",
       "Une expression mathématique qui montre une somme"
     ],
-    "bonne_reponse": "Une expression mathématique qui montre une égalité"
+    "bonne_reponse": "Une expression mathématique qui montre une égalité",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq2_1",
@@ -6663,7 +7053,8 @@
       "Une expression mathématique qui montre une différence",
       "Une expression mathématique qui montre une somme"
     ],
-    "bonne_reponse": "Une expression mathématique qui montre une inégalité"
+    "bonne_reponse": "Une expression mathématique qui montre une inégalité",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq3_1",
@@ -6680,7 +7071,8 @@
       "x = 4",
       "x = 5"
     ],
-    "bonne_reponse": "x = 2"
+    "bonne_reponse": "x = 2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro1_2",
@@ -6697,7 +7089,8 @@
       "La relation entre quatre quantités",
       "La relation entre cinq quantités"
     ],
-    "bonne_reponse": "La relation entre deux quantités"
+    "bonne_reponse": "La relation entre deux quantités",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro2_2",
@@ -6714,7 +7107,8 @@
       "partie * total",
       "total / partie"
     ],
-    "bonne_reponse": "(partie / total) * 100"
+    "bonne_reponse": "(partie / total) * 100",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pro3_2",
@@ -6731,7 +7125,8 @@
       "30%",
       "40%"
     ],
-    "bonne_reponse": "20%"
+    "bonne_reponse": "20%",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sta1",
@@ -6748,7 +7143,8 @@
       "Une méthode pour comparer des figures géométriques",
       "Une méthode pour déterminer des angles"
     ],
-    "bonne_reponse": "Une méthode pour analyser des données"
+    "bonne_reponse": "Une méthode pour analyser des données",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sta2",
@@ -6765,7 +7161,8 @@
       "La valeur la plus basse",
       "La différence entre la valeur la plus élevée et la plus basse"
     ],
-    "bonne_reponse": "La somme des valeurs divisée par le nombre de valeurs"
+    "bonne_reponse": "La somme des valeurs divisée par le nombre de valeurs",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sta3",
@@ -6782,7 +7179,8 @@
       "La valeur moyenne",
       "La valeur qui sépare les données en deux moitiés"
     ],
-    "bonne_reponse": "La valeur qui sépare les données en deux moitiés"
+    "bonne_reponse": "La valeur qui sépare les données en deux moitiés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "real1",
@@ -6799,7 +7197,8 @@
       "Un nombre qui ne peut être que positif",
       "Un nombre qui ne peut être que entier"
     ],
-    "bonne_reponse": "Un nombre qui peut être représenté sur une droite numérique"
+    "bonne_reponse": "Un nombre qui peut être représenté sur une droite numérique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "real2",
@@ -6816,7 +7215,8 @@
       "5,5",
       "6,5"
     ],
-    "bonne_reponse": "6,2"
+    "bonne_reponse": "6,2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "real3",
@@ -6833,7 +7233,8 @@
       "3,4",
       "4,4"
     ],
-    "bonne_reponse": "3,6"
+    "bonne_reponse": "3,6",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "abs1",
@@ -6850,7 +7251,8 @@
       "Le nombre multiplié par lui-même",
       "Le nombre divisé par lui-même"
     ],
-    "bonne_reponse": "La distance du nombre à zéro sur la droite numérique"
+    "bonne_reponse": "La distance du nombre à zéro sur la droite numérique",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "abs2",
@@ -6867,7 +7269,8 @@
       "0",
       "1"
     ],
-    "bonne_reponse": "5"
+    "bonne_reponse": "5",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "abs3",
@@ -6884,7 +7287,8 @@
       "0",
       "1"
     ],
-    "bonne_reponse": "7"
+    "bonne_reponse": "7",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "tri1_1",
@@ -6901,7 +7305,8 @@
       "Le rapport entre le côté opposé et le côté adjacent",
       "Le rapport entre le côté adjacent et le côté opposé"
     ],
-    "bonne_reponse": "Le rapport entre le côté opposé et l'hypoténuse"
+    "bonne_reponse": "Le rapport entre le côté opposé et l'hypoténuse",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "tri2_1",
@@ -6918,7 +7323,8 @@
       "Le rapport entre le côté opposé et le côté adjacent",
       "Le rapport entre le côté adjacent et le côté opposé"
     ],
-    "bonne_reponse": "Le rapport entre le côté adjacent et l'hypoténuse"
+    "bonne_reponse": "Le rapport entre le côté adjacent et l'hypoténuse",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "tri3_1",
@@ -6935,7 +7341,8 @@
       "Le rapport entre le côté opposé et le côté adjacent",
       "Le rapport entre le côté adjacent et le côté opposé"
     ],
-    "bonne_reponse": "Le rapport entre le côté opposé et le côté adjacent"
+    "bonne_reponse": "Le rapport entre le côté opposé et le côté adjacent",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "thal1",
@@ -6952,7 +7359,8 @@
       "Si deux droites sont parallèles, alors les angles formés sont égaux",
       "Si deux droites sont perpendiculaires, alors les angles formés sont complémentaires"
     ],
-    "bonne_reponse": "Si deux droites sont parallèles, alors les segments interceptés sont proportionnels"
+    "bonne_reponse": "Si deux droites sont parallèles, alors les segments interceptés sont proportionnels",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "thal2",
@@ -6969,7 +7377,8 @@
       "Si les angles formés sont égaux, alors les droites sont parallèles",
       "Si les angles formés sont complémentaires, alors les droites sont perpendiculaires"
     ],
-    "bonne_reponse": "Si les segments interceptés sont proportionnels, alors les droites sont parallèles"
+    "bonne_reponse": "Si les segments interceptés sont proportionnels, alors les droites sont parallèles",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "thal3",
@@ -6986,7 +7395,8 @@
       "Les hauteurs du triangle sont égales",
       "Les médianes du triangle sont proportionnelles"
     ],
-    "bonne_reponse": "Les côtés du triangle sont proportionnels"
+    "bonne_reponse": "Les côtés du triangle sont proportionnels",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sim1",
@@ -7003,7 +7413,8 @@
       "Un triangle avec les mêmes hauteurs",
       "Un triangle avec les mêmes médianes"
     ],
-    "bonne_reponse": "Un triangle avec les mêmes angles"
+    "bonne_reponse": "Un triangle avec les mêmes angles",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sim2",
@@ -7020,7 +7431,8 @@
       "Ils doivent avoir les mêmes hauteurs",
       "Ils doivent avoir les mêmes médianes"
     ],
-    "bonne_reponse": "Ils doivent avoir les mêmes angles"
+    "bonne_reponse": "Ils doivent avoir les mêmes angles",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sim3",
@@ -7037,7 +7449,8 @@
       "Leurs hauteurs sont égales",
       "Leurs médianes sont proportionnelles"
     ],
-    "bonne_reponse": "Leurs côtés sont proportionnels"
+    "bonne_reponse": "Leurs côtés sont proportionnels",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sim1_1",
@@ -7054,7 +7467,8 @@
       "Un triangle avec les mêmes hauteurs",
       "Un triangle avec les mêmes médianes"
     ],
-    "bonne_reponse": "Un triangle avec les mêmes angles"
+    "bonne_reponse": "Un triangle avec les mêmes angles",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sim2_1",
@@ -7071,7 +7485,8 @@
       "Ils doivent avoir les mêmes hauteurs",
       "Ils doivent avoir les mêmes médianes"
     ],
-    "bonne_reponse": "Ils doivent avoir les mêmes angles"
+    "bonne_reponse": "Ils doivent avoir les mêmes angles",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sim3_1",
@@ -7088,7 +7503,8 @@
       "Leurs hauteurs sont égales",
       "Leurs médianes sont proportionnelles"
     ],
-    "bonne_reponse": "Leurs côtés sont proportionnels"
+    "bonne_reponse": "Leurs côtés sont proportionnels",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rt1",
@@ -7105,7 +7521,8 @@
       "Un triangle avec trois angles droits",
       "Un triangle avec un angle obtus"
     ],
-    "bonne_reponse": "Un triangle avec un angle droit"
+    "bonne_reponse": "Un triangle avec un angle droit",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rt2",
@@ -7122,7 +7539,8 @@
       "270 degrés",
       "360 degrés"
     ],
-    "bonne_reponse": "180 degrés"
+    "bonne_reponse": "180 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "rt3",
@@ -7139,7 +7557,8 @@
       "Côté opposé",
       "Base"
     ],
-    "bonne_reponse": "Hypoténuse"
+    "bonne_reponse": "Hypoténuse",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "ang1_1",
@@ -7156,7 +7575,8 @@
       "Un angle formé par deux tangentes à un cercle",
       "Un angle formé par une corde et une tangente"
     ],
-    "bonne_reponse": "Un angle formé par deux cordes d'un cercle"
+    "bonne_reponse": "Un angle formé par deux cordes d'un cercle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "ang2_1",
@@ -7173,7 +7593,8 @@
       "180 degrés",
       "360 degrés"
     ],
-    "bonne_reponse": "90 degrés"
+    "bonne_reponse": "90 degrés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "ang3_1",
@@ -7190,7 +7611,8 @@
       "Le même que l'angle inscrit",
       "Le triple de l'angle inscrit"
     ],
-    "bonne_reponse": "Le double de l'angle inscrit"
+    "bonne_reponse": "Le double de l'angle inscrit",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "con1_1",
@@ -7207,7 +7629,8 @@
       "Un solide avec une base polygonale et une surface courbe",
       "Un solide avec une base circulaire et une surface plane"
     ],
-    "bonne_reponse": "Un solide avec une base circulaire et une surface courbe"
+    "bonne_reponse": "Un solide avec une base circulaire et une surface courbe",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "con2_1",
@@ -7224,7 +7647,8 @@
       "Diamètre",
       "Hauteur"
     ],
-    "bonne_reponse": "Génératrice"
+    "bonne_reponse": "Génératrice",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "con1_2",
@@ -7241,7 +7665,8 @@
       "Un solide avec une base polygonale et une surface courbe",
       "Un solide avec une base circulaire et une surface plane"
     ],
-    "bonne_reponse": "Un solide avec une base circulaire et une surface courbe"
+    "bonne_reponse": "Un solide avec une base circulaire et une surface courbe",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "con2_2",
@@ -7258,7 +7683,8 @@
       "Diamètre",
       "Hauteur"
     ],
-    "bonne_reponse": "Génératrice"
+    "bonne_reponse": "Génératrice",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "con3_1",
@@ -7275,7 +7701,8 @@
       "Diamètre",
       "Hauteur"
     ],
-    "bonne_reponse": "Hauteur"
+    "bonne_reponse": "Hauteur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sec1",
@@ -7292,7 +7719,8 @@
       "Une coupe d'un solide par une surface courbe",
       "Une coupe d'un solide par une surface plane"
     ],
-    "bonne_reponse": "Une coupe d'un solide par un plan"
+    "bonne_reponse": "Une coupe d'un solide par un plan",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sec2",
@@ -7309,7 +7737,8 @@
       "Un carré",
       "Un triangle"
     ],
-    "bonne_reponse": "Un cercle"
+    "bonne_reponse": "Un cercle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "sec3",
@@ -7326,7 +7755,8 @@
       "Un carré",
       "Un triangle"
     ],
-    "bonne_reponse": "Un cercle"
+    "bonne_reponse": "Un cercle",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pol1_1",
@@ -7343,7 +7773,8 @@
       "Une expression contenant uniquement des lettres",
       "Une expression contenant des symboles spéciaux"
     ],
-    "bonne_reponse": "Une expression contenant des lettres et des nombres"
+    "bonne_reponse": "Une expression contenant des lettres et des nombres",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pol2_1",
@@ -7360,7 +7791,8 @@
       "Le nombre de variables dans le polynôme",
       "Le nombre de coefficients dans le polynôme"
     ],
-    "bonne_reponse": "Le plus grand exposant des variables"
+    "bonne_reponse": "Le plus grand exposant des variables",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "pol3_1",
@@ -7377,7 +7809,8 @@
       "2x^2 - 3x + 4",
       "3x^2 + 2x - 4"
     ],
-    "bonne_reponse": "2x^2 + 3x - 4"
+    "bonne_reponse": "2x^2 + 3x - 4",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "line1",
@@ -7394,7 +7827,8 @@
       "Une équation qui représente un cercle",
       "Une équation qui représente un carré"
     ],
-    "bonne_reponse": "Une équation qui représente une ligne droite"
+    "bonne_reponse": "Une équation qui représente une ligne droite",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "line2",
@@ -7411,7 +7845,8 @@
       "y = mx^2 + b",
       "y = x + b"
     ],
-    "bonne_reponse": "y = mx + b"
+    "bonne_reponse": "y = mx + b",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "line3",
@@ -7428,7 +7863,8 @@
       "1",
       "0"
     ],
-    "bonne_reponse": "2"
+    "bonne_reponse": "2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq1_2",
@@ -7445,7 +7881,8 @@
       "Une expression mathématique qui montre une différence",
       "Une expression mathématique qui montre une somme"
     ],
-    "bonne_reponse": "Une expression mathématique qui montre une égalité"
+    "bonne_reponse": "Une expression mathématique qui montre une égalité",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq2_2",
@@ -7462,7 +7899,8 @@
       "Une expression mathématique qui montre une différence",
       "Une expression mathématique qui montre une somme"
     ],
-    "bonne_reponse": "Une expression mathématique qui montre une inégalité"
+    "bonne_reponse": "Une expression mathématique qui montre une inégalité",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "eq3_2",
@@ -7479,7 +7917,8 @@
       "x = 4",
       "x = 5"
     ],
-    "bonne_reponse": "x = 2"
+    "bonne_reponse": "x = 2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "vec1",
@@ -7496,7 +7935,8 @@
       "Une quantité qui a une direction seulement",
       "Une quantité qui a une magnitude et une couleur"
     ],
-    "bonne_reponse": "Une quantité qui a une magnitude et une direction"
+    "bonne_reponse": "Une quantité qui a une magnitude et une direction",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "vec2",
@@ -7513,7 +7953,8 @@
       "Un vecteur qui est la somme des directions des deux vecteurs",
       "Un vecteur qui est la somme des magnitudes et des directions des deux vecteurs"
     ],
-    "bonne_reponse": "Un vecteur qui est la somme des magnitudes et des directions des deux vecteurs"
+    "bonne_reponse": "Un vecteur qui est la somme des magnitudes et des directions des deux vecteurs",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "vec3",
@@ -7530,7 +7971,8 @@
       "Un vecteur avec une nouvelle direction et une nouvelle magnitude",
       "Un vecteur avec une nouvelle magnitude et une nouvelle couleur"
     ],
-    "bonne_reponse": "Un vecteur avec la même direction mais une magnitude multipliée par le scalaire"
+    "bonne_reponse": "Un vecteur avec la même direction mais une magnitude multipliée par le scalaire",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "coord1",
@@ -7547,7 +7989,8 @@
       "Les magnitudes et les directions des composantes du vecteur",
       "Les couleurs des composantes du vecteur"
     ],
-    "bonne_reponse": "Les magnitudes des composantes du vecteur"
+    "bonne_reponse": "Les magnitudes des composantes du vecteur",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "coord2",
@@ -7564,7 +8007,8 @@
       "La somme des magnitudes et des directions des deux vecteurs",
       "La somme des magnitudes des composantes des deux vecteurs"
     ],
-    "bonne_reponse": "La somme des magnitudes des composantes des deux vecteurs"
+    "bonne_reponse": "La somme des magnitudes des composantes des deux vecteurs",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "coord3",
@@ -7581,7 +8025,8 @@
       "Les magnitudes et les directions des composantes du vecteur multipliées par le scalaire",
       "Les couleurs des composantes du vecteur multipliées par le scalaire"
     ],
-    "bonne_reponse": "Les magnitudes des composantes du vecteur multipliées par le scalaire"
+    "bonne_reponse": "Les magnitudes des composantes du vecteur multipliées par le scalaire",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "aff1",
@@ -7598,7 +8043,8 @@
       "Une transformation qui conserve les rapports de distances",
       "Une transformation qui conserve les rapports d'angles"
     ],
-    "bonne_reponse": "Une transformation qui conserve les rapports de distances"
+    "bonne_reponse": "Une transformation qui conserve les rapports de distances",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "aff2",
@@ -7615,7 +8061,8 @@
       "f(x) = mx^2 + b",
       "f(x) = x + b"
     ],
-    "bonne_reponse": "f(x) = mx + b"
+    "bonne_reponse": "f(x) = mx + b",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "aff3",
@@ -7632,7 +8079,8 @@
       "1",
       "0"
     ],
-    "bonne_reponse": "2"
+    "bonne_reponse": "2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "lin1",
@@ -7649,7 +8097,8 @@
       "Une transformation qui conserve les rapports de distances",
       "Une transformation qui conserve les rapports d'angles"
     ],
-    "bonne_reponse": "Une transformation qui conserve les rapports de distances"
+    "bonne_reponse": "Une transformation qui conserve les rapports de distances",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "lin2",
@@ -7666,7 +8115,8 @@
       "f(x) = mx^2",
       "f(x) = x"
     ],
-    "bonne_reponse": "f(x) = mx"
+    "bonne_reponse": "f(x) = mx",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "lin3",
@@ -7683,7 +8133,8 @@
       "1",
       "0"
     ],
-    "bonne_reponse": "2"
+    "bonne_reponse": "2",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "stat1",
@@ -7700,7 +8151,8 @@
       "Une méthode pour comparer des figures géométriques",
       "Une méthode pour déterminer des angles"
     ],
-    "bonne_reponse": "Une méthode pour analyser des données"
+    "bonne_reponse": "Une méthode pour analyser des données",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "stat2",
@@ -7717,7 +8169,8 @@
       "La valeur la plus basse",
       "La différence entre la valeur la plus élevée et la plus basse"
     ],
-    "bonne_reponse": "La somme des valeurs divisée par le nombre de valeurs"
+    "bonne_reponse": "La somme des valeurs divisée par le nombre de valeurs",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
   {
     "id": "stat3",
@@ -7734,17 +8187,13 @@
       "La valeur moyenne",
       "La valeur qui sépare les données en deux moitiés"
     ],
-    "bonne_reponse": "La valeur qui sépare les données en deux moitiés"
+    "bonne_reponse": "La valeur qui sépare les données en deux moitiés",
+    "enseignant": "deogratiashounsou@gmail.com"
   },
-
-
-
-
-
   {
     "id": "senco",
     "niveau": "1ere",
-    "serie":"a1",    
+    "serie": "a1",
     "notion": "Statistique(3e)",
     "duration": 20,
     "situation": {
@@ -7757,6 +8206,7 @@
       "La valeur moyenne",
       "La valeur qui sépare les données en deux moitiés"
     ],
-    "bonne_reponse": "La valeur qui sépare les données en deux moitiés"
+    "bonne_reponse": "La valeur qui sépare les données en deux moitiés",
+    "enseignant": "deogratiashounsou@gmail.com"
   }
 ]
