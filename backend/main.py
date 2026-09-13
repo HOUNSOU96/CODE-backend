@@ -14,6 +14,7 @@ import random
 from routes.activation import router as activation_router
 from routes.admin_routes import router as admin_router
 from routes.teacher import router as teacher_router
+from routes.project_ideas import router as project_ideas_router
 import threading
 import uuid
 from pathlib import Path
@@ -35,6 +36,7 @@ from models import init_models
 import unicodedata
 from routes.admin_dashboard import router as admin_dashboard_router
 from routes.question_messages import router as question_messages_router
+from routes.ia import router as ia_router
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -270,9 +272,10 @@ app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(remediation_progress.router, prefix="/api/remediation-progress", tags=["RemediationProgress"])
 app.include_router(progression.router)
 app.include_router(admin_router)
+app.include_router(project_ideas_router)
 app.include_router(admin_dashboard_router)
 app.include_router(question_messages_router)
-
+app.include_router(ia_router)
 
 # -------------------- Debug Middleware -------------------- #
 async def update_last_seen_in_db(user, db):

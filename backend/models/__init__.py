@@ -8,6 +8,7 @@ from database import engine, Base
 # Importation de tous les modèles
 from .user import User
 from .pending_user import PendingUser
+from .project_idea import ProjectIdea
 from .question import Question
 from .remediation_progress import RemediationProgress
 from .remediation_videos import RemediationVideo
