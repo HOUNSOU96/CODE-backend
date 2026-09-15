@@ -278,44 +278,82 @@ app.include_router(question_messages_router)
 app.include_router(ia_router)
 
 # -------------------- Debug Middleware -------------------- #
-async def update_last_seen_in_db(user, db):
+async def update_last_seen_in_db(user_id: int):
+    db = next(get_db())
+
     try:
-        user.last_seen = datetime.utcnow()
-        db.add(user)
-        db.commit()
-        print(f"✅ last_seen mis à jour pour {user.email}")
+        user = db.query(User).filter(User.id == user_id).first()
+
+        if user:
+            user.last_seen = datetime.utcnow()
+            db.add(user)
+            db.commit()
+            print(f"✅ last_seen mis à jour pour {user.email}")
+
     except Exception as e:
+        db.rollback()
         print(f"⚠️ Erreur lors de la mise à jour last_seen : {e}")
 
+    finally:
+        db.close()
+
+
 @app.middleware("http")
-async def update_last_seen_middleware(request: Request, call_next, db: Session = Depends(get_db)):
+async def update_last_seen_middleware(request: Request, call_next):
     public_routes = [
         "/api/auth/login",
         "/api/auth/register",
         "/api/announcements/current"
     ]
 
-    if request.method == "OPTIONS" or any(request.url.path.startswith(route) for route in public_routes):
+    if request.method == "OPTIONS" or any(
+        request.url.path.startswith(route)
+        for route in public_routes
+    ):
         return await call_next(request)
 
     # Créer BackgroundTasks
     background_tasks = BackgroundTasks()
-    
+
     auth_header = request.headers.get("Authorization")
+
     if auth_header:
         print(f"🔐 Authorization Header reçu : {auth_header}")
-        try:
-            token = auth_header.split(" ")[1] if " " in auth_header else auth_header
-            current_user = await get_current_user(token, db)
-            if current_user:
-                background_tasks.add_task(update_last_seen_in_db, current_user, db)
-        except Exception as e:
-            print(f"⚠️ Erreur lors de la mise à jour last_seen : {e}")
-    else:
-        print("🚫 Aucun token reçu dans la requête")
 
+    try:
+        token = (
+            auth_header.split(" ")[1]
+            if " " in auth_header
+            else auth_header
+        )
+
+        # Créer explicitement une vraie session SQLAlchemy
+        db = next(get_db())
+
+        try:
+            current_user = get_current_user(token, db)
+            user_id = current_user.id if current_user else None
+        finally:
+            db.close()
+
+        if user_id:
+            background_tasks.add_task(
+                update_last_seen_in_db,
+                user_id
+            )
+
+    except Exception as e:
+        print(
+            f"⚠️ Erreur lors de la récupération de l'utilisateur : {e}"
+        )
+
+    else:
+     print("🚫 Aucun token reçu dans la requête")
     response = await call_next(request)
-    response.background = background_tasks  # Attacher la tâche en arrière-plan
+
+    # Attacher la tâche en arrière-plan
+    response.background = background_tasks
+
     return response
 
 
