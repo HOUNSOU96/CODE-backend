@@ -1,3 +1,4 @@
+import sys
 from fastapi import FastAPI, Query, HTTPException, Request, Depends, UploadFile, File, Form
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -802,12 +803,7 @@ def niveaux_diagnostiques(
 # TRADUCTION GLOBALE DES PAGES — ARGOS TRANSLATE
 # ============================================================
 
-TRANSLATE_PYTHON = (
-    Path(__file__).resolve().parent
-    / "translate_env"
-    / "bin"
-    / "python"
-)
+TRANSLATE_PYTHON = Path(sys.executable)
 
 TRANSLATE_WORKER = (
     Path(__file__).resolve().parent
@@ -944,12 +940,6 @@ async def translate_page(
     try:
 
         translate_env = os.environ.copy()
-
-        translate_env["HOME"] = "/home/hounsou"
-
-        translate_env["ARGOS_PACKAGE_DIR"] = (
-    "   /home/hounsou/.local/share/argos-translate/packages"
-)
 
         process = await asyncio.create_subprocess_exec(
             str(TRANSLATE_PYTHON),
