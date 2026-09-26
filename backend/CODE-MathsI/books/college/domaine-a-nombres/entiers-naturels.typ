@@ -71,10 +71,114 @@ des bâtonnets et différentes formes de représentation.
 Peu à peu, l'être humain a compris qu'il était possible
 de représenter les quantités par des nombres, puis de
 construire des symboles pour écrire ces nombres.
-Dans notre système de numération décimale, ces symboles
+Dans le système de numération décimale (base 10), ces symboles
 sont les dix chiffres $0$ à $9$.
-#v(0.05cm)
 
+
+#v(0.25cm)
+
+#text(
+  size: 12pt,
+  weight: "bold",
+  fill: code-blue,
+)[
+🔟 Qu'est-ce que le système de numération décimale ?
+]
+
+#v(0.1cm)
+
+Le #strong[système de numération décimale] est un système qui
+permet d'écrire et de représenter les nombres en utilisant
+#strong[dix chiffres] :
+
+#align(center)[
+  #text(
+    size: 13pt,
+    weight: "bold",
+    fill: code-blue,
+  )[
+    $0, 1, 2, 3, 4, 5, 6, 7, 8, 9$
+  ]
+]
+
+On l'appelle #strong[décimal] parce qu'il est fondé sur le
+nombre #strong[10].
+
+Dans ce système, la valeur d'un chiffre dépend non seulement
+du chiffre lui-même, mais aussi de sa #strong[position] dans
+le nombre.
+
+Par exemple, dans le nombre $5 284$ :
+
+#align(center)[
+  #text(
+    size: 13pt,
+    weight: "bold",
+    fill: code-blue,
+  )[
+    $5 284 = 5 × 1000 + 2 × 100 + 8 × 10 + 4$
+  ]
+]
+
+Le chiffre $5$ représente donc #strong[5 milliers], le chiffre
+$2$ représente #strong[2 centaines], le chiffre $8$ représente
+#strong[8 dizaines] et le chiffre $4$ représente
+#strong[4 unités].
+
+On peut également écrire :
+
+#align(center)[
+  $5 284 = 5 × 10^3 + 2 × 10^2 + 8 × 10^1 + 4 × 10^0$
+]
+
+Ainsi, dans le système décimal, chaque position correspond à
+une puissance de $10$.
+
+#align(center)[
+  #table(
+    columns: (2.5cm, 2.5cm, 2.5cm, 2.5cm),
+    stroke: 0.5pt + rgb("#D5E2EF"),
+    inset: 0.12cm,
+
+    [#strong[Milliers]],
+    [#strong[Centaines]],
+    [#strong[Dizaines]],
+    [#strong[Unités]],
+
+    [$10^3 = 1000$],
+    [$10^2 = 100$],
+    [$10^1 = 10$],
+    [$10^0 = 1$],
+  )
+]
+
+#exemple[
+
+Dans le nombre $3 742$, le chiffre $7$ est placé au rang
+des centaines. Il représente donc $7 × 100 = 700$.
+
+Le chiffre $4$ est placé au rang des dizaines. Il représente
+donc $4 × 10 = 40$.
+
+]
+
+#text(
+  size: 10pt,
+  style: "italic",
+  fill: rgb("#60758A"),
+)[
+À retenir : dans le système décimal, nous utilisons dix chiffres,
+et la position de chaque chiffre détermine sa valeur.
+]
+]
+
+#box(
+  width: 100%,
+  fill: rgb("#EEF6FF"),
+  radius: 12pt,
+  inset: 0.3cm,
+  stroke: 0.8pt + code-blue,
+)[
 
 #text(
   size: 12pt,
@@ -372,7 +476,7 @@ indiquée sous la forme $70,00k g$.
 Comme les chiffres après la virgule sont uniquement des 0,
 on peut écrire simplement $70k g$ et $70 ∈ ℕ$.
 
-En revanche, une température de $36,5\,°C$ ne correspond
+En revanche, une température de $36,5°C$ ne correspond
 pas à un entier naturel car $36,5 ∉ ℕ$.
 
 Dans le premier cas, le nombre permet de compter une quantité
@@ -501,15 +605,15 @@ Dans l'écriture des nombres en lettres :
 #exemple[
 Un laboratoire reçoit des lots contenant :
 
-• $3000$ → trois mille comprimés ;
+• $3000$ comprimés → trois mille comprimés ;
 
-• $300$ → trois cents comprimés ;
+• $300$ comprimés → trois cents comprimés ;
 
-• $301$ → trois cent un comprimés ;
+• $301$ comprimés → trois cent un comprimés ;
 
-• $480$ → quatre cent quatre-vingts comprimés ;
+• $480$ comprimés → quatre cent quatre-vingts comprimés ;
 
-• $481$ → quatre cent quatre-vingt-un comprimés.
+• $481$ comprimés → quatre cent quatre-vingt-un comprimés.
 
 On constate que « mille » reste toujours invariable,
 tandis que « cent » et « vingt » prennent un « s » lorsqu'ils

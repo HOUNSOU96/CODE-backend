@@ -1,12 +1,13 @@
+
 // ==========================================================
 // CODE Framework
 // Page de garde intérieure
 // Compatible Typst 0.15.1
 // ==========================================================
 
-#let page_garde() = {
+#let page_garde() = [
 
-  set page(
+  #set page(
     paper: "a4",
 
     margin: (
@@ -26,7 +27,7 @@
 
 
 
-place(
+#place(
     dx: 13cm,
     dy: 0.4cm,
   )[
@@ -41,7 +42,7 @@ place(
   // Identité CODE-MATHS
   // ==========================================================
 
-  align(center)[
+  #align(center)[
 
     #text(
       size: 42pt,
@@ -60,11 +61,11 @@ place(
       Apprendre • Comprendre • Transformer
     ]
 
-    #v(0.45cm)
+    #v(0.25cm)
 
     #line(length: 11cm, stroke: 1pt + rgb(11,47,85))
 
-    #v(0.55cm)
+    #v(0.40cm)
 
     #text(
       size: 22pt,
@@ -74,7 +75,7 @@ place(
       MAÎTRISE DES MATHÉMATIQUES
     ]
 
-    #v(0.35cm)
+    #v(0.25cm)
 
     
 
@@ -82,22 +83,22 @@ place(
       size: 15pt,
       weight: "bold",
     )[
-      Classes de 6ème à 3ème
+      Classes de la 6ème à la 3ème
     ]
 
-    #v(0.6cm)
+    #v(0.2cm)
 
     #line(length: 11cm, stroke: 0.8pt + rgb(11,47,85))
 
   ]
 
-  v(1.2cm)
+  #v(0.2cm)
 
   // ==========================================================
   // Citation
   // ==========================================================
 
-  align(center)[
+  #align(center)[
 
     #box(
       width: 14cm,
@@ -117,7 +118,7 @@ place(
           même les soi-disant nuls chercheraient à décrypter le CODE. »
         ]
 
-        #v(0.4cm)
+        #v(0.2cm)
 
         #align(right)[
           #text(
@@ -133,13 +134,68 @@ place(
 
   ]
 
-  v(1.8cm)
+  #v(0.3cm)
+
+  // ==========================================================
+  // Supervision pédagogique
+  // ==========================================================
+
+  #align(center)[
+
+    #box(
+      width: 14cm,
+      inset: 12pt,
+      stroke: 1pt + rgb(11,47,85),
+      radius: 7pt,
+      fill: rgb(248,250,252),
+    )[
+
+      #align(center)[
+
+        #text(
+          size: 10pt,
+          fill: rgb(90,90,90),
+        )[
+          Sous la supervision du
+        ]
+
+        #v(0.1cm)
+
+        #text(
+          size: 12pt,
+          weight: "bold",
+          fill: rgb(11,47,85),
+        )[
+          Docteur Gervais AFFOGNON
+        ]
+
+        #v(0.1cm)
+
+        #text(
+          size: 10pt,
+        )[
+          Enseignant à l'IMSP de Dangbo
+        ]
+
+        #text(
+          size: 10pt,
+        )[
+          Conseiller pédagogique des Mathématiques au Bénin
+        ]
+
+      ]
+
+    ]
+
+  ]
+
+  #v(0.3cm)
 
     // ==========================================================
   // Présentation des auteurs
   // ==========================================================
 
-  grid(
+  #grid(
     columns: (1fr, 1fr),
     gutter: 2cm,
 
@@ -187,13 +243,6 @@ place(
 
           #v(0.15cm)
 
-          #text(
-            size: 10pt,
-          )[
-            BAPES — Professeur adjoint de Mathématiques
-          ]
-
-          #v(0.15cm)
 
           #text(
             size: 10pt,
@@ -225,7 +274,7 @@ place(
             weight: "bold",
             fill: rgb(11,47,85),
           )[
-            Roméo AZON
+            Roméo E. AZON
           ]
 
           #v(0.2cm)
@@ -241,22 +290,14 @@ place(
           #text(
             size: 10pt,
           )[
-            Professeur certifié
+            CAPES -- Professeur certifié de 
           ]
-
-          #text(
+           #text(
             size: 10pt,
           )[
-            de Mathématiques
+            Mathématiques
           ]
 
-          #v(0.15cm)
-
-          #text(
-            size: 10pt,
-          )[
-            CAPES
-          ]
 
           #v(0.15cm)
 
@@ -275,7 +316,7 @@ place(
   )
 
 
-  v(1cm)
+  #v(0.5cm)
 
 
  
@@ -284,14 +325,14 @@ place(
   // Signature éditoriale
   // ==========================================================
 
-  align(center)[
+  #align(center)[
 
     #line(
       length: 8cm,
       stroke: 0.8pt + rgb(11,47,85),
     )
 
-    #v(0.3cm)
+    #v(0.2cm)
 
     #text(
       size: 12pt,
@@ -301,7 +342,7 @@ place(
       ÉDITION 2026
     ]
 
-    #v(0.15cm)
+    #v(0.1cm)
 
     #text(
       size: 11pt,
@@ -312,4 +353,5 @@ place(
   ]
 
 
-}
+]
+

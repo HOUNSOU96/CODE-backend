@@ -6,10 +6,12 @@ from pydantic import BaseModel, ConfigDict
 from typing import Dict, List, Optional, Set
 import json
 import os
+import asyncio
 from fastapi import Request, BackgroundTasks
 from apscheduler.schedulers.background import BackgroundScheduler
 from zoneinfo import ZoneInfo
 import logging
+import requests
 import random
 from routes.activation import router as activation_router
 from routes.admin_routes import router as admin_router
@@ -132,6 +134,18 @@ class RemediationRequest(BaseModel):
 class CheckProgressRequest(BaseModel):
     email: str
     video_id: int
+
+
+
+
+class PageTranslationRequest(BaseModel):
+
+    source_language: str = "fr"
+
+    target_language: str = "en"
+
+    texts: list[str]
+
 
 
 
@@ -299,63 +313,79 @@ async def update_last_seen_in_db(user_id: int):
 
 
 @app.middleware("http")
-async def update_last_seen_middleware(request: Request, call_next):
+async def update_last_seen_middleware(
+    request: Request,
+    call_next
+):
     public_routes = [
         "/api/auth/login",
         "/api/auth/register",
-        "/api/announcements/current"
+        "/api/announcements/current",
     ]
 
-    if request.method == "OPTIONS" or any(
+    # Les requêtes OPTIONS doivent passer directement
+    if request.method == "OPTIONS":
+        return await call_next(request)
+
+    # Les routes publiques passent directement
+    if any(
         request.url.path.startswith(route)
         for route in public_routes
     ):
         return await call_next(request)
 
-    # Créer BackgroundTasks
     background_tasks = BackgroundTasks()
 
     auth_header = request.headers.get("Authorization")
 
+    user_id = None
+
     if auth_header:
-        print(f"🔐 Authorization Header reçu : {auth_header}")
-
-    try:
-        token = (
-            auth_header.split(" ")[1]
-            if " " in auth_header
-            else auth_header
+        print(
+            f"🔐 Authorization Header reçu : {auth_header}"
         )
-
-        # Créer explicitement une vraie session SQLAlchemy
-        db = next(get_db())
 
         try:
-            current_user = get_current_user(token, db)
-            user_id = current_user.id if current_user else None
-        finally:
-            db.close()
-
-        if user_id:
-            background_tasks.add_task(
-                update_last_seen_in_db,
-                user_id
+            token = (
+                auth_header.split(" ")[1]
+                if " " in auth_header
+                else auth_header
             )
 
-    except Exception as e:
-        print(
-            f"⚠️ Erreur lors de la récupération de l'utilisateur : {e}"
-        )
+            db = next(get_db())
+
+            try:
+                current_user = get_current_user(
+                    token,
+                    db
+                )
+
+                if current_user:
+                    user_id = current_user.id
+
+            finally:
+                db.close()
+
+        except Exception as e:
+            print(
+                "⚠️ Erreur lors de la récupération "
+                f"de l'utilisateur : {e}"
+            )
 
     else:
-     print("🚫 Aucun token reçu dans la requête")
+        print("🚫 Aucun token reçu dans la requête")
+
+    if user_id:
+        background_tasks.add_task(
+            update_last_seen_in_db,
+            user_id
+        )
+
     response = await call_next(request)
 
-    # Attacher la tâche en arrière-plan
     response.background = background_tasks
 
     return response
-
 
 
 
@@ -416,30 +446,66 @@ class ReponseUnique(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 class ReponsesModel(BaseModel):
+    matiere: str
+    niveau: str
+    serie: Optional[str] = "none"
+    test_id: str
     resultats: List[ReponseUnique]
-    model_config = ConfigDict(from_attributes=True)
 
+    model_config = ConfigDict(from_attributes=True)
 
 class ResultatRemediation(BaseModel):
     id: str
     question: str
+
     classe: str | None = None
-    choix: list[str] = Field(default_factory=list)
+
+    choix: list[str] = Field(
+        default_factory=list
+    )
+
     correcte: bool = False
-    bonne_reponse: str
-    reponse_apprenant: str
+
+    bonne_reponse: str | None = None
+
+    reponse_apprenant: str | None = None
+
     notion: str | None = None
+
     situation: dict | None = None
+
+    enseignant: str | None = None
+
+    matiere: str | None = None
+
+    serie: str | list[str] | None = None
+
+    model_config = ConfigDict(
+        from_attributes=True
+    )
 
 from pydantic import BaseModel, ConfigDict, Field
 
 class ResultatTest(BaseModel):
-    note: int
-    mention: str
-    notionsNonAcquises: List[str]
-    questionsRemediation: List[ResultatRemediation] = Field(default_factory=list)
+    matiere: str | None = None
+    niveau: str | None = None
+    serie: str | None = None
 
-    model_config = ConfigDict(from_attributes=True)
+    note: int
+
+    mention: str
+
+    notionsNonAcquises: List[str]
+
+    questionsRemediation: List[
+        ResultatRemediation
+    ] = Field(
+        default_factory=list
+    )
+
+    model_config = ConfigDict(
+        from_attributes=True
+    )
 class EnvoiPDFRequest(BaseModel):
     apprenant: dict
     niveau: str
@@ -475,6 +541,641 @@ def sauvegarder_resultat(resultat: Dict):
         historiques.append(resultat)
         with open(RESULTATS_FILE, "w", encoding="utf-8") as f:
             json.dump(historiques, f, indent=2, ensure_ascii=False)
+
+
+
+
+# ============================================================
+# NORMALISATION DES DONNÉES DES QUESTIONS
+# ============================================================
+
+def normalize_text(value: Optional[str]) -> str:
+    """
+    Normalise une chaîne :
+    - supprime les espaces inutiles
+    - supprime les accents
+    - met en minuscule
+    """
+    if value is None:
+        return ""
+
+    value = str(value).strip()
+
+    return (
+        unicodedata
+        .normalize("NFD", value)
+        .encode("ascii", "ignore")
+        .decode("ascii")
+        .lower()
+        .strip()
+    )
+
+
+def normalize_matiere(value: Optional[str]) -> str:
+    """
+    Normalise la matière utilisée dans les URLs et questions.json.
+    """
+
+    value = normalize_text(value)
+
+    correspondances = {
+        "mathematiques": "maths",
+        "mathematique": "maths",
+        "math": "maths",
+
+        "francais": "francais",
+        "francais": "francais",
+
+        "physiquechimie": "pct",
+        "physique_chimie": "pct",
+
+        "intelligence artificielle": "intelligenceartificielle",
+    }
+
+    return correspondances.get(value, value)
+
+
+def normalize_niveau(value: Optional[str]) -> str:
+    """
+    Transforme les différentes écritures du niveau
+    vers le format utilisé par les URLs CODE.
+
+    Exemples :
+        Terminale -> tle
+        Tle       -> tle
+        1ère      -> 1ere
+        Première  -> 1ere
+        2nde      -> 2nde
+    """
+
+    value = normalize_text(value)
+
+    correspondances = {
+        "6eme": "6e",
+        "5eme": "5e",
+        "4eme": "4e",
+        "3eme": "3e",
+
+        "2nde": "2nde",
+        "seconde": "2nde",
+
+        "1ere": "1ere",
+        "premiere": "1ere",
+
+        "tle": "tle",
+        "terminale": "tle",
+    }
+
+    return correspondances.get(value, value)
+
+
+def normalize_serie(value: Optional[str]) -> str:
+    if value is None:
+        return "none"
+
+    value = str(value).strip()
+
+    if not value:
+        return "none"
+
+    return value.lower()
+
+
+def question_serie_contient(
+    question_serie,
+    serie_recherchee: Optional[str]
+) -> bool:
+    """
+    Vérifie une série dans questions.json.
+
+    Accepte :
+
+        "F2"
+
+    ou :
+
+        ["F1", "F2", "F3", "F4"]
+
+    ou :
+
+        None / "none"
+    """
+
+    serie_recherchee = normalize_serie(
+        serie_recherchee
+    )
+
+    # Pour le collège
+    if serie_recherchee == "none":
+        return True
+
+    if question_serie is None:
+        return False
+
+    # Cas :
+    # "F2"
+    if isinstance(question_serie, str):
+        return (
+            normalize_serie(question_serie)
+            == serie_recherchee
+        )
+
+    # Cas :
+    # ["F1", "F2", "F3", "F4"]
+    if isinstance(question_serie, list):
+        return any(
+            normalize_serie(s)
+            == serie_recherchee
+            for s in question_serie
+        )
+
+    return False
+
+
+def question_matiere_correspond(
+    question: dict,
+    matiere_recherchee: str
+) -> bool:
+    """
+    Vérifie que la question appartient à la matière demandée.
+    """
+
+    matiere_question = normalize_matiere(
+        question.get("matiere")
+    )
+
+    matiere_recherchee = normalize_matiere(
+        matiere_recherchee
+    )
+
+    return (
+        matiere_question
+        == matiere_recherchee
+    )
+
+
+def question_niveau_correspond(
+    question: dict,
+    niveau_recherche: str
+) -> bool:
+    """
+    Vérifie le niveau d'une question
+    indépendamment de son écriture dans JSON.
+    """
+
+    niveau_question = normalize_niveau(
+        question.get("niveau")
+    )
+
+    return (
+        niveau_question
+        == normalize_niveau(
+            niveau_recherche
+        )
+    )
+
+# ============================================================
+# HIÉRARCHIE DES NIVEAUX POUR LE DIAGNOSTIC
+# ============================================================
+
+NIVEAUX_ORDRE = [
+    "6e",
+    "5e",
+    "4e",
+    "3e",
+    "2nde",
+    "1ere",
+    "tle",
+]
+
+NIVEAUX_COLLEGE = {
+    "6e",
+    "5e",
+    "4e",
+    "3e",
+}
+
+NIVEAUX_LYCEE = {
+    "2nde",
+    "1ere",
+    "tle",
+}
+
+
+def niveaux_diagnostiques(
+    niveau_actuel: str
+) -> List[str]:
+    """
+    Retourne les niveaux qui doivent être évalués
+    pour le diagnostic.
+
+    6e       -> 6e
+    5e       -> 6e
+    4e       -> 6e + 5e
+    3e       -> 6e + 5e + 4e
+    2nde     -> 6e + 5e + 4e + 3e
+    1ere     -> 6e + 5e + 4e + 3e + 2nde
+    tle      -> 6e + 5e + 4e + 3e + 2nde + 1ere
+
+    Le niveau actuel est exclu pour le diagnostic,
+    sauf pour la 6e qui constitue le point de départ.
+    """
+
+    niveau = normalize_niveau(niveau_actuel)
+
+    if niveau not in NIVEAUX_ORDRE:
+        raise ValueError(
+            f"Niveau inconnu : {niveau_actuel}"
+        )
+
+    index = NIVEAUX_ORDRE.index(niveau)
+
+    # Pour la 6e, il faut quand même des questions de 6e
+    if niveau == "6e":
+        return ["6e"]
+
+    return NIVEAUX_ORDRE[:index]
+
+
+
+# ============================================================
+# TRADUCTION GLOBALE DES PAGES — ARGOS TRANSLATE
+# ============================================================
+
+TRANSLATE_PYTHON = (
+    Path(__file__).resolve().parent
+    / "translate_env"
+    / "bin"
+    / "python"
+)
+
+TRANSLATE_WORKER = (
+    Path(__file__).resolve().parent
+    / "translation_worker.py"
+)
+
+
+@app.post("/api/translate/page")
+async def translate_page(
+    payload: PageTranslationRequest,
+):
+    """
+    Traduit plusieurs textes d'une page avec
+    Argos Translate.
+
+    Le moteur Argos est installé dans l'environnement
+    isolé translate_env afin de ne pas modifier
+    l'environnement Python principal du backend.
+    """
+
+    # ========================================================
+    # 1. VÉRIFICATION DU MOTEUR
+    # ========================================================
+
+    if not TRANSLATE_PYTHON.exists():
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Le moteur de traduction local est introuvable : "
+                f"{TRANSLATE_PYTHON}"
+            ),
+        )
+
+    if not TRANSLATE_WORKER.exists():
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Le worker de traduction est introuvable : "
+                f"{TRANSLATE_WORKER}"
+            ),
+        )
+
+    # ========================================================
+    # 2. VÉRIFICATION DES LANGUES
+    # ========================================================
+
+    source_language = (
+        payload.source_language or "fr"
+    ).strip().lower()
+
+    target_language = (
+        payload.target_language or "en"
+    ).strip().lower()
+
+    if not source_language or not target_language:
+
+        raise HTTPException(
+            status_code=400,
+            detail="Les langues source et cible sont obligatoires.",
+        )
+
+    # ========================================================
+    # 3. AUCUN TEXTE
+    # ========================================================
+
+    if not payload.texts:
+
+        return {
+            "success": True,
+            "source_language": source_language,
+            "target_language": target_language,
+            "translations": [],
+        }
+
+    # ========================================================
+    # 4. NETTOYAGE DES TEXTES
+    # ========================================================
+
+    texts = []
+
+    for text in payload.texts:
+
+        if text is None:
+            texts.append("")
+            continue
+
+        texts.append(str(text))
+
+    # ========================================================
+    # 5. LIMITATION DE SÉCURITÉ
+    # ========================================================
+
+    if len(texts) > 500:
+
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Trop de textes envoyés en une seule requête. "
+                "Maximum : 500 textes."
+            ),
+        )
+
+    total_characters = sum(
+        len(text)
+        for text in texts
+    )
+
+    if total_characters > 100000:
+
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Le contenu envoyé est trop volumineux. "
+                "Maximum : 100 000 caractères."
+            ),
+        )
+
+    # ========================================================
+    # 6. CONSTRUCTION DU PAYLOAD POUR ARGOS
+    # ========================================================
+
+    worker_payload = {
+        "source_language": source_language,
+        "target_language": target_language,
+        "texts": texts,
+    }
+
+    # ========================================================
+    # 7. LANCEMENT DU WORKER ARGOS
+    # ========================================================
+
+    try:
+
+        translate_env = os.environ.copy()
+
+        translate_env["HOME"] = "/home/hounsou"
+
+        translate_env["ARGOS_PACKAGE_DIR"] = (
+    "   /home/hounsou/.local/share/argos-translate/packages"
+)
+
+        process = await asyncio.create_subprocess_exec(
+            str(TRANSLATE_PYTHON),
+            str(TRANSLATE_WORKER),
+            stdin=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+            env=translate_env,
+)
+
+    except Exception as exc:
+
+        print(
+            "❌ Impossible de lancer Argos Translate :",
+            repr(exc),
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Impossible de démarrer "
+                "le moteur de traduction."
+            ),
+        )
+
+    # ========================================================
+    # 8. ENVOI DES DONNÉES AU WORKER
+    # ========================================================
+
+    try:
+
+        input_data = json.dumps(
+            worker_payload,
+            ensure_ascii=False,
+        ).encode("utf-8")
+
+        stdout, stderr = await asyncio.wait_for(
+
+            process.communicate(input_data),
+
+            timeout=120,
+        )
+
+    except asyncio.TimeoutError:
+
+        try:
+            process.kill()
+        except Exception:
+            pass
+
+        print(
+            "❌ Timeout du moteur de traduction."
+        )
+
+        raise HTTPException(
+            status_code=504,
+            detail=(
+                "La traduction a pris trop de temps."
+            ),
+        )
+
+    except Exception as exc:
+
+        print(
+            "❌ Erreur pendant l'exécution "
+            "du moteur de traduction :",
+            repr(exc),
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Erreur lors de l'exécution "
+                "du moteur de traduction."
+            ),
+        )
+
+    # ========================================================
+    # 9. AFFICHAGE DES ERREURS ARGOS
+    # ========================================================
+
+    if stderr:
+
+        stderr_text = stderr.decode(
+            "utf-8",
+            errors="replace",
+        ).strip()
+
+        if stderr_text:
+
+            print(
+                "ℹ️ Argos Translate :",
+                stderr_text,
+            )
+
+    # ========================================================
+    # 10. VÉRIFICATION DU CODE DE SORTIE
+    # ========================================================
+
+    if process.returncode != 0:
+
+        stdout_text = stdout.decode(
+            "utf-8",
+            errors="replace",
+        ).strip()
+
+        print(
+            "❌ Argos Translate a échoué."
+        )
+
+        print(
+            "Sortie :",
+            stdout_text,
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Le moteur de traduction "
+                "a rencontré une erreur."
+            ),
+        )
+
+    # ========================================================
+    # 11. LECTURE DE LA RÉPONSE
+    # ========================================================
+
+    try:
+
+        result = json.loads(
+            stdout.decode(
+                "utf-8",
+                errors="replace",
+            )
+        )
+
+    except Exception as exc:
+
+        print(
+            "❌ Réponse invalide du worker Argos :",
+            repr(exc),
+        )
+
+        print(
+            "Sortie brute :",
+            stdout.decode(
+                "utf-8",
+                errors="replace",
+            ),
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Le moteur de traduction "
+                "a retourné une réponse invalide."
+            ),
+        )
+
+    # ========================================================
+    # 12. VÉRIFICATION DU WORKER
+    # ========================================================
+
+    if not result.get("success"):
+
+        print(
+            "❌ Erreur Argos :",
+            result.get("error"),
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                result.get(
+                    "error",
+                    "Erreur inconnue du moteur de traduction.",
+                )
+            ),
+        )
+
+    translations = result.get(
+        "translations",
+        [],
+    )
+
+    # ========================================================
+    # 13. VÉRIFICATION DU NOMBRE DE TRADUCTIONS
+    # ========================================================
+
+    if len(translations) != len(texts):
+
+        print(
+            "❌ Nombre de traductions incorrect :",
+            len(translations),
+            "/",
+            len(texts),
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Le nombre de traductions retournées "
+                "ne correspond pas au nombre de textes envoyés."
+            ),
+        )
+
+    # ========================================================
+    # 14. RÉPONSE AU FRONTEND
+    # ========================================================
+
+    return {
+        "success": True,
+
+        "source_language":
+            source_language,
+
+        "target_language":
+            target_language,
+
+        "translations":
+            translations,
+    }
+
+
+
+
 
 # -------------------- Routes Questions -------------------- #
 @app.get("/api/questions/{niveau}")
@@ -610,372 +1311,1348 @@ def get_questions_par_notions_aleatoires(niveau: str, serie: Optional[str] = Que
         {k: v for k, v in q.items() if k != "bonne_reponse"} | {"options": q["choix"], "duree": q.get("duration", 60)}
         for q in resultat
     ]
+
+# ============================================================
+# GÉNÉRATION D'UN TEST DIAGNOSTIQUE GÉNÉRIQUE
+# ============================================================
+
 @app.get("/api/questions/{niveau}/generation")
 def generer_test(
     niveau: str,
+    matiere: str = Query(...),
     serie: Optional[str] = Query(None),
+    exclure_niveau_actuel: bool = Query(True),
     current_user: User = Depends(get_current_user)
 ):
-    niveau = niveau.lower()
-    ordres_niveaux = ['6e', '5e', '4e', '3e', '2nde', '1ere', 'tle']
+    """
+    Génère un test diagnostique.
 
-    if niveau not in ordres_niveaux:
-        raise HTTPException(status_code=400, detail="Niveau invalide")
+    Les choix sont mélangés avant d'être envoyés
+    au frontend.
 
-    niveau_index = ordres_niveaux.index(niveau)
+    La position réelle de la bonne réponse est sauvegardée
+    dans bonne_reponse_lettre.
 
-    # Déterminer les niveaux à inclure
-    niveaux_a_inclure = ordres_niveaux[:niveau_index + 1]
+    Les questions exactes du test sont également sauvegardées
+    afin que l'évaluation utilise exactement le même ordre
+    que celui présenté à l'apprenant.
+    """
 
-    # Filtrage des questions
+    # ========================================================
+    # 1. NORMALISATION
+    # ========================================================
+
+    niveau = normalize_niveau(niveau)
+    matiere = normalize_matiere(matiere)
+    serie = normalize_serie(serie)
+
+    print("\n" + "=" * 80)
+    print("🧠 GÉNÉRATION TEST DIAGNOSTIQUE")
+    print("=" * 80)
+    print("📚 Matière :", matiere)
+    print("🎓 Niveau actuel :", niveau)
+    print("📖 Série :", serie)
+    print("👤 Utilisateur :", current_user.id)
+
+    # ========================================================
+    # 2. VÉRIFICATION DU NIVEAU
+    # ========================================================
+
+    if niveau not in NIVEAUX_ORDRE:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Niveau invalide : {niveau}"
+        )
+
+    # ========================================================
+    # 3. VÉRIFICATION DE LA SÉRIE
+    # ========================================================
+
+    if niveau in NIVEAUX_COLLEGE:
+        serie = "none"
+
+    elif niveau in NIVEAUX_LYCEE:
+
+        if serie == "none":
+            raise HTTPException(
+                status_code=400,
+                detail=f"La série est obligatoire pour le niveau {niveau}."
+            )
+
+    # ========================================================
+    # 4. NIVEAUX À ÉVALUER
+    # ========================================================
+
+    niveaux_a_inclure = niveaux_diagnostiques(niveau)
+
+    if not exclure_niveau_actuel:
+
+        index = NIVEAUX_ORDRE.index(niveau)
+
+        niveaux_a_inclure = NIVEAUX_ORDRE[:index + 1]
+
+    print(
+        "📚 Niveaux diagnostiques :",
+        niveaux_a_inclure
+    )
+
+    # ========================================================
+    # 5. FILTRAGE DES QUESTIONS
+    # ========================================================
+
     filtered = []
+
     for q in questions:
-        q_niveau = q.get("niveau", "").strip().lower()
-        q_serie = q.get("serie", None)
-        if q_niveau in ['6e','5e','4e','3e']:  # Collège
-            if q_niveau in niveaux_a_inclure:
-                filtered.append(q)
-        else:  # Lycée
-            if serie is None:
-                raise HTTPException(status_code=400, detail="La série est obligatoire pour le lycée")
-            if q_niveau in niveaux_a_inclure and q_serie and q_serie.upper() == serie.upper():
-                filtered.append(q)
 
-    if not filtered:
-        raise HTTPException(status_code=404, detail="Aucune question disponible pour ce niveau/serie")
+        # Matière
+        if not question_matiere_correspond(
+            q,
+            matiere
+        ):
+            continue
 
-    # Limiter à 20 questions au total, aléatoires
-    nb_questions = min(20, len(filtered))
-    questions_posees = random.sample(filtered, nb_questions)
-
-    # Créer test_id et sauvegarder
-    test_id = str(uuid.uuid4())
-    sauvegarder_test({
-        "test_id": test_id,
-        "user_id": current_user.id,
-        "niveau": niveau,
-        "serie": serie,
-        "questions_ids": [q["id"] for q in questions_posees],
-        "date": datetime.now().isoformat()
-    })
-
-    return {"test_id": test_id, "questions": questions_posees}
-
-
-
-
-
-@app.post(
-    "/api/questions/{niveau}/resultats",
-    response_model=ResultatTest
-)
-def evaluer_test_par_niveau(
-    niveau: str,
-    payload: ReponsesModel,
-    test_id: str = Query(...),
-    current_user: User = Depends(get_current_user)
-):
-    print("\n")
-    print("================================================")
-    print("🚀 ÉVALUATION DU TEST")
-    print("================================================")
-
-    # --------------------------------------------------
-    # 1. RÉCUPÉRATION DU TEST
-    # --------------------------------------------------
-
-    test_data = charger_test(test_id)
-
-    print("🆔 TEST ID :", test_id)
-    print("📦 TEST DATA :", test_data)
-
-    if not test_data:
-        raise HTTPException(
-            404,
-            detail="Test introuvable"
+        # Niveau
+        q_niveau = normalize_niveau(
+            q.get("niveau")
         )
 
-    if test_data["user_id"] != current_user.id:
-        raise HTTPException(
-            404,
-            detail="Test introuvable ou non autorisé"
-        )
+        if q_niveau not in niveaux_a_inclure:
+            continue
 
-    # --------------------------------------------------
-    # 2. RÉCUPÉRATION DES RÉPONSES DE L'ÉLÈVE
-    # --------------------------------------------------
+        # ----------------------------------------------------
+        # COLLÈGE
+        # ----------------------------------------------------
 
-    reponses = {
-        str(r.id): r.reponse
-        for r in payload.resultats
-    }
+        if q_niveau in NIVEAUX_COLLEGE:
 
-    print("📥 RÉPONSES REÇUES :", reponses)
+            filtered.append(q)
 
-    # --------------------------------------------------
-    # 3. QUESTIONS DISPONIBLES
-    # --------------------------------------------------
+            continue
 
-    print("📚 NOMBRE QUESTIONS GLOBAL :", len(questions))
+        # ----------------------------------------------------
+        # LYCÉE
+        # ----------------------------------------------------
 
-    print(
-        "📚 IDS QUESTIONS GLOBAL :",
-        [str(q["id"]) for q in questions]
-    )
+        if q_niveau in NIVEAUX_LYCEE:
 
-    # --------------------------------------------------
-    # 4. QUESTIONS DU TEST
-    # --------------------------------------------------
+            if serie == "none":
+                continue
 
-    questions_test = test_data.get("questions")
+            if not question_serie_contient(
+                q.get("serie"),
+                serie
+            ):
+                continue
 
-    print("📝 QUESTIONS DU TEST :", questions_test)
+            filtered.append(q)
 
-    if questions_test is None:
-        print(
-            "⚠️ Le test sauvegardé ne contient pas de clé 'questions'."
-        )
-
-        # Si ton architecture utilise encore la variable globale
-        questions_test = questions
+    # ========================================================
+    # 6. DEBUG
+    # ========================================================
 
     print(
-        "📚 NOMBRE QUESTIONS TEST :",
-        len(questions_test)
-    )
-
-    print(
-        "📚 IDS QUESTIONS TEST :",
-        [str(q["id"]) for q in questions_test]
-    )
-
-    # --------------------------------------------------
-    # 5. FILTRAGE PAR IDS
-    # --------------------------------------------------
-
-    questions_ids = {
-        str(qid)
-        for qid in test_data.get("questions_ids", [])
-}
-
-    filtered = [
-        q
-        for q in questions
-        if str(q["id"]) in questions_ids
-        and str(q["id"]) in reponses
-]
-
-    print("🎯 FILTERED :", filtered)
-
-    print(
-        "🎯 NOMBRE FILTERED :",
+        "📊 Nombre total de questions trouvées :",
         len(filtered)
     )
 
-    # --------------------------------------------------
-    # 6. AUCUNE QUESTION
-    # --------------------------------------------------
-
-    if not filtered:
-        print("❌ AUCUNE QUESTION CORRESPONDANTE")
-
-        raise HTTPException(
-            404,
-            detail="Aucune question valide dans ce test"
-        )
-
-    # --------------------------------------------------
-    # 7. CONSTRUCTION DES QUESTIONS DE REMÉDIATION
-    # --------------------------------------------------
-
-    questions_remediation = []
+    repartition = defaultdict(int)
 
     for q in filtered:
 
-        question_id = str(q["id"])
-
-        reponse_apprenant = reponses.get(question_id)
-
-        bonne_reponse = q.get("bonne_reponse")
-
-        correcte = (
-            reponse_apprenant is not None
-            and bonne_reponse is not None
-            and str(reponse_apprenant).strip().lower()
-            ==
-            str(bonne_reponse).strip().lower()
+        q_niveau = normalize_niveau(
+            q.get("niveau")
         )
 
-        question_remediation = {
-            "id": question_id,
-            "question": q.get("question"),
-            "classe": q.get("niveau"),
-            "choix": q.get("choix", []),
-            "correcte": correcte,
-            "bonne_reponse": bonne_reponse,
-            "reponse_apprenant": reponse_apprenant,
-            "enseignant": q.get("enseignant"),
-            "notion": q.get("notion"),
-            "situation": q.get("situation"),
-        }
+        repartition[q_niveau] += 1
 
-        questions_remediation.append(
-            question_remediation
-        )
-
-    # --------------------------------------------------
-    # 8. DEBUG FINAL
-    # --------------------------------------------------
-
-    print("================================================")
-    print("📚 QUESTIONS REMEDIATION")
     print(
-        "📚 NOMBRE :",
+        "📊 Répartition par niveau :",
+        dict(repartition)
+    )
+
+    # ========================================================
+    # 7. AUCUNE QUESTION
+    # ========================================================
+
+    if not filtered:
+
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                "Aucune question disponible "
+                f"pour la matière '{matiere}', "
+                f"le niveau '{niveau}', "
+                f"la série '{serie}', "
+                f"et les niveaux diagnostiques "
+                f"{niveaux_a_inclure}."
+            )
+        )
+
+    # ========================================================
+    # 8. COPIE + MÉLANGE DES QUESTIONS
+    # ========================================================
+
+    questions_disponibles = []
+
+    lettres = ["a", "b", "c", "d", "e"]
+
+    for q in filtered:
+
+        q_copy = dict(q)
+
+        choix = q_copy.get("choix")
+
+        if isinstance(choix, list):
+
+            # Texte original de la bonne réponse
+            bonne_reponse_texte = q_copy.get(
+                "bonne_reponse"
+            )
+
+            # Copie indépendante des choix
+            choix_melanges = list(choix)
+
+            # Mélange
+            random.shuffle(choix_melanges)
+
+            # Recherche de la nouvelle position
+            # de la bonne réponse
+            bonne_reponse_lettre = None
+
+            if bonne_reponse_texte is not None:
+
+                for index, choix_actuel in enumerate(
+                    choix_melanges
+                ):
+
+                    if normalize_text(
+                        choix_actuel
+                    ) == normalize_text(
+                        bonne_reponse_texte
+                    ):
+
+                        if index < len(lettres):
+                            bonne_reponse_lettre = lettres[index]
+
+                        break
+
+            # On conserve les choix mélangés
+            q_copy["choix"] = choix_melanges
+
+            # On conserve le texte original
+            q_copy["bonne_reponse"] = bonne_reponse_texte
+
+            # On ajoute la lettre correspondant
+            # à la position après mélange
+            q_copy["bonne_reponse_lettre"] = (
+                bonne_reponse_lettre
+            )
+
+        # Durée
+        q_copy["duree"] = q_copy.get(
+            "duration",
+            q_copy.get(
+                "duree",
+                60
+            )
+        )
+
+        questions_disponibles.append(
+            q_copy
+        )
+
+    # ========================================================
+    # 9. LIMITER À 20 QUESTIONS
+    # ========================================================
+
+    nb_questions = min(
+        20,
+        len(questions_disponibles)
+    )
+
+    questions_posees = random.sample(
+        questions_disponibles,
+        nb_questions
+    )
+
+    # ========================================================
+    # 10. CRÉATION DU TEST ID
+    # ========================================================
+
+    test_id = str(uuid.uuid4())
+
+    # ========================================================
+    # 11. SAUVEGARDE DU TEST EXACT
+    # ========================================================
+
+    sauvegarder_test(
+        {
+            "test_id": test_id,
+            "user_id": current_user.id,
+            "matiere": matiere,
+            "niveau": niveau,
+            "serie": serie,
+            "niveaux_evalues": niveaux_a_inclure,
+            "exclure_niveau_actuel": exclure_niveau_actuel,
+
+            "questions_ids": [
+                q["id"]
+                for q in questions_posees
+            ],
+
+            # IMPORTANT :
+            # on sauvegarde les questions exactement
+            # comme elles ont été présentées.
+            "questions": questions_posees,
+
+            "date": datetime.now().isoformat(),
+        }
+    )
+
+    # ========================================================
+    # 12. DEBUG FINAL
+    # ========================================================
+
+    print("\n🆔 Test ID :", test_id)
+    print(
+        "📝 Nombre de questions :",
+        len(questions_posees)
+    )
+    print(
+        "📚 Niveaux évalués :",
+        niveaux_a_inclure
+    )
+
+    # Vérification de quelques questions
+    for q in questions_posees[:3]:
+
+        print(
+            "🧪 QUESTION :",
+            q.get("id")
+        )
+
+        print(
+            "   Bonne réponse :",
+            q.get("bonne_reponse")
+        )
+
+        print(
+            "   Lettre correcte :",
+            q.get("bonne_reponse_lettre")
+        )
+
+        print(
+            "   Choix :",
+            q.get("choix")
+        )
+
+    print("=" * 80)
+
+    # ========================================================
+    # 13. RÉPONSE AU FRONTEND
+    # ========================================================
+
+    return {
+        "test_id": test_id,
+        "matiere": matiere,
+        "niveau": niveau,
+        "serie": serie,
+        "niveaux_evalues": niveaux_a_inclure,
+        "questions": questions_posees,
+    }
+
+# ============================================================
+# SOUMISSION ET ÉVALUATION D'UN TEST DIAGNOSTIQUE
+# ============================================================
+
+@app.post("/api/questions/{niveau}/resultats")
+def evaluer_test_par_niveau(
+    niveau: str,
+    data: ReponsesModel,
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Évalue exactement le test diagnostique qui a été généré
+    pour l'apprenant.
+
+    PRINCIPES :
+
+    1. Le test est identifié par test_id.
+    2. Les questions utilisées sont celles sauvegardées
+       lors de la génération du test.
+    3. Le backend ne refiltre PAS les questions.
+    4. Chaque réponse peut être envoyée :
+       - sous forme de lettre : a, b, c, d, e
+       - sous forme de texte.
+    5. La correction utilise prioritairement :
+       - bonne_reponse_lettre
+       - puis bonne_reponse texte.
+    6. La note est calculée sur le nombre exact
+       de questions présentées.
+    """
+
+    print("\n")
+    print("=" * 100)
+    print("📝 ÉVALUATION DU TEST DIAGNOSTIQUE")
+    print("=" * 100)
+
+    # ========================================================
+    # 1. NORMALISATION DES INFORMATIONS REÇUES
+    # ========================================================
+
+    niveau = normalize_niveau(niveau)
+    matiere = normalize_matiere(data.matiere)
+    serie = normalize_serie(data.serie)
+
+    print("📚 Matière reçue :", matiere)
+    print("🎓 Niveau reçu   :", niveau)
+    print("📖 Série reçue   :", serie)
+    print("🆔 Test ID       :", data.test_id)
+    print("👤 Utilisateur   :", current_user.id)
+
+    # ========================================================
+    # 2. CHARGEMENT DU TEST
+    # ========================================================
+
+    try:
+        test = charger_test(data.test_id)
+
+    except Exception as e:
+
+        print(
+            "❌ Erreur lors du chargement du test :",
+            repr(e)
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail="Erreur lors du chargement du test."
+        )
+
+    if not test:
+
+        print("❌ Test introuvable.")
+
+        raise HTTPException(
+            status_code=404,
+            detail="Test introuvable ou expiré."
+        )
+
+    print("✅ Test chargé.")
+
+    # ========================================================
+    # 3. VÉRIFICATION DE PROPRIÉTÉ DU TEST
+    # ========================================================
+
+    test_user_id = test.get("user_id")
+
+    if (
+        test_user_id is not None
+        and str(test_user_id) != str(current_user.id)
+    ):
+
+        print(
+            "🚫 Le test appartient à un autre utilisateur."
+        )
+
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                "Ce test n'appartient pas "
+                "à cet utilisateur."
+            )
+        )
+
+    # ========================================================
+    # 4. RÉCUPÉRATION DES QUESTIONS EXACTES
+    # ========================================================
+
+    questions_test = test.get("questions", [])
+
+    if not isinstance(questions_test, list):
+        raise HTTPException(
+            status_code=400,
+            detail="Les questions du test sont invalides."
+        )
+
+    if not questions_test:
+        raise HTTPException(
+            status_code=400,
+            detail="Le test ne contient aucune question."
+        )
+
+    nombre_questions = len(questions_test)
+
+    print(
+        "📊 Nombre de questions du test :",
+        nombre_questions
+    )
+
+    # ========================================================
+    # 5. VÉRIFICATION DE LA MATIÈRE
+    # ========================================================
+
+    test_matiere = normalize_matiere(
+        test.get("matiere")
+    )
+
+    if test_matiere and test_matiere != matiere:
+
+        print(
+            "⚠️ Matière différente."
+        )
+
+        print(
+            "   Matière sauvegardée :",
+            test_matiere
+        )
+
+        print(
+            "   Matière reçue :",
+            matiere
+        )
+
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "La matière envoyée ne correspond "
+                "pas à celle du test."
+            )
+        )
+
+    # ========================================================
+    # 6. VÉRIFICATION DU NIVEAU
+    # ========================================================
+
+    test_niveau = normalize_niveau(
+        test.get("niveau")
+    )
+
+    if test_niveau and test_niveau != niveau:
+
+        print(
+            "⚠️ Niveau différent."
+        )
+
+        print(
+            "   Niveau sauvegardé :",
+            test_niveau
+        )
+
+        print(
+            "   Niveau reçu :",
+            niveau
+        )
+
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Le niveau envoyé ne correspond "
+                "pas à celui du test."
+            )
+        )
+
+    # ========================================================
+    # 7. CONSTRUCTION DES RÉPONSES DE L'APPRENANT
+    # ========================================================
+
+    reponses_apprenant = {}
+
+    print("\n")
+    print("📥 RÉPONSES REÇUES DU FRONTEND")
+    print("-" * 100)
+
+    for r in data.resultats:
+
+        q_id = str(r.id).strip()
+
+        reponse = (
+            ""
+            if r.reponse is None
+            else str(r.reponse).strip()
+        )
+
+        # ----------------------------------------------------
+        # Détection d'un doublon
+        # ----------------------------------------------------
+
+        if q_id in reponses_apprenant:
+
+            print(
+                f"⚠️ Doublon détecté pour la question {q_id}."
+            )
+
+        reponses_apprenant[q_id] = reponse
+
+        print(
+            f"   Question {q_id} -> {reponse!r}"
+        )
+
+    print("-" * 100)
+
+    nombre_reponses_recues = len(
+        reponses_apprenant
+    )
+
+    print(
+        "📥 Nombre de réponses reçues :",
+        nombre_reponses_recues
+    )
+
+    # ========================================================
+    # 8. INDEX DES QUESTIONS
+    # ========================================================
+
+    questions_par_id = {}
+
+    for q in questions_test:
+
+        q_id = str(
+            q.get("id")
+        ).strip()
+
+        if not q_id:
+            print(
+                "🚨 Question sans ID détectée :",
+                q
+            )
+            continue
+
+        if q_id in questions_par_id:
+
+            print(
+                "🚨 DOUBLON D'ID DANS LE TEST :",
+                q_id
+            )
+
+            raise HTTPException(
+                status_code=500,
+                detail=(
+                    f"L'identifiant de question "
+                    f"{q_id} est présent plusieurs fois "
+                    f"dans le test."
+                )
+            )
+
+        questions_par_id[q_id] = q
+
+    # ========================================================
+    # 9. FONCTION DE NORMALISATION DES RÉPONSES
+    # ========================================================
+
+    def normaliser_reponse(
+        valeur: Optional[str]
+    ) -> str:
+
+        if valeur is None:
+            return ""
+
+        return normalize_text(
+            str(valeur)
+        )
+
+    # ========================================================
+    # 10. FONCTION DE CORRECTION
+    # ========================================================
+
+    def reponse_est_correcte(
+        reponse_apprenant: Optional[str],
+        bonne_reponse_lettre: Optional[str],
+        bonne_reponse_texte: Optional[str],
+        choix: Optional[List[str]]
+    ) -> tuple[bool, str]:
+
+        """
+        Retourne :
+
+            (True, "lettre")
+            (True, "texte")
+            (False, "aucune")
+        """
+
+        if (
+            reponse_apprenant is None
+            or not str(reponse_apprenant).strip()
+        ):
+            return False, "aucune"
+
+        reponse = normaliser_reponse(
+            reponse_apprenant
+        )
+
+        # ----------------------------------------------------
+        # A. Comparaison par lettre
+        # ----------------------------------------------------
+
+        if bonne_reponse_lettre:
+
+            lettre_correcte = normaliser_reponse(
+                bonne_reponse_lettre
+            )
+
+            if reponse == lettre_correcte:
+
+                return True, "lettre"
+
+        # ----------------------------------------------------
+        # B. Comparaison par texte
+        # ----------------------------------------------------
+
+        if bonne_reponse_texte:
+
+            texte_correct = normaliser_reponse(
+                bonne_reponse_texte
+            )
+
+            if reponse == texte_correct:
+
+                return True, "texte"
+
+        # ----------------------------------------------------
+        # C. Sécurité supplémentaire :
+        #
+        # Si le frontend envoie le texte d'une proposition,
+        # on recherche cette proposition dans les choix.
+        # ----------------------------------------------------
+
+        if isinstance(choix, list):
+
+            for choix_item in choix:
+
+                if choix_item is None:
+                    continue
+
+                choix_normalise = normaliser_reponse(
+                    choix_item
+                )
+
+                if (
+                    reponse == choix_normalise
+                    and bonne_reponse_texte
+                    and choix_normalise
+                    == normaliser_reponse(
+                        bonne_reponse_texte
+                    )
+                ):
+
+                    return True, "texte_choix"
+
+        return False, "aucune"
+
+    # ========================================================
+    # 11. ÉVALUATION QUESTION PAR QUESTION
+    # ========================================================
+
+    nombre_correctes = 0
+
+    notions_non_acquises = []
+
+    questions_remediation = []
+
+    print("\n")
+    print("=" * 100)
+    print("🔎 CORRECTION QUESTION PAR QUESTION")
+    print("=" * 100)
+
+    for index, q in enumerate(
+        questions_test,
+        start=1
+    ):
+
+        q_id = str(
+            q.get("id")
+        ).strip()
+
+        question_text = q.get(
+            "question",
+            ""
+        )
+
+        choix = q.get(
+            "choix",
+            []
+        )
+
+        bonne_reponse_texte = q.get(
+            "bonne_reponse"
+        )
+
+        bonne_reponse_lettre = q.get(
+            "bonne_reponse_lettre"
+        )
+
+        reponse_apprenant = (
+            reponses_apprenant.get(q_id)
+        )
+
+        # ----------------------------------------------------
+        # DEBUG
+        # ----------------------------------------------------
+
+        print("\n")
+        print("-" * 100)
+
+        print(
+            f"QUESTION {index}/{nombre_questions}"
+        )
+
+        print(
+            "🆔 ID :",
+            q_id
+        )
+
+        print(
+            "❓ Question :",
+            question_text
+        )
+
+        print(
+            "📥 Réponse apprenant :",
+            repr(reponse_apprenant)
+        )
+
+        print(
+            "✅ Bonne réponse texte :",
+            repr(bonne_reponse_texte)
+        )
+
+        print(
+            "🔤 Bonne réponse lettre :",
+            repr(bonne_reponse_lettre)
+        )
+
+        print(
+            "🔀 Choix :",
+            choix
+        )
+
+        # ----------------------------------------------------
+        # CONTRÔLE DE LA BONNE RÉPONSE
+        # ----------------------------------------------------
+
+        if (
+            not bonne_reponse_texte
+            and not bonne_reponse_lettre
+        ):
+
+            print(
+                "🚨 AUCUNE BONNE RÉPONSE ENREGISTRÉE"
+            )
+
+            correcte = False
+            methode_correction = "erreur_donnees"
+
+        else:
+
+            (
+                correcte,
+                methode_correction
+            ) = reponse_est_correcte(
+                reponse_apprenant,
+                bonne_reponse_lettre,
+                bonne_reponse_texte,
+                choix
+            )
+
+        # ----------------------------------------------------
+        # QUESTION CORRECTE
+        # ----------------------------------------------------
+
+        if correcte:
+
+            nombre_correctes += 1
+
+            print(
+                "✅ CORRECT"
+            )
+
+            print(
+                "🔎 Méthode :",
+                methode_correction
+            )
+
+        # ----------------------------------------------------
+        # QUESTION INCORRECTE
+        # ----------------------------------------------------
+
+        else:
+
+            print(
+                "❌ INCORRECT"
+            )
+
+            if reponse_apprenant is None:
+                print(
+                    "⚠️ Aucune réponse reçue "
+                    "pour cette question."
+                )
+
+            notion = q.get(
+                "notion",
+                "Notion non précisée"
+            )
+
+            if notion not in notions_non_acquises:
+
+                notions_non_acquises.append(
+                    notion
+                )
+
+            questions_remediation.append(
+                {
+                    "id": q_id,
+
+                    "question": q.get(
+                        "question",
+                        ""
+                    ),
+
+                    "classe": q.get(
+                        "niveau"
+                    ),
+
+                    "choix": q.get(
+                        "choix",
+                        []
+                    ),
+
+                    "correcte": False,
+
+                    "bonne_reponse":
+                        bonne_reponse_texte,
+
+                    "reponse_apprenant":
+                        reponse_apprenant,
+
+                    "notion":
+                        notion,
+
+                    "situation":
+                        q.get(
+                            "situation"
+                        ),
+
+                    "enseignant":
+                        q.get(
+                            "enseignant"
+                        ),
+
+                    "matiere":
+                        q.get(
+                            "matiere"
+                        ),
+
+                    "serie":
+                        q.get(
+                            "serie"
+                        ),
+                }
+            )
+
+    # ========================================================
+    # 12. CALCUL DE LA NOTE
+    # ========================================================
+
+    if nombre_questions > 0:
+
+        note_exacte = (
+            nombre_correctes
+            / nombre_questions
+        ) * 20
+
+        note = round(
+            note_exacte
+        )
+
+    else:
+
+        note_exacte = 0.0
+        note = 0
+
+    mention = get_mention(
+        note
+    )
+
+    nombre_erreurs = (
+        nombre_questions
+        - nombre_correctes
+    )
+
+    # ========================================================
+    # 13. CONTRÔLES DE COHÉRENCE
+    # ========================================================
+
+    print("\n")
+    print("=" * 100)
+    print("📊 RÉSULTAT FINAL")
+    print("=" * 100)
+
+    print(
+        "📝 Questions :",
+        nombre_questions
+    )
+
+    print(
+        "📥 Réponses reçues :",
+        nombre_reponses_recues
+    )
+
+    print(
+        "✅ Bonnes réponses :",
+        nombre_correctes
+    )
+
+    print(
+        "❌ Mauvaises réponses :",
+        nombre_erreurs
+    )
+
+    print(
+        "📐 Note exacte :",
+        round(note_exacte, 4),
+        "/20"
+    )
+
+    print(
+        "🎯 Note finale :",
+        note,
+        "/20"
+    )
+
+    print(
+        "🏆 Mention :",
+        mention
+    )
+
+    print(
+        "📚 Notions non acquises :",
+        notions_non_acquises
+    )
+
+    print(
+        "🎥 Questions de remédiation :",
         len(questions_remediation)
     )
-    print(
-        "📚 DONNÉES :",
-        questions_remediation
-    )
-    print("================================================")
 
-    # --------------------------------------------------
-    # 9. ÉVALUATION
-    # --------------------------------------------------
+    # --------------------------------------------------------
+    # Vérification mathématique
+    # --------------------------------------------------------
 
-    note, mention, non_acquises = evaluer_reponses(
-        filtered,
-        reponses
-    )
+    if (
+        nombre_correctes
+        + nombre_erreurs
+        != nombre_questions
+    ):
 
-    # --------------------------------------------------
-    # 10. SAUVEGARDE
-    # --------------------------------------------------
-    print("\n")
-    print("=" * 80)
-    print("🔎 DEBUG AVANT SAUVEGARDE DU RÉSULTAT")
-    print("=" * 80)
+        print(
+            "🚨 ERREUR DE COHÉRENCE DU CALCUL"
+        )
 
-    print("📌 Nombre de questions de remédiation :",
-      len(questions_remediation))
-
-    print("📌 Type de questions_remediation :",
-      type(questions_remediation))
-
-    print("📌 questions_remediation :")
-    print(questions_remediation)
-
-    print("-" * 80)
-
-    for i, qr in enumerate(questions_remediation, start=1):
-        print(f"📝 QUESTION DE REMÉDIATION #{i}")
-        print("   id                  :", qr.get("id"))
-        print("   question            :", qr.get("question"))
-        print("   classe              :", qr.get("classe"))
-        print("   choix               :", qr.get("choix"))
-        print("   correcte            :", qr.get("correcte"))
-        print("   bonne_reponse       :", qr.get("bonne_reponse"))
-        print("   reponse_apprenant   :", qr.get("reponse_apprenant"))
-        print("   notion              :", qr.get("notion"))
-        print("   situation           :", qr.get("situation"))
-        print("-" * 80)
-
-        print("📚 Notions non acquises :", non_acquises)
-
-        print("=" * 80)
-        print("💾 SAUVEGARDE EN COURS...")
-        print("=" * 80)
-
-    sauvegarder_resultat({
-        "user_id": current_user.id,
-        "niveau": test_data["niveau"],
-        "serie": test_data["serie"],
-        "note": note,
-        "mention": mention,
-        "nbQuestions": len(filtered),
-        "nbBonnesReponses": sum(
-            1
-            for q in filtered
-            if (
-                str(q["id"]) in reponses
-                and
-                str(q["bonne_reponse"]).strip().lower()
-                ==
-                str(reponses[str(q["id"])]).strip().lower()
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Erreur interne dans le calcul "
+                "du résultat."
             )
-        ),
-        "notionsNonAcquises": non_acquises,
-        "questionsRemediation": questions_remediation,
-        "date": datetime.now().isoformat()
-    })
+        )
 
-    # --------------------------------------------------
-    # 11. SUPPRESSION DU TEST TEMPORAIRE
-    # --------------------------------------------------
-
-    supprimer_test(test_id)
-
-    # --------------------------------------------------
-    # 12. RÉPONSE
-    # --------------------------------------------------
-
-    resultat = ResultatTest(
-        note=note,
-        mention=mention,
-        notionsNonAcquises=non_acquises,
-        questionsRemediation=questions_remediation
+    print(
+        "✅ Vérification mathématique :",
+        nombre_correctes,
+        "+",
+        nombre_erreurs,
+        "=",
+        nombre_questions
     )
 
-    print("================================================")
-    print("📤 RÉPONSE FINALE")
-    print("📤 RESULTAT :", resultat)
-    print("📤 QUESTIONS REMEDIATION :", resultat.questionsRemediation)
-    print("================================================")
+    # --------------------------------------------------------
+    # Vérification des questions sans réponse
+    # --------------------------------------------------------
 
-    return resultat
+    questions_sans_reponse = []
 
-@app.get("/api/resultats/dernier", response_model=ResultatTest)
+    for q in questions_test:
+
+        q_id = str(
+            q.get("id")
+        ).strip()
+
+        if q_id not in reponses_apprenant:
+
+            questions_sans_reponse.append(
+                q_id
+            )
+
+    if questions_sans_reponse:
+
+        print(
+            "⚠️ Questions sans réponse :",
+            questions_sans_reponse
+        )
+
+    # ========================================================
+    # 14. CONSTRUCTION DU RÉSULTAT
+    # ========================================================
+
+    resultat = {
+
+        "user_id":
+            current_user.id,
+
+        "test_id":
+            data.test_id,
+
+        "matiere":
+            matiere,
+
+        "niveau":
+            niveau,
+
+        "serie":
+            serie,
+
+        "note":
+            note,
+
+        "note_exacte":
+            round(
+                note_exacte,
+                4
+            ),
+
+        "mention":
+            mention,
+
+        "nombre_questions":
+            nombre_questions,
+
+        "nombre_correctes":
+            nombre_correctes,
+
+        "nombre_erreurs":
+            nombre_erreurs,
+
+        "nombre_reponses_recues":
+            nombre_reponses_recues,
+
+        "questions_sans_reponse":
+            questions_sans_reponse,
+
+        "notionsNonAcquises":
+            notions_non_acquises,
+
+        "questionsRemediation":
+            questions_remediation,
+
+        "date":
+            datetime.now().isoformat(),
+    }
+
+    # ========================================================
+    # 15. SAUVEGARDE
+    # ========================================================
+
+    try:
+
+        sauvegarder_resultat(
+            resultat
+        )
+
+        print(
+            "💾 Résultat sauvegardé avec succès."
+        )
+
+    except Exception as e:
+
+        print(
+            "🚨 Erreur lors de la sauvegarde :",
+            repr(e)
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Le test a été corrigé mais "
+                "le résultat n'a pas pu être sauvegardé."
+            )
+        )
+
+    # ========================================================
+    # 16. RÉPONSE AU FRONTEND
+    # ========================================================
+
+    print("=" * 100)
+    print("✅ ÉVALUATION TERMINÉE")
+    print("=" * 100)
+
+    return {
+
+        "matiere":
+            matiere,
+
+        "niveau":
+            niveau,
+
+        "serie":
+            serie,
+
+        "note":
+            note,
+
+        "note_exacte":
+            round(
+                note_exacte,
+                4
+            ),
+
+        "mention":
+            mention,
+
+        "notionsNonAcquises":
+            notions_non_acquises,
+
+        "questionsRemediation":
+            questions_remediation,
+
+        "nombre_questions":
+            nombre_questions,
+
+        "nombre_correctes":
+            nombre_correctes,
+
+        "nombre_erreurs":
+            nombre_erreurs,
+
+        "nombre_reponses_recues":
+            nombre_reponses_recues,
+
+        "questions_sans_reponse":
+            questions_sans_reponse,
+
+        "test_id":
+            data.test_id,
+    }
+
+@app.get(
+    "/api/resultats/dernier",
+    response_model=ResultatTest
+)
 def get_last_result(
     niveau: str,
+    matiere: Optional[str] = Query(None),
     serie: Optional[str] = Query(None),
     current_user: User = Depends(get_current_user)
 ):
     if not os.path.exists(RESULTATS_FILE):
-        raise HTTPException(404, "Aucun résultat trouvé.")
+        raise HTTPException(
+            status_code=404,
+            detail="Aucun résultat trouvé."
+        )
 
-    with open(RESULTATS_FILE, "r", encoding="utf-8") as f:
+    with open(
+        RESULTATS_FILE,
+        "r",
+        encoding="utf-8"
+    ) as f:
         historiques = json.load(f)
 
-    niveau = niveau.lower()
-    serie = serie.lower() if serie else None
+    niveau = normalize_niveau(niveau)
+
+    matiere = (
+        normalize_matiere(matiere)
+        if matiere
+        else None
+    )
+
+    serie = normalize_serie(serie)
+
     user_id = current_user.id
 
-    # Filtrer les résultats avec flexibilité sur serie
-    def serie_eq(r_serie, query_serie):
-        if query_serie is None:
-            return r_serie is None or r_serie == ""
-        return (r_serie or "").lower() == query_serie
+    # ========================================================
+    # FILTRAGE
+    # ========================================================
 
-    filtres = [
-        r for r in historiques
-        if r.get("user_id") == user_id
-        and r.get("niveau", "").lower() == niveau
-        and serie_eq(r.get("serie"), serie)
-    ]
+    filtres = []
+
+    for r in historiques:
+
+        # Utilisateur
+        if r.get("user_id") != user_id:
+            continue
+
+        # Niveau
+        if normalize_niveau(
+            r.get("niveau")
+        ) != niveau:
+            continue
+
+        # Matière
+        if matiere is not None:
+
+            if normalize_matiere(
+                r.get("matiere")
+            ) != matiere:
+                continue
+
+        # Série
+        if normalize_serie(
+            r.get("serie")
+        ) != serie:
+            continue
+
+        filtres.append(r)
+
+    # ========================================================
+    # AUCUN RÉSULTAT
+    # ========================================================
 
     if not filtres:
-        raise HTTPException(404, "Aucun résultat trouvé pour ce niveau et cette série.")
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                "Aucun résultat trouvé pour "
+                f"la matière '{matiere}', "
+                f"le niveau '{niveau}' "
+                f"et la série '{serie}'."
+            )
+        )
 
-    # Trier par date (le plus récent en premier)
-    filtres.sort(key=lambda r: datetime.fromisoformat(r["date"]), reverse=True)
+    # ========================================================
+    # PLUS RÉCENT
+    # ========================================================
+
+    filtres.sort(
+        key=lambda r: datetime.fromisoformat(
+            r["date"]
+        ),
+        reverse=True
+    )
+
     dernier = filtres[0]
 
     return ResultatTest(
+        matiere=dernier.get("matiere"),
+
+        niveau=dernier.get("niveau"),
+
+        serie=dernier.get("serie"),
+
         note=dernier["note"],
+
         mention=dernier["mention"],
-        notionsNonAcquises=dernier["notionsNonAcquises"],
-        questionsRemediation=dernier.get("questionsRemediation",[])
-)
+
+        notionsNonAcquises=
+            dernier.get(
+                "notionsNonAcquises",
+                []
+            ),
+
+        questionsRemediation=
+            dernier.get(
+                "questionsRemediation",
+                []
+            ),
+    )
 
 async def send_email_with_pdf(to_email: str, pdf_path: str, nom_fichier: str):
     """

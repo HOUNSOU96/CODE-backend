@@ -121,7 +121,15 @@ async def send_email(
             headers=headers,
         )
 
-        response.raise_for_status()
+        if response.is_error:
+            print("\n" + "=" * 70)
+            print("❌ ERREUR BREVO")
+            print("=" * 70)
+            print("Statut HTTP :", response.status_code)
+            print("Réponse Brevo :", response.text)
+            print("=" * 70 + "\n")
+
+            response.raise_for_status()
 
         return response.json()
 
