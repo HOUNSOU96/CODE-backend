@@ -28,3 +28,8 @@ pdfs/Déo-Gratias Sèmako_HOUNSOU_6E.pdf
 pdfs/Déo-Gratias Sèmako_HOUNSOU_TLE A1.pdf
 pdfs/Déo-Gratias Sèmako_HOUNSOU_TLEG2.pdf
 pdfs/Déo-Gratias Sèmako_HOUNSOU_TLEG3.pdf
+# Environnement virtuel local Translation
+/translate_env/
+
+# Fichiers PDF personnels locaux
+/pdfs/
