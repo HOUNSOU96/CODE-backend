@@ -75,5 +75,19 @@ class User(Base):
 
     questions = relationship("UserQuestion", back_populates="user", cascade="all, delete-orphan")
 
+    school_memberships = relationship(
+        "SchoolMembership",
+        foreign_keys="SchoolMembership.user_id",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
+
+    school_directorships = relationship(
+        "SchoolDirector",
+        foreign_keys="SchoolDirector.user_id",
+        back_populates="director",
+        cascade="all, delete-orphan"
+    )
+
     def __repr__(self):
         return f"<User(id={self.id}, email={self.email}, status={self.status}, validated={self.is_validated})>"

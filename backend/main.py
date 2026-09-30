@@ -41,7 +41,7 @@ from routes.admin_dashboard import router as admin_dashboard_router
 from routes.question_messages import router as question_messages_router
 from routes.ia import router as ia_router
 from pydantic import BaseModel, ConfigDict, Field
-
+from routes.school import router as school_router
 
 
 # -------------------- Initialisation -------------------- #
@@ -292,6 +292,7 @@ app.include_router(admin_dashboard_router)
 app.include_router(question_messages_router)
 app.include_router(ia_router)
 
+app.include_router(school_router)
 # -------------------- Debug Middleware -------------------- #
 async def update_last_seen_in_db(user_id: int):
     db = next(get_db())

@@ -1,0 +1,113 @@
+nom,adresse,ville,departement,pays,type_enseignement,statut,is_active
+CEG Banikoara,,Banikoara,Alibori,Bénin,Secondaire général,Public,true
+CEG Toura,,Banikoara,Alibori,Bénin,Secondaire général,Public,true
+CEG Founougo,,Banikoara,Alibori,Bénin,Secondaire général,Public,true
+CEG Sompérékou,,Banikoara,Alibori,Bénin,Secondaire général,Public,true
+CEG Gomparou,,Banikoara,Alibori,Bénin,Secondaire général,Public,true
+CEG Goumori,,Banikoara,Alibori,Bénin,Secondaire général,Public,true
+CEG Gogounou,,Gogounou,Alibori,Bénin,Secondaire général,Public,true
+CEG Sori,,Gogounou,Alibori,Bénin,Secondaire général,Public,true
+CEG Bagou,,Gogounou,Alibori,Bénin,Secondaire général,Public,true
+CEG 1 Kandi,,Kandi,Alibori,Bénin,Secondaire général,Public,true
+CEG 2 Kandi,,Kandi,Alibori,Bénin,Secondaire général,Public,true
+CEG 3 Kandi,,Kandi,Alibori,Bénin,Secondaire général,Public,true
+CEG Angaradébou,,Kandi,Alibori,Bénin,Secondaire général,Public,true
+CEG Sonsoro,,Kandi,Alibori,Bénin,Secondaire général,Public,true
+CEG Malanville,,Malanville,Alibori,Bénin,Secondaire général,Public,true
+CEG Ségbana,,Ségbana,Alibori,Bénin,Secondaire général,Public,true
+CEG Sokotindji,,Ségbana,Alibori,Bénin,Secondaire général,Public,true
+CEG Liboussou,,Ségbana,Alibori,Bénin,Secondaire général,Public,true
+CEG La Verdure,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG Godomey,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG Akassato,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG Le Méridien,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG Le Plateau,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG Kpanroun,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG 1 Abomey-Calavi,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG 2 Abomey-Calavi,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG Cocotomey,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG 1 Golo-Djigbé,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG 2 Golo-Djigbé,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG Hêvié,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG Houéto,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+CEG Zinvié,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Public,true
+Lycée des Jeunes Filles,,Natitingou,Atacora,Bénin,Secondaire général,Public,true
+Lycée Mafry,,Abomey,Zou,Bénin,Secondaire général,Public,true
+Lycée Houffon,,Abomey,Zou,Bénin,Secondaire général,Public,true
+Lycée Technique de Natitingou,,Natitingou,Atacora,Bénin,Technique et professionnel,Public,true
+LTCI de Djougou,,Djougou,Donga,Bénin,Technique et professionnel,Public,true
+LTCI de Kandi,,Kandi,Alibori,Bénin,Technique et professionnel,Public,true
+Lycée Technique d'Ina,,Bembèrèkè,Borgou,Bénin,Technique et professionnel,Public,true
+Lycée Technique de Bohicon,,Bohicon,Zou,Bénin,Technique et professionnel,Public,true
+LTIT de Djakotomey,,Djakotomey,Couffo,Bénin,Technique et professionnel,Public,true
+LTP de Lokossa,,Lokossa,Mono,Bénin,Technique et professionnel,Public,true
+Lycée Technique de Ouidah,,Ouidah,Atlantique,Bénin,Technique et professionnel,Public,true
+LTP ASBA,,Abomey-Calavi,Atlantique,Bénin,Technique et professionnel,Public,true
+LTP EFS Akassato,,Abomey-Calavi,Atlantique,Bénin,Technique et professionnel,Public,true
+LTP Natitingou,,Natitingou,Atacora,Bénin,Technique et professionnel,Public,true
+LTP Djakotomey,,Djakotomey,Couffo,Bénin,Technique et professionnel,Public,true
+LTP Ina,,Bembèrèkè,Borgou,Bénin,Technique et professionnel,Public,true
+LTP Kandi,,Kandi,Alibori,Bénin,Technique et professionnel,Public,true
+LTP Kpondéhou,,Cotonou,Littoral,Bénin,Technique et professionnel,Public,true
+LTP Porto-Novo,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Public,true
+LTP Bohicon,,Bohicon,Zou,Bénin,Technique et professionnel,Public,true
+LTP Coulibaly,,Cotonou,Littoral,Bénin,Technique et professionnel,Public,true
+LTP Djougou,,Djougou,Donga,Bénin,Technique et professionnel,Public,true
+LTP Ouidah,,Ouidah,Atlantique,Bénin,Technique et professionnel,Public,true
+LTP Pobè,,Pobè,Plateau,Bénin,Technique et professionnel,Public,true
+LTP Tchaourou,,Tchaourou,Borgou,Bénin,Technique et professionnel,Public,true
+LTA Banikoara,,Banikoara,Alibori,Bénin,Technique agricole,Public,true
+LTA Ina,,Bembèrèkè,Borgou,Bénin,Technique agricole,Public,true
+LTA Natitingou,,Natitingou,Atacora,Bénin,Technique agricole,Public,true
+LTA Adja-Ouèrè,,Adja-Ouèrè,Plateau,Bénin,Technique agricole,Public,true
+LTA Djougou,,Djougou,Donga,Bénin,Technique agricole,Public,true
+LTA Kika,,Tchaourou,Borgou,Bénin,Technique agricole,Public,true
+LTA Kpataba,,Savalou,Collines,Bénin,Technique agricole,Public,true
+LTP Akodeha,,Comè,Mono,Bénin,Technique et professionnel,Public,true
+CPET EIG Bénin,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Le Pharaon,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Les Palmiers,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET JesMar,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Les Archanges,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Les Palmes,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET La Plénitude,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Brice Sinsin,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Le Faucon,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET ETIC,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET HTC CETIP,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Saint Joseph de Cupertino Junior,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Hand at Work,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Saint Jean Bosco,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Georges Duhamel,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET Saint Laurent,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+CPET GASA Formation,,Cotonou,Littoral,Bénin,Technique et professionnel,Privé,true
+Collège Le Jardin des Élus,,Cotonou,Littoral,Bénin,Secondaire général et technique,Privé,true
+CPET CHOL-FAL,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET WELDIOS,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET UP PEACE,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET Le Persévérant,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET Les Élús,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET Notre Dame de Lourdes,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET Les Érudits,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET La Méthode,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET La Merveilleuse,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET UP de l’Après,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET La Réussite,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET Saint Joseph,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET Le Phénix,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET ESTAM,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPET Le CREDO,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true
+CPEG Le Carrefour des Talents,,Parakou,Borgou,Bénin,Secondaire général,Privé,true
+CPEG Catholique Marie Adélaïde,,Bembèrèkè,Borgou,Bénin,Secondaire général,Privé,true
+CPEG Franco-Arabe Centre Faiz et Samira,,Nikki,Borgou,Bénin,Secondaire général,Privé,true
+CPEG La Voie,,Parakou,Borgou,Bénin,Secondaire général,Privé,true
+CPEG Korogone Orou Yerima Prosper,,Parakou,Borgou,Bénin,Secondaire général,Privé,true
+Complexe Scolaire Privé Le Lauréat,,Parakou,Borgou,Bénin,Secondaire général,Privé,true
+CPEG Les Élites,,Natitingou,Atacora,Bénin,Secondaire général,Privé,true
+CS Catholique Sainte Marie Immaculée,,Parakou,Borgou,Bénin,Secondaire général,Privé,true
+Collège Privé Victor Hugo,,Parakou,Borgou,Bénin,Secondaire général,Privé,true
+Complexe Scolaire Sainte Eulalie,,Abomey-Calavi,Atlantique,Bénin,Secondaire général,Privé,true
+Collège Privé Academia,,Parakou,Borgou,Bénin,Secondaire général,Privé,true
+CPET Enfany,,Kandi,Alibori,Bénin,Technique et professionnel,Privé,true
+Collège Privé d’Enseignement Technique Les Bethsaleels,,Parakou,Borgou,Bénin,Technique et professionnel,Privé,true
+CPTE CODE,,Porto-Novo,Ouémé,Bénin,Technique et professionnel,Privé,true

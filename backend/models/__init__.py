@@ -7,6 +7,8 @@ from database import engine, Base
 
 # Importation de tous les modèles
 from .user import User
+from .school import School, SchoolMembership, SchoolDirector
+
 from .pending_user import PendingUser
 from .project_idea import ProjectIdea
 from .question import Question
@@ -24,7 +26,7 @@ from .question_message import QuestionMessage
 def init_models():
     """Crée toutes les tables du modèle dans la base de données"""
     Base.metadata.create_all(bind=engine)
-    print("✅ Toutes les tables ont été créées avec succès dans la base de données MySQL !")
+    print("✅ Toutes les tables ont été créées avec succès dans la base de données !")
 
 # ----------------- UTILITAIRE IMPORT JSON -----------------
 
