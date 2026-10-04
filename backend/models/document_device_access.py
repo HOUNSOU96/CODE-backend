@@ -1,7 +1,6 @@
 from sqlalchemy import (
     Column,
     Integer,
-    String,
     Boolean,
     DateTime,
     ForeignKey,
@@ -12,8 +11,12 @@ from datetime import datetime
 from database import Base
 
 
-class UserDevice(Base):
-    __tablename__ = "user_devices"
+class DocumentDeviceAccess(Base):
+    __tablename__ = "document_device_accesses"
+
+    # ============================================================
+    # IDENTIFIANT
+    # ============================================================
 
     id = Column(
         Integer,
@@ -21,9 +24,20 @@ class UserDevice(Base):
         index=True,
     )
 
-    # ======================================================
+    # ============================================================
+    # ACTIVATION DU DOCUMENT
+    # ============================================================
+
+    activation_id = Column(
+        Integer,
+        ForeignKey("document_activations.id"),
+        nullable=False,
+        index=True,
+    )
+
+    # ============================================================
     # UTILISATEUR
-    # ======================================================
+    # ============================================================
 
     user_id = Column(
         Integer,
@@ -32,47 +46,20 @@ class UserDevice(Base):
         index=True,
     )
 
-    # ======================================================
-    # IDENTIFIANT DE L'APPAREIL
-    # ======================================================
+    # ============================================================
+    # APPAREIL
+    # ============================================================
 
     device_id = Column(
-        String(255),
-        unique=True,
+        Integer,
+        ForeignKey("user_devices.id"),
         nullable=False,
         index=True,
     )
 
-    # ======================================================
-    # TYPE D'APPAREIL
-    # ======================================================
-
-    device_type = Column(
-        String(30),
-        nullable=False,
-        default="unknown",
-    )
-
-    # Exemples :
-    # android
-    # ios
-    # tablet
-    # pc
-    # unknown
-
-    # ======================================================
-    # APPAREIL MOBILE ?
-    # ======================================================
-
-    is_mobile = Column(
-        Boolean,
-        nullable=False,
-        default=False,
-    )
-
-    # ======================================================
-    # APPAREIL ACTIF
-    # ======================================================
+    # ============================================================
+    # ACCÈS ACTIF
+    # ============================================================
 
     is_active = Column(
         Boolean,
@@ -80,38 +67,72 @@ class UserDevice(Base):
         default=True,
     )
 
-    # ======================================================
+    # ============================================================
     # DATES
-    # ======================================================
+    # ============================================================
 
-    created_at = Column(
+    activated_at = Column(
         DateTime,
         nullable=False,
         default=datetime.utcnow,
     )
 
-    last_seen = Column(
+    last_access = Column(
         DateTime,
         nullable=False,
         default=datetime.utcnow,
     )
 
-    # ======================================================
-    # RELATION UTILISATEUR
-    # ======================================================
+    # ============================================================
+    # VERSION DU DOCUMENT
+    # ============================================================
+
+    last_version = Column(
+        Integer,
+        nullable=False,
+        default=1,
+    )
+
+    # ============================================================
+    # RELATION AVEC L'ACTIVATION
+    # ============================================================
+
+    activation = relationship(
+        "DocumentActivation",
+        back_populates="device_accesses",
+    )
+
+    # ============================================================
+    # RELATION AVEC L'UTILISATEUR
+    # ============================================================
 
     user = relationship(
         "User",
         foreign_keys=[user_id],
-        back_populates="devices",
+        back_populates="document_device_accesses",
     )
 
-    # ======================================================
-    # RELATION AVEC LES DOCUMENTS
-    # ======================================================
+    # ============================================================
+    # RELATION AVEC L'APPAREIL
+    # ============================================================
 
-    document_accesses = relationship(
-        "DocumentDeviceAccess",
-        back_populates="device",
-        cascade="all, delete-orphan",
+    device = relationship(
+        "UserDevice",
+        foreign_keys=[device_id],
+        back_populates="document_accesses",
     )
+
+    # ============================================================
+    # REPRÉSENTATION
+    # ============================================================
+
+    def __repr__(self):
+        return (
+            f"<DocumentDeviceAccess("
+            f"id={self.id}, "
+            f"activation_id={self.activation_id}, "
+            f"user_id={self.user_id}, "
+            f"device_id={self.device_id}, "
+            f"is_active={self.is_active}"
+            f")>"
+        )
