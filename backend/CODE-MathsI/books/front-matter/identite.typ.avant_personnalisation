@@ -1,3 +1,4 @@
+```typst id="7kq2pn"
 // ==========================================================
 // IDENTITÉ DE L'APPRENANT
 // CODE-MATHS
@@ -7,356 +8,607 @@
 
 #let identite() = [
 
-
-#align(center)[
-
-#text(
- size:26pt,
- weight:"bold",
- fill:code-blue,
-)[
-👤 IDENTITÉ DE L'APPRENANT
-]
-
-
-#v(0.1cm)
-
-
-#line(
- length:5cm,
- stroke:1.3pt + code-blue,
-)
-
-]
-
-
-#v(0.2cm)
-
-
-
-#align(center)[
-
-#box(
- width:14cm,
- fill:rgb("#F2F6FA"),
- radius:12pt,
- inset:0.35cm,
- stroke:0.5pt + rgb("#D5E2EF"),
-)[
-
-
-#table(
- columns:(4cm,8cm),
- stroke:none,
- inset:0.15cm,
-
-
-[
-#align(center)[
-
-#box(
- width:3cm,
- height:3.5cm,
- fill:white,
- radius:8pt,
- stroke:1pt + rgb("#C5D5E5"),
-)[
-
-#align(center)[
-📷
-
-#v(0.2cm)
-
-Photo
-
-]
-
-]
-
-]
-
-],
-
-
-[
-
-#strong[Nom et prénoms]
-
-#v(0.15cm)
-
-.............................................................
-
-
-#v(0.2cm)
-
-#strong[Établissement]
-
-#v(0.15cm)
-
-.............................................................
-
-
-#v(0.2cm)
-
-#strong[Ville / Commune]
-
-#v(0.15cm)
-
-.............................................................
-
-
-#v(0.2cm)
-
-#strong[Pays]
-
-#v(0.15cm)
-
-.............................................................
-
-
-#v(0.2cm)
-
-#strong[Année scolaire]
-
-#v(0.15cm)
-
-.............................................................
-
-]
-
-)
-
-]
-
-]
-
-
-#v(0.2cm)
-
-
-
-// ----------------------------------------------------------
-// PARTICULARITÉ DU MANUEL
-// ----------------------------------------------------------
-
-
-#align(center)[
-
-#box(
- width:14cm,
- fill:code-blue,
- radius:10pt,
- inset:0.25cm,
-)[
-
-#text(
- size:14pt,
- weight:"bold",
- fill:white,
-)[
-🔐 LES AVANTAGES DU MANUEL CODE
-]
-
-]
-
-]
-
-
-#v(0.1cm)
-
-
-Ce manuel constitue une passerelle vers un environnement
-numérique d'apprentissage.
-
-
-#table(
-  columns:(7cm,7cm),
-  stroke:none,
-  inset:0.15cm,
-
-
-  table.cell(
-    fill:rgb("#EEF6FF"),
-    inset:0.25cm,
-  )[
-    #align(center)[
-      #text(
-        weight:"bold",
-        fill:code-blue,
-      )[
-        Plateforme CODE
-      ]
+  // ==========================================================
+  // TITRE
+  // ==========================================================
+
+  #align(center)[
+
+    #text(
+      size: 26pt,
+      weight: "bold",
+      fill: code-blue,
+    )[
+      👤 IDENTITÉ DE L'APPRENANT
     ]
-  ],
 
+    #v(0.1cm)
 
-  table.cell(
-    fill:rgb("#F8FAFC"),
-    inset:0.25cm,
-  )[
-    #align(center)[
-      #text(
-        weight:"bold",
+    #line(
+      length: 5cm,
+      stroke: 1.3pt + code-blue,
+    )
+
+  ]
+
+  #v(0.3cm)
+
+  // ==========================================================
+  // FICHE PERSONNELLE
+  // ==========================================================
+
+  #align(center)[
+
+    #box(
+      width: 14cm,
+      fill: white,
+      radius: 16pt,
+      inset: 0pt,
+      stroke: 1pt + rgb("#D5E2EF"),
+    )[
+
+      // ------------------------------------------------------
+      // BANDEAU
+      // ------------------------------------------------------
+
+      #box(
+        width: 14cm,
+        fill: code-blue,
+        radius: (
+          top-left: 16pt,
+          top-right: 16pt,
+          bottom-left: 0pt,
+          bottom-right: 0pt,
+        ),
+        inset: 0.28cm,
       )[
-        Intelligence Artificielle CODE
+
+        #align(center)[
+
+          #text(
+            size: 14pt,
+            weight: "bold",
+            fill: white,
+          )[
+            PROFIL DE L'APPRENANT
+          ]
+
+          #v(0.05cm)
+
+          #text(
+            size: 9pt,
+            fill: rgb("#DDEEFF"),
+          )[
+            À compléter soigneusement par l'apprenant
+          ]
+
+        ]
+
       ]
-    ]
-  ],
 
+      #v(0.3cm)
 
+      // ------------------------------------------------------
+      // PHOTO + NOM
+      // ------------------------------------------------------
 
-  table.cell(
-    fill:rgb("#F8FAFC"),
-    inset:0.25cm,
-  )[
-    #align(center)[
-      #text(
-        weight:"bold",
+      #table(
+        columns: (4cm, 9cm),
+        stroke: none,
+        inset: 0.12cm,
+
+        // ====================================================
+        // PHOTO
+        // ====================================================
+
+        [
+
+          #align(center)[
+
+            #box(
+              width: 3.3cm,
+              height: 3.8cm,
+              fill: rgb("#F4F8FC"),
+              radius: 12pt,
+              stroke: 1.2pt + rgb("#B8CCE0"),
+              inset: 0.12cm,
+            )[
+
+              #align(center)[
+
+                #v(0.55cm)
+
+                #text(
+                  size: 30pt,
+                )[
+                  📷
+                ]
+
+                #v(0.12cm)
+
+                #text(
+                  size: 9pt,
+                  weight: "bold",
+                  fill: rgb("#60758A"),
+                )[
+                  PHOTO
+                ]
+
+                #v(0.03cm)
+
+                #text(
+                  size: 7pt,
+                  fill: rgb("#8799AA"),
+                )[
+                  de l'apprenant
+                ]
+
+              ]
+
+            ]
+
+            #v(0.12cm)
+
+            #text(
+              size: 8pt,
+              weight: "bold",
+              fill: code-blue,
+            )[
+              CODE-MATHS
+            ]
+
+          ]
+
+        ],
+
+        // ====================================================
+        // NOM ET PRÉNOMS
+        // ====================================================
+
+        [
+
+          #box(
+            width: 8.5cm,
+            fill: rgb("#F7FAFD"),
+            radius: 10pt,
+            stroke: 0.6pt + rgb("#DCE7F0"),
+            inset: 0.22cm,
+          )[
+
+            #text(
+              size: 8pt,
+              weight: "bold",
+              fill: rgb("#708398"),
+            )[
+              NOM ET PRÉNOMS
+            ]
+
+            #v(0.12cm)
+
+            #line(
+              length: 7.7cm,
+              stroke: 0.8pt + rgb("#AFC3D5"),
+            )
+
+            #v(0.38cm)
+
+            #line(
+              length: 7.7cm,
+              stroke: 0.8pt + rgb("#AFC3D5"),
+            )
+
+            #v(0.15cm)
+
+            #text(
+              size: 7pt,
+              fill: rgb("#8799AA"),
+            )[
+              Écrire lisiblement le nom et tous les prénoms
+            ]
+
+          ]
+
+        ],
+      )
+
+      #v(0.2cm)
+
+      // ======================================================
+      // INFORMATIONS SCOLAIRES
+      // ======================================================
+
+      #align(center)[
+
+        #text(
+          size: 9pt,
+          weight: "bold",
+          fill: code-blue,
+        )[
+          INFORMATIONS SCOLAIRES
+        ]
+
+        #v(0.08cm)
+
+        #line(
+          length: 8cm,
+          stroke: 0.6pt + rgb("#D5E2EF"),
+        )
+
+      ]
+
+      #v(0.12cm)
+
+      #table(
+        columns: (1fr, 1fr),
+        gutter: 0.18cm,
+        stroke: none,
+        inset: 0.08cm,
+
+        // ----------------------------------------------------
+        // ÉTABLISSEMENT
+        // ----------------------------------------------------
+
+        [
+
+          #box(
+            fill: rgb("#EEF6FF"),
+            radius: 9pt,
+            inset: 0.2cm,
+            stroke: 0.5pt + rgb("#D4E5F5"),
+          )[
+
+            #text(
+              size: 8pt,
+              weight: "bold",
+              fill: code-blue,
+            )[
+              🏫 ÉTABLISSEMENT
+            ]
+
+            #v(0.12cm)
+
+            #line(
+              length: 5.8cm,
+              stroke: 0.7pt + rgb("#9FBBD2"),
+            )
+
+          ]
+
+        ],
+
+        // ----------------------------------------------------
+        // VILLE / COMMUNE
+        // ----------------------------------------------------
+
+        [
+
+          #box(
+            fill: rgb("#F5F8FB"),
+            radius: 9pt,
+            inset: 0.2cm,
+            stroke: 0.5pt + rgb("#DCE5ED"),
+          )[
+
+            #text(
+              size: 8pt,
+              weight: "bold",
+              fill: rgb("#60758A"),
+            )[
+              📍 VILLE / COMMUNE
+            ]
+
+            #v(0.12cm)
+
+            #line(
+              length: 5.8cm,
+              stroke: 0.7pt + rgb("#AFC0CE"),
+            )
+
+          ]
+
+        ],
+
+        // ----------------------------------------------------
+        // PAYS
+        // ----------------------------------------------------
+
+        [
+
+          #box(
+            fill: rgb("#F5FAF7"),
+            radius: 9pt,
+            inset: 0.2cm,
+            stroke: 0.5pt + rgb("#D8E9DE"),
+          )[
+
+            #text(
+              size: 8pt,
+              weight: "bold",
+              fill: rgb("#39704F"),
+            )[
+              🌍 PAYS
+            ]
+
+            #v(0.12cm)
+
+            #line(
+              length: 5.8cm,
+              stroke: 0.7pt + rgb("#A9C5B2"),
+            )
+
+          ]
+
+        ],
+
+        // ----------------------------------------------------
+        // ANNÉE SCOLAIRE
+        // ----------------------------------------------------
+
+        [
+
+          #box(
+            fill: rgb("#FFF8E7"),
+            radius: 9pt,
+            inset: 0.2cm,
+            stroke: 0.5pt + rgb("#EBDDAE"),
+          )[
+
+            #text(
+              size: 8pt,
+              weight: "bold",
+              fill: rgb("#8A6B16"),
+            )[
+              📅 ANNÉE SCOLAIRE
+            ]
+
+            #v(0.12cm)
+
+            #line(
+              length: 5.8cm,
+              stroke: 0.7pt + rgb("#D1B96A"),
+            )
+
+          ]
+
+        ],
+      )
+
+      #v(0.25cm)
+
+      // ------------------------------------------------------
+      // SIGNATURE DE LA FICHE
+      // ------------------------------------------------------
+
+      #box(
+        width: 13.2cm,
+        fill: rgb("#F8FAFC"),
+        radius: 9pt,
+        inset: 0.16cm,
+        stroke: 0.5pt + rgb("#E0E8EF"),
       )[
-        Vidéos pédagogiques
+
+        #align(center)[
+
+          #text(
+            size: 8pt,
+            fill: rgb("#708398"),
+          )[
+            Cette fiche permet de personnaliser votre
+            expérience d'apprentissage avec
+          ]
+
+          #v(0.03cm)
+
+          #text(
+            size: 10pt,
+            weight: "bold",
+            fill: code-blue,
+          )[
+            CODE — L'écosystème éducatif mondial
+          ]
+
+        ]
+
       ]
+
+      #v(0.18cm)
+
     ]
-  ],
 
+  ]
 
-  table.cell(
-    fill:rgb("#EEF6FF"),
-    inset:0.25cm,
-  )[
-    #align(center)[
+  #v(0.25cm)
+
+  // ----------------------------------------------------------
+  // PARTICULARITÉ DU MANUEL
+  // ----------------------------------------------------------
+
+  #align(center)[
+
+    #box(
+      width: 14cm,
+      fill: code-blue,
+      radius: 10pt,
+      inset: 0.25cm,
+    )[
+
       #text(
-        weight:"bold",
-        fill:code-blue,
+        size: 14pt,
+        weight: "bold",
+        fill: white,
       )[
-        Exercices interactifs
+        🔐 LES AVANTAGES DU MANUEL CODE
       ]
+
     ]
-  ],
 
+  ]
 
+  #v(0.1cm)
 
-  table.cell(
-    fill:rgb("#EEF8F2"),
-    inset:0.25cm,
-  )[
-    #align(center)[
+  Ce manuel constitue une passerelle vers un environnement
+  numérique d'apprentissage.
+
+  #table(
+    columns: (7cm, 7cm),
+    stroke: none,
+    inset: 0.15cm,
+
+    table.cell(
+      fill: rgb("#EEF6FF"),
+      inset: 0.25cm,
+    )[
+      #align(center)[
+        #text(
+          weight: "bold",
+          fill: code-blue,
+        )[
+          Plateforme CODE
+        ]
+      ]
+    ],
+
+    table.cell(
+      fill: rgb("#F8FAFC"),
+      inset: 0.25cm,
+    )[
+      #align(center)[
+        #text(
+          weight: "bold",
+        )[
+          Intelligence Artificielle CODE
+        ]
+      ]
+    ],
+
+    table.cell(
+      fill: rgb("#F8FAFC"),
+      inset: 0.25cm,
+    )[
+      #align(center)[
+        #text(
+          weight: "bold",
+        )[
+          Vidéos pédagogiques
+        ]
+      ]
+    ],
+
+    table.cell(
+      fill: rgb("#EEF6FF"),
+      inset: 0.25cm,
+    )[
+      #align(center)[
+        #text(
+          weight: "bold",
+          fill: code-blue,
+        )[
+          Exercices interactifs
+        ]
+      ]
+    ],
+
+    table.cell(
+      fill: rgb("#EEF8F2"),
+      inset: 0.25cm,
+    )[
+      #align(center)[
+        #text(
+          weight: "bold",
+          fill: rgb("#39704F"),
+        )[
+          Défis hebdomadaires nationaux et internationaux
+        ]
+      ]
+    ],
+
+    table.cell(
+      fill: rgb("#F8FAFC"),
+      inset: 0.25cm,
+    )[
+      #align(center)[
+        #text(
+          weight: "bold",
+        )[
+          Jeux de réflexion
+        ]
+      ]
+    ],
+
+    table.cell(
+      fill: rgb("#EEF6FF"),
+      inset: 0.25cm,
+    )[
+      #align(center)[
+        #text(
+          weight: "bold",
+          fill: code-blue,
+        )[
+          Suivi personnalisé
+        ]
+      ]
+    ],
+
+    table.cell(
+      fill: rgb("#F8FAFC"),
+      inset: 0.25cm,
+    )[
+      #align(center)[
+        #text(
+          weight: "bold",
+        )[
+          Ressources complémentaires
+        ]
+      ]
+    ],
+  )
+
+  #v(0.1cm)
+
+  // ----------------------------------------------------------
+  // CERTIFICAT
+  // ----------------------------------------------------------
+
+  #align(center)[
+
+    #box(
+      width: 14cm,
+      fill: rgb("#FFF8E7"),
+      radius: 12pt,
+      inset: 0.35cm,
+      stroke: 0.8pt + rgb("#D9B44A"),
+    )[
+
       #text(
-        weight:"bold",
-        fill:rgb("#39704F"),
+        size: 14pt,
+        weight: "bold",
+        fill: code-blue,
       )[
-        Défis hebdomadaires nationaux et internationaux
+
+        🛡 CERTIFICAT D'AUTHENTICITÉ
+
       ]
+
+      #v(0.1cm)
+
+      Ce manuel appartient à la collection officielle :
+
+      #strong[CODE — Maths]
+
+      #v(0.15cm)
+
+      Chaque exemplaire possède un numéro de série unique
+      servant de code d'activation personnel.
+
+      #v(0.15cm)
+
+      Après activation sur la plateforme CODE, ce code est
+      associé définitivement à son propriétaire afin de
+      garantir l'authenticité du manuel.
+
     ]
-  ],
 
-
-  table.cell(
-    fill:rgb("#F8FAFC"),
-    inset:0.25cm,
-  )[
-    #align(center)[
-      #text(
-        weight:"bold",
-      )[
-        Jeux de réflexion
-      ]
-    ]
-  ],
-
-
-
-  table.cell(
-    fill:rgb("#EEF6FF"),
-    inset:0.25cm,
-  )[
-    #align(center)[
-      #text(
-        weight:"bold",
-        fill:code-blue,
-      )[
-        Suivi personnalisé
-      ]
-    ]
-  ],
-
-
-  table.cell(
-    fill:rgb("#F8FAFC"),
-    inset:0.25cm,
-  )[
-    #align(center)[
-      #text(
-        weight:"bold",
-      )[
-        Ressources complémentaires
-      ]
-    ]
-  ],
-)
-
-
-
-#v(0.1cm)
-
-
-
-
-
-
-
-
-// ----------------------------------------------------------
-// CERTIFICAT
-// ----------------------------------------------------------
-
-
-#align(center)[
-
-#box(
- width:14cm,
- fill:rgb("#FFF8E7"),
- radius:12pt,
- inset:0.35cm,
- stroke:0.8pt + rgb("#D9B44A"),
-)[
-
-
-#text(
- size:14pt,
- weight:"bold",
- fill:code-blue,
-)[
-
-🛡 CERTIFICAT D'AUTHENTICITÉ
+  ]
 
 ]
-
-
-#v(0.1cm)
-
-
-Ce manuel appartient à la collection officielle :
-
-#strong[CODE — Maths]
-
-
-Chaque exemplaire possède un numéro de série unique
-servant de code d'activation personnel.
-
-
-Après activation sur la plateforme CODE, ce code est
-associé définitivement à son propriétaire afin de
-garantir l'authenticité du manuel.
-
-
-]
-
-]
-
-
-
-
-
-
-
-]
+```

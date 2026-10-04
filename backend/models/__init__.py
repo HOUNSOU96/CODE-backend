@@ -1,11 +1,18 @@
 # 📁 backend/models/__init__.py
-import os, sys
+
+import os
+import sys
 
 from sqlalchemy.orm import Session
 import json
+
 from database import engine, Base
 
-# Importation de tous les modèles
+
+# ============================================================
+# IMPORTATION DE TOUS LES MODÈLES
+# ============================================================
+
 from .user import User
 from .school import School, SchoolMembership, SchoolDirector
 
@@ -16,27 +23,55 @@ from .remediation_progress import RemediationProgress
 from .remediation_videos import RemediationVideo
 from .video_questions import VideoQuestion
 from .connection_log import UserConnectionLog
+
 from .document_activation import DocumentActivation
+
+# 🔐 Nouveaux modèles pour la sécurité CODE-Maths
+from .user_device import UserDevice
+from .document_device_access import DocumentDeviceAccess
+from .document_version import DocumentVersion
+
 from .order import Order
 from .teacher_subject import TeacherSubject
 from .user_question import UserQuestion
 from .question_message import QuestionMessage
 
-# ----------------- INITIALISATION -----------------
-def init_models():
-    """Crée toutes les tables du modèle dans la base de données"""
-    Base.metadata.create_all(bind=engine)
-    print("✅ Toutes les tables ont été créées avec succès dans la base de données !")
 
-# ----------------- UTILITAIRE IMPORT JSON -----------------
+# ============================================================
+# INITIALISATION
+# ============================================================
+
+def init_models():
+    """
+    Crée toutes les tables du modèle dans la base de données.
+
+    Les tables existantes ne sont pas supprimées.
+    Les nouvelles tables sont créées uniquement si elles
+    n'existent pas encore.
+    """
+
+    Base.metadata.create_all(bind=engine)
+
+    print(
+        "✅ Toutes les tables ont été créées avec succès "
+        "dans la base de données !"
+    )
+
+
+# ============================================================
+# UTILITAIRE IMPORT JSON
+# ============================================================
 
 def generate_unique_id(existing_ids, base_id):
-    """Génère un ID unique pour éviter les doublons"""
+    """Génère un ID unique pour éviter les doublons."""
+
     new_id = base_id
     i = 1
+
     while new_id in existing_ids:
         new_id = f"{base_id}_{i}"
         i += 1
+
     return new_id
 
 
@@ -45,44 +80,95 @@ def import_json_to_db(
     videos_file="remediation_videos.json",
     video_questions_file="video_questions.json"
 ):
-    """Importe les questions, vidéos et video_questions depuis JSON en évitant les doublons."""
+    """
+    Importe les questions, vidéos et video_questions depuis JSON
+    en évitant les doublons.
+    """
 
     with Session(bind=engine) as db:
-        # ---- Questions ----
+
+        # ====================================================
+        # QUESTIONS
+        # ====================================================
+
         try:
-            with open(questions_file, "r", encoding="utf-8") as f:
+            with open(
+                questions_file,
+                "r",
+                encoding="utf-8"
+            ) as f:
+
                 questions_data = json.load(f)
 
-            existing_ids = {q[0] for q in db.query(Question.id).all()}
+            existing_ids = {
+                q[0]
+                for q in db.query(Question.id).all()
+            }
 
             for q in questions_data:
-                q_id = generate_unique_id(existing_ids, q["id"])
+
+                q_id = generate_unique_id(
+                    existing_ids,
+                    q["id"]
+                )
+
                 existing_ids.add(q_id)
+
                 question = Question(
                     id=q_id,
                     niveau=q.get("niveau"),
                     notion=q.get("notion"),
                     question=q.get("question"),
-                    reponse_correcte=q.get("reponse_correcte"),
+                    reponse_correcte=q.get(
+                        "reponse_correcte"
+                    ),
                     choix=q.get("choix"),
                     situation=q.get("situation"),
                 )
-                db.merge(question)
-            db.commit()
-            print("✅ Import des questions terminé")
-        except FileNotFoundError:
-            print(f"❌ Fichier {questions_file} non trouvé.")
 
-        # ---- Remediation Videos ----
+                db.merge(question)
+
+            db.commit()
+
+            print(
+                "✅ Import des questions terminé"
+            )
+
+        except FileNotFoundError:
+
+            print(
+                f"❌ Fichier {questions_file} non trouvé."
+            )
+
+
+        # ====================================================
+        # REMEDIATION VIDEOS
+        # ====================================================
+
         try:
-            with open(videos_file, "r", encoding="utf-8") as f:
+
+            with open(
+                videos_file,
+                "r",
+                encoding="utf-8"
+            ) as f:
+
                 videos_data = json.load(f)
 
-            existing_ids = {v[0] for v in db.query(RemediationVideo.id).all()}
+            existing_ids = {
+                v[0]
+                for v in db.query(RemediationVideo.id).all()
+            }
 
             for v in videos_data:
-                v_id = generate_unique_id(existing_ids, v.get("id"))
+
+                v_id = generate_unique_id(
+                    existing_ids,
+                    v.get("id")
+                )
+
                 existing_ids.add(v_id)
+
                 video = RemediationVideo(
                     id=v_id,
                     titre=v.get("titre"),
@@ -94,36 +180,78 @@ def import_json_to_db(
                     notions=v.get("notions"),
                     prerequis=v.get("prerequis"),
                 )
-                db.merge(video)
-            db.commit()
-            print("✅ Import des vidéos terminé")
-        except FileNotFoundError:
-            print(f"❌ Fichier {videos_file} non trouvé.")
 
-        # ---- Video Questions ----
+                db.merge(video)
+
+            db.commit()
+
+            print(
+                "✅ Import des vidéos terminé"
+            )
+
+        except FileNotFoundError:
+
+            print(
+                f"❌ Fichier {videos_file} non trouvé."
+            )
+
+
+        # ====================================================
+        # VIDEO QUESTIONS
+        # ====================================================
+
         try:
-            with open(video_questions_file, "r", encoding="utf-8") as f:
+
+            with open(
+                video_questions_file,
+                "r",
+                encoding="utf-8"
+            ) as f:
+
                 vq_data = json.load(f)
 
-            existing_ids = {vq[0] for vq in db.query(VideoQuestion.id).all()}
+            existing_ids = {
+                vq[0]
+                for vq in db.query(VideoQuestion.id).all()
+            }
 
             for vq in vq_data:
-                vq_id = generate_unique_id(existing_ids, vq.get("id"))
+
+                vq_id = generate_unique_id(
+                    existing_ids,
+                    vq.get("id")
+                )
+
                 existing_ids.add(vq_id)
+
                 vq_entry = VideoQuestion(
                     id=vq_id,
                     question=vq.get("question"),
                     choix=vq.get("choix"),
-                    bonne_reponse=vq.get("bonne_reponse"),
+                    bonne_reponse=vq.get(
+                        "bonne_reponse"
+                    ),
                     niveau=vq.get("niveau"),
                     serie=vq.get("serie"),
                     matiere=vq.get("matiere"),
                     notion=vq.get("notion"),
                     duration=vq.get("duration"),
-                    remediation_video_id=vq.get("remediation_video_id"),
+                    remediation_video_id=vq.get(
+                        "remediation_video_id"
+                    ),
                 )
+
                 db.merge(vq_entry)
+
             db.commit()
-            print("✅ Import des video_questions terminé")
+
+            print(
+                "✅ Import des video_questions terminé"
+            )
+
         except FileNotFoundError:
-            print(f"❌ Fichier {video_questions_file} non trouvé.")
+
+            print(
+                f"❌ Fichier {video_questions_file} "
+                "non trouvé."
+            )

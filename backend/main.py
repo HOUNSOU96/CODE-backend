@@ -15,6 +15,9 @@ import logging
 import requests
 import random
 from routes.activation import router as activation_router
+from routes.document_access import router as document_access_router
+from routes.document_versions import router as document_versions_router
+from routes.secure_documents import router as secure_documents_router
 from routes.admin_routes import router as admin_router
 from routes.teacher import router as teacher_router
 from routes.project_ideas import router as project_ideas_router
@@ -66,6 +69,9 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/images", StaticFiles(directory="Images"), name="images")
 
 app.include_router(activation_router)
+app.include_router(document_versions_router)
+app.include_router(document_access_router)
+app.include_router(secure_documents_router)
 app.include_router(products.router)
 app.include_router(teacher_router)
 
@@ -167,6 +173,10 @@ class TZFormatter(logging.Formatter):
 # -------------------- Middleware -------------------- #
 origins = [
     "http://localhost:5173",
+    "http://localhost:4173",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:4173",
+
     "https://code-frontend-rho.vercel.app",
     "https://moravi.vercel.app",
 ]
@@ -176,7 +186,6 @@ if os.environ.get("FRONTEND_CODE"):
 
 if os.environ.get("FRONTEND_MORAVI"):
     origins.append(os.environ["FRONTEND_MORAVI"])
-
 
 
 app.add_middleware(

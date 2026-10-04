@@ -43,8 +43,17 @@ class ProjectIdeaCreate(BaseModel):
 
     description: str = Field(..., min_length=1)
 
+    # ------------------------------------------------------
+    # Problème / Solution / Vision / Impact
+    # ------------------------------------------------------
+
     probleme: Optional[str] = None
+
+    solution: Optional[str] = None
+
     vision: Optional[str] = None
+
+    impact: Optional[str] = None
 
     categorie: Optional[str] = Field(
         default=None,
@@ -57,21 +66,26 @@ class ProjectIdeaCreate(BaseModel):
 
 class ProjectIdeaPublic(BaseModel):
     """
-    Informations pouvant être affichées publiquement.
+    Informations publiques d'une idée publiée.
 
-    IMPORTANT :
-    email et telephone ne sont volontairement PAS présents.
+    Les coordonnées privées du déposant ne sont jamais
+    exposées dans ce schéma.
     """
 
     id: int
+
     nom: str
     prenom: str
     pays: str
 
     titre: str
     description: str
+
     probleme: Optional[str]
+    solution: Optional[str]
     vision: Optional[str]
+    impact: Optional[str]
+
     categorie: Optional[str]
 
     date_publication: Optional[datetime]
@@ -86,14 +100,19 @@ class ProjectIdeaAdmin(BaseModel):
 
     nom: str
     prenom: str
+
     email: str
     telephone: str
     pays: str
 
     titre: str
     description: str
+
     probleme: Optional[str]
+    solution: Optional[str]
     vision: Optional[str]
+    impact: Optional[str]
+
     categorie: Optional[str]
 
     statut: str
@@ -184,6 +203,7 @@ def soumettre_projet(
     nouvelle_idee = ProjectIdea(
         nom=project_data.nom.strip(),
         prenom=project_data.prenom.strip(),
+
         email=project_data.email.strip(),
         telephone=project_data.telephone.strip(),
         pays=project_data.pays.strip(),
@@ -191,17 +211,49 @@ def soumettre_projet(
         titre=project_data.titre.strip(),
         description=project_data.description.strip(),
 
+        # --------------------------------------------------
+        # PROBLÈME
+        # --------------------------------------------------
+
         probleme=(
             project_data.probleme.strip()
             if project_data.probleme
             else None
         ),
 
+        # --------------------------------------------------
+        # SOLUTION
+        # --------------------------------------------------
+
+        solution=(
+            project_data.solution.strip()
+            if project_data.solution
+            else None
+        ),
+
+        # --------------------------------------------------
+        # VISION
+        # --------------------------------------------------
+
         vision=(
             project_data.vision.strip()
             if project_data.vision
             else None
         ),
+
+        # --------------------------------------------------
+        # IMPACT
+        # --------------------------------------------------
+
+        impact=(
+            project_data.impact.strip()
+            if project_data.impact
+            else None
+        ),
+
+        # --------------------------------------------------
+        # CATÉGORIE
+        # --------------------------------------------------
 
         categorie=(
             project_data.categorie.strip()
@@ -273,14 +325,16 @@ def get_projets_publics(
             description=projet.description,
 
             probleme=projet.probleme,
+            solution=projet.solution,
             vision=projet.vision,
+            impact=projet.impact,
+
             categorie=projet.categorie,
 
             date_publication=projet.date_publication
         )
         for projet in projets
     ]
-
 
 
 # ==========================================================
@@ -435,7 +489,10 @@ def accepter_projet(
     if projet.statut not in {"pending", "reviewing"}:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cette idée ne peut pas être acceptée dans son état actuel."
+            detail=(
+                "Cette idée ne peut pas être acceptée "
+                "dans son état actuel."
+            )
         )
 
     if not projet.consentement_publication:
@@ -447,7 +504,9 @@ def accepter_projet(
     if not projet.declaration_droits:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="La déclaration relative aux droits est absente."
+            detail=(
+                "La déclaration relative aux droits est absente."
+            )
         )
 
     projet.statut = "accepted"
@@ -557,7 +616,9 @@ def publier_projet(
     if not projet.declaration_droits:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="La déclaration relative aux droits est absente."
+            detail=(
+                "La déclaration relative aux droits est absente."
+            )
         )
 
     projet.statut = "published"
@@ -617,9 +678,6 @@ def supprimer_projet(
     }
 
 
-
-
-
 # ==========================================================
 # PROJET PUBLIÉ — PUBLIC
 # ==========================================================
@@ -662,7 +720,10 @@ def get_projet_public(
         description=projet.description,
 
         probleme=projet.probleme,
+        solution=projet.solution,
         vision=projet.vision,
+        impact=projet.impact,
+
         categorie=projet.categorie,
 
         date_publication=projet.date_publication

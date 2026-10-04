@@ -9,28 +9,92 @@ class ProjectIdea(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    # Informations privées du déposant
-    nom = Column(String(100), nullable=False)
-    prenom = Column(String(100), nullable=False)
-    email = Column(String(255), nullable=False)
-    telephone = Column(String(50), nullable=False)
-    pays = Column(String(100), nullable=False)
+    # ==========================================================
+    # INFORMATIONS PRIVÉES DU DÉPOSANT
+    # ==========================================================
 
-    # Informations sur le projet
-    titre = Column(String(255), nullable=False)
-    description = Column(Text, nullable=False)
-    probleme = Column(Text, nullable=True)
-    vision = Column(Text, nullable=True)
-    categorie = Column(String(100), nullable=True)
+    nom = Column(
+        String(100),
+        nullable=False
+    )
 
-    # Gestion par CODE
+    prenom = Column(
+        String(100),
+        nullable=False
+    )
+
+    email = Column(
+        String(255),
+        nullable=False
+    )
+
+    telephone = Column(
+        String(50),
+        nullable=False
+    )
+
+    pays = Column(
+        String(100),
+        nullable=False
+    )
+
+    # ==========================================================
+    # INFORMATIONS SUR LE PROJET
+    # ==========================================================
+
+    titre = Column(
+        String(255),
+        nullable=False
+    )
+
+    description = Column(
+        Text,
+        nullable=False
+    )
+
+    probleme = Column(
+        Text,
+        nullable=True
+    )
+
+    # Nouvelle information :
+    # solution proposée par l'auteur du projet
+    solution = Column(
+        Text,
+        nullable=True
+    )
+
+    vision = Column(
+        Text,
+        nullable=True
+    )
+
+    # Nouvelle information :
+    # impact attendu du projet
+    impact = Column(
+        Text,
+        nullable=True
+    )
+
+    categorie = Column(
+        String(100),
+        nullable=True
+    )
+
+    # ==========================================================
+    # GESTION PAR CODE
+    # ==========================================================
+
     statut = Column(
         String(30),
         nullable=False,
         default="pending"
     )
 
-    # Consentements
+    # ==========================================================
+    # CONSENTEMENTS
+    # ==========================================================
+
     consentement_publication = Column(
         Boolean,
         nullable=False,
@@ -43,7 +107,10 @@ class ProjectIdea(Base):
         default=False
     )
 
-    # Dates
+    # ==========================================================
+    # DATES
+    # ==========================================================
+
     date_soumission = Column(
         DateTime,
         nullable=False,
@@ -59,6 +126,10 @@ class ProjectIdea(Base):
         DateTime,
         nullable=True
     )
+
+    # ==========================================================
+    # REPRÉSENTATION
+    # ==========================================================
 
     def __repr__(self):
         return (

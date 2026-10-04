@@ -5,15 +5,18 @@ from enum import Enum
 from database import Base
 from sqlalchemy.dialects.postgresql import JSON
 
+
 class UserStatus(str, Enum):
     PENDING = "pending"
     VALIDATED = "validated"
     REFUSED = "refused"
 
+
 class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
+
     nom = Column(String(100), nullable=False, index=True)
     prenom = Column(String(100), nullable=False, index=True)
     email = Column(String(255), nullable=False, unique=True, index=True)
@@ -28,9 +31,7 @@ class User(Base):
     hashed_password = Column(String(255), nullable=False)
     plain_password = Column(String(255), nullable=True)
     parrain_email = Column(String(255), nullable=True)
-    
-    
-    current_token = Column(String(500), nullable=True, index=True)
+
     is_online = Column(Boolean, default=False)
     status = Column(String(50), default=UserStatus.PENDING.value)
     validation_token = Column(String(255), nullable=True)
@@ -46,34 +47,68 @@ class User(Base):
         default=False,
         nullable=False,
     )
+
     teacher_photo = Column(
         String(500),
         nullable=True,
     )
 
     is_blocked = Column(Boolean, default=False)
-
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
+
     last_warning = Column(DateTime, nullable=True)
-    last_seen = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    last_seen = Column(
+        DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow
+    )
 
-    date_inscription = Column(DateTime, default=datetime.utcnow)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    date_inscription = Column(
+        DateTime,
+        default=datetime.utcnow
+    )
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow
+    )
 
     reset_token = Column(String(255), nullable=True)
     reset_token_expiry = Column(DateTime, nullable=True)
 
-    remediations = relationship("RemediationProgress", back_populates="user")
+    # ============================================================
+    # RELATIONS EXISTANTES
+    # ============================================================
 
-    connection_logs = relationship("UserConnectionLog", back_populates="user", cascade="all, delete-orphan")
+    remediations = relationship(
+        "RemediationProgress",
+        back_populates="user"
+    )
 
-    document_activations = relationship("DocumentActivation",back_populates="user")
+    connection_logs = relationship(
+        "UserConnectionLog",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
 
-    teacher_subjects = relationship("TeacherSubject", back_populates="teacher", cascade="all, delete-orphan")
+    document_activations = relationship(
+        "DocumentActivation",
+        back_populates="user"
+    )
 
-    questions = relationship("UserQuestion", back_populates="user", cascade="all, delete-orphan")
+    teacher_subjects = relationship(
+        "TeacherSubject",
+        back_populates="teacher",
+        cascade="all, delete-orphan"
+    )
+
+    questions = relationship(
+        "UserQuestion",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
 
     school_memberships = relationship(
         "SchoolMembership",
@@ -89,5 +124,34 @@ class User(Base):
         cascade="all, delete-orphan"
     )
 
+    # ============================================================
+    # NOUVELLES RELATIONS — SÉCURITÉ DES DOCUMENTS
+    # ============================================================
+
+    # Appareils connus/associés à l'utilisateur
+    devices = relationship(
+        "UserDevice",
+        foreign_keys="UserDevice.user_id",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
+
+    # Autorisations d'accès aux documents depuis les appareils
+    document_device_accesses = relationship(
+        "DocumentDeviceAccess",
+        foreign_keys="DocumentDeviceAccess.user_id",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
+
+    # ============================================================
+
     def __repr__(self):
-        return f"<User(id={self.id}, email={self.email}, status={self.status}, validated={self.is_validated})>"
+        return (
+            f"<User("
+            f"id={self.id}, "
+            f"email={self.email}, "
+            f"status={self.status}, "
+            f"validated={self.is_validated}"
+            f")>"
+        )

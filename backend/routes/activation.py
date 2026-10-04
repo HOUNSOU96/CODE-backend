@@ -1,3 +1,4 @@
+
 from fastapi import (
     APIRouter,
     Depends,
@@ -26,6 +27,8 @@ import re
 from database import get_db
 from models.user import User, UserStatus
 from models.document_activation import DocumentActivation
+from models.user_device import UserDevice
+from models.document_device_access import DocumentDeviceAccess
 
 from utils.hashing import hash_password
 from utils.email import send_email
@@ -57,19 +60,6 @@ BACKEND_DIR = Path(__file__).resolve().parent.parent
 
 # ============================================================
 # REGISTRE DES MODÈLES PDF DES DOCUMENTS
-# ============================================================
-#
-# Chaque document sera ajouté ici lorsque son modèle Typst
-# sera réellement disponible.
-#
-# Pour l'instant, seul :
-#
-# CODE Maths 1er cycle Tome I
-#
-# possède un modèle Typst.
-#
-# Les autres documents restent volontairement
-# non configurés.
 # ============================================================
 
 DOCUMENT_TEMPLATES = {
@@ -168,10 +158,6 @@ def verify_activation(
             detail="CODE_DOCUMENT_INVALID",
         )
 
-    # ------------------------------------------------------
-    # Recherche du code
-    # ------------------------------------------------------
-
     activation = (
         db.query(DocumentActivation)
         .filter(
@@ -181,29 +167,17 @@ def verify_activation(
         .first()
     )
 
-    # ------------------------------------------------------
-    # CODE inexistant
-    # ------------------------------------------------------
-
     if not activation:
         raise HTTPException(
             status_code=404,
             detail="CODE_DOCUMENT_INVALID",
         )
 
-    # ------------------------------------------------------
-    # CODE déjà utilisé
-    # ------------------------------------------------------
-
     if activation.is_activated:
         raise HTTPException(
             status_code=400,
             detail="DOCUMENT_ALREADY_ACTIVATED",
         )
-
-    # ------------------------------------------------------
-    # Vérification de l'acheteur
-    # ------------------------------------------------------
 
     if activation.buyer_email:
 
@@ -224,10 +198,6 @@ def verify_activation(
                 status_code=403,
                 detail="EMAIL_CODE_MISMATCH",
             )
-
-    # ------------------------------------------------------
-    # Tout est correct
-    # ------------------------------------------------------
 
     return {
         "valid": True,
@@ -268,10 +238,6 @@ def check_user(
         .first()
     )
 
-    # ------------------------------------------------------
-    # Aucun compte
-    # ------------------------------------------------------
-
     if not user:
 
         return {
@@ -281,10 +247,6 @@ def check_user(
                 "adresse email."
             ),
         }
-
-    # ------------------------------------------------------
-    # Compte trouvé
-    # ------------------------------------------------------
 
     return {
         "exists": True,
@@ -325,6 +287,14 @@ async def activate_document(
     activation_type: str = Form(...),
 
     beneficiary_email: EmailStr = Form(...),
+
+    # ------------------------------------------------------
+    # IDENTIFIANT DU NAVIGATEUR / APPAREIL
+    # ------------------------------------------------------
+
+    device_id: Optional[str] = Form(None),
+
+    device_type: Optional[str] = Form("unknown"),
 
     # ------------------------------------------------------
     # Identité nouveau compte
@@ -379,19 +349,16 @@ async def activate_document(
     4. Trouver ou créer le bénéficiaire.
     5. Vérifier que le modèle du document existe.
     6. Générer le PDF personnalisé.
-    7. Enregistrer l'activation.
-    8. Envoyer le même PDF via Brevo.
-    9. Retourner le PDF au navigateur.
-    10. Supprimer les fichiers temporaires.
+    7. Enregistrer le PDF dans DocumentActivation.pdf_data.
+    8. Enregistrer le navigateur dans UserDevice.
+    9. Autoriser ce navigateur avec DocumentDeviceAccess.
+    10. Enregistrer l'activation.
+    11. Envoyer le même PDF via Brevo.
+    12. Retourner le PDF au navigateur.
+    13. Supprimer les fichiers temporaires.
 
-    Les données de personnalisation comme :
-        - établissement
-        - ville
-        - année scolaire
-        - photo
-
-    ne sont pas enregistrées dans la base.
-    Elles servent uniquement à produire le PDF.
+    Le PDF original du modèle Typst n'est jamais exposé
+    au navigateur.
     """
 
     # ======================================================
@@ -413,6 +380,18 @@ async def activate_document(
     )
 
     activation_type = activation_type.strip()
+
+    device_id_value = (
+        device_id.strip()
+        if device_id
+        else ""
+    )
+
+    device_type_value = (
+        device_type.strip()
+        if device_type
+        else "unknown"
+    )
 
     nom_value = (
         nom.strip()
@@ -464,6 +443,27 @@ async def activate_document(
         raise HTTPException(
             status_code=400,
             detail="CODE_DOCUMENT_INVALID",
+        )
+
+    # ------------------------------------------------------
+    # Le nouveau système de documents sécurisés nécessite
+    # l'identifiant du navigateur.
+    # ------------------------------------------------------
+
+    if not device_id_value:
+        raise HTTPException(
+            status_code=400,
+            detail="DEVICE_ID_REQUIRED",
+        )
+
+    # ------------------------------------------------------
+    # Protection basique contre un identifiant excessif
+    # ------------------------------------------------------
+
+    if len(device_id_value) > 255:
+        raise HTTPException(
+            status_code=400,
+            detail="DEVICE_ID_INVALID",
         )
 
     if activation_type not in [
@@ -673,10 +673,6 @@ async def activate_document(
             document_name
         )
 
-        # --------------------------------------------------
-        # Document connu mais modèle non configuré
-        # --------------------------------------------------
-
         if not document_config:
 
             logger.warning(
@@ -688,10 +684,6 @@ async def activate_document(
                 status_code=400,
                 detail="DOCUMENT_PDF_NOT_CONFIGURED",
             )
-
-        # --------------------------------------------------
-        # Vérification du type de générateur
-        # --------------------------------------------------
 
         if document_config["type"] != "typst":
 
@@ -705,9 +697,9 @@ async def activate_document(
                 detail="DOCUMENT_GENERATOR_NOT_SUPPORTED",
             )
 
-        # --------------------------------------------------
-        # Récupération du modèle
-        # --------------------------------------------------
+        # ==================================================
+        # ÉTAPE 6 — RÉCUPÉRATION DU MODÈLE
+        # ==================================================
 
         document_directory = Path(
             document_config["directory"]
@@ -716,10 +708,6 @@ async def activate_document(
         document_main = Path(
             document_config["main"]
         )
-
-        # --------------------------------------------------
-        # Vérification de l'existence du modèle
-        # --------------------------------------------------
 
         if not document_main.exists():
 
@@ -735,7 +723,7 @@ async def activate_document(
             )
 
         # ==================================================
-        # ÉTAPE 6 — DOSSIER TEMPORAIRE
+        # ÉTAPE 7 — DOSSIER TEMPORAIRE
         # ==================================================
 
         temporary_root = (
@@ -767,16 +755,12 @@ async def activate_document(
         )
 
         # ==================================================
-        # ÉTAPE 7 — PHOTO TEMPORAIRE
+        # ÉTAPE 8 — PHOTO TEMPORAIRE
         # ==================================================
 
         photo_path = ""
 
         if photo:
-
-            # ----------------------------------------------
-            # Vérification du type
-            # ----------------------------------------------
 
             if photo.content_type not in ALLOWED_PHOTO_TYPES:
 
@@ -785,15 +769,7 @@ async def activate_document(
                     detail="PHOTO_FORMAT_INVALID",
                 )
 
-            # ----------------------------------------------
-            # Lecture de la photo
-            # ----------------------------------------------
-
             photo_content = await photo.read()
-
-            # ----------------------------------------------
-            # Vérification de la taille
-            # ----------------------------------------------
 
             if len(photo_content) > MAX_PHOTO_SIZE:
 
@@ -801,10 +777,6 @@ async def activate_document(
                     status_code=400,
                     detail="PHOTO_TOO_LARGE",
                 )
-
-            # ----------------------------------------------
-            # Extension sécurisée
-            # ----------------------------------------------
 
             extension = ALLOWED_PHOTO_TYPES[
                 photo.content_type
@@ -819,19 +791,11 @@ async def activate_document(
                 photo_content
             )
 
-            # ----------------------------------------------
-            # Chemin relatif au projet Typst
-            # ----------------------------------------------
-
             photo_path = str(
                 temporary_photo.relative_to(
                     document_directory
                 )
             )
-
-            # ----------------------------------------------
-            # Vérification correcte de la photo
-            # ----------------------------------------------
 
             photo_absolute_path = (
                 document_directory
@@ -851,7 +815,7 @@ async def activate_document(
             )
 
         # ==================================================
-        # ÉTAPE 8 — GÉNÉRATION TYPOGRAPHIQUE
+        # ÉTAPE 9 — GÉNÉRATION TYPOGRAPHIQUE
         # ==================================================
 
         typst_command = [
@@ -886,10 +850,6 @@ async def activate_document(
 
             str(pdf_path),
         ]
-
-        # --------------------------------------------------
-        # Exécution de Typst
-        # --------------------------------------------------
 
         logger.info(
             "Génération du document '%s' pour %s %s.",
@@ -939,10 +899,6 @@ async def activate_document(
                 detail="PDF_GENERATION_TIMEOUT",
             )
 
-        # --------------------------------------------------
-        # Vérification de Typst
-        # --------------------------------------------------
-
         if result.returncode != 0:
 
             logger.error(
@@ -959,7 +915,7 @@ async def activate_document(
             )
 
         # ==================================================
-        # ÉTAPE 9 — VÉRIFIER LE PDF
+        # ÉTAPE 10 — VÉRIFIER LE PDF
         # ==================================================
 
         if not pdf_path.exists():
@@ -992,14 +948,35 @@ async def activate_document(
             )
 
         # ==================================================
-        # ÉTAPE 10 — LIRE LE PDF EN MÉMOIRE
+        # ÉTAPE 11 — LIRE LE PDF EN MÉMOIRE
         # ==================================================
 
         pdf_bytes = pdf_path.read_bytes()
 
+        if not pdf_bytes:
+            raise HTTPException(
+                status_code=500,
+                detail="PDF_EMPTY",
+            )
+
+        logger.info(
+            "PDF généré : %s octets pour '%s'.",
+            len(pdf_bytes),
+            document_name,
+        )
+
         # ==================================================
-        # ÉTAPE 11 — ENREGISTRER L'ACTIVATION
+        # ÉTAPE 12 — ENREGISTRER LE PDF DANS LA BASE
         # ==================================================
+        #
+        # C'est cette étape qui permet ensuite à
+        # SecureDocument.tsx de récupérer le PDF sans
+        # accéder au fichier source CODE-Maths.pdf.
+        # ==================================================
+
+        activation.pdf_data = pdf_bytes
+
+        activation.pdf_filename = document_filename
 
         activation.activation_type = (
             activation_type
@@ -1015,12 +992,142 @@ async def activate_document(
             datetime.utcnow()
         )
 
+        # ==================================================
+        # ÉTAPE 13 — ENREGISTRER LE NAVIGATEUR
+        # ==================================================
+
+        now = datetime.utcnow()
+
+        device = (
+            db.query(UserDevice)
+            .filter(
+                UserDevice.device_id
+                == device_id_value
+            )
+            .first()
+        )
+
+        # --------------------------------------------------
+        # Nouveau navigateur/appareil
+        # --------------------------------------------------
+
+        if not device:
+
+            device = UserDevice(
+                user_id=user.id,
+                device_id=device_id_value,
+                device_type=device_type_value,
+                is_mobile=(
+                    device_type_value
+                    in ["android", "ios"]
+                ),
+                is_active=True,
+                created_at=now,
+                last_seen=now,
+            )
+
+            db.add(device)
+
+            db.flush()
+
+        # --------------------------------------------------
+        # Navigateur déjà enregistré
+        # --------------------------------------------------
+
+        else:
+
+            # Un même identifiant technique ne doit pas
+            # pouvoir être utilisé simultanément comme
+            # appareil d'un autre compte.
+            if device.user_id != user.id:
+
+                logger.warning(
+                    "DEVICE_ALREADY_ASSOCIATED : device=%s "
+                    "user_existant=%s user_demande=%s",
+                    device_id_value,
+                    device.user_id,
+                    user.id,
+                )
+
+                db.rollback()
+
+                raise HTTPException(
+                    status_code=409,
+                    detail="DEVICE_ALREADY_ASSOCIATED",
+                )
+
+            device.is_active = True
+            device.last_seen = now
+
+            if device_type_value:
+                device.device_type = device_type_value
+
+            device.is_mobile = (
+                device_type_value
+                in ["android", "ios"]
+            )
+
+        # ==================================================
+        # ÉTAPE 14 — AUTORISER LE NAVIGATEUR POUR CE PDF
+        # ==================================================
+
+        document_access = (
+            db.query(DocumentDeviceAccess)
+            .filter(
+                DocumentDeviceAccess.activation_id
+                == activation.id,
+                DocumentDeviceAccess.device_id
+                == device.id,
+            )
+            .first()
+        )
+
+        # --------------------------------------------------
+        # Aucun accès existant
+        # --------------------------------------------------
+
+        if not document_access:
+
+            document_access = DocumentDeviceAccess(
+                activation_id=activation.id,
+                user_id=user.id,
+                device_id=device.id,
+                is_active=True,
+                activated_at=now,
+                last_access=now,
+                last_version=1,
+            )
+
+            db.add(document_access)
+
+        # --------------------------------------------------
+        # Accès déjà existant
+        # --------------------------------------------------
+
+        else:
+
+            document_access.user_id = user.id
+            document_access.is_active = True
+            document_access.last_access = now
+            document_access.last_version = 1
+
+        # ==================================================
+        # ÉTAPE 15 — COMMIT UNIQUE
+        # ==================================================
+        #
+        # Le PDF, l'activation, le device et son autorisation
+        # sont enregistrés ensemble.
+        #
+        # Si cette transaction échoue, rien n'est validé.
+        # ==================================================
+
         db.commit()
 
         db.refresh(activation)
+        db.refresh(device)
 
         # ==================================================
-        # ÉTAPE 12 — ENVOI DU MÊME PDF PAR BREVO
+        # ÉTAPE 16 — ENVOI DU MÊME PDF PAR BREVO
         # ==================================================
 
         email_sent = False
@@ -1115,12 +1222,6 @@ L'équipe CODE
 
         except Exception:
 
-            # ------------------------------------------------
-            # L'activation reste valide.
-            # Le téléchargement du PDF ne doit pas être
-            # bloqué uniquement parce que Brevo a échoué.
-            # ------------------------------------------------
-
             logger.exception(
                 "Échec de l'envoi du PDF du document '%s' à %s.",
                 document_name,
@@ -1130,7 +1231,7 @@ L'équipe CODE
             email_sent = False
 
         # ==================================================
-        # ÉTAPE 13 — RÉPONSE PDF
+        # ÉTAPE 17 — RÉPONSE PDF
         # ==================================================
 
         filename = document_filename
