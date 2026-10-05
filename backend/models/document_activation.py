@@ -6,6 +6,7 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     LargeBinary,
+    Text,
 )
 from sqlalchemy.orm import relationship
 
@@ -15,7 +16,11 @@ from database import Base
 class DocumentActivation(Base):
     __tablename__ = "document_activations"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
     # ============================================================
     # CODE D'ACTIVATION
@@ -104,19 +109,28 @@ class DocumentActivation(Base):
     # PDF PERSONNALISÉ DU DOCUMENT
     # ============================================================
     #
-    # Le PDF généré lors de l'activation est conservé directement
-    # dans PostgreSQL.
+    # pdf_data est conservé temporairement pour compatibilité
+    # avec les anciennes activations.
     #
-    # Cela permet à l'utilisateur de retrouver son document depuis
-    # "Mes documents", même après redémarrage ou redéploiement du
-    # backend.
+    # Les nouveaux PDF ne doivent PLUS être enregistrés dans
+    # cette colonne, car ils peuvent être extrêmement volumineux.
     #
-    # nullable=True est volontaire afin de ne pas casser les
-    # anciennes activations qui n'ont pas encore de PDF enregistré.
-    #
-
     pdf_data = Column(
         LargeBinary,
+        nullable=True
+    )
+
+    # ============================================================
+    # CHEMIN DU PDF SÉCURISÉ
+    # ============================================================
+    #
+    # Les nouveaux PDF personnalisés sont enregistrés sur le
+    # stockage sécurisé du backend.
+    #
+    # La base de données conserve uniquement le chemin relatif.
+    #
+    pdf_path = Column(
+        Text,
         nullable=True
     )
 

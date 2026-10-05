@@ -1,4 +1,3 @@
-
 from fastapi import (
     APIRouter,
     Depends,
@@ -7,7 +6,6 @@ from fastapi import (
     Form,
     UploadFile,
 )
-from fastapi.responses import Response
 
 from sqlalchemy.orm import Session
 from sqlalchemy import func
@@ -31,7 +29,6 @@ from models.user_device import UserDevice
 from models.document_device_access import DocumentDeviceAccess
 
 from utils.hashing import hash_password
-from utils.email import send_email
 
 
 # ==========================================================
@@ -59,6 +56,33 @@ BACKEND_DIR = Path(__file__).resolve().parent.parent
 
 
 # ============================================================
+# STOCKAGE SÉCURISÉ DES PDF PERSONNALISÉS
+# ============================================================
+#
+# Les PDF personnalisés ne sont PLUS enregistrés dans
+# document_activations.pdf_data.
+#
+# Ils sont conservés dans ce dossier sécurisé.
+#
+# La base de données conserve uniquement le chemin relatif
+# dans document_activations.pdf_path.
+#
+# IMPORTANT :
+# Ce dossier ne doit PAS être exposé comme dossier statique
+# publiquement par FastAPI, Nginx ou le frontend.
+# ============================================================
+
+SECURE_DOCUMENTS_DIR = (
+    BACKEND_DIR / "secure_documents"
+)
+
+SECURE_DOCUMENTS_DIR.mkdir(
+    parents=True,
+    exist_ok=True,
+)
+
+
+# ============================================================
 # REGISTRE DES MODÈLES PDF DES DOCUMENTS
 # ============================================================
 
@@ -78,7 +102,7 @@ DOCUMENT_TEMPLATES = {
 def safe_filename_part(value: str) -> str:
     """
     Transforme le nom du document en partie de nom de fichier
-    sûre pour le téléchargement et la pièce jointe email.
+    sûre pour le stockage du PDF.
     """
 
     value = re.sub(
@@ -349,13 +373,15 @@ async def activate_document(
     4. Trouver ou créer le bénéficiaire.
     5. Vérifier que le modèle du document existe.
     6. Générer le PDF personnalisé.
-    7. Enregistrer le PDF dans DocumentActivation.pdf_data.
-    8. Enregistrer le navigateur dans UserDevice.
-    9. Autoriser ce navigateur avec DocumentDeviceAccess.
-    10. Enregistrer l'activation.
-    11. Envoyer le même PDF via Brevo.
-    12. Retourner le PDF au navigateur.
-    13. Supprimer les fichiers temporaires.
+    7. Enregistrer le PDF dans le stockage sécurisé.
+    8. Enregistrer son chemin dans DocumentActivation.pdf_path.
+    9. Enregistrer le navigateur dans UserDevice.
+    10. Autoriser ce navigateur avec DocumentDeviceAccess.
+    11. Enregistrer l'activation.
+    12. NE PAS envoyer le PDF par email.
+    13. NE PAS retourner le PDF au navigateur.
+    14. Retourner uniquement une confirmation JSON.
+    15. Supprimer les fichiers temporaires.
 
     Le PDF original du modèle Typst n'est jamais exposé
     au navigateur.
@@ -488,6 +514,11 @@ async def activate_document(
     # ======================================================
 
     temporary_directory = None
+
+    # Le chemin permanent est conservé ici afin de pouvoir
+    # éventuellement nettoyer le fichier si une erreur
+    # survient avant le commit.
+    secure_pdf_path = None
 
     try:
 
@@ -933,7 +964,9 @@ async def activate_document(
                 detail="PDF_NOT_GENERATED",
             )
 
-        if pdf_path.stat().st_size == 0:
+        pdf_size = pdf_path.stat().st_size
+
+        if pdf_size == 0:
 
             logger.error(
                 "Le PDF généré pour le document '%s' est vide.",
@@ -947,36 +980,119 @@ async def activate_document(
                 detail="PDF_EMPTY",
             )
 
-        # ==================================================
-        # ÉTAPE 11 — LIRE LE PDF EN MÉMOIRE
-        # ==================================================
-
-        pdf_bytes = pdf_path.read_bytes()
-
-        if not pdf_bytes:
-            raise HTTPException(
-                status_code=500,
-                detail="PDF_EMPTY",
-            )
-
         logger.info(
             "PDF généré : %s octets pour '%s'.",
-            len(pdf_bytes),
+            pdf_size,
             document_name,
         )
 
         # ==================================================
-        # ÉTAPE 12 — ENREGISTRER LE PDF DANS LA BASE
+        # ÉTAPE 11 — STOCKAGE SÉCURISÉ DU PDF
         # ==================================================
         #
-        # C'est cette étape qui permet ensuite à
-        # SecureDocument.tsx de récupérer le PDF sans
-        # accéder au fichier source CODE-Maths.pdf.
+        # IMPORTANT :
+        #
+        # Le PDF n'est PAS chargé en mémoire.
+        #
+        # On utilise directement le fichier généré.
+        #
+        # Il n'est PAS envoyé :
+        # - dans MySQL/PostgreSQL ;
+        # - par email ;
+        # - dans la réponse HTTP.
+        #
+        # La base conserve uniquement son chemin.
         # ==================================================
 
-        activation.pdf_data = pdf_bytes
+        secure_document_directory = (
+            SECURE_DOCUMENTS_DIR
+            / str(activation.id)
+        )
 
-        activation.pdf_filename = document_filename
+        secure_document_directory.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        secure_pdf_path = (
+            secure_document_directory
+            / document_filename
+        )
+
+        try:
+
+            shutil.copy2(
+                pdf_path,
+                secure_pdf_path,
+            )
+
+        except Exception:
+
+            logger.exception(
+                "Impossible de stocker le PDF sécurisé : %s",
+                secure_pdf_path,
+            )
+
+            raise HTTPException(
+                status_code=500,
+                detail="SECURE_PDF_STORAGE_FAILED",
+            )
+
+        # --------------------------------------------------
+        # Vérification du fichier sécurisé
+        # --------------------------------------------------
+
+        if not secure_pdf_path.exists():
+
+            raise HTTPException(
+                status_code=500,
+                detail="SECURE_PDF_NOT_FOUND",
+            )
+
+        if not secure_pdf_path.is_file():
+
+            raise HTTPException(
+                status_code=500,
+                detail="SECURE_PDF_INVALID",
+            )
+
+        secure_pdf_size = (
+            secure_pdf_path.stat().st_size
+        )
+
+        if secure_pdf_size == 0:
+
+            raise HTTPException(
+                status_code=500,
+                detail="SECURE_PDF_EMPTY",
+            )
+
+        logger.info(
+            "PDF sécurisé enregistré : %s (%s octets)",
+            secure_pdf_path,
+            secure_pdf_size,
+        )
+
+        # --------------------------------------------------
+        # Enregistrer UNIQUEMENT le chemin relatif
+        # --------------------------------------------------
+
+        activation.pdf_path = str(
+            secure_pdf_path.relative_to(
+                BACKEND_DIR
+            )
+        )
+
+        # --------------------------------------------------
+        # IMPORTANT :
+        # Le gros PDF n'est plus enregistré dans pdf_data.
+        # --------------------------------------------------
+
+        activation.pdf_data = None
+
+        activation.pdf_filename = (
+            document_filename
+        )
 
         activation.activation_type = (
             activation_type
@@ -993,7 +1109,7 @@ async def activate_document(
         )
 
         # ==================================================
-        # ÉTAPE 13 — ENREGISTRER LE NAVIGATEUR
+        # ÉTAPE 12 — ENREGISTRER LE NAVIGATEUR
         # ==================================================
 
         now = datetime.utcnow()
@@ -1039,6 +1155,7 @@ async def activate_document(
             # Un même identifiant technique ne doit pas
             # pouvoir être utilisé simultanément comme
             # appareil d'un autre compte.
+
             if device.user_id != user.id:
 
                 logger.warning(
@@ -1057,10 +1174,14 @@ async def activate_document(
                 )
 
             device.is_active = True
+
             device.last_seen = now
 
             if device_type_value:
-                device.device_type = device_type_value
+
+                device.device_type = (
+                    device_type_value
+                )
 
             device.is_mobile = (
                 device_type_value
@@ -1068,7 +1189,7 @@ async def activate_document(
             )
 
         # ==================================================
-        # ÉTAPE 14 — AUTORISER LE NAVIGATEUR POUR CE PDF
+        # ÉTAPE 13 — AUTORISER LE NAVIGATEUR POUR CE PDF
         # ==================================================
 
         document_access = (
@@ -1107,152 +1228,89 @@ async def activate_document(
         else:
 
             document_access.user_id = user.id
+
             document_access.is_active = True
+
             document_access.last_access = now
+
             document_access.last_version = 1
 
         # ==================================================
-        # ÉTAPE 15 — COMMIT UNIQUE
+        # ÉTAPE 14 — COMMIT UNIQUE
         # ==================================================
         #
-        # Le PDF, l'activation, le device et son autorisation
-        # sont enregistrés ensemble.
+        # IMPORTANT :
         #
-        # Si cette transaction échoue, rien n'est validé.
+        # Le gros PDF n'est plus dans la transaction SQL.
+        #
+        # MySQL/PostgreSQL ne reçoit que des informations
+        # légères :
+        #
+        # - pdf_path
+        # - pdf_filename
+        # - user_id
+        # - activation
+        # - device
+        # - accès document
+        #
+        # Le fichier PDF lui-même reste dans le stockage.
         # ==================================================
 
         db.commit()
 
         db.refresh(activation)
+
         db.refresh(device)
 
         # ==================================================
-        # ÉTAPE 16 — ENVOI DU MÊME PDF PAR BREVO
+        # ÉTAPE 15 — AUCUN ENVOI DU PDF
+        # ==================================================
+        #
+        # Pour l'instant :
+        #
+        # - aucun email Brevo avec le PDF ;
+        # - aucun PDF dans la réponse HTTP ;
+        # - aucun téléchargement automatique ;
+        # - aucun chargement de 242 Mo en mémoire.
+        #
+        # Le document reste disponible dans :
+        #
+        # "Mes documents"
+        #
+        # grâce au système DocumentDeviceAccess.
         # ==================================================
 
-        email_sent = False
-
-        try:
-
-            beneficiary_name = (
-                f"{user.prenom} {user.nom}"
-            ).strip()
-
-            document_name = (
-                activation.document_name
-            )
-
-            email_subject = (
-                f"Votre document "
-                f"{document_name} personnalisé"
-            )
-
-            email_body = f"""
-Bonjour {beneficiary_name},
-
-Votre document {document_name} a été activé avec succès.
-
-Vous trouverez en pièce jointe votre exemplaire
-personnalisé du document.
-
-Code d'activation :
-{activation.activation_code}
-
-Conservez précieusement ce document.
-
-L'équipe CODE
-""".strip()
-
-            email_html = f"""
-<html>
-<body>
-
-<p>
-Bonjour <strong>{beneficiary_name}</strong>,
-</p>
-
-<p>
-Votre document
-<strong>{document_name}</strong>
-a été activé avec succès.
-</p>
-
-<p>
-Vous trouverez en pièce jointe votre exemplaire
-personnalisé du document.
-</p>
-
-<p>
-<strong>Code d'activation :</strong>
-{activation.activation_code}
-</p>
-
-<p>
-Conservez précieusement ce document.
-</p>
-
-<p>
-L'équipe CODE
-</p>
-
-</body>
-</html>
-""".strip()
-
-            await send_email(
-                to=beneficiary_email_value,
-                subject=email_subject,
-                body=email_body,
-                html_body=email_html,
-                attachments=[
-                    {
-                        "path": str(pdf_path),
-                        "name": document_filename,
-                    }
-                ],
-            )
-
-            email_sent = True
-
-            logger.info(
-                "PDF du document '%s' envoyé avec succès à %s.",
-                document_name,
-                beneficiary_email_value,
-            )
-
-        except Exception:
-
-            logger.exception(
-                "Échec de l'envoi du PDF du document '%s' à %s.",
-                document_name,
-                beneficiary_email_value,
-            )
-
-            email_sent = False
-
-        # ==================================================
-        # ÉTAPE 17 — RÉPONSE PDF
-        # ==================================================
-
-        filename = document_filename
-
-        headers = {
-            "Content-Disposition": (
-                f'attachment; filename="{filename}"'
-            ),
-            "X-Email-Sent": (
-                "true"
-                if email_sent
-                else "false"
-            ),
-            "X-Activation-Success": "true",
-        }
-
-        return Response(
-            content=pdf_bytes,
-            media_type="application/pdf",
-            headers=headers,
+        logger.info(
+            "Activation réussie sans envoi du PDF : "
+            "activation_id=%s | document=%s | device=%s",
+            activation.id,
+            activation.document_name,
+            device_id_value,
         )
+
+        # ==================================================
+        # ÉTAPE 16 — RÉPONSE JSON UNIQUEMENT
+        # ==================================================
+        #
+        # Le navigateur reçoit uniquement des informations
+        # légères concernant la réussite de l'activation.
+        #
+        # Aucun octet du PDF n'est renvoyé.
+        # ==================================================
+
+        return {
+            "success": True,
+            "message": (
+                "Document activé avec succès. "
+                "Votre document est disponible dans "
+                "« Mes documents »."
+            ),
+            "activation_id": activation.id,
+            "document": {
+                "id": activation.id,
+                "name": activation.document_name,
+            },
+        }
 
     # ======================================================
     # ERREUR HTTP

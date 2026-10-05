@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 
 from fastapi import (
     APIRouter,
@@ -6,7 +7,7 @@ from fastapi import (
     Header,
     HTTPException,
 )
-from fastapi.responses import Response
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from database import get_db
@@ -23,6 +24,15 @@ from models.document_activation import (
 router = APIRouter(
     prefix="/api",
     tags=["secure-documents"],
+)
+
+
+# ============================================================
+# CHEMIN DU BACKEND
+# ============================================================
+
+BACKEND_DIR = (
+    Path(__file__).resolve().parent.parent
 )
 
 
@@ -54,10 +64,8 @@ def get_device(
     device = (
         db.query(UserDevice)
         .filter(
-            UserDevice.device_id
-            == device_id,
-            UserDevice.is_active
-            == True,
+            UserDevice.device_id == device_id,
+            UserDevice.is_active == True,
         )
         .first()
     )
@@ -66,6 +74,59 @@ def get_device(
         raise HTTPException(
             status_code=404,
             detail="DEVICE_NOT_REGISTERED",
+        )
+
+    return device
+
+
+# ============================================================
+# VÉRIFICATION : APPAREIL AUTORISÉ
+# ============================================================
+
+def require_mobile_device(
+    device: UserDevice,
+) -> UserDevice:
+    """
+    Autorise uniquement les appareils mobiles/tablettes.
+
+    Les ordinateurs de bureau sont explicitement refusés.
+
+    Cela constitue une protection côté serveur :
+    même si quelqu'un tente d'appeler directement
+    l'URL du document depuis un PC, le backend refuse
+    l'accès avant de rechercher/envoyer le PDF.
+    """
+
+    device_type = (
+        (device.device_type or "")
+        .strip()
+        .lower()
+    )
+
+    if device_type == "desktop":
+        raise HTTPException(
+            status_code=403,
+            detail="DOCUMENT_MOBILE_ONLY",
+        )
+
+    # --------------------------------------------------------
+    # On autorise :
+    #   mobile
+    #   tablet
+    #
+    # On refuse également les types inconnus.
+    #
+    # Cela évite qu'un appareil non identifié bénéficie
+    # accidentellement de l'accès au document.
+    # --------------------------------------------------------
+
+    if device_type not in {
+        "mobile",
+        "tablet",
+    }:
+        raise HTTPException(
+            status_code=403,
+            detail="DOCUMENT_MOBILE_ONLY",
         )
 
     return device
@@ -92,24 +153,42 @@ def get_my_secure_documents(
     Cette route fonctionne SANS authentification
     utilisateur.
 
-    La seule information technique reçue du frontend
-    est X-Device-ID.
+    Le serveur vérifie :
 
-    Le serveur vérifie ensuite :
       1. que l'appareil existe ;
       2. qu'il est actif ;
-      3. qu'une autorisation existe ;
-      4. que cette autorisation est active ;
-      5. que le document correspondant est activé.
+      3. que l'appareil est mobile/tablette ;
+      4. qu'une autorisation existe ;
+      5. que cette autorisation est active ;
+      6. que le document correspondant est activé.
     """
+
+    # ========================================================
+    # 1. RÉCUPÉRATION DE L'APPAREIL
+    # ========================================================
 
     device = get_device(
         x_device_id,
         db,
     )
 
-    # Mise à jour de la présence de l'appareil.
+    # ========================================================
+    # 2. BLOQUER LES PC
+    # ========================================================
+
+    require_mobile_device(
+        device
+    )
+
+    # ========================================================
+    # 3. MISE À JOUR DE LA PRÉSENCE
+    # ========================================================
+
     device.last_seen = datetime.utcnow()
+
+    # ========================================================
+    # 4. RECHERCHE DES AUTORISATIONS
+    # ========================================================
 
     accesses = (
         db.query(
@@ -126,7 +205,12 @@ def get_my_secure_documents(
 
     documents = []
 
+    # ========================================================
+    # 5. RÉCUPÉRATION DES DOCUMENTS AUTORISÉS
+    # ========================================================
+
     for access in accesses:
+
         activation = (
             db.query(
                 DocumentActivation
@@ -134,6 +218,7 @@ def get_my_secure_documents(
             .filter(
                 DocumentActivation.id
                 == access.activation_id,
+
                 DocumentActivation.is_activated
                 == True,
             )
@@ -142,6 +227,12 @@ def get_my_secure_documents(
 
         if not activation:
             continue
+
+        # ----------------------------------------------------
+        # IMPORTANT :
+        # Le chemin physique du PDF n'est jamais envoyé
+        # au frontend.
+        # ----------------------------------------------------
 
         documents.append(
             {
@@ -155,10 +246,15 @@ def get_my_secure_documents(
             }
         )
 
+    # ========================================================
+    # 6. ENREGISTRER LA DERNIÈRE ACTIVITÉ
+    # ========================================================
+
     db.commit()
 
     return {
-        "documents": documents
+        "documents": documents,
+        "mobile_only": True,
     }
 
 
@@ -183,24 +279,39 @@ def get_secure_document(
 
     AUCUN JWT n'est nécessaire.
 
-    L'accès est accordé uniquement si le X-Device-ID
-    correspond à un UserDevice actif et que ce device
-    possède une DocumentDeviceAccess active pour
-    cette activation.
+    L'accès est accordé uniquement si :
+
+      1. le X-Device-ID correspond à un UserDevice actif ;
+      2. l'appareil est mobile ou tablette ;
+      3. le document existe et est activé ;
+      4. le device possède une DocumentDeviceAccess active ;
+      5. le fichier PDF sécurisé existe réellement ;
+      6. le chemin enregistré reste à l'intérieur du
+         dossier backend autorisé.
+
+    Le PDF n'est jamais récupéré depuis pdf_data.
     """
 
-    # --------------------------------------------------------
-    # 1. Vérification de l'appareil
-    # --------------------------------------------------------
+    # ========================================================
+    # 1. VÉRIFICATION DE L'APPAREIL
+    # ========================================================
 
     device = get_device(
         x_device_id,
         db,
     )
 
-    # --------------------------------------------------------
-    # 2. Recherche du document
-    # --------------------------------------------------------
+    # ========================================================
+    # 2. BLOQUER LES PC
+    # ========================================================
+
+    require_mobile_device(
+        device
+    )
+
+    # ========================================================
+    # 3. RECHERCHE DU DOCUMENT
+    # ========================================================
 
     activation = (
         db.query(
@@ -209,6 +320,7 @@ def get_secure_document(
         .filter(
             DocumentActivation.id
             == document_id,
+
             DocumentActivation.is_activated
             == True,
         )
@@ -221,9 +333,9 @@ def get_secure_document(
             detail="DOCUMENT_NOT_FOUND",
         )
 
-    # --------------------------------------------------------
-    # 3. Vérification de l'autorisation
-    # --------------------------------------------------------
+    # ========================================================
+    # 4. VÉRIFICATION DE L'AUTORISATION
+    # ========================================================
 
     access = (
         db.query(
@@ -232,8 +344,10 @@ def get_secure_document(
         .filter(
             DocumentDeviceAccess.activation_id
             == activation.id,
+
             DocumentDeviceAccess.device_id
             == device.id,
+
             DocumentDeviceAccess.is_active
             == True,
         )
@@ -246,19 +360,75 @@ def get_secure_document(
             detail="DOCUMENT_ACCESS_DENIED",
         )
 
-    # --------------------------------------------------------
-    # 4. Vérification du PDF enregistré
-    # --------------------------------------------------------
+    # ========================================================
+    # 5. VÉRIFICATION DU CHEMIN PDF
+    # ========================================================
 
-    if not activation.pdf_data:
+    if not activation.pdf_path:
         raise HTTPException(
             status_code=404,
             detail="PDF_NOT_AVAILABLE",
         )
 
-    # --------------------------------------------------------
-    # 5. Mise à jour des accès
-    # --------------------------------------------------------
+    try:
+
+        secure_pdf_path = (
+            BACKEND_DIR
+            / activation.pdf_path
+        ).resolve()
+
+    except Exception:
+
+        raise HTTPException(
+            status_code=404,
+            detail="PDF_PATH_INVALID",
+        )
+
+    # ========================================================
+    # 6. PROTECTION CONTRE LE PATH TRAVERSAL
+    # ========================================================
+
+    try:
+
+        secure_pdf_path.relative_to(
+            BACKEND_DIR.resolve()
+        )
+
+    except ValueError:
+
+        raise HTTPException(
+            status_code=403,
+            detail="PDF_PATH_INVALID",
+        )
+
+    # ========================================================
+    # 7. VÉRIFICATION DU FICHIER
+    # ========================================================
+
+    if not secure_pdf_path.exists():
+
+        raise HTTPException(
+            status_code=404,
+            detail="PDF_FILE_NOT_FOUND",
+        )
+
+    if not secure_pdf_path.is_file():
+
+        raise HTTPException(
+            status_code=404,
+            detail="PDF_FILE_INVALID",
+        )
+
+    if secure_pdf_path.stat().st_size == 0:
+
+        raise HTTPException(
+            status_code=404,
+            detail="PDF_FILE_EMPTY",
+        )
+
+    # ========================================================
+    # 8. MISE À JOUR DES ACCÈS
+    # ========================================================
 
     now = datetime.utcnow()
 
@@ -267,9 +437,9 @@ def get_secure_document(
 
     db.commit()
 
-    # --------------------------------------------------------
-    # 6. Préparation du nom de fichier
-    # --------------------------------------------------------
+    # ========================================================
+    # 9. PRÉPARATION DU NOM DU DOCUMENT
+    # ========================================================
 
     filename = (
         activation.pdf_filename
@@ -284,23 +454,40 @@ def get_secure_document(
             f"{filename}.pdf"
         )
 
-    # --------------------------------------------------------
-    # 7. Retour du PDF
-    # --------------------------------------------------------
+    # ========================================================
+    # 10. RETOUR DU PDF
+    # ========================================================
+    #
+    # IMPORTANT :
+    #
+    # Le PDF est envoyé uniquement APRÈS toutes les
+    # vérifications précédentes.
+    #
+    # Il n'est pas stocké dans pdf_data.
+    #
+    # FileResponse permet au serveur de lire le fichier
+    # depuis le stockage sécurisé.
+    # ========================================================
 
-    return Response(
-        content=activation.pdf_data,
+    return FileResponse(
+        path=str(secure_pdf_path),
+
         media_type="application/pdf",
+
         headers={
             "Content-Disposition": (
                 f'inline; filename="{filename}"'
             ),
+
             "Cache-Control": (
                 "no-store, no-cache, "
                 "must-revalidate, max-age=0"
             ),
+
             "Pragma": "no-cache",
+
             "Expires": "0",
+
             "X-Document-Name": (
                 activation.document_name
                 or "Document sécurisé"
