@@ -415,7 +415,7 @@ async def activate_document(
     )
 
     device_type_value = (
-        device_type.strip()
+        device_type.strip().lower()
         if device_type
         else "unknown"
     )
@@ -510,6 +510,17 @@ async def activate_document(
                 detail="SELF_ACTIVATION_EMAIL_MISMATCH",
             )
 
+    logger.info(
+        "🚀 ACTIVATION — requête reçue | "
+        "type=%s | buyer=%s | beneficiary=%s | "
+        "device_type=%s | device_id_present=%s",
+        activation_type,
+        buyer_email_value,
+        beneficiary_email_value,
+        device_type_value,
+        bool(device_id_value),
+    )
+
     # ======================================================
     # DOSSIER TEMPORAIRE
     # ======================================================
@@ -542,10 +553,23 @@ async def activate_document(
         )
 
         if not activation:
+            logger.warning(
+                "❌ ACTIVATION — code introuvable | code=%s",
+                activation_code,
+            )
+
             raise HTTPException(
                 status_code=404,
                 detail="CODE_DOCUMENT_INVALID",
             )
+
+        logger.info(
+            "🔵 ACTIVATION — code trouvé | "
+            "activation_id=%s | document=%s | is_activated=%s",
+            activation.id,
+            activation.document_name,
+            activation.is_activated,
+        )
 
         # ==================================================
         # NOM DU DOCUMENT ACTIVÉ
@@ -558,10 +582,22 @@ async def activate_document(
         # ==================================================
 
         if activation.is_activated:
+
+            logger.warning(
+                "❌ ACTIVATION — document déjà activé | "
+                "activation_id=%s",
+                activation.id,
+            )
+
             raise HTTPException(
                 status_code=400,
                 detail="DOCUMENT_ALREADY_ACTIVATED",
             )
+
+        logger.info(
+            "🟢 ACTIVATION — code disponible | activation_id=%s",
+            activation.id,
+        )
 
         # ==================================================
         # ÉTAPE 3 — VÉRIFICATION DE L'ACHETEUR
@@ -576,10 +612,25 @@ async def activate_document(
             )
 
             if stored_buyer_email != buyer_email_value:
+
+                logger.warning(
+                    "❌ ACTIVATION — email acheteur incorrect | "
+                    "activation_id=%s | attendu=%s | reçu=%s",
+                    activation.id,
+                    stored_buyer_email,
+                    buyer_email_value,
+                )
+
                 raise HTTPException(
                     status_code=403,
                     detail="EMAIL_CODE_MISMATCH",
                 )
+
+        logger.info(
+            "🟢 ACTIVATION — email acheteur vérifié | "
+            "activation_id=%s",
+            activation.id,
+        )
 
         # ==================================================
         # ÉTAPE 4 — BÉNÉFICIAIRE
@@ -594,6 +645,13 @@ async def activate_document(
             .first()
         )
 
+        logger.info(
+            "🔵 ACTIVATION — recherche bénéficiaire | "
+            "email=%s | trouvé=%s",
+            beneficiary_email_value,
+            bool(user),
+        )
+
         # ==================================================
         # CAS 1 — COMPTE EXISTANT
         # ==================================================
@@ -602,11 +660,24 @@ async def activate_document(
 
             activation.user_id = user.id
 
+            logger.info(
+                "🟢 ACTIVATION — compte bénéficiaire existant | "
+                "user_id=%s | email=%s",
+                user.id,
+                user.email,
+            )
+
         # ==================================================
         # CAS 2 — NOUVEAU COMPTE
         # ==================================================
 
         else:
+
+            logger.info(
+                "🔵 ACTIVATION — aucun compte trouvé, "
+                "préparation de la création | email=%s",
+                beneficiary_email_value,
+            )
 
             # ----------------------------------------------
             # Champs obligatoires
@@ -660,6 +731,12 @@ async def activate_document(
                 user = existing_user
                 activation.user_id = user.id
 
+                logger.info(
+                    "🟢 ACTIVATION — compte trouvé lors "
+                    "de la seconde vérification | user_id=%s",
+                    user.id,
+                )
+
             else:
 
                 # ------------------------------------------
@@ -701,9 +778,29 @@ async def activate_document(
 
                 activation.user_id = user.id
 
+                logger.info(
+                    "🟢 ACTIVATION — nouveau compte créé | "
+                    "user_id=%s | email=%s",
+                    user.id,
+                    user.email,
+                )
+
+        logger.info(
+            "🟢 ACTIVATION — bénéficiaire prêt | "
+            "user_id=%s | email=%s",
+            user.id,
+            user.email,
+        )
+
         # ==================================================
         # ÉTAPE 5 — MODÈLE PDF DU DOCUMENT
         # ==================================================
+
+        logger.info(
+            "🔵 ACTIVATION — recherche modèle PDF | "
+            "document='%s'",
+            document_name,
+        )
 
         document_config = DOCUMENT_TEMPLATES.get(
             document_name
@@ -712,7 +809,8 @@ async def activate_document(
         if not document_config:
 
             logger.warning(
-                "Aucun modèle PDF configuré pour le document '%s'.",
+                "❌ ACTIVATION — aucun modèle PDF configuré | "
+                "document='%s'",
                 document_name,
             )
 
@@ -721,11 +819,21 @@ async def activate_document(
                 detail="DOCUMENT_PDF_NOT_CONFIGURED",
             )
 
+        logger.info(
+            "🟢 ACTIVATION — modèle trouvé | "
+            "type=%s | directory=%s | main=%s",
+            document_config["type"],
+            document_config["directory"],
+            document_config["main"],
+        )
+
         if document_config["type"] != "typst":
 
             logger.error(
-                "Générateur non supporté pour le document '%s'.",
+                "❌ ACTIVATION — générateur non supporté | "
+                "document='%s' | type=%s",
                 document_name,
+                document_config["type"],
             )
 
             raise HTTPException(
@@ -745,10 +853,18 @@ async def activate_document(
             document_config["main"]
         )
 
+        logger.info(
+            "🔵 ACTIVATION — vérification du modèle Typst | "
+            "main=%s | existe=%s",
+            document_main,
+            document_main.exists(),
+        )
+
         if not document_main.exists():
 
             logger.error(
-                "Modèle PDF introuvable pour le document '%s' : %s",
+                "❌ ACTIVATION — modèle PDF introuvable | "
+                "document='%s' | chemin=%s",
                 document_name,
                 document_main,
             )
@@ -757,6 +873,11 @@ async def activate_document(
                 status_code=500,
                 detail="DOCUMENT_TEMPLATE_NOT_FOUND",
             )
+
+        logger.info(
+            "🟢 ACTIVATION — modèle Typst disponible | %s",
+            document_main,
+        )
 
         # ==================================================
         # ÉTAPE 7 — DOSSIER TEMPORAIRE
@@ -790,6 +911,11 @@ async def activate_document(
             / document_filename
         )
 
+        logger.info(
+            "🔵 ACTIVATION — dossier temporaire créé | %s",
+            temporary_directory,
+        )
+
         # ==================================================
         # ÉTAPE 8 — PHOTO TEMPORAIRE
         # ==================================================
@@ -800,6 +926,12 @@ async def activate_document(
 
             if photo.content_type not in ALLOWED_PHOTO_TYPES:
 
+                logger.warning(
+                    "❌ ACTIVATION — format photo invalide | "
+                    "content_type=%s",
+                    photo.content_type,
+                )
+
                 raise HTTPException(
                     status_code=400,
                     detail="PHOTO_FORMAT_INVALID",
@@ -808,6 +940,12 @@ async def activate_document(
             photo_content = await photo.read()
 
             if len(photo_content) > MAX_PHOTO_SIZE:
+
+                logger.warning(
+                    "❌ ACTIVATION — photo trop volumineuse | "
+                    "taille=%s",
+                    len(photo_content),
+                )
 
                 raise HTTPException(
                     status_code=400,
@@ -854,25 +992,6 @@ async def activate_document(
         # ÉTAPE 9 — GÉNÉRATION TYPOGRAPHIQUE
         # ==================================================
 
-        # --------------------------------------------------
-        # Résolution robuste du binaire Typst.
-        #
-        # Ordre de recherche :
-        #
-        # 1. TYPST_PATH si explicitement défini ;
-        # 2. installation locale du backend :
-        #       BACKEND_DIR/.tools/typst
-        # 3. installation Render dans :
-        #       ~/.local/bin/typst
-        # 4. Typst disponible dans le PATH.
-        #
-        # Le premier chemin est désormais prioritaire pour
-        # l'installation effectuée directement par build.sh.
-        #
-        # On vérifie réellement l'existence et les droits
-        # d'exécution de chaque candidat.
-        # --------------------------------------------------
-
         typst_candidates = []
 
         # --------------------------------------------------
@@ -893,12 +1012,6 @@ async def activate_document(
 
         # --------------------------------------------------
         # 2. Installation persistante dans le backend
-        #
-        # build.sh installe Typst ici :
-        #
-        # backend/.tools/typst
-        #
-        # Ce chemin ne dépend ni de HOME ni du PATH.
         # --------------------------------------------------
 
         typst_candidates.append(
@@ -909,8 +1022,6 @@ async def activate_document(
 
         # --------------------------------------------------
         # 3. Installation utilisateur
-        #
-        # Fallback pour ~/.local/bin/typst
         # --------------------------------------------------
 
         typst_candidates.append(
@@ -933,6 +1044,12 @@ async def activate_document(
             typst_candidates.append(
                 Path(typst_from_path)
             )
+
+        logger.info(
+            "🔵 ACTIVATION — recherche de Typst | "
+            "candidats=%s",
+            [str(path) for path in typst_candidates],
+        )
 
         # --------------------------------------------------
         # Recherche du premier binaire valide
@@ -960,7 +1077,6 @@ async def activate_document(
                 candidate
             )
 
-            # Évite de tester deux fois le même chemin
             if candidate_string in seen_typst_paths:
                 continue
 
@@ -987,7 +1103,7 @@ async def activate_document(
         if not typst_path:
 
             logger.error(
-                "Typst introuvable ou non exécutable. "
+                "❌ ACTIVATION — Typst introuvable ou non exécutable. "
                 "TYPST_PATH=%s | HOME=%s | PATH=%s | candidats=%s",
                 os.getenv("TYPST_PATH"),
                 Path.home(),
@@ -1001,21 +1117,14 @@ async def activate_document(
             )
 
         logger.info(
-            "Typst utilisé pour le document '%s' : %s",
+            "🟢 ACTIVATION — Typst disponible | "
+            "document='%s' | chemin=%s",
             document_name,
             typst_path,
         )
 
         # --------------------------------------------------
         # Préparation de l'environnement du processus Typst
-        # --------------------------------------------------
-        #
-        # Même si Typst est installé dans ~/.local/bin ou
-        # .tools, le PATH du processus Uvicorn peut ne pas
-        # contenir ce dossier après le build Render.
-        #
-        # On ajoute donc explicitement le dossier du binaire
-        # au PATH transmis à subprocess.
         # --------------------------------------------------
 
         typst_env = os.environ.copy()
@@ -1080,7 +1189,9 @@ async def activate_document(
         )
 
         logger.info(
-            "Commande Typst préparée avec le binaire : %s",
+            "🚀 ACTIVATION — lancement de Typst | "
+            "activation_id=%s | typst=%s",
+            activation.id,
             typst_path,
         )
 
@@ -1099,8 +1210,8 @@ async def activate_document(
         except FileNotFoundError:
 
             logger.exception(
-                "Typst n'est pas installé ou "
-                "n'est pas accessible pour le document '%s'.",
+                "❌ ACTIVATION — Typst inaccessible | "
+                "document='%s'",
                 document_name,
             )
 
@@ -1114,8 +1225,8 @@ async def activate_document(
         except subprocess.TimeoutExpired:
 
             logger.exception(
-                "La génération du document '%s' "
-                "a dépassé le délai autorisé.",
+                "❌ ACTIVATION — génération Typst dépassée | "
+                "document='%s'",
                 document_name,
             )
 
@@ -1126,6 +1237,13 @@ async def activate_document(
                 detail="PDF_GENERATION_TIMEOUT",
             )
 
+        logger.info(
+            "🏁 ACTIVATION — Typst terminé | "
+            "returncode=%s | activation_id=%s",
+            result.returncode,
+            activation.id,
+        )
+
         # --------------------------------------------------
         # Vérification du résultat Typst
         # --------------------------------------------------
@@ -1133,8 +1251,9 @@ async def activate_document(
         if result.returncode != 0:
 
             logger.error(
-                "Erreur Typst pour le document '%s'. "
-                "Code retour=%s | stderr=%s | stdout=%s",
+                "❌ ACTIVATION — erreur Typst | "
+                "document='%s' | code_retour=%s | "
+                "stderr=%s | stdout=%s",
                 document_name,
                 result.returncode,
                 result.stderr,
@@ -1152,12 +1271,19 @@ async def activate_document(
         # ÉTAPE 10 — VÉRIFIER LE PDF
         # ==================================================
 
+        logger.info(
+            "🔵 ACTIVATION — vérification du PDF généré | "
+            "path=%s | existe=%s",
+            pdf_path,
+            pdf_path.exists(),
+        )
+
         if not pdf_path.exists():
 
             logger.error(
-                "Typst a terminé sans produire "
-                "le PDF attendu pour le document '%s'.",
-                document_name,
+                "❌ ACTIVATION — Typst terminé sans produire "
+                "le PDF attendu | path=%s",
+                pdf_path,
             )
 
             db.rollback()
@@ -1172,8 +1298,9 @@ async def activate_document(
         if pdf_size == 0:
 
             logger.error(
-                "Le PDF généré pour le document '%s' est vide.",
-                document_name,
+                "❌ ACTIVATION — PDF généré vide | "
+                "path=%s",
+                pdf_path,
             )
 
             db.rollback()
@@ -1184,27 +1311,14 @@ async def activate_document(
             )
 
         logger.info(
-            "PDF généré : %s octets pour '%s'.",
+            "🟢 ACTIVATION — PDF généré avec succès | "
+            "taille=%s octets | document='%s'",
             pdf_size,
             document_name,
         )
 
         # ==================================================
         # ÉTAPE 11 — STOCKAGE SÉCURISÉ DU PDF
-        # ==================================================
-        #
-        # IMPORTANT :
-        #
-        # Le PDF n'est PAS chargé en mémoire.
-        #
-        # On utilise directement le fichier généré.
-        #
-        # Il n'est PAS envoyé :
-        # - dans MySQL/PostgreSQL ;
-        # - par email ;
-        # - dans la réponse HTTP.
-        #
-        # La base conserve uniquement son chemin.
         # ==================================================
 
         secure_document_directory = (
@@ -1222,6 +1336,12 @@ async def activate_document(
             / document_filename
         )
 
+        logger.info(
+            "🔵 ACTIVATION — stockage sécurisé du PDF | "
+            "destination=%s",
+            secure_pdf_path,
+        )
+
         try:
 
             shutil.copy2(
@@ -1232,7 +1352,8 @@ async def activate_document(
         except Exception:
 
             logger.exception(
-                "Impossible de stocker le PDF sécurisé : %s",
+                "❌ ACTIVATION — impossible de stocker "
+                "le PDF sécurisé | destination=%s",
                 secure_pdf_path,
             )
 
@@ -1247,12 +1368,24 @@ async def activate_document(
 
         if not secure_pdf_path.exists():
 
+            logger.error(
+                "❌ ACTIVATION — PDF sécurisé introuvable "
+                "après copie | path=%s",
+                secure_pdf_path,
+            )
+
             raise HTTPException(
                 status_code=500,
                 detail="SECURE_PDF_NOT_FOUND",
             )
 
         if not secure_pdf_path.is_file():
+
+            logger.error(
+                "❌ ACTIVATION — chemin PDF sécurisé invalide | "
+                "path=%s",
+                secure_pdf_path,
+            )
 
             raise HTTPException(
                 status_code=500,
@@ -1265,13 +1398,20 @@ async def activate_document(
 
         if secure_pdf_size == 0:
 
+            logger.error(
+                "❌ ACTIVATION — PDF sécurisé vide | "
+                "path=%s",
+                secure_pdf_path,
+            )
+
             raise HTTPException(
                 status_code=500,
                 detail="SECURE_PDF_EMPTY",
             )
 
         logger.info(
-            "PDF sécurisé enregistré : %s (%s octets)",
+            "🟢 ACTIVATION — PDF sécurisé enregistré | "
+            "path=%s | taille=%s octets",
             secure_pdf_path,
             secure_pdf_size,
         )
@@ -1285,11 +1425,6 @@ async def activate_document(
                 BACKEND_DIR
             )
         )
-
-        # --------------------------------------------------
-        # IMPORTANT :
-        # Le gros PDF n'est plus enregistré dans pdf_data.
-        # --------------------------------------------------
 
         activation.pdf_data = None
 
@@ -1311,11 +1446,26 @@ async def activate_document(
             datetime.utcnow()
         )
 
+        logger.info(
+            "🟢 ACTIVATION — données d'activation préparées | "
+            "activation_id=%s | user_id=%s | pdf_path=%s",
+            activation.id,
+            user.id,
+            activation.pdf_path,
+        )
+
         # ==================================================
         # ÉTAPE 12 — ENREGISTRER LE NAVIGATEUR
         # ==================================================
 
         now = datetime.utcnow()
+
+        logger.info(
+            "🔵 ACTIVATION — recherche appareil | "
+            "device_id=%s | device_type=%s",
+            device_id_value,
+            device_type_value,
+        )
 
         device = (
             db.query(UserDevice)
@@ -1336,10 +1486,17 @@ async def activate_document(
                 user_id=user.id,
                 device_id=device_id_value,
                 device_type=device_type_value,
+
+                # Frontend :
+                # mobile / tablet / desktop
+                #
+                # mobile et tablet sont considérés comme
+                # appareils mobiles/tablettes.
                 is_mobile=(
                     device_type_value
-                    in ["android", "ios"]
+                    in ["mobile", "tablet"]
                 ),
+
                 is_active=True,
                 created_at=now,
                 last_seen=now,
@@ -1349,11 +1506,31 @@ async def activate_document(
 
             db.flush()
 
+            logger.info(
+                "🟢 ACTIVATION — nouvel appareil enregistré | "
+                "device_db_id=%s | device_id=%s | "
+                "device_type=%s | is_mobile=%s | user_id=%s",
+                device.id,
+                device_id_value,
+                device_type_value,
+                device.is_mobile,
+                user.id,
+            )
+
         # --------------------------------------------------
         # Navigateur déjà enregistré
         # --------------------------------------------------
 
         else:
+
+            logger.info(
+                "🔵 ACTIVATION — appareil existant trouvé | "
+                "device_db_id=%s | device_user_id=%s | "
+                "user_demande=%s",
+                device.id,
+                device.user_id,
+                user.id,
+            )
 
             # Un même identifiant technique ne doit pas
             # pouvoir être utilisé simultanément comme
@@ -1362,8 +1539,9 @@ async def activate_document(
             if device.user_id != user.id:
 
                 logger.warning(
-                    "DEVICE_ALREADY_ASSOCIATED : device=%s "
-                    "user_existant=%s user_demande=%s",
+                    "❌ DEVICE_ALREADY_ASSOCIATED : "
+                    "device=%s | user_existant=%s | "
+                    "user_demande=%s",
                     device_id_value,
                     device.user_id,
                     user.id,
@@ -1388,12 +1566,28 @@ async def activate_document(
 
             device.is_mobile = (
                 device_type_value
-                in ["android", "ios"]
+                in ["mobile", "tablet"]
+            )
+
+            logger.info(
+                "🟢 ACTIVATION — appareil mis à jour | "
+                "device_db_id=%s | device_type=%s | "
+                "is_mobile=%s",
+                device.id,
+                device.device_type,
+                device.is_mobile,
             )
 
         # ==================================================
         # ÉTAPE 13 — AUTORISER LE NAVIGATEUR POUR CE PDF
         # ==================================================
+
+        logger.info(
+            "🔵 ACTIVATION — recherche accès document | "
+            "activation_id=%s | device_db_id=%s",
+            activation.id,
+            device.id,
+        )
 
         document_access = (
             db.query(DocumentDeviceAccess)
@@ -1424,6 +1618,14 @@ async def activate_document(
 
             db.add(document_access)
 
+            logger.info(
+                "🟢 ACTIVATION — nouvel accès document créé | "
+                "activation_id=%s | device_db_id=%s | user_id=%s",
+                activation.id,
+                device.id,
+                user.id,
+            )
+
         # --------------------------------------------------
         # Accès déjà existant
         # --------------------------------------------------
@@ -1438,29 +1640,36 @@ async def activate_document(
 
             document_access.last_version = 1
 
+            logger.info(
+                "🟢 ACTIVATION — accès document existant mis à jour | "
+                "access_id=%s | activation_id=%s | "
+                "device_db_id=%s",
+                document_access.id,
+                activation.id,
+                device.id,
+            )
+
         # ==================================================
         # ÉTAPE 14 — COMMIT UNIQUE
         # ==================================================
-        #
-        # IMPORTANT :
-        #
-        # Le gros PDF n'est plus dans la transaction SQL.
-        #
-        # PostgreSQL ne reçoit que des informations légères :
-        #
-        # - pdf_path
-        # - pdf_filename
-        # - user_id
-        # - activation
-        # - device
-        # - accès document
-        #
-        # Le fichier PDF lui-même reste dans le stockage.
-        # ==================================================
+
+        logger.info(
+            "🔵 ACTIVATION — préparation du commit SQL | "
+            "activation_id=%s | user_id=%s | device_db_id=%s",
+            activation.id,
+            user.id,
+            device.id,
+        )
 
         db.commit()
 
         transaction_committed = True
+
+        logger.info(
+            "🟢 ACTIVATION — commit SQL réussi | "
+            "activation_id=%s",
+            activation.id,
+        )
 
         db.refresh(activation)
 
@@ -1469,23 +1678,9 @@ async def activate_document(
         # ==================================================
         # ÉTAPE 15 — AUCUN ENVOI DU PDF
         # ==================================================
-        #
-        # Pour l'instant :
-        #
-        # - aucun email Brevo avec le PDF ;
-        # - aucun PDF dans la réponse HTTP ;
-        # - aucun téléchargement automatique ;
-        # - aucun chargement de 242 Mo en mémoire.
-        #
-        # Le document reste disponible dans :
-        #
-        # "Mes documents"
-        #
-        # grâce au système DocumentDeviceAccess.
-        # ==================================================
 
         logger.info(
-            "Activation réussie sans envoi du PDF : "
+            "🟢 Activation réussie sans envoi du PDF : "
             "activation_id=%s | document=%s | device=%s",
             activation.id,
             activation.document_name,
@@ -1494,12 +1689,6 @@ async def activate_document(
 
         # ==================================================
         # ÉTAPE 16 — RÉPONSE JSON UNIQUEMENT
-        # ==================================================
-        #
-        # Le navigateur reçoit uniquement des informations
-        # légères concernant la réussite de l'activation.
-        #
-        # Aucun octet du PDF n'est renvoyé.
         # ==================================================
 
         return {
@@ -1536,7 +1725,7 @@ async def activate_document(
     except Exception:
 
         logger.exception(
-            "Erreur inattendue pendant "
+            "❌ ACTIVATION — erreur inattendue pendant "
             "l'activation du document."
         )
 
@@ -1571,6 +1760,11 @@ async def activate_document(
                         ignore_errors=True,
                     )
 
+                    logger.info(
+                        "🧹 ACTIVATION — dossier temporaire supprimé | %s",
+                        temporary_directory,
+                    )
+
             except Exception:
 
                 logger.exception(
@@ -1599,8 +1793,8 @@ async def activate_document(
                     secure_pdf_path.unlink()
 
                     logger.info(
-                        "PDF sécurisé supprimé après "
-                        "échec de l'activation : %s",
+                        "🧹 ACTIVATION — PDF sécurisé supprimé "
+                        "après échec de l'activation : %s",
                         secure_pdf_path,
                     )
 
