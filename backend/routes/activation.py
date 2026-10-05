@@ -16,6 +16,7 @@ from typing import Optional
 from datetime import datetime
 
 from pathlib import Path
+import os
 import tempfile
 import subprocess
 import shutil
@@ -520,6 +521,10 @@ async def activate_document(
     # survient avant le commit.
     secure_pdf_path = None
 
+    # Permet de savoir si l'activation SQL a réellement
+    # été validée avant une éventuelle erreur ultérieure.
+    transaction_committed = False
+
     try:
 
         # ==================================================
@@ -849,8 +854,168 @@ async def activate_document(
         # ÉTAPE 9 — GÉNÉRATION TYPOGRAPHIQUE
         # ==================================================
 
+        # --------------------------------------------------
+        # Résolution robuste du binaire Typst.
+        #
+        # Ordre de recherche :
+        #
+        # 1. TYPST_PATH si explicitement défini ;
+        # 2. installation Render dans ~/.local/bin/typst ;
+        # 3. Typst disponible dans le PATH.
+        #
+        # Le chemin ~/.local/bin/typst est important sur
+        # Render car build.sh installe Typst à cet endroit.
+        #
+        # On vérifie réellement l'existence et les droits
+        # d'exécution de chaque candidat.
+        # --------------------------------------------------
+
+        typst_candidates = []
+
+        configured_typst_path = os.getenv(
+            "TYPST_PATH"
+        )
+
+        if configured_typst_path:
+
+            typst_candidates.append(
+                Path(
+                    configured_typst_path
+                ).expanduser()
+            )
+
+        # --------------------------------------------------
+        # Installation utilisée par build.sh sur Render
+        # --------------------------------------------------
+
+        typst_candidates.append(
+            Path.home()
+            / ".local"
+            / "bin"
+            / "typst"
+        )
+
+        # --------------------------------------------------
+        # Fallback : Typst disponible dans PATH
+        # --------------------------------------------------
+
+        typst_from_path = shutil.which(
+            "typst"
+        )
+
+        if typst_from_path:
+
+            typst_candidates.append(
+                Path(typst_from_path)
+            )
+
+        # --------------------------------------------------
+        # Recherche du premier binaire valide
+        # --------------------------------------------------
+
+        typst_path = None
+
+        seen_typst_paths = set()
+
+        for candidate in typst_candidates:
+
+            try:
+
+                candidate = (
+                    candidate
+                    .expanduser()
+                    .resolve()
+                )
+
+            except OSError:
+
+                continue
+
+            candidate_string = str(
+                candidate
+            )
+
+            # Évite de tester deux fois le même chemin
+            if candidate_string in seen_typst_paths:
+                continue
+
+            seen_typst_paths.add(
+                candidate_string
+            )
+
+            if (
+                candidate.is_file()
+                and os.access(
+                    candidate,
+                    os.X_OK,
+                )
+            ):
+
+                typst_path = candidate_string
+
+                break
+
+        # --------------------------------------------------
+        # Aucun Typst disponible
+        # --------------------------------------------------
+
+        if not typst_path:
+
+            logger.error(
+                "Typst introuvable ou non exécutable. "
+                "TYPST_PATH=%s | HOME=%s | PATH=%s | candidats=%s",
+                os.getenv("TYPST_PATH"),
+                Path.home(),
+                os.getenv("PATH"),
+                [str(path) for path in typst_candidates],
+            )
+
+            raise HTTPException(
+                status_code=500,
+                detail="TYPST_NOT_AVAILABLE",
+            )
+
+        logger.info(
+            "Typst utilisé pour le document '%s' : %s",
+            document_name,
+            typst_path,
+        )
+
+        # --------------------------------------------------
+        # Préparation de l'environnement du processus Typst
+        # --------------------------------------------------
+        #
+        # Même si Typst a été installé dans ~/.local/bin,
+        # le PATH du processus Uvicorn peut ne pas contenir
+        # ce dossier après le build Render.
+        #
+        # On ajoute donc explicitement le dossier du binaire
+        # au PATH transmis à subprocess.
+        # --------------------------------------------------
+
+        typst_env = os.environ.copy()
+
+        typst_directory = str(
+            Path(typst_path).parent
+        )
+
+        current_path = typst_env.get(
+            "PATH",
+            "",
+        )
+
+        typst_env["PATH"] = (
+            f"{typst_directory}:{current_path}"
+            if current_path
+            else typst_directory
+        )
+
+        # --------------------------------------------------
+        # Construction de la commande Typst
+        # --------------------------------------------------
+
         typst_command = [
-            "typst",
+            typst_path,
             "compile",
 
             "--input",
@@ -889,11 +1054,17 @@ async def activate_document(
             nom_value or user.nom,
         )
 
+        logger.info(
+            "Commande Typst préparée avec le binaire : %s",
+            typst_path,
+        )
+
         try:
 
             result = subprocess.run(
                 typst_command,
                 cwd=str(document_directory),
+                env=typst_env,
                 capture_output=True,
                 text=True,
                 timeout=180,
@@ -930,12 +1101,19 @@ async def activate_document(
                 detail="PDF_GENERATION_TIMEOUT",
             )
 
+        # --------------------------------------------------
+        # Vérification du résultat Typst
+        # --------------------------------------------------
+
         if result.returncode != 0:
 
             logger.error(
-                "Erreur Typst pour le document '%s' : %s",
+                "Erreur Typst pour le document '%s'. "
+                "Code retour=%s | stderr=%s | stdout=%s",
                 document_name,
+                result.returncode,
                 result.stderr,
+                result.stdout,
             )
 
             db.rollback()
@@ -1243,8 +1421,7 @@ async def activate_document(
         #
         # Le gros PDF n'est plus dans la transaction SQL.
         #
-        # MySQL/PostgreSQL ne reçoit que des informations
-        # légères :
+        # PostgreSQL ne reçoit que des informations légères :
         #
         # - pdf_path
         # - pdf_filename
@@ -1257,6 +1434,8 @@ async def activate_document(
         # ==================================================
 
         db.commit()
+
+        transaction_committed = True
 
         db.refresh(activation)
 
@@ -1352,6 +1531,10 @@ async def activate_document(
 
     finally:
 
+        # --------------------------------------------------
+        # Nettoyage du dossier temporaire
+        # --------------------------------------------------
+
         if temporary_directory:
 
             try:
@@ -1369,4 +1552,37 @@ async def activate_document(
                     "Impossible de supprimer "
                     "le dossier temporaire : %s",
                     temporary_directory,
+                )
+
+        # --------------------------------------------------
+        # Nettoyage du PDF sécurisé en cas d'échec AVANT
+        # le commit SQL.
+        #
+        # Si le commit a réussi, le fichier doit évidemment
+        # être conservé.
+        # --------------------------------------------------
+
+        if (
+            secure_pdf_path
+            and not transaction_committed
+        ):
+
+            try:
+
+                if secure_pdf_path.exists():
+
+                    secure_pdf_path.unlink()
+
+                    logger.info(
+                        "PDF sécurisé supprimé après "
+                        "échec de l'activation : %s",
+                        secure_pdf_path,
+                    )
+
+            except Exception:
+
+                logger.exception(
+                    "Impossible de supprimer le PDF sécurisé "
+                    "après échec : %s",
+                    secure_pdf_path,
                 )
