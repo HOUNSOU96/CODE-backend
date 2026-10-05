@@ -6,23 +6,45 @@ echo "=============================================="
 echo "CODE BACKEND — BUILD RENDER"
 echo "=============================================="
 
+# ============================================================
+# RÉPERTOIRE DU BACKEND
+# ============================================================
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "📁 Backend : $SCRIPT_DIR"
+
+# ============================================================
+# DÉPENDANCES PYTHON
+# ============================================================
+
 echo "📦 Installation des dépendances Python..."
-pip install -r requirements.txt
+
+pip install -r "$SCRIPT_DIR/requirements.txt"
 
 # ============================================================
 # TYPST
 # ============================================================
 
 TYPST_VERSION="0.15.1"
-TYPST_DIR="$HOME/.local/bin"
+
+TYPST_DIR="$SCRIPT_DIR/.tools"
+TYPST_BINARY="$TYPST_DIR/typst"
 TYPST_ARCHIVE="/tmp/typst.tar.xz"
+
 TYPST_URL="https://github.com/typst/typst/releases/download/v${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz"
 
-echo "📄 Installation de Typst ${TYPST_VERSION}..."
+echo "=============================================="
+echo "📄 INSTALLATION DE TYPST"
+echo "=============================================="
+
+echo "📌 Version : $TYPST_VERSION"
+echo "📁 Répertoire : $TYPST_DIR"
+echo "📄 Binaire : $TYPST_BINARY"
 
 mkdir -p "$TYPST_DIR"
 
-if [ ! -x "$TYPST_DIR/typst" ]; then
+if [ ! -x "$TYPST_BINARY" ]; then
 
     echo "⬇️ Téléchargement de Typst ${TYPST_VERSION}..."
 
@@ -38,32 +60,75 @@ if [ ! -x "$TYPST_DIR/typst" ]; then
         "$TYPST_ARCHIVE" \
         -C /tmp
 
+    echo "📋 Copie du binaire Typst..."
+
     cp \
         "/tmp/typst-x86_64-unknown-linux-musl/typst" \
-        "$TYPST_DIR/typst"
+        "$TYPST_BINARY"
 
-    chmod +x "$TYPST_DIR/typst"
+    chmod +x "$TYPST_BINARY"
+
+else
+
+    echo "✅ Typst est déjà installé."
 
 fi
 
-# Ajouter Typst au PATH pour le reste du build
+# ============================================================
+# AJOUT DE TYPST AU PATH
+# ============================================================
+
 export PATH="$TYPST_DIR:$PATH"
 
-echo "🔎 Vérification de Typst..."
+# ============================================================
+# VÉRIFICATION TYPST
+# ============================================================
+
+echo "=============================================="
+echo "🔎 VÉRIFICATION DE TYPST"
+echo "=============================================="
+
+echo "📁 Fichier :"
+
+ls -lh "$TYPST_BINARY"
+
+echo "🔹 Version directe :"
+
+"$TYPST_BINARY" --version
+
+echo "🔹 Localisation via PATH :"
 
 which typst
+
+echo "🔹 Version via PATH :"
+
 typst --version
 
 # ============================================================
 # ARGOS TRANSLATE
 # ============================================================
 
-echo "🌍 Mise à jour de l'index Argos Translate..."
+echo "=============================================="
+echo "🌍 ARGOS TRANSLATE"
+echo "=============================================="
+
+echo "🌍 Mise à jour de l’index Argos Translate..."
+
 argospm update
 
 echo "🇫🇷 → 🇬🇧 Installation du modèle French → English..."
+
 argospm install translate-fr_en
 
+# ============================================================
+# FIN
+# ============================================================
+
 echo "=============================================="
-echo "✅ Build terminé"
+echo "✅ BUILD TERMINÉ"
+echo "=============================================="
+
+echo "📁 Typst installé ici :"
+echo "$TYPST_BINARY"
+
 echo "=============================================="

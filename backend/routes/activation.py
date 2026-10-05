@@ -860,17 +860,24 @@ async def activate_document(
         # Ordre de recherche :
         #
         # 1. TYPST_PATH si explicitement défini ;
-        # 2. installation Render dans ~/.local/bin/typst ;
-        # 3. Typst disponible dans le PATH.
+        # 2. installation locale du backend :
+        #       BACKEND_DIR/.tools/typst
+        # 3. installation Render dans :
+        #       ~/.local/bin/typst
+        # 4. Typst disponible dans le PATH.
         #
-        # Le chemin ~/.local/bin/typst est important sur
-        # Render car build.sh installe Typst à cet endroit.
+        # Le premier chemin est désormais prioritaire pour
+        # l'installation effectuée directement par build.sh.
         #
         # On vérifie réellement l'existence et les droits
         # d'exécution de chaque candidat.
         # --------------------------------------------------
 
         typst_candidates = []
+
+        # --------------------------------------------------
+        # 1. Chemin explicitement configuré
+        # --------------------------------------------------
 
         configured_typst_path = os.getenv(
             "TYPST_PATH"
@@ -885,7 +892,25 @@ async def activate_document(
             )
 
         # --------------------------------------------------
-        # Installation utilisée par build.sh sur Render
+        # 2. Installation persistante dans le backend
+        #
+        # build.sh installe Typst ici :
+        #
+        # backend/.tools/typst
+        #
+        # Ce chemin ne dépend ni de HOME ni du PATH.
+        # --------------------------------------------------
+
+        typst_candidates.append(
+            BACKEND_DIR
+            / ".tools"
+            / "typst"
+        )
+
+        # --------------------------------------------------
+        # 3. Installation utilisateur
+        #
+        # Fallback pour ~/.local/bin/typst
         # --------------------------------------------------
 
         typst_candidates.append(
@@ -896,7 +921,7 @@ async def activate_document(
         )
 
         # --------------------------------------------------
-        # Fallback : Typst disponible dans PATH
+        # 4. Fallback : Typst disponible dans PATH
         # --------------------------------------------------
 
         typst_from_path = shutil.which(
@@ -985,9 +1010,9 @@ async def activate_document(
         # Préparation de l'environnement du processus Typst
         # --------------------------------------------------
         #
-        # Même si Typst a été installé dans ~/.local/bin,
-        # le PATH du processus Uvicorn peut ne pas contenir
-        # ce dossier après le build Render.
+        # Même si Typst est installé dans ~/.local/bin ou
+        # .tools, le PATH du processus Uvicorn peut ne pas
+        # contenir ce dossier après le build Render.
         #
         # On ajoute donc explicitement le dossier du binaire
         # au PATH transmis à subprocess.
