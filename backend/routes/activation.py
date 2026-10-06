@@ -1364,13 +1364,47 @@ async def activate_document(
 
         try:
 
+            # --------------------------------------------------
+            # TIMEOUT DE GÉNÉRATION PDF
+            # --------------------------------------------------
+            #
+            # Render peut être plus lent que l'environnement local.
+            # La valeur est configurable avec :
+            #
+            # PDF_GENERATION_TIMEOUT_SECONDS
+            #
+            # Valeur par défaut : 600 secondes = 10 minutes.
+            #
+
+            pdf_timeout = int(
+                os.getenv(
+                    "PDF_GENERATION_TIMEOUT_SECONDS",
+                    "600",
+                )
+            )
+
+            if pdf_timeout <= 0:
+
+                logger.warning(
+                    "⚠️ PDF DEBUG — valeur de timeout invalide | "
+                    "value=%s | utilisation de 600 secondes",
+                    pdf_timeout,
+                )
+
+                pdf_timeout = 600
+
+            logger.info(
+                "⏱️ PDF DEBUG — timeout génération Typst=%s secondes",
+                pdf_timeout,
+            )
+
             result = subprocess.run(
                 typst_command,
                 cwd=str(document_directory),
                 env=typst_env,
                 capture_output=True,
                 text=True,
-                timeout=180,
+                timeout=pdf_timeout,
                 check=False,
             )
 
@@ -1390,11 +1424,29 @@ async def activate_document(
                 detail="TYPST_NOT_AVAILABLE",
             )
 
+        except ValueError:
+
+            logger.exception(
+                "❌ ACTIVATION — valeur de timeout PDF invalide | "
+                "PDF_GENERATION_TIMEOUT_SECONDS=%s",
+                os.getenv(
+                    "PDF_GENERATION_TIMEOUT_SECONDS"
+                ),
+            )
+
+            db.rollback()
+
+            raise HTTPException(
+                status_code=500,
+                detail="PDF_GENERATION_TIMEOUT",
+            )
+
         except subprocess.TimeoutExpired:
 
             logger.exception(
                 "❌ ACTIVATION — génération Typst dépassée "
-                "après 180 secondes | document=%s",
+                "après %s secondes | document=%s",
+                pdf_timeout,
                 document_name,
             )
 
