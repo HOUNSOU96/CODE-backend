@@ -7,7 +7,7 @@ from fastapi import (
     UploadFile,
 )
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, defer
 from sqlalchemy import func
 
 from pydantic import BaseModel, EmailStr
@@ -185,13 +185,16 @@ def verify_activation(
     )
 
     activation = (
-        db.query(DocumentActivation)
-        .filter(
-            DocumentActivation.activation_code
-            == activation_code
-        )
-        .first()
+    db.query(DocumentActivation)
+    .options(
+        defer(DocumentActivation.pdf_data)
     )
+    .filter(
+        DocumentActivation.activation_code
+        == activation_code
+    )
+    .first()
+)
 
     if not activation:
         logger.warning(
@@ -665,6 +668,9 @@ async def activate_document(
 
         activation = (
             db.query(DocumentActivation)
+            .options(
+                defer(DocumentActivation.pdf_data)
+            )
             .filter(
                 DocumentActivation.activation_code
                 == activation_code

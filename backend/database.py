@@ -51,7 +51,9 @@ except Exception as e:
 engine = create_engine(
     DATABASE_URL,
     connect_args={"hostaddr": DB_HOSTADDR},
-    echo=True,
+    pool_pre_ping=True,
+    pool_recycle=1800,
+    echo=False,
     future=True
 )
 
