@@ -22,6 +22,7 @@ import subprocess
 import shutil
 import logging
 import re
+import time
 
 from database import get_db
 from models.user import User, UserStatus
@@ -1358,7 +1359,7 @@ async def activate_document(
             document_main.exists(),
         )
 
-        # ==================================================
+                # ==================================================
         # SUBPROCESS TYPOST
         # ==================================================
 
@@ -1367,14 +1368,6 @@ async def activate_document(
             # --------------------------------------------------
             # TIMEOUT DE GÉNÉRATION PDF
             # --------------------------------------------------
-            #
-            # Render peut être plus lent que l'environnement local.
-            # La valeur est configurable avec :
-            #
-            # PDF_GENERATION_TIMEOUT_SECONDS
-            #
-            # Valeur par défaut : 600 secondes = 10 minutes.
-            #
 
             pdf_timeout = int(
                 os.getenv(
@@ -1393,20 +1386,118 @@ async def activate_document(
 
                 pdf_timeout = 600
 
+            # --------------------------------------------------
+            # DIAGNOSTIC ENVIRONNEMENT RENDER
+            # --------------------------------------------------
+
             logger.info(
-                "⏱️ PDF DEBUG — timeout génération Typst=%s secondes",
+                "🚨 PDF DEBUG — LANCEMENT EFFECTIF DE TYPOST"
+            )
+
+            logger.info(
+                "🚨 PDF DEBUG — PID backend=%s",
+                os.getpid(),
+            )
+
+            logger.info(
+                "🚨 PDF DEBUG — CPU count=%s",
+                os.cpu_count(),
+            )
+
+            logger.info(
+                "🚨 PDF DEBUG — HOME=%s",
+                os.getenv("HOME"),
+            )
+
+            logger.info(
+                "🚨 PDF DEBUG — TMPDIR=%s",
+                os.getenv("TMPDIR"),
+            )
+
+            logger.info(
+                "🚨 PDF DEBUG — XDG_CACHE_HOME=%s",
+                os.getenv("XDG_CACHE_HOME"),
+            )
+
+            logger.info(
+                "🚨 PDF DEBUG — XDG_CONFIG_HOME=%s",
+                os.getenv("XDG_CONFIG_HOME"),
+            )
+
+            logger.info(
+                "🚨 PDF DEBUG — PATH=%s",
+                typst_env.get("PATH"),
+            )
+
+            logger.info(
+                "🚨 PDF DEBUG — TYPST_PATH=%s",
+                os.getenv("TYPST_PATH"),
+            )
+
+            logger.info(
+                "🚨 PDF DEBUG — timeout=%s secondes",
                 pdf_timeout,
             )
 
-            result = subprocess.run(
-                typst_command,
-                cwd=str(document_directory),
-                env=typst_env,
-                capture_output=True,
-                text=True,
-                timeout=pdf_timeout,
-                check=False,
+            logger.info(
+                "🚨 PDF DEBUG — mémoire disponible avant Typst"
             )
+
+            try:
+
+                with open(
+                    "/proc/meminfo",
+                    "r",
+                    encoding="utf-8",
+                ) as meminfo:
+
+                    memory_info = meminfo.read()
+
+                logger.info(
+                    "🚨 PDF DEBUG — /proc/meminfo | %s",
+                    memory_info[:3000],
+                )
+
+            except Exception:
+
+                logger.exception(
+                    "⚠️ PDF DEBUG — impossible de lire /proc/meminfo"
+                )
+
+            logger.info(
+                "🚨 PDF DEBUG — lancement subprocess maintenant"
+            )
+
+            # --------------------------------------------------
+            # MESURE EXACTE DE subprocess.run()
+            # --------------------------------------------------
+
+            pdf_start_time = time.monotonic()
+
+            try:
+
+                result = subprocess.run(
+                    typst_command,
+                    cwd=str(document_directory),
+                    env=typst_env,
+                    capture_output=True,
+                    text=True,
+                    timeout=pdf_timeout,
+                    check=False,
+                )
+
+            finally:
+
+                pdf_duration = (
+                    time.monotonic()
+                    - pdf_start_time
+                )
+
+                logger.info(
+                    "🚨 PDF DEBUG — subprocess terminé | "
+                    "durée=%.3f secondes",
+                    pdf_duration,
+                )
 
         except FileNotFoundError:
 
