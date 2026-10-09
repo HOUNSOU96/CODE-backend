@@ -38,7 +38,6 @@ import os
 
 import tempfile
 
-import subprocess
 
 import shutil
 
@@ -48,6 +47,7 @@ import re
 
 import time
 
+import httpx
 
 
 from database import get_db
@@ -113,6 +113,25 @@ logger = logging.getLogger(__name__)
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 
 
+# ============================================================
+# SERVICE DE GÉNÉRATION DES DOCUMENTS
+# ============================================================
+
+CODE_DOCUMENTS_URL = os.getenv(
+    "CODE_DOCUMENTS_URL",
+    "",
+).rstrip("/")
+
+CODE_DOCUMENTS_SERVICE_KEY = os.getenv(
+    "CODE_DOCUMENTS_SERVICE_KEY",
+)
+
+CODE_DOCUMENTS_TIMEOUT_SECONDS = int(
+    os.getenv(
+        "CODE_DOCUMENTS_TIMEOUT_SECONDS",
+        "660",
+    )
+)
 
 
 
@@ -153,17 +172,9 @@ SECURE_DOCUMENTS_DIR.mkdir(
 
 
 DOCUMENT_TEMPLATES = {
-
     "CODE Maths 1er cycle Tome I": {
-
-        "type": "typst",
-
-        "directory": BACKEND_DIR / "CODE-MathsI",
-
-        "main": BACKEND_DIR / "CODE-MathsI" / "main.typ",
-
+        "type": "documents_service",
     },
-
 }
 
 
@@ -1556,7 +1567,7 @@ async def activate_document(
 
         # IMPORTANT :
         # Aucun utilisateur n'est créé/modifié définitivement
-        # avant la génération Typst. La transaction DB sera
+        # avant la génération du PDF. La transaction DB sera
         # libérée avant le traitement PDF, puis reprise dans
         # une transaction courte après génération.
 
@@ -1569,19 +1580,19 @@ async def activate_document(
                 user.email,
             )
 
-            typst_nom = (
+            document_nom = (
                 nom_value
                 or user.nom
                 or ""
             )
 
-            typst_prenom = (
+            document_prenom = (
                 prenom_value
                 or user.prenom
                 or ""
             )
 
-            typst_pays = (
+            document_pays = (
                 pays_value
                 or user.pays_residence
                 or ""
@@ -1590,7 +1601,7 @@ async def activate_document(
         else:
 
             logger.info(
-                "🔵 ACTIVATION — nouveau compte à créer après Typst | "
+                "🔵 ACTIVATION — nouveau compte à créer après génération PDF | "
                 "email=%s",
                 beneficiary_email_value,
             )
@@ -1625,9 +1636,9 @@ async def activate_document(
                     detail="PASSWORD_TOO_SHORT",
                 )
 
-            typst_nom = nom_value
-            typst_prenom = prenom_value
-            typst_pays = pays_value
+            document_nom = nom_value
+            document_prenom = prenom_value
+            document_pays = pays_value
 
         # Capture des valeurs simples avant rollback.
         activation_id = activation.id
@@ -1642,19 +1653,19 @@ async def activate_document(
         )
 
         # ==================================================
-        # LIBÉRATION DE LA TRANSACTION AVANT TYPOST
+        # LIBÉRATION DE LA TRANSACTION AVANT GÉNÉRATION DU PDF
         # ==================================================
 
         logger.info(
             "🔓 ACTIVATION — libération de la transaction DB "
-            "avant génération Typst | activation_id=%s",
+            "avant génération PDF | activation_id=%s",
             activation_id,
         )
 
         db.rollback()
 
         logger.info(
-            "🟢 ACTIVATION — transaction DB libérée avant Typst | "
+            "🟢 ACTIVATION — transaction DB libérée avant CODE_Documents | "
             "activation_id=%s",
             activation_id,
         )
@@ -1677,68 +1688,23 @@ async def activate_document(
 
 
 
-        document_config = DOCUMENT_TEMPLATES.get(
-
-            document_name
-
-        )
-
-
+        document_config = DOCUMENT_TEMPLATES.get(document_name)
 
         if not document_config:
-
-
-
-            logger.error(
-
-                "❌ ACTIVATION — document non configuré | "
-
-                "document='%s'",
-
-                document_name,
-
-            )
-
-
-
             raise HTTPException(
-
                 status_code=400,
-
                 detail="DOCUMENT_PDF_NOT_CONFIGURED",
-
             )
-
-
 
         logger.info(
-
-            "🟢 ACTIVATION — configuration trouvée | "
-
-            "type=%s | directory=%s | main=%s",
-
+            "🟢 ACTIVATION — configuration trouvée | type=%s",
             document_config["type"],
-
-            document_config["directory"],
-
-            document_config["main"],
-
         )
 
-
-
-        if document_config["type"] != "typst":
-
-
-
-            logger.error(
-
-                "❌ ACTIVATION — générateur non supporté | "
-
-                "type=%s",
-
-                document_config["type"],
-
+        if document_config["type"] != "documents_service":
+            raise HTTPException(
+                status_code=500,
+                detail="DOCUMENT_GENERATOR_NOT_SUPPORTED",
             )
 
 
@@ -1754,1406 +1720,371 @@ async def activate_document(
 
 
         # ==================================================
-
-        # ÉTAPE 6 — MODÈLE TYPOGRAPHIQUE
-
+        # ÉTAPE 6 — SERVICE DE DOCUMENTS
         # ==================================================
 
-
-
-        document_directory = Path(
-
-            document_config["directory"]
-
-        )
-
-
-
-        document_main = Path(
-
-            document_config["main"]
-
-        )
-
-
-
         logger.info(
-
-            "🔵 ACTIVATION — vérification main.typ | "
-
-            "path=%s | exists=%s | is_file=%s",
-
-            document_main,
-
-            document_main.exists(),
-
-            document_main.is_file(),
-
+            "ACTIVATION — génération externalisée vers "
+            "CODE_Documents | document=%s",
+            document_name,
         )
 
+        # ==================================================
+        # ÉTAPE 7 — PRÉPARATION DU SERVICE DOCUMENTS
+        # ==================================================
 
-
-        if not document_main.exists():
-
-
-
+        if not CODE_DOCUMENTS_URL:
             logger.error(
-
-                "❌ ACTIVATION — main.typ introuvable | "
-
-                "path=%s",
-
-                document_main,
-
+                "❌ ACTIVATION — CODE_DOCUMENTS_URL non configurée"
             )
-
-
 
             raise HTTPException(
-
                 status_code=500,
-
-                detail="DOCUMENT_TEMPLATE_NOT_FOUND",
-
+                detail="DOCUMENT_SERVICE_URL_NOT_CONFIGURED",
             )
 
+        if not CODE_DOCUMENTS_SERVICE_KEY:
+            logger.error(
+                "❌ ACTIVATION — CODE_DOCUMENTS_SERVICE_KEY "
+                "non configurée"
+            )
 
-
-        logger.info(
-
-            "🟢 ACTIVATION — main.typ disponible"
-
-        )
-
-
-
-        # ==================================================
-
-        # ÉTAPE 7 — DOSSIER TEMPORAIRE
-
-        # ==================================================
-
-
+            raise HTTPException(
+                status_code=500,
+                detail="DOCUMENT_SERVICE_KEY_NOT_CONFIGURED",
+            )
 
         temporary_root = (
-
-            document_directory / "tmp"
-
+            BACKEND_DIR / "tmp"
         )
-
-
 
         temporary_root.mkdir(
-
             parents=True,
-
             exist_ok=True,
-
         )
-
-
 
         temporary_directory = Path(
-
             tempfile.mkdtemp(
-
                 prefix="document_activation_",
-
                 dir=str(temporary_root),
-
             )
-
         )
-
-
 
         document_filename = (
-
             safe_filename_part(
-
                 document_name
-
             )
-
             + "-personnalise.pdf"
-
         )
-
-
 
         pdf_path = (
-
             temporary_directory
-
             / document_filename
-
         )
-
-
 
         logger.info(
-
-            "🟢 ACTIVATION — dossier temporaire créé | "
-
+            "🟢 ACTIVATION — dossier temporaire backend créé | "
             "directory=%s | pdf=%s",
-
             temporary_directory,
-
             pdf_path,
-
         )
 
-
-
         # ==================================================
-
         # ÉTAPE 8 — PHOTO
-
         # ==================================================
 
-
-
-        photo_path = ""
-
-
+        photo_content = None
+        photo_content_type = None
+        photo_filename = "photo"
 
         if photo:
 
-
-
             logger.info(
-
                 "📷 ACTIVATION — photo reçue | "
-
                 "filename=%s | content_type=%s",
-
                 photo.filename,
-
                 photo.content_type,
-
             )
-
-
 
             if photo.content_type not in ALLOWED_PHOTO_TYPES:
 
-
-
                 logger.warning(
-
                     "❌ ACTIVATION — format photo invalide | "
-
                     "content_type=%s",
-
                     photo.content_type,
-
                 )
-
-
 
                 raise HTTPException(
-
                     status_code=400,
-
                     detail="PHOTO_FORMAT_INVALID",
-
                 )
-
-
 
             photo_content = await photo.read()
 
-
-
             logger.info(
-
                 "📷 ACTIVATION — photo lue | taille=%s octets",
-
                 len(photo_content),
-
             )
-
-
 
             if len(photo_content) > MAX_PHOTO_SIZE:
 
-
-
                 logger.warning(
-
                     "❌ ACTIVATION — photo trop volumineuse | "
-
                     "taille=%s",
-
                     len(photo_content),
-
                 )
-
-
 
                 raise HTTPException(
-
                     status_code=400,
-
                     detail="PHOTO_TOO_LARGE",
-
                 )
 
-
+            photo_content_type = photo.content_type
 
             extension = ALLOWED_PHOTO_TYPES[
-
                 photo.content_type
-
             ]
 
-
-
-            temporary_photo = (
-
-                temporary_directory
-
-                / f"photo{extension}"
-
-            )
-
-
-
-            temporary_photo.write_bytes(
-
-                photo_content
-
-            )
-
-
-
-            photo_path = str(
-
-                temporary_photo.relative_to(
-
-                    document_directory
-
-                )
-
-            )
-
-
-
-            logger.info(
-
-                "🟢 ACTIVATION — photo temporaire enregistrée | "
-
-                "relative_path=%s | exists=%s",
-
-                photo_path,
-
-                temporary_photo.exists(),
-
-            )
-
-
+            photo_filename = f"photo{extension}"
 
         else:
 
-
-
             logger.info(
-
                 "📷 ACTIVATION — aucune photo fournie"
-
             )
-
-
 
         # ==================================================
-
-        # ÉTAPE 9 — RECHERCHE TYPOST
-
+        # ÉTAPE 9 — APPEL DU SERVICE CODE_DOCUMENTS
         # ==================================================
 
-
-
-        typst_candidates = []
-
-
-
-        configured_typst_path = os.getenv(
-
-            "TYPST_PATH"
-
+        service_url = (
+            f"{CODE_DOCUMENTS_URL}/generate"
         )
 
-
-
-        if configured_typst_path:
-
-
-
-            typst_candidates.append(
-
-                Path(
-
-                    configured_typst_path
-
-                ).expanduser()
-
-            )
-
-
-
-        typst_candidates.append(
-
-            BACKEND_DIR
-
-            / ".tools"
-
-            / "typst"
-
-        )
-
-
-
-        typst_candidates.append(
-
-            Path.home()
-
-            / ".local"
-
-            / "bin"
-
-            / "typst"
-
-        )
-
-
-
-        typst_from_path = shutil.which(
-
-            "typst"
-
-        )
-
-
-
-        if typst_from_path:
-
-
-
-            typst_candidates.append(
-
-                Path(typst_from_path)
-
-            )
-
-
-
-        logger.info(
-
-            "🔵 ACTIVATION — recherche Typst | "
-
-            "TYPST_PATH=%s | PATH=%s",
-
-            os.getenv("TYPST_PATH"),
-
-            os.getenv("PATH"),
-
-        )
-
-
-
-        logger.info(
-
-            "🔵 ACTIVATION — candidats Typst | %s",
-
-            [str(path) for path in typst_candidates],
-
-        )
-
-
-
-        typst_path = None
-
-
-
-        seen_typst_paths = set()
-
-
-
-        for candidate in typst_candidates:
-
-
-
-            try:
-
-
-
-                candidate = (
-
-                    candidate
-
-                    .expanduser()
-
-                    .resolve()
-
-                )
-
-
-
-            except OSError as error:
-
-
-
-                logger.warning(
-
-                    "⚠️ ACTIVATION — candidat Typst "
-
-                    "impossible à résoudre | candidate=%s | error=%s",
-
-                    candidate,
-
-                    error,
-
-                )
-
-
-
-                continue
-
-
-
-            candidate_string = str(
-
-                candidate
-
-            )
-
-
-
-            if candidate_string in seen_typst_paths:
-
-                continue
-
-
-
-            seen_typst_paths.add(
-
-                candidate_string
-
-            )
-
-
-
-            logger.info(
-
-                "🔎 ACTIVATION — test Typst | "
-
-                "path=%s | exists=%s | file=%s | executable=%s",
-
-                candidate,
-
-                candidate.exists(),
-
-                candidate.is_file(),
-
-                (
-
-                    os.access(
-
-                        candidate,
-
-                        os.X_OK,
-
-                    )
-
-                    if candidate.exists()
-
-                    else False
-
+        service_headers = {
+            "X-CODE-SERVICE-KEY":
+                CODE_DOCUMENTS_SERVICE_KEY,
+        }
+
+        service_data = {
+            "nom": document_nom,
+            "prenom": document_prenom,
+            "pays": document_pays,
+            "etablissement": etablissement_value,
+            "ville": ville_value,
+            "annee_scolaire": annee_scolaire_value,
+            "code": activation_code_value,
+        }
+
+        service_files = None
+
+        if photo_content is not None:
+
+            service_files = {
+                "photo": (
+                    photo_filename,
+                    photo_content,
+                    photo_content_type,
                 ),
-
-            )
-
-
-
-            if (
-
-                candidate.is_file()
-
-                and os.access(
-
-                    candidate,
-
-                    os.X_OK,
-
-                )
-
-            ):
-
-
-
-                typst_path = candidate_string
-
-
-
-                break
-
-
-
-        if not typst_path:
-
-
-
-            logger.error(
-
-                "❌ ACTIVATION — Typst introuvable ou "
-
-                "non exécutable | "
-
-                "TYPST_PATH=%s | HOME=%s | PATH=%s | "
-
-                "candidats=%s",
-
-                os.getenv("TYPST_PATH"),
-
-                Path.home(),
-
-                os.getenv("PATH"),
-
-                [str(path) for path in typst_candidates],
-
-            )
-
-
-
-            raise HTTPException(
-
-                status_code=500,
-
-                detail="TYPST_NOT_AVAILABLE",
-
-            )
-
-
+            }
 
         logger.info(
-
-            "🟢 ACTIVATION — Typst disponible | path=%s",
-
-            typst_path,
-
-        )
-
-
-
-        # ==================================================
-
-        # ENVIRONNEMENT TYPOGRAPH
-
-        # ==================================================
-
-
-
-        typst_env = os.environ.copy()
-
-
-
-        typst_directory = str(
-
-            Path(typst_path).parent
-
-        )
-
-
-
-        current_path = typst_env.get(
-
-            "PATH",
-
-            "",
-
-        )
-
-
-
-        typst_env["PATH"] = (
-
-            f"{typst_directory}:{current_path}"
-
-            if current_path
-
-            else typst_directory
-
-        )
-
-
-
-        # ==================================================
-
-        # COMMANDE TYPOGRAPHIQUE
-
-        # ==================================================
-
-
-
-        typst_command = [
-
-            typst_path,
-
-            "compile",
-
-
-
-            "--input",
-
-            f"nom={typst_nom}",
-
-
-
-            "--input",
-
-            f"prenom={typst_prenom}",
-
-
-
-            "--input",
-
-            f"pays={typst_pays}",
-
-
-
-            "--input",
-
-            f"etablissement={etablissement_value}",
-
-
-
-            "--input",
-
-            f"ville={ville_value}",
-
-
-
-            "--input",
-
-            f"annee_scolaire={annee_scolaire_value}",
-
-
-
-            "--input",
-
-            f"photo_path={photo_path}",
-
-
-
-            "--input",
-
-            f"code={activation_code_value}",
-
-
-
-            str(document_main),
-
-
-
-            str(pdf_path),
-
-        ]
-
-
-
-        logger.info(
-
-            "🔵 ACTIVATION — commande Typst préparée | "
-
-            "activation_id=%s",
-
+            "🔵 ACTIVATION — appel CODE_Documents | "
+            "url=%s | activation_id=%s",
+            service_url,
             activation_id,
-
         )
 
-
-
-        logger.info(
-
-            "📄 ACTIVATION — document='%s' | bénéficiaire=%s %s",
-
-            document_name,
-
-            typst_prenom,
-
-            typst_nom,
-
-        )
-
-
-
-        # ==================================================
-
-        # DIAGNOSTIC TYPOST
-
-        # ==================================================
-
-
-
-        logger.info(
-
-            "🚨 PDF DEBUG — AVANT subprocess.run | "
-
-            "activation_id=%s | typst=%s | cwd=%s | "
-
-            "main=%s | output=%s",
-
-            activation_id,
-
-            typst_path,
-
-            document_directory,
-
-            document_main,
-
-            pdf_path,
-
-        )
-
-
-
-        logger.info(
-
-            "🚨 PDF DEBUG — commande Typst | %s",
-
-            typst_command,
-
-        )
-
-
-
-        logger.info(
-
-            "🚨 PDF DEBUG — output existe AVANT Typst | %s",
-
-            pdf_path.exists(),
-
-        )
-
-
-
-        logger.info(
-
-            "🚨 PDF DEBUG — cwd existe | %s",
-
-            document_directory.exists(),
-
-        )
-
-
-
-        logger.info(
-
-            "🚨 PDF DEBUG — main existe | %s",
-
-            document_main.exists(),
-
-        )
-
-
-
-                # ==================================================
-
-        # SUBPROCESS TYPOST
-
-        # ==================================================
-
-
+        pdf_start_time = time.monotonic()
 
         try:
 
+            timeout = httpx.Timeout(
+                CODE_DOCUMENTS_TIMEOUT_SECONDS,
+                connect=30.0,
+            )
 
+            async with httpx.AsyncClient(
+                timeout=timeout
+            ) as client:
 
-            # --------------------------------------------------
-
-            # TIMEOUT DE GÉNÉRATION PDF
-
-            # --------------------------------------------------
-
-
-
-            pdf_timeout = int(
-
-                os.getenv(
-
-                    "PDF_GENERATION_TIMEOUT_SECONDS",
-
-                    "600",
-
+                response = await client.post(
+                    service_url,
+                    headers=service_headers,
+                    data=service_data,
+                    files=service_files,
                 )
 
+            pdf_duration = (
+                time.monotonic()
+                - pdf_start_time
             )
-
-
-
-            if pdf_timeout <= 0:
-
-
-
-                logger.warning(
-
-                    "⚠️ PDF DEBUG — valeur de timeout invalide | "
-
-                    "value=%s | utilisation de 600 secondes",
-
-                    pdf_timeout,
-
-                )
-
-
-
-                pdf_timeout = 600
-
-
-
-            # --------------------------------------------------
-
-            # DIAGNOSTIC ENVIRONNEMENT RENDER
-
-            # --------------------------------------------------
-
-
 
             logger.info(
-
-                "🚨 PDF DEBUG — LANCEMENT EFFECTIF DE TYPOST"
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — PID backend=%s",
-
-                os.getpid(),
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — CPU count=%s",
-
-                os.cpu_count(),
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — HOME=%s",
-
-                os.getenv("HOME"),
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — TMPDIR=%s",
-
-                os.getenv("TMPDIR"),
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — XDG_CACHE_HOME=%s",
-
-                os.getenv("XDG_CACHE_HOME"),
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — XDG_CONFIG_HOME=%s",
-
-                os.getenv("XDG_CONFIG_HOME"),
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — PATH=%s",
-
-                typst_env.get("PATH"),
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — TYPST_PATH=%s",
-
-                os.getenv("TYPST_PATH"),
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — timeout=%s secondes",
-
-                pdf_timeout,
-
-            )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — mémoire disponible avant Typst"
-
-            )
-
-
-
-            try:
-
-
-
-                with open(
-
-                    "/proc/meminfo",
-
-                    "r",
-
-                    encoding="utf-8",
-
-                ) as meminfo:
-
-
-
-                    memory_info = meminfo.read()
-
-
-
-                logger.info(
-
-                    "🚨 PDF DEBUG — /proc/meminfo | %s",
-
-                    memory_info[:3000],
-
-                )
-
-
-
-            except Exception:
-
-
-
-                logger.exception(
-
-                    "⚠️ PDF DEBUG — impossible de lire /proc/meminfo"
-
-                )
-
-
-
-            logger.info(
-
-                "🚨 PDF DEBUG — lancement subprocess maintenant"
-
-            )
-
-
-
-            # --------------------------------------------------
-
-            # MESURE EXACTE DE subprocess.run()
-
-            # --------------------------------------------------
-
-
-
-            pdf_start_time = time.monotonic()
-
-
-
-            try:
-
-
-
-                result = subprocess.run(
-
-                    typst_command,
-
-                    cwd=str(document_directory),
-
-                    env=typst_env,
-
-                    capture_output=True,
-
-                    text=True,
-
-                    timeout=pdf_timeout,
-
-                    check=False,
-
-                )
-
-
-
-            finally:
-
-
-
-                pdf_duration = (
-
-                    time.monotonic()
-
-                    - pdf_start_time
-
-                )
-
-
-
-                logger.info(
-
-                    "🚨 PDF DEBUG — subprocess terminé | "
-
-                    "durée=%.3f secondes",
-
-                    pdf_duration,
-
-                )
-
-
-
-        except FileNotFoundError:
-
-
-
-            logger.exception(
-
-                "❌ ACTIVATION — Typst inaccessible | "
-
-                "path=%s | document=%s",
-
-                typst_path,
-
-                document_name,
-
-            )
-
-
-
-            db.rollback()
-
-
-
-            raise HTTPException(
-
-                status_code=500,
-
-                detail="TYPST_NOT_AVAILABLE",
-
-            )
-
-
-
-        except ValueError:
-
-
-
-            logger.exception(
-
-                "❌ ACTIVATION — valeur de timeout PDF invalide | "
-
-                "PDF_GENERATION_TIMEOUT_SECONDS=%s",
-
-                os.getenv(
-
-                    "PDF_GENERATION_TIMEOUT_SECONDS"
-
+                "🟢 ACTIVATION — réponse CODE_Documents | "
+                "status=%s | durée=%.3f secondes | "
+                "content_type=%s | taille=%s",
+                response.status_code,
+                pdf_duration,
+                response.headers.get(
+                    "content-type"
                 ),
-
+                len(response.content),
             )
 
-
-
-            db.rollback()
-
-
-
-            raise HTTPException(
-
-                status_code=500,
-
-                detail="PDF_GENERATION_TIMEOUT",
-
-            )
-
-
-
-        except subprocess.TimeoutExpired:
-
-
+        except httpx.TimeoutException:
 
             logger.exception(
-
-                "❌ ACTIVATION — génération Typst dépassée "
-
-                "après %s secondes | document=%s",
-
-                pdf_timeout,
-
-                document_name,
-
+                "❌ ACTIVATION — timeout CODE_Documents | "
+                "timeout=%s secondes | activation_id=%s",
+                CODE_DOCUMENTS_TIMEOUT_SECONDS,
+                activation_id,
             )
-
-
 
             db.rollback()
 
-
-
             raise HTTPException(
-
                 status_code=500,
-
                 detail="PDF_GENERATION_TIMEOUT",
-
             )
 
+        except httpx.RequestError:
 
+            logger.exception(
+                "❌ ACTIVATION — impossible de joindre "
+                "CODE_Documents | url=%s | activation_id=%s",
+                service_url,
+                activation_id,
+            )
+
+            db.rollback()
+
+            raise HTTPException(
+                status_code=500,
+                detail="DOCUMENT_SERVICE_UNAVAILABLE",
+            )
 
         # ==================================================
-
-        # TYPOGRAPH TERMINÉ
-
+        # VÉRIFICATION DE LA RÉPONSE
         # ==================================================
 
-
-
-        logger.info(
-
-            "🚨 PDF DEBUG — APRÈS subprocess.run | "
-
-            "returncode=%s | pdf_exists=%s",
-
-            result.returncode,
-
-            pdf_path.exists(),
-
-        )
-
-
-
-        logger.info(
-
-            "🚨 PDF DEBUG — stdout Typst | %s",
-
-            (
-
-                result.stdout[-5000:]
-
-                if result.stdout
-
-                else "(vide)"
-
-            ),
-
-        )
-
-
-
-        logger.info(
-
-            "🚨 PDF DEBUG — stderr Typst | %s",
-
-            (
-
-                result.stderr[-5000:]
-
-                if result.stderr
-
-                else "(vide)"
-
-            ),
-
-        )
-
-
-
-        logger.info(
-
-            "🏁 ACTIVATION — Typst terminé | "
-
-            "returncode=%s | activation_id=%s",
-
-            result.returncode,
-
-            activation_id,
-
-        )
-
-
-
-        if result.returncode != 0:
-
-
+        if response.status_code != 200:
 
             logger.error(
-
-                "❌ ACTIVATION — erreur Typst | "
-
-                "document='%s' | code_retour=%s | "
-
-                "stderr=%s | stdout=%s",
-
-                document_name,
-
-                result.returncode,
-
-                result.stderr,
-
-                result.stdout,
-
+                "❌ ACTIVATION — CODE_Documents a refusé "
+                "la génération | status=%s | body=%s",
+                response.status_code,
+                response.text[-5000:],
             )
-
-
 
             db.rollback()
 
+            if response.status_code == 401:
+                detail = "DOCUMENT_SERVICE_UNAUTHORIZED"
 
+            elif response.status_code == 403:
+                detail = "DOCUMENT_SERVICE_FORBIDDEN"
+
+            elif response.status_code == 400:
+                detail = "PDF_GENERATION_INVALID_REQUEST"
+
+            else:
+                detail = "PDF_GENERATION_FAILED"
 
             raise HTTPException(
-
                 status_code=500,
-
-                detail="PDF_GENERATION_FAILED",
-
+                detail=detail,
             )
 
-
-
-        # ==================================================
-
-        # ÉTAPE 10 — PDF GÉNÉRÉ
-
-        # ==================================================
-
-
-
-        logger.info(
-
-            "🔵 ACTIVATION — vérification PDF | "
-
-            "path=%s | exists=%s",
-
-            pdf_path,
-
-            pdf_path.exists(),
-
+        content_type = (
+            response.headers.get(
+                "content-type",
+                "",
+            ).lower()
         )
 
+        if "application/pdf" not in content_type:
 
+            logger.error(
+                "❌ ACTIVATION — CODE_Documents "
+                "n'a pas retourné un PDF | "
+                "content_type=%s",
+                content_type,
+            )
+
+            db.rollback()
+
+            raise HTTPException(
+                status_code=500,
+                detail="PDF_GENERATION_INVALID_RESPONSE",
+            )
+
+        # ==================================================
+        # ÉTAPE 10 — ENREGISTREMENT DU PDF REÇU
+        # ==================================================
+
+        try:
+
+            pdf_path.write_bytes(
+                response.content
+            )
+
+        except Exception:
+
+            logger.exception(
+                "❌ ACTIVATION — impossible "
+                "d'enregistrer le PDF reçu"
+            )
+
+            db.rollback()
+
+            raise HTTPException(
+                status_code=500,
+                detail="PDF_TEMPORARY_STORAGE_FAILED",
+            )
+
+        logger.info(
+            "🔵 ACTIVATION — PDF reçu | "
+            "path=%s | exists=%s",
+            pdf_path,
+            pdf_path.exists(),
+        )
 
         if not pdf_path.exists():
 
-
-
             logger.error(
-
-                "❌ ACTIVATION — Typst terminé sans PDF | "
-
-                "path=%s",
-
-                pdf_path,
-
+                "❌ ACTIVATION — PDF absent après "
+                "réception du service"
             )
-
-
 
             db.rollback()
 
-
-
             raise HTTPException(
-
                 status_code=500,
-
                 detail="PDF_NOT_GENERATED",
-
             )
-
-
 
         pdf_size = pdf_path.stat().st_size
 
-
-
         logger.info(
-
-            "🔵 ACTIVATION — taille PDF temporaire=%s octets",
-
+            "🟢 ACTIVATION — PDF généré par "
+            "CODE_Documents | taille=%s octets",
             pdf_size,
-
         )
-
-
 
         if pdf_size == 0:
 
-
-
             logger.error(
-
-                "❌ ACTIVATION — PDF vide | path=%s",
-
-                pdf_path,
-
+                "❌ ACTIVATION — PDF vide"
             )
-
-
 
             db.rollback()
 
-
-
             raise HTTPException(
-
                 status_code=500,
-
                 detail="PDF_EMPTY",
-
             )
 
-
-
-        logger.info(
-
-            "🟢 ACTIVATION — PDF généré avec succès | "
-
-            "taille=%s octets",
-
-            pdf_size,
-
-        )
-
-
-
-        # ==================================================
-
-        # ==================================================
         # ÉTAPE 11 — TRANSACTION FINALE + STOCKAGE SÉCURISÉ
         # ==================================================
 
