@@ -15,6 +15,7 @@ import logging
 import requests
 import random
 from routes.activation import router as activation_router
+from routes.document_jobs import router as document_jobs_router
 from routes.document_access import router as document_access_router
 from routes.document_versions import router as document_versions_router
 from routes.secure_documents import router as secure_documents_router
@@ -69,6 +70,7 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/images", StaticFiles(directory="Images"), name="images")
 
 app.include_router(activation_router)
+app.include_router(document_jobs_router)
 app.include_router(document_versions_router)
 app.include_router(document_access_router)
 app.include_router(secure_documents_router)

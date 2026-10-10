@@ -35,6 +35,8 @@ from datetime import datetime
 from pathlib import Path
 
 import os
+import base64
+import uuid
 
 import tempfile
 
@@ -55,6 +57,7 @@ from database import get_db
 from models.user import User, UserStatus
 
 from models.document_activation import DocumentActivation
+from models.document_generation_job import DocumentGenerationJob
 
 from models.user_device import UserDevice
 
@@ -125,6 +128,18 @@ CODE_DOCUMENTS_URL = os.getenv(
 CODE_DOCUMENTS_SERVICE_KEY = os.getenv(
     "CODE_DOCUMENTS_SERVICE_KEY",
 )
+
+CODE_GITHUB_TOKEN = os.getenv("CODE_GITHUB_TOKEN", "")
+CODE_WORKER_KEY = os.getenv("CODE_WORKER_KEY", "")
+CODE_DOCUMENTS_REPO = os.getenv(
+    "CODE_DOCUMENTS_REPO",
+    "HOUNSOU96/CODE_Documents",
+)
+CODE_DOCUMENTS_WORKFLOW_REF = os.getenv(
+    "CODE_DOCUMENTS_WORKFLOW_REF",
+    "feature/github-actions-pdf-async",
+)
+
 
 CODE_DOCUMENTS_TIMEOUT_SECONDS = int(
     os.getenv(
@@ -865,6 +880,61 @@ def check_user(
 
 # ==========================================================
 
+
+
+
+@router.get("/jobs/{job_id}")
+def get_activation_job_status(
+    job_id: str,
+    db: Session = Depends(get_db),
+):
+    job = (
+        db.query(DocumentGenerationJob)
+        .filter(DocumentGenerationJob.id == job_id)
+        .first()
+    )
+    if not job:
+        raise HTTPException(status_code=404, detail="JOB_NOT_FOUND")
+
+    if job.status == "completed":
+        activation = (
+            db.query(DocumentActivation)
+            .filter(DocumentActivation.id == job.activation_id)
+            .first()
+        )
+        return {
+            "success": True,
+            "pending": False,
+            "status": "completed",
+            "activation_id": job.activation_id,
+            "document": {
+                "id": job.activation_id,
+                "name": activation.document_name if activation else "",
+            },
+            "message": (
+                "Document activé avec succès. "
+                "Votre document est disponible dans « Mes documents »."
+            ),
+        }
+
+    if job.status == "failed":
+        return {
+            "success": False,
+            "pending": False,
+            "status": "failed",
+            "message": (
+                "La génération du document a échoué. "
+                "Veuillez réessayer ou contacter le support."
+            ),
+        }
+
+    return {
+        "success": False,
+        "pending": True,
+        "status": job.status,
+        "job_id": job.id,
+        "message": "La génération de votre document est en cours.",
+    }
 
 
 @router.post("/activate")
@@ -1733,25 +1803,16 @@ async def activate_document(
         # ÉTAPE 7 — PRÉPARATION DU SERVICE DOCUMENTS
         # ==================================================
 
-        if not CODE_DOCUMENTS_URL:
-            logger.error(
-                "❌ ACTIVATION — CODE_DOCUMENTS_URL non configurée"
-            )
-
+        if not CODE_GITHUB_TOKEN:
             raise HTTPException(
                 status_code=500,
-                detail="DOCUMENT_SERVICE_URL_NOT_CONFIGURED",
+                detail="GITHUB_TOKEN_NOT_CONFIGURED",
             )
 
-        if not CODE_DOCUMENTS_SERVICE_KEY:
-            logger.error(
-                "❌ ACTIVATION — CODE_DOCUMENTS_SERVICE_KEY "
-                "non configurée"
-            )
-
+        if not CODE_WORKER_KEY:
             raise HTTPException(
                 status_code=500,
-                detail="DOCUMENT_SERVICE_KEY_NOT_CONFIGURED",
+                detail="WORKER_KEY_NOT_CONFIGURED",
             )
 
         temporary_root = (
@@ -1854,6 +1915,124 @@ async def activate_document(
             )
 
         # ==================================================
+
+        # ==================================================
+        # GÉNÉRATION ASYNCHRONE PAR GITHUB ACTIONS
+        # ==================================================
+
+        job_id = str(uuid.uuid4())
+
+        generator_payload = {
+            "nom": document_nom,
+            "prenom": document_prenom,
+            "pays": document_pays,
+            "etablissement": etablissement_value,
+            "ville": ville_value,
+            "annee_scolaire": annee_scolaire_value,
+            "code": activation_code_value,
+        }
+
+        if photo_content is not None:
+            generator_payload["photo_base64"] = base64.b64encode(
+                photo_content
+            ).decode("ascii")
+            generator_payload["photo_content_type"] = photo_content_type
+
+        hashed_password = (
+            hash_password(password)
+            if not user and password
+            else None
+        )
+
+        finalization_payload = {
+            "beneficiary_email": beneficiary_email_value,
+            "activation_type": activation_type,
+            "device_id": device_id_value,
+            "device_type": device_type_value,
+            "document_filename": document_filename,
+            "nom": nom_value,
+            "prenom": prenom_value,
+            "telephone": telephone_value,
+            "pays_residence": pays_value,
+            "hashed_password": hashed_password,
+        }
+
+        job = DocumentGenerationJob(
+            id=job_id,
+            activation_id=activation_id,
+            status="queued",
+            payload={
+                "generator": generator_payload,
+                "finalization": finalization_payload,
+            },
+        )
+        db.add(job)
+        db.commit()
+
+        dispatch_url = (
+            "https://api.github.com/repos/"
+            f"{CODE_DOCUMENTS_REPO}/actions/workflows/"
+            "generate-personalized-pdf.yml/dispatches"
+        )
+        dispatch_headers = {
+            "Accept": "application/vnd.github+json",
+            "Authorization": f"Bearer {CODE_GITHUB_TOKEN}",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+        dispatch_body = {
+            "ref": CODE_DOCUMENTS_WORKFLOW_REF,
+            "inputs": {"job_id": job_id},
+        }
+
+        try:
+            async with httpx.AsyncClient(
+                timeout=httpx.Timeout(20.0, connect=10.0)
+            ) as client:
+                dispatch_response = await client.post(
+                    dispatch_url,
+                    headers=dispatch_headers,
+                    json=dispatch_body,
+                )
+
+            if dispatch_response.status_code != 204:
+                logger.error(
+                    "Échec du déclenchement GitHub Actions : HTTP %s",
+                    dispatch_response.status_code,
+                )
+                job.status = "failed"
+                job.error_code = "PDF_GENERATION_FAILED"
+                job.updated_at = datetime.utcnow()
+                job.completed_at = datetime.utcnow()
+                db.commit()
+                raise HTTPException(
+                    status_code=502,
+                    detail="GITHUB_WORKFLOW_DISPATCH_FAILED",
+                )
+
+        except httpx.RequestError:
+            logger.exception("Impossible de déclencher GitHub Actions")
+            job.status = "failed"
+            job.error_code = "PDF_GENERATION_FAILED"
+            job.updated_at = datetime.utcnow()
+            job.completed_at = datetime.utcnow()
+            db.commit()
+            raise HTTPException(
+                status_code=502,
+                detail="GITHUB_WORKFLOW_UNAVAILABLE",
+            )
+
+        return {
+            "success": False,
+            "pending": True,
+            "status": "queued",
+            "job_id": job_id,
+            "activation_id": activation_id,
+            "message": (
+                "Votre demande est enregistrée. "
+                "La génération de votre document est en cours."
+            ),
+        }
+
         # ÉTAPE 9 — APPEL DU SERVICE CODE_DOCUMENTS
         # ==================================================
 
