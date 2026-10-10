@@ -25,6 +25,7 @@ from .video_questions import VideoQuestion
 from .connection_log import UserConnectionLog
 
 from .document_activation import DocumentActivation
+from .document_generation_job import DocumentGenerationJob
 
 # 🔐 Nouveaux modèles pour la sécurité CODE-Maths
 from .user_device import UserDevice
