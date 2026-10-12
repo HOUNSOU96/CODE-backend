@@ -1,8 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import FileResponse
+from pathlib import Path
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from datetime import datetime
+from dependencies import get_current_user
+from models.user import User
+
 
 from database import get_db
 from models.document_version import DocumentVersion
@@ -115,6 +120,51 @@ def get_current_version(
 
 
 # ==========================================================
+# CATALOGUE PUBLIC DES DOCUMENTS
+# ==========================================================
+
+@router.get("/catalog")
+def get_document_catalog(
+    db: Session = Depends(get_db),
+):
+    """
+    Retourne les documents actuellement publiés.
+    Les chemins internes des fichiers ne sont jamais exposés.
+    """
+
+    versions = (
+        db.query(DocumentVersion)
+        .filter(
+            DocumentVersion.is_current.is_(True),
+            DocumentVersion.document_name.in_(
+                SUPPORTED_DOCUMENTS
+            ),
+        )
+        .order_by(DocumentVersion.document_name.asc())
+        .all()
+    )
+
+    return {
+        "documents": [
+            {
+                "id": version.id,
+                "document_name": version.document_name,
+                "version_code": version.version_code,
+                "version_label": version.version_label,
+                "title": version.title,
+                "description": version.description,
+                "published_at": (
+                    version.published_at.isoformat()
+                    if version.published_at
+                    else None
+                ),
+            }
+            for version in versions
+        ]
+    }
+
+
+# ==========================================================
 # 2. HISTORIQUE DES VERSIONS
 # ==========================================================
 
@@ -152,8 +202,6 @@ def get_all_versions(
                 "version_label": version.version_label,
                 "title": version.title,
                 "description": version.description,
-                "content_path": version.content_path,
-                "content_hash": version.content_hash,
                 "published_at": (
                     version.published_at.isoformat()
                     if version.published_at
@@ -166,6 +214,61 @@ def get_all_versions(
     }
 
 
+
+# ==========================================================
+# LECTURE PUBLIQUE DE L'ORIGINAL
+# ==========================================================
+
+@router.get("/{version_id}/original")
+def read_original_document(
+    version_id: int,
+    db: Session = Depends(get_db),
+):
+    """
+    Sert le PDF original d'une version actuellement publiée.
+    Aucun code d'activation ni appareil n'est requis.
+    Le chemin du fichier est fixé côté serveur.
+    """
+
+    version = (
+        db.query(DocumentVersion)
+        .filter(
+            DocumentVersion.id == version_id,
+            DocumentVersion.is_current.is_(True),
+            DocumentVersion.document_name.in_(SUPPORTED_DOCUMENTS),
+        )
+        .first()
+    )
+
+    if not version:
+        raise HTTPException(
+            status_code=404,
+            detail="PUBLISHED_VERSION_NOT_FOUND",
+        )
+
+    original_path = (
+        Path(__file__).resolve().parent.parent
+        / "public_documents"
+        / "CODE-MathsI-original.pdf"
+    )
+
+    if not original_path.is_file():
+        raise HTTPException(
+            status_code=404,
+            detail="ORIGINAL_PDF_NOT_FOUND",
+        )
+
+    return FileResponse(
+        path=str(original_path),
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": 'inline; filename="CODE-MathsI-original.pdf"',
+            "X-Content-Type-Options": "nosniff",
+            "Cache-Control": "public, max-age=3600",
+        },
+    )
+
+
 # ==========================================================
 # 3. PUBLIER UNE NOUVELLE VERSION
 # ==========================================================
@@ -173,8 +276,14 @@ def get_all_versions(
 @router.post("/publish")
 def publish_version(
     data: PublishVersionRequest,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    if not current_user.is_admin:
+        raise HTTPException(
+            status_code=403,
+            detail="ADMIN_ACCESS_REQUIRED",
+        )
     """
     Publie une nouvelle version d'un document.
 
