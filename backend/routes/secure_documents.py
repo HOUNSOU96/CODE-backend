@@ -221,6 +221,9 @@ def get_my_secure_documents(
 
                 DocumentActivation.is_activated
                 == True,
+
+                DocumentActivation.globally_revoked_at
+                .is_(None),
             )
             .first()
         )
@@ -323,6 +326,9 @@ def get_secure_document(
 
             DocumentActivation.is_activated
             == True,
+
+            DocumentActivation.globally_revoked_at
+            .is_(None),
         )
         .first()
     )

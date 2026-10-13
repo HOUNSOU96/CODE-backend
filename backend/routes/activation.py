@@ -456,6 +456,12 @@ def verify_activation(
 
 
 
+    if activation.globally_revoked_at is not None:
+        raise HTTPException(
+            status_code=403,
+            detail="ACTIVATION_GLOBALLY_REVOKED",
+        )
+
     if activation.is_activated:
 
         logger.warning(
@@ -1489,6 +1495,12 @@ async def activate_document(
 
 
 
+        if activation.globally_revoked_at is not None:
+            raise HTTPException(
+                status_code=403,
+                detail="ACTIVATION_GLOBALLY_REVOKED",
+            )
+
         if activation.is_activated:
 
 
@@ -2306,6 +2318,12 @@ async def activate_document(
             activation.id,
             activation.is_activated,
         )
+
+        if activation.globally_revoked_at is not None:
+            raise HTTPException(
+                status_code=403,
+                detail="ACTIVATION_GLOBALLY_REVOKED",
+            )
 
         if activation.is_activated:
 

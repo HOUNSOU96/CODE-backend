@@ -93,6 +93,19 @@ class DocumentActivation(Base):
         default=False
     )
 
+    # ============================================================
+    # RÉVOCATION GLOBALE
+    # ============================================================
+
+    # Date à laquelle l'accès a été révoqué globalement.
+    # Une valeur non nulle interdit toute réactivation automatique.
+    globally_revoked_at = Column(
+        DateTime,
+        nullable=True,
+        default=None,
+    )
+
+
     activated_at = Column(
         DateTime,
         nullable=True

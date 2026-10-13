@@ -21,6 +21,7 @@ from models.connection_log import UserConnectionLog
 from models.document_activation import DocumentActivation
 from models.document_device_access import DocumentDeviceAccess
 from models.document_generation_job import DocumentGenerationJob
+from models.document_version import DocumentVersion
 
 # ---------------------------------------------------------
 # ÉCOLES
@@ -1180,6 +1181,262 @@ def _get_activation_or_404(
         )
 
     return activation
+
+
+
+
+# ==========================================================
+# DOCUMENT ORIGINAL : ACTIONS ADMINISTRATIVES DISTINCTES
+# ==========================================================
+
+ORIGINAL_DOCUMENT_NAME = "CODE Maths 1er cycle Tome I"
+ORIGINAL_PDF_FILENAME = "CODE-MathsI-original.pdf"
+
+
+def _get_original_pdf_path() -> Path:
+    """Retourne le chemin fixe du PDF original partagé."""
+
+    return (
+        Path(__file__).resolve().parents[1]
+        / "public_documents"
+        / ORIGINAL_PDF_FILENAME
+    )
+
+
+def _get_original_pdf_or_404() -> Path:
+    path = _get_original_pdf_path()
+
+    if not path.is_file():
+        raise HTTPException(
+            status_code=404,
+            detail="ORIGINAL_PDF_NOT_FOUND",
+        )
+
+    if path.stat().st_size <= 0:
+        raise HTTPException(
+            status_code=404,
+            detail="ORIGINAL_PDF_EMPTY",
+        )
+
+    return path
+
+
+@router.get("/original-document/read")
+def read_admin_original_document(
+    current_user: User = Depends(get_current_user),
+):
+    """Ouvre le PDF original pour l'administrateur, sans modifier la base."""
+
+    _require_global_admin(current_user)
+    path = _get_original_pdf_or_404()
+
+    return FileResponse(
+        path=str(path),
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": (
+                f'inline; filename="{ORIGINAL_PDF_FILENAME}"'
+            ),
+            "Cache-Control": "no-store",
+            "X-Content-Type-Options": "nosniff",
+        },
+    )
+
+
+@router.get("/original-document/download")
+def download_admin_original_document(
+    current_user: User = Depends(get_current_user),
+):
+    """Télécharge le PDF original, sans modifier la base."""
+
+    _require_global_admin(current_user)
+    path = _get_original_pdf_or_404()
+
+    return FileResponse(
+        path=str(path),
+        media_type="application/pdf",
+        filename=ORIGINAL_PDF_FILENAME,
+        headers={
+            "Cache-Control": "no-store",
+            "X-Content-Type-Options": "nosniff",
+        },
+    )
+
+
+@router.post("/original-document/unpublish")
+def unpublish_admin_original_document(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Retire le document du catalogue public.
+    Conserve le PDF original, les versions et les activations.
+    """
+
+    _require_global_admin(current_user)
+
+    try:
+        result = (
+            db.query(DocumentVersion)
+            .filter(
+                DocumentVersion.document_name == ORIGINAL_DOCUMENT_NAME,
+                DocumentVersion.is_current.is_(True),
+            )
+            .update(
+                {DocumentVersion.is_current: False},
+                synchronize_session=False,
+            )
+        )
+
+        db.commit()
+
+    except Exception:
+        db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail="ORIGINAL_UNPUBLISH_FAILED",
+        )
+
+    return {
+        "success": True,
+        "message": "ORIGINAL_DOCUMENT_UNPUBLISHED",
+        "versions_unpublished": result,
+    }
+
+
+@router.post("/original-document/revoke-activations")
+def revoke_all_original_document_activations(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Révoque toutes les activations de ce document.
+
+    Les activations, historiques et PDF personnalisés sont conservés.
+    Les tâches en attente ou en cours sont neutralisées.
+    """
+
+    _require_global_admin(current_user)
+    now = datetime.utcnow()
+
+    try:
+        # Verrouiller les activations pour coordonner cette opération
+        # avec la finalisation des générations PDF.
+        activations = (
+            db.query(DocumentActivation)
+            .filter(
+                DocumentActivation.document_name == ORIGINAL_DOCUMENT_NAME
+            )
+            .with_for_update()
+            .all()
+        )
+
+        activation_ids = [item.id for item in activations]
+        newly_revoked = 0
+
+        for activation in activations:
+            if activation.globally_revoked_at is None:
+                activation.globally_revoked_at = now
+                newly_revoked += 1
+
+            activation.is_activated = False
+
+        # Désactiver les accès existants sur tous les appareils.
+        if activation_ids:
+            db.query(DocumentDeviceAccess).filter(
+                DocumentDeviceAccess.activation_id.in_(activation_ids),
+                DocumentDeviceAccess.is_active.is_(True),
+            ).update(
+                {DocumentDeviceAccess.is_active: False},
+                synchronize_session=False,
+            )
+
+            # Neutraliser les tâches qui pourraient encore finaliser
+            # une génération ou accorder un accès.
+            db.query(DocumentGenerationJob).filter(
+                DocumentGenerationJob.activation_id.in_(activation_ids),
+                DocumentGenerationJob.status.in_(("queued", "running")),
+            ).update(
+                {
+                    DocumentGenerationJob.status: "failed",
+                    DocumentGenerationJob.error_code:
+                        "ACTIVATION_GLOBALLY_REVOKED",
+                    DocumentGenerationJob.updated_at: now,
+                    DocumentGenerationJob.completed_at: now,
+                },
+                synchronize_session=False,
+            )
+
+        db.commit()
+
+    except Exception:
+        db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail="GLOBAL_ACTIVATION_REVOCATION_FAILED",
+        )
+
+    return {
+        "success": True,
+        "message": "ORIGINAL_DOCUMENT_ACTIVATIONS_REVOKED",
+        "activations_found": len(activations),
+        "newly_revoked": newly_revoked,
+        "personalized_pdfs_deleted": 0,
+    }
+
+
+@router.delete("/original-document")
+def delete_admin_original_document(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Dépublie toutes les versions et supprime uniquement le PDF original.
+
+    Ne supprime ni les activations, ni les accès historiques,
+    ni les PDF personnalisés. La révocation globale est une action séparée.
+    """
+
+    _require_global_admin(current_user)
+    path = _get_original_pdf_path()
+
+    # Étape 1 : dépublier avant de retirer le fichier partagé.
+    try:
+        db.query(DocumentVersion).filter(
+            DocumentVersion.document_name == ORIGINAL_DOCUMENT_NAME,
+            DocumentVersion.is_current.is_(True),
+        ).update(
+            {DocumentVersion.is_current: False},
+            synchronize_session=False,
+        )
+
+        db.commit()
+
+    except Exception:
+        db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail="ORIGINAL_UNPUBLISH_BEFORE_DELETE_FAILED",
+        )
+
+    # Étape 2 : supprimer exclusivement le fichier original connu.
+    try:
+        path.unlink(missing_ok=True)
+
+    except OSError:
+        # Le document est déjà dépublié : il n'est plus proposé
+        # dans le catalogue public, même si le fichier subsiste.
+        raise HTTPException(
+            status_code=500,
+            detail="ORIGINAL_UNPUBLISHED_BUT_FILE_DELETE_FAILED",
+        )
+
+    return {
+        "success": True,
+        "message": "ORIGINAL_DOCUMENT_DELETED_AND_UNPUBLISHED",
+        "activations_deleted": 0,
+        "personalized_pdfs_deleted": 0,
+    }
 
 
 @router.get("/documents/{activation_id}/pdf")

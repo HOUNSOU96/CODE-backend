@@ -44,6 +44,30 @@ def get_job_payload(
     require_worker_key(x_code_worker_key)
     job = get_job_or_404(db, job_id)
 
+    activation = (
+        db.query(DocumentActivation)
+        .filter(DocumentActivation.id == job.activation_id)
+        .first()
+    )
+
+    if not activation:
+        raise HTTPException(
+            status_code=404,
+            detail="ACTIVATION_NOT_FOUND",
+        )
+
+    if activation.globally_revoked_at is not None:
+        job.status = "failed"
+        job.error_code = "ACTIVATION_GLOBALLY_REVOKED"
+        job.updated_at = datetime.utcnow()
+        job.completed_at = datetime.utcnow()
+        db.commit()
+
+        raise HTTPException(
+            status_code=409,
+            detail="ACTIVATION_GLOBALLY_REVOKED",
+        )
+
     if job.status in ("completed", "failed"):
         raise HTTPException(status_code=409, detail="JOB_ALREADY_FINISHED")
 
@@ -115,6 +139,18 @@ async def complete_job(
             "status": "completed",
             "activation_id": job.activation_id,
         }
+
+    if activation.globally_revoked_at is not None:
+        job.status = "failed"
+        job.error_code = "ACTIVATION_GLOBALLY_REVOKED"
+        job.updated_at = datetime.utcnow()
+        job.completed_at = datetime.utcnow()
+        db.commit()
+
+        raise HTTPException(
+            status_code=409,
+            detail="ACTIVATION_GLOBALLY_REVOKED",
+        )
 
     if activation.is_activated:
         raise HTTPException(status_code=409, detail="DOCUMENT_ALREADY_ACTIVATED")

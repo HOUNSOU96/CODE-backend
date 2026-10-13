@@ -185,6 +185,12 @@ def activate_device(
             detail="ACTIVATION_CODE_INVALID",
         )
 
+    if activation.globally_revoked_at is not None:
+        raise HTTPException(
+            status_code=403,
+            detail="ACTIVATION_GLOBALLY_REVOKED",
+        )
+
     if activation.document_name != document_name:
         raise HTTPException(
             status_code=400,
@@ -605,6 +611,9 @@ def get_document_access_status(
 
             DocumentActivation.is_activated
             == True,
+
+            DocumentActivation.globally_revoked_at
+            .is_(None),
         )
         .first()
     )
@@ -768,6 +777,9 @@ def update_document_version(
 
             DocumentActivation.is_activated
             == True,
+
+            DocumentActivation.globally_revoked_at
+            .is_(None),
         )
         .first()
     )
