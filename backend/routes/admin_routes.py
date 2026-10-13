@@ -1,10 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi.responses import FileResponse, Response
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 from typing import List, Optional
 from pydantic import BaseModel
 import uuid
 import os
+from pathlib import Path
+import shutil
 
 from sqlalchemy import func
 
@@ -16,6 +19,8 @@ from routes.auth import create_access_token
 from models.user import User, UserStatus
 from models.connection_log import UserConnectionLog
 from models.document_activation import DocumentActivation
+from models.document_device_access import DocumentDeviceAccess
+from models.document_generation_job import DocumentGenerationJob
 
 # ---------------------------------------------------------
 # ÉCOLES
@@ -993,6 +998,22 @@ def get_admin_documents(
         .all()
     )
 
+    # Travaux de génération : conserver le statut du travail
+    # le plus récent pour chaque activation.
+    jobs = (
+        db.query(DocumentGenerationJob)
+        .order_by(
+            DocumentGenerationJob.created_at.desc()
+        )
+        .all()
+    )
+
+    latest_job_by_activation = {}
+
+    for job in jobs:
+        if job.activation_id not in latest_job_by_activation:
+            latest_job_by_activation[job.activation_id] = job
+
     result = []
 
     for index, activation in enumerate(
@@ -1012,10 +1033,68 @@ def get_admin_documents(
                 .first()
             )
 
+        latest_job = latest_job_by_activation.get(
+            activation.id
+        )
+
+        secure_root = (
+            Path(__file__).resolve().parents[1]
+            / "secure_documents"
+        ).resolve()
+
+        pdf_available = False
+
+        if activation.pdf_data:
+            pdf_available = True
+
+        elif activation.pdf_path:
+            try:
+                pdf_file = (
+                    Path(__file__).resolve().parents[1]
+                    / activation.pdf_path
+                ).resolve()
+
+                pdf_file.relative_to(secure_root)
+
+                expected_directory = (
+                    secure_root / str(activation.id)
+                ).resolve()
+
+                pdf_file.relative_to(expected_directory)
+
+                pdf_available = (
+                    pdf_file.is_file()
+                    and pdf_file.stat().st_size > 0
+                )
+
+            except (ValueError, OSError):
+                pdf_available = False
+
+        job_status = (
+            latest_job.status
+            if latest_job
+            else None
+        )
+
+        if pdf_available:
+            pdf_status = "available"
+        elif job_status in ("queued", "running", "processing"):
+            pdf_status = "pending"
+        else:
+            pdf_status = "missing"
+
         result.append(
             {
                 "numero":
                     index,
+
+                "id": activation.id,
+
+                "pdf_status": pdf_status,
+
+                "pdf_filename": activation.pdf_filename,
+
+                "generation_status": job_status,
 
                 "document_name":
                     activation.document_name,
@@ -1071,6 +1150,319 @@ def get_admin_documents(
         )
 
     return result
+
+# ==========================================================
+# ACTIONS ADMINISTRATIVES SUR LES DOCUMENTS
+# ==========================================================
+
+def _require_global_admin(current_user: User):
+    if not current_user.is_admin:
+        raise HTTPException(
+            status_code=403,
+            detail="Accès réservé aux administrateurs",
+        )
+
+
+def _get_activation_or_404(
+    activation_id: int,
+    db: Session,
+):
+    activation = (
+        db.query(DocumentActivation)
+        .filter(DocumentActivation.id == activation_id)
+        .first()
+    )
+
+    if activation is None:
+        raise HTTPException(
+            status_code=404,
+            detail="ACTIVATION_NOT_FOUND",
+        )
+
+    return activation
+
+
+@router.get("/documents/{activation_id}/pdf")
+def download_admin_document_pdf(
+    activation_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Télécharge le PDF personnalisé d'une activation."""
+
+    _require_global_admin(current_user)
+
+    activation = _get_activation_or_404(
+        activation_id,
+        db,
+    )
+
+    backend_dir = Path(__file__).resolve().parents[1]
+    secure_root = (backend_dir / "secure_documents").resolve()
+
+    if activation.pdf_path:
+        try:
+            pdf_path = (
+                backend_dir / activation.pdf_path
+            ).resolve()
+
+            # Le fichier doit être dans le stockage sécurisé.
+            pdf_path.relative_to(secure_root)
+
+            # Le fichier doit appartenir à cette activation.
+            activation_directory = (
+                secure_root / str(activation.id)
+            ).resolve()
+
+            pdf_path.relative_to(activation_directory)
+
+        except (ValueError, OSError):
+            raise HTTPException(
+                status_code=403,
+                detail="PDF_PATH_INVALID",
+            )
+
+        if not pdf_path.is_file():
+            raise HTTPException(
+                status_code=404,
+                detail="PDF_FILE_NOT_FOUND",
+            )
+
+        if pdf_path.stat().st_size == 0:
+            raise HTTPException(
+                status_code=404,
+                detail="PDF_FILE_EMPTY",
+            )
+
+        filename = (
+            activation.pdf_filename
+            or activation.document_name
+            or "document-code.pdf"
+        )
+
+        # Éviter les noms de fichiers dangereux dans l'en-tête HTTP.
+        filename = Path(filename).name
+
+        if not filename.lower().endswith(".pdf"):
+            filename += ".pdf"
+
+        return FileResponse(
+            path=str(pdf_path),
+            media_type="application/pdf",
+            filename=filename,
+            headers={
+                "Cache-Control": "no-store",
+                "X-Content-Type-Options": "nosniff",
+            },
+        )
+
+    # Compatibilité avec les anciennes activations stockées en base.
+    if activation.pdf_data:
+        filename = (
+            activation.pdf_filename
+            or activation.document_name
+            or "document-code.pdf"
+        )
+
+        filename = Path(filename).name
+
+        if not filename.lower().endswith(".pdf"):
+            filename += ".pdf"
+
+        return Response(
+            content=activation.pdf_data,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": (
+                    f'attachment; filename="{filename}"'
+                ),
+                "Cache-Control": "no-store",
+                "X-Content-Type-Options": "nosniff",
+            },
+        )
+
+    raise HTTPException(
+        status_code=404,
+        detail="PDF_NOT_AVAILABLE",
+    )
+
+
+@router.post("/documents/{activation_id}/revoke")
+def revoke_admin_document(
+    activation_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Désactive l'activation et ses autorisations sans supprimer le PDF."""
+
+    _require_global_admin(current_user)
+
+    # Verrouiller l'activation pour coordonner la révocation
+    # avec une éventuelle finalisation de génération PDF.
+    activation = (
+        db.query(DocumentActivation)
+        .filter(DocumentActivation.id == activation_id)
+        .with_for_update()
+        .first()
+    )
+
+    if activation is None:
+        raise HTTPException(
+            status_code=404,
+            detail="ACTIVATION_NOT_FOUND",
+        )
+
+    now = datetime.utcnow()
+
+    # Neutraliser les tâches qui pourraient encore accorder l'accès.
+    db.query(DocumentGenerationJob).filter(
+        DocumentGenerationJob.activation_id == activation.id,
+        DocumentGenerationJob.status.in_(("queued", "running")),
+    ).update(
+        {
+            DocumentGenerationJob.status: "failed",
+            DocumentGenerationJob.error_code: "ACCESS_REVOKED",
+            DocumentGenerationJob.updated_at: now,
+            DocumentGenerationJob.completed_at: now,
+        },
+        synchronize_session=False,
+    )
+
+    # Révoquer l'activation sans supprimer le PDF existant.
+    activation.is_activated = False
+
+    db.query(DocumentDeviceAccess).filter(
+        DocumentDeviceAccess.activation_id == activation.id,
+        DocumentDeviceAccess.is_active.is_(True),
+    ).update(
+        {
+            DocumentDeviceAccess.is_active: False,
+        },
+        synchronize_session=False,
+    )
+
+    db.commit()
+
+    return {
+        "success": True,
+        "message": "DOCUMENT_ACCESS_REVOKED",
+        "activation_id": activation.id,
+    }
+
+
+@router.delete("/documents/{activation_id}")
+def delete_admin_document_activation(
+    activation_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Supprime une activation et ses données exclusivement personnelles."""
+
+    _require_global_admin(current_user)
+
+    # Verrouiller l'activation pour coordonner la suppression
+    # avec une éventuelle finalisation de génération PDF.
+    activation = (
+        db.query(DocumentActivation)
+        .filter(DocumentActivation.id == activation_id)
+        .with_for_update()
+        .first()
+    )
+
+    if activation is None:
+        raise HTTPException(
+            status_code=404,
+            detail="ACTIVATION_NOT_FOUND",
+        )
+
+    backend_dir = Path(__file__).resolve().parents[1]
+    secure_root = (backend_dir / "secure_documents").resolve()
+
+    activation_directory = (
+        secure_root / str(activation.id)
+    ).resolve()
+
+    # Vérifier le dossier avant toute suppression.
+    try:
+        activation_directory.relative_to(secure_root)
+    except ValueError:
+        raise HTTPException(
+            status_code=403,
+            detail="ACTIVATION_DIRECTORY_INVALID",
+        )
+
+    # Mémoriser les chemins et ne jamais supprimer le PDF original partagé.
+    pdf_path = None
+
+    if activation.pdf_path:
+        try:
+            candidate = (
+                backend_dir / activation.pdf_path
+            ).resolve()
+
+            candidate.relative_to(activation_directory)
+            pdf_path = candidate
+
+        except (ValueError, OSError):
+            raise HTTPException(
+                status_code=403,
+                detail="PDF_PATH_INVALID",
+            )
+
+    try:
+        # Les travaux n'ont pas de suppression en cascade en base.
+        db.query(DocumentGenerationJob).filter(
+            DocumentGenerationJob.activation_id == activation.id
+        ).delete(synchronize_session=False)
+
+        # Supprimer explicitement les accès avant l'activation.
+        db.query(DocumentDeviceAccess).filter(
+            DocumentDeviceAccess.activation_id == activation.id
+        ).delete(synchronize_session=False)
+
+        db.delete(activation)
+        db.commit()
+
+    except Exception:
+        db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail="ACTIVATION_DELETE_FAILED",
+        )
+
+    # Nettoyage disque après la validation de la transaction.
+    # Le dossier est propre à cette activation.
+    try:
+        if activation_directory.exists():
+            shutil.rmtree(activation_directory)
+
+        # Pour les anciennes activations, le PDF peut être stocké
+        # ailleurs dans le stockage sécurisé. Ne retirer que le fichier
+        # personnel validé et uniquement s'il n'est plus référencé.
+        if pdf_path and pdf_path.exists():
+            still_referenced = (
+                db.query(DocumentActivation.id)
+                .filter(
+                    DocumentActivation.pdf_path == str(
+                        pdf_path.relative_to(backend_dir)
+                    )
+                )
+                .first()
+            )
+
+            if not still_referenced:
+                pdf_path.unlink(missing_ok=True)
+
+    except OSError:
+        # L'activation est déjà supprimée en base.
+        # Un fichier résiduel peut être nettoyé séparément.
+        pass
+
+    return {
+        "success": True,
+        "message": "ACTIVATION_DELETED",
+        "activation_id": activation_id,
+    }
 
 
 # ==========================================================

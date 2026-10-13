@@ -101,6 +101,21 @@ async def complete_job(
     if not activation:
         raise HTTPException(status_code=404, detail="ACTIVATION_NOT_FOUND")
 
+    # La révocation peut avoir modifié la tâche pendant que le worker
+    # attendait le verrou de l'activation. Recharger son état depuis
+    # la base avant toute création de PDF ou réactivation d'accès.
+    db.refresh(job)
+
+    if job.status == "failed":
+        raise HTTPException(status_code=409, detail="JOB_ALREADY_FAILED")
+
+    if job.status == "completed":
+        return {
+            "success": True,
+            "status": "completed",
+            "activation_id": job.activation_id,
+        }
+
     if activation.is_activated:
         raise HTTPException(status_code=409, detail="DOCUMENT_ALREADY_ACTIVATED")
 
@@ -173,8 +188,12 @@ async def complete_job(
     directory.mkdir(parents=True, exist_ok=True)
     destination = directory / filename
 
+    destination_created_by_job = False
+
     try:
-        with destination.open("wb") as output:
+        # Mode exclusif : ne jamais écraser un PDF déjà présent.
+        with destination.open("xb") as output:
+            destination_created_by_job = True
             output.write(pdf_bytes)
 
         if not destination.is_file() or destination.stat().st_size == 0:
@@ -222,7 +241,8 @@ async def complete_job(
     except Exception:
         db.rollback()
         try:
-            if destination.exists():
+            # Ne supprimer que le fichier créé par cette tâche.
+            if destination_created_by_job and destination.exists():
                 destination.unlink()
         except OSError:
             pass
