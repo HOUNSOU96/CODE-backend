@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Header
 from fastapi.responses import FileResponse
 from pathlib import Path
 from pydantic import BaseModel
@@ -11,6 +11,9 @@ from models.user import User
 
 from database import get_db
 from models.document_version import DocumentVersion
+from models.user_device import UserDevice
+from models.document_device_access import DocumentDeviceAccess
+from models.document_activation import DocumentActivation
 
 
 # ==========================================================
@@ -222,13 +225,48 @@ def get_all_versions(
 @router.get("/{version_id}/original")
 def read_original_document(
     version_id: int,
+    x_device_id: str | None = Header(
+        default=None,
+        alias="X-Device-ID",
+    ),
     db: Session = Depends(get_db),
 ):
     """
-    Sert le PDF original d'une version actuellement publiée.
-    Aucun code d'activation ni appareil n'est requis.
+    Sert le PDF original uniquement à un appareil mobile/tablette
+    déjà enregistré et actif lors d'une activation CODE.
     Le chemin du fichier est fixé côté serveur.
     """
+
+    # Refuser toute requête sans identifiant d'appareil.
+    if not x_device_id:
+        raise HTTPException(
+            status_code=403,
+            detail="DEVICE_ID_MISSING",
+        )
+
+    # L'appareil doit exister et être actif dans la base.
+    device = (
+        db.query(UserDevice)
+        .filter(
+            UserDevice.device_id == x_device_id,
+            UserDevice.is_active.is_(True),
+        )
+        .first()
+    )
+
+    if not device:
+        raise HTTPException(
+            status_code=403,
+            detail="DEVICE_NOT_REGISTERED",
+        )
+
+    # Seuls les types mobile et tablette sont autorisés.
+    device_type = (device.device_type or "").strip().lower()
+    if device_type not in {"mobile", "tablet"}:
+        raise HTTPException(
+            status_code=403,
+            detail="DOCUMENT_MOBILE_ONLY",
+        )
 
     version = (
         db.query(DocumentVersion)
@@ -244,6 +282,32 @@ def read_original_document(
         raise HTTPException(
             status_code=404,
             detail="PUBLISHED_VERSION_NOT_FOUND",
+        )
+
+    # L'appareil doit posséder une autorisation active
+    # pour ce document précis.
+    access = (
+        db.query(DocumentDeviceAccess)
+        .join(
+            DocumentActivation,
+            DocumentDeviceAccess.activation_id == DocumentActivation.id,
+        )
+        .filter(
+            DocumentDeviceAccess.device_id == device.id,
+            DocumentDeviceAccess.user_id == device.user_id,
+            DocumentDeviceAccess.is_active.is_(True),
+            DocumentActivation.user_id == device.user_id,
+            DocumentActivation.is_activated.is_(True),
+            DocumentActivation.globally_revoked_at.is_(None),
+            DocumentActivation.document_name == version.document_name,
+        )
+        .first()
+    )
+
+    if not access:
+        raise HTTPException(
+            status_code=403,
+            detail="DOCUMENT_ACCESS_DENIED",
         )
 
     original_path = (
@@ -264,7 +328,11 @@ def read_original_document(
         headers={
             "Content-Disposition": 'inline; filename="CODE-MathsI-original.pdf"',
             "X-Content-Type-Options": "nosniff",
-            "Cache-Control": "public, max-age=3600",
+            "Cache-Control": (
+                "no-store, no-cache, must-revalidate, max-age=0"
+            ),
+            "Pragma": "no-cache",
+            "Expires": "0",
         },
     )
 
