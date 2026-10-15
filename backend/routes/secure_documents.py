@@ -87,46 +87,24 @@ def require_mobile_device(
     device: UserDevice,
 ) -> UserDevice:
     """
-    Autorise uniquement les appareils mobiles/tablettes.
-
-    Les ordinateurs de bureau sont explicitement refusés.
-
-    Cela constitue une protection côté serveur :
-    même si quelqu'un tente d'appeler directement
-    l'URL du document depuis un PC, le backend refuse
-    l'accès avant de rechercher/envoyer le PDF.
+    Autorise les mobiles, tablettes et ordinateurs enregistrés.
+    Les vérifications d'activation et d'autorisation du document
+    restent effectuées séparément.
     """
-
     device_type = (
         (device.device_type or "")
         .strip()
         .lower()
     )
 
-    if device_type == "desktop":
-        raise HTTPException(
-            status_code=403,
-            detail="DOCUMENT_MOBILE_ONLY",
-        )
-
-    # --------------------------------------------------------
-    # On autorise :
-    #   mobile
-    #   tablet
-    #
-    # On refuse également les types inconnus.
-    #
-    # Cela évite qu'un appareil non identifié bénéficie
-    # accidentellement de l'accès au document.
-    # --------------------------------------------------------
-
     if device_type not in {
         "mobile",
         "tablet",
+        "desktop",
     }:
         raise HTTPException(
             status_code=403,
-            detail="DOCUMENT_MOBILE_ONLY",
+            detail="DEVICE_TYPE_NOT_ALLOWED",
         )
 
     return device

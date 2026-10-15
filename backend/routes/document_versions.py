@@ -322,6 +322,7 @@ def read_original_document(
         "ios",
         "iphone",
         "ipad",
+        "desktop",
     }
     if device_type not in allowed_mobile_types:
         raise HTTPException(
