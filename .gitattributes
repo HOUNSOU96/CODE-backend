@@ -1,2 +1,4 @@
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.pdf filter=lfs diff=lfs merge=lfs -text
+
+backend/public_documents/CODE-MathsI-original.pdf -filter -diff -merge -text
