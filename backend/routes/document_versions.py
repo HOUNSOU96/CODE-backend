@@ -312,9 +312,18 @@ def read_original_document(
             detail="DEVICE_NOT_REGISTERED",
         )
 
-    # Seuls les types mobile et tablette sont autorisés.
+    # Autoriser les types courants de téléphones et tablettes.
+    # L'autorisation du document reste vérifiée ci-dessous.
     device_type = (device.device_type or "").strip().lower()
-    if device_type not in {"mobile", "tablet"}:
+    allowed_mobile_types = {
+        "mobile",
+        "tablet",
+        "android",
+        "ios",
+        "iphone",
+        "ipad",
+    }
+    if device_type not in allowed_mobile_types:
         raise HTTPException(
             status_code=403,
             detail="DOCUMENT_MOBILE_ONLY",
