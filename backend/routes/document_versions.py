@@ -161,6 +161,7 @@ def get_document_catalog(
                     if version.published_at
                     else None
                 ),
+                "allow_download": bool(version.allow_download),
             }
             for version in versions
         ]
@@ -168,6 +169,57 @@ def get_document_catalog(
 
 
 # ==========================================================
+class DownloadPermissionRequest(BaseModel):
+    allow_download: bool
+
+
+@router.put("/{version_id}/download-permission")
+def update_download_permission(
+    version_id: int,
+    data: DownloadPermissionRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Autorise ou interdit le téléchargement pour une version publiée.
+    Réservé aux administrateurs.
+    """
+
+    if not current_user.is_admin:
+        raise HTTPException(
+            status_code=403,
+            detail="ADMIN_ACCESS_REQUIRED",
+        )
+
+    version = (
+        db.query(DocumentVersion)
+        .filter(
+            DocumentVersion.id == version_id,
+            DocumentVersion.is_current.is_(True),
+            DocumentVersion.document_name.in_(SUPPORTED_DOCUMENTS),
+        )
+        .first()
+    )
+
+    if version is None:
+        raise HTTPException(
+            status_code=404,
+            detail="CURRENT_DOCUMENT_VERSION_NOT_FOUND",
+        )
+
+    version.allow_download = data.allow_download
+
+    db.commit()
+    db.refresh(version)
+
+    return {
+        "success": True,
+        "version_id": version.id,
+        "document_name": version.document_name,
+        "allow_download": bool(version.allow_download),
+    }
+
+
 # 2. HISTORIQUE DES VERSIONS
 # ==========================================================
 

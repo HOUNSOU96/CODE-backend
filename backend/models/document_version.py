@@ -94,6 +94,13 @@ class DocumentVersion(Base):
         default=False,
     )
 
+    allow_download = Column(
+        Boolean,
+        nullable=False,
+        default=False,
+        server_default="false",
+    )
+
     # ======================================================
     # CONTRAINTE
     # ======================================================

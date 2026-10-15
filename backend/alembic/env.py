@@ -25,6 +25,7 @@ from models.document_activation import DocumentActivation
 from models.teacher_subject import TeacherSubject
 from models.user_question import UserQuestion
 from models.question_message import QuestionMessage
+from models.document_version import DocumentVersion
 
 # ---------------------------------------------------------
 # Configuration
