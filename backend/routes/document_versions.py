@@ -1,3 +1,4 @@
+from utils.device_types import normalize_device_type, is_supported_device
 from fastapi import APIRouter, Depends, HTTPException, Header
 from fastapi.responses import FileResponse
 from pathlib import Path
@@ -274,9 +275,9 @@ def get_all_versions(
 # LECTURE PUBLIQUE DE L'ORIGINAL
 # ==========================================================
 
-@router.get("/{version_id}/original")
+@router.get("/{activation_id}/original")
 def read_original_document(
-    version_id: int,
+    activation_id: int,
     x_device_id: str | None = Header(
         default=None,
         alias="X-Device-ID",
@@ -284,19 +285,17 @@ def read_original_document(
     db: Session = Depends(get_db),
 ):
     """
-    Sert le PDF original uniquement à un appareil mobile/tablette
-    déjà enregistré et actif lors d'une activation CODE.
-    Le chemin du fichier est fixé côté serveur.
+    Sert le PDF original correspondant à une activation valide.
+    L'identifiant reçu dans l'URL est celui de DocumentActivation,
+    et non celui de DocumentVersion.
     """
 
-    # Refuser toute requête sans identifiant d'appareil.
     if not x_device_id:
         raise HTTPException(
             status_code=403,
             detail="DEVICE_ID_MISSING",
         )
 
-    # L'appareil doit exister et être actif dans la base.
     device = (
         db.query(UserDevice)
         .filter(
@@ -312,31 +311,40 @@ def read_original_document(
             detail="DEVICE_NOT_REGISTERED",
         )
 
-    # Autoriser les types courants de téléphones et tablettes.
-    # L'autorisation du document reste vérifiée ci-dessous.
-    device_type = (device.device_type or "").strip().lower()
-    allowed_mobile_types = {
-        "mobile",
-        "tablet",
-        "android",
-        "ios",
-        "iphone",
-        "ipad",
-        "desktop",
-    }
-    if device_type not in allowed_mobile_types:
+    device_type = normalize_device_type(device.device_type)
+    if not is_supported_device(device_type):
         raise HTTPException(
             status_code=403,
             detail="DOCUMENT_MOBILE_ONLY",
         )
 
+    # L'identifiant reçu depuis MesDocuments.tsx est un ID d'activation.
+    activation = (
+        db.query(DocumentActivation)
+        .filter(
+            DocumentActivation.id == activation_id,
+            DocumentActivation.user_id == device.user_id,
+            DocumentActivation.is_activated.is_(True),
+            DocumentActivation.globally_revoked_at.is_(None),
+            DocumentActivation.document_name.in_(SUPPORTED_DOCUMENTS),
+        )
+        .first()
+    )
+
+    if not activation:
+        raise HTTPException(
+            status_code=404,
+            detail="ACTIVE_DOCUMENT_ACTIVATION_NOT_FOUND",
+        )
+
+    # Retrouver la version courante à partir du nom du document activé.
     version = (
         db.query(DocumentVersion)
         .filter(
-            DocumentVersion.id == version_id,
+            DocumentVersion.document_name == activation.document_name,
             DocumentVersion.is_current.is_(True),
-            DocumentVersion.document_name.in_(SUPPORTED_DOCUMENTS),
         )
+        .order_by(desc(DocumentVersion.id))
         .first()
     )
 
@@ -346,22 +354,14 @@ def read_original_document(
             detail="PUBLISHED_VERSION_NOT_FOUND",
         )
 
-    # L'appareil doit posséder une autorisation active
-    # pour ce document précis.
+    # L'appareil doit avoir un accès actif à cette activation précise.
     access = (
         db.query(DocumentDeviceAccess)
-        .join(
-            DocumentActivation,
-            DocumentDeviceAccess.activation_id == DocumentActivation.id,
-        )
         .filter(
+            DocumentDeviceAccess.activation_id == activation.id,
             DocumentDeviceAccess.device_id == device.id,
             DocumentDeviceAccess.user_id == device.user_id,
             DocumentDeviceAccess.is_active.is_(True),
-            DocumentActivation.user_id == device.user_id,
-            DocumentActivation.is_activated.is_(True),
-            DocumentActivation.globally_revoked_at.is_(None),
-            DocumentActivation.document_name == version.document_name,
         )
         .first()
     )
@@ -378,7 +378,7 @@ def read_original_document(
         / "CODE-MathsI-original.pdf"
     )
 
-    if not original_path.is_file():
+    if not original_path.is_file() or original_path.stat().st_size == 0:
         raise HTTPException(
             status_code=404,
             detail="ORIGINAL_PDF_NOT_FOUND",
@@ -399,7 +399,6 @@ def read_original_document(
     )
 
 
-# ==========================================================
 # 3. PUBLIER UNE NOUVELLE VERSION
 # ==========================================================
 
