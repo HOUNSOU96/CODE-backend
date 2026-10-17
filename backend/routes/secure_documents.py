@@ -1,3 +1,4 @@
+from utils.device_types import normalize_device_type, is_supported_device
 from datetime import datetime
 from pathlib import Path
 
@@ -87,21 +88,13 @@ def require_mobile_device(
     device: UserDevice,
 ) -> UserDevice:
     """
-    Autorise les mobiles, tablettes et ordinateurs enregistrés.
+    Autorise uniquement les téléphones et tablettes enregistrés.
     Les vérifications d'activation et d'autorisation du document
     restent effectuées séparément.
     """
-    device_type = (
-        (device.device_type or "")
-        .strip()
-        .lower()
-    )
+    device_type = normalize_device_type(device.device_type)
 
-    if device_type not in {
-        "mobile",
-        "tablet",
-        "desktop",
-    }:
+    if not is_supported_device(device_type):
         raise HTTPException(
             status_code=403,
             detail="DEVICE_TYPE_NOT_ALLOWED",

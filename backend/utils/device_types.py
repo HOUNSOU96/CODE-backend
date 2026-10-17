@@ -37,7 +37,5 @@ def is_mobile_device(value):
 
 
 def is_supported_device(value):
-    """Catégories reconnues par les routes de lecture."""
-    return normalize_device_type(value) in {
-        "mobile", "tablet", "desktop"
-    }
+    """Autorise uniquement les téléphones et les tablettes pour la lecture."""
+    return normalize_device_type(value) in {"mobile", "tablet"}
